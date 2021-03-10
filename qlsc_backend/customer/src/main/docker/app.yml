@@ -1,0 +1,17 @@
+version: '2'
+services:
+  customer-app:
+    image: customer
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://customer-mysql:3306/customer?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+  customer-mysql:
+    extends:
+      file: mysql.yml
+      service: customer-mysql
+  jhipster-registry:
+    extends:
+      file: jhipster-registry.yml
+      service: jhipster-registry
+    environment:
+      - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_TYPE=native
+      - SPRING_CLOUD_CONFIG_SERVER_COMPOSITE_0_SEARCH_LOCATIONS=file:./central-config/docker-config/
