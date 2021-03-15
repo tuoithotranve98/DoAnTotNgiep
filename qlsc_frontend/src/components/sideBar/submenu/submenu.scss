@@ -45,7 +45,20 @@
     .active {
         transition: height 10s ease;
         .link{
+            color: #fff;
             background: linear-gradient( 90deg,#08f 0,#4698fe);
+        }
+        svg{
+            color: #fff !important;
+        }
+    }
+    .active-show{
+        .link{
+            color: #fff;
+            background: #2a3a51 !important;
+        }
+        svg{
+            color: #fff !important;
         }
     }
         

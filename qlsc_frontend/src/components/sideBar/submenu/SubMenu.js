@@ -20,7 +20,7 @@ function SubMenu (props) {
         menuLink.map((item, key) => {
           return (
             <ul className='nav menu-top' key={key}>
-              <li className={`${url === item.url ? 'item active' : 'item'}`}>
+              <li className={`${url === item.url ? 'item active' : 'item'} ${item.submenu.length > 0 && init.menu === item.id ? 'active-show' : ''}`}>
                 <Link to={`${item.submenu.length === 0 ? item.url : '#'}`} onClick={() => onSetInit(item.id, '')} className="link">
                   {item.icon}
                   <span>{ !showMenu ? item.title : ''}</span>

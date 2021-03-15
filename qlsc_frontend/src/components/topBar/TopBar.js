@@ -8,6 +8,7 @@ import TopBarCustomer from './TopBarCustomer'
 import TopBarReport from './TopBarReport'
 import TopBarProduct from './TopBarProduct'
 import './topBar.scss'
+import TopBarDashboard from './TopBarDashboard'
 // import DropdownMenu from './DropdownMenu/DropdownMenu';
 
 function PagePanel (props) {
@@ -37,6 +38,7 @@ function PagePanel (props) {
         // style={styleTopBar}
       >
         {url && url.includes('/maintenancecard') ? <TopBarMaintenancecard /> : null}
+        {url && url.includes('/dashboard') ? <TopBarDashboard /> : null}
         {url && url.includes('/customer') ? <TopBarCustomer /> : null}
         {url && url.includes('/product') ? <TopBarProduct /> : null}
         {url && url.includes('/staff') ? <TopBarStaff /> : null}

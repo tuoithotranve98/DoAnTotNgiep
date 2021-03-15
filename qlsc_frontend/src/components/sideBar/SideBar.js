@@ -1,19 +1,34 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import * as Icons from 'common/icons'
 import './sideBar.scss'
 import SubMenu from './submenu/SubMenu'
 import { changeShowMenuTopBar } from '../../actions/globalUiActions'
+import { menuLink } from 'utils/router.js'
+
 function SideBar (props) {
   // eslint-disable-next-line react/prop-types
   const url = props.history.location.pathname
   const { showMenu, changeShowMenuTopBar } = props
   const [init, setInit] = useState({
-    menu: '',
+    menu: 99,
     submenu: ''
   })
+  useEffect(() => {
+    // eslint-disable-next-line react/prop-types
+    const url = props.history.location.pathname
+    const item = menuLink.filter((a) => url.includes(a.url))
+    if (item[0]) {
+      const subItem = item[0].submenu.length > 0 ? item[0].submenu.find((a) => a.url === url) : ''
+      if (subItem) {
+        setInit({ ...init, menu: item[0].id, submenu: subItem.id })
+      }
+    }
+  }, [])
+
 
   const onClickMoreIcon = () => {
     changeShowMenuTopBar(!showMenu)
