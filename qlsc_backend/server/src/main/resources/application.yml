@@ -1,0 +1,20 @@
+
+spring:
+   cloud:
+      config:
+         server:
+            git:
+               uri: https://github.com/NguyenTho98/configQlsc
+               username: nxtho0109@gmail.com
+               password: xuantho98
+server:
+   port: 8090
+eureka:
+   client:
+      register-with-eureka: false
+      fetch-registry: false
+management:
+   endpoints:
+      web:
+         exposure:
+            include: "*"

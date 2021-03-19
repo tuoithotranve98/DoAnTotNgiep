@@ -89,7 +89,7 @@ function CreateProductModal(props) {
             </ModalBody>
           </div>
         </div>
-        <div className="background_body" />
+        <div className="background_disable_close_click_outside" />
       </div>
     );
   }
