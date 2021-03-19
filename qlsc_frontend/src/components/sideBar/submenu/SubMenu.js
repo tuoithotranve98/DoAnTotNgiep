@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
@@ -6,7 +7,6 @@ import { menuLink } from 'utils/router.js'
 import './submenu.scss'
 
 function SubMenu (props) {
-  // eslint-disable-next-line react/prop-types
   const url = props.history.location.pathname
   const {
     onSetInit,

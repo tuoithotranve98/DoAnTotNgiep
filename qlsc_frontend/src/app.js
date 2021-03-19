@@ -1,21 +1,38 @@
-import React, { Fragment } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
+import { connect } from 'react-redux'
 import SideBar from './components/sideBar/SideBar'
 import TopBar from './components/topBar/TopBar'
+import ProductList from './pages/product/list/ProductList.js'
+import Modals from './components/modal/modal'
+import './styles/app.scss'
 
-
-export const App = () => (
-  <Fragment>
-    <Router history={createBrowserHistory()}>
-      <TopBar />
-      <SideBar />
-      <Switch>
-        {/* <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
-        <Route path="/sample" component={Sample}/> */}
-        {/* <Route path="/manage-feed" exact render={() => <Staff />} /> */}
-      </Switch>
-    </Router>
-  </Fragment>
-)
+function App (props) {
+  const { showMenu } = props
+  console.log("show", showMenu);
+  return (
+    <React.Fragment>
+      <Router history={createBrowserHistory()}>
+        <Modals />
+        <SideBar />
+        <div className={showMenu ? 'content-dashboard-active' : 'content-dashboard'}>
+          <TopBar />
+          <Switch>
+            <Route exact path="/product" component={ProductList}/>
+          </Switch>
+        </div>
+      </Router>
+    </React.Fragment>
+  )
+}
+const mapStateToProps = (state) => {
+  const {
+    globalUI: { showMenuTopBar }
+  } = state
+  const showMenu = showMenuTopBar
+  return {
+    showMenu
+  }
+}
+export default withRouter(connect(mapStateToProps, null)(App))

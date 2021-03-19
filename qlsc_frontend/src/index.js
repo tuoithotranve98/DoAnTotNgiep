@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import configureStore from './store/reduxStore'
-import { App } from './app'
+import App from './app'
 import 'styles/main.scss'
 
 const store = configureStore()

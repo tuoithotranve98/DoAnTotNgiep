@@ -22,7 +22,7 @@ export const menuLink = [
       },
       {
         id: 1,
-        url: '/maintenancecard/detail',
+        url: '/maintenancecard',
         title: 'Danh sách phiếu sửa chữa'
       }
     ]
@@ -40,7 +40,7 @@ export const menuLink = [
       },
       {
         id: 1,
-        url: '/customer/detail',
+        url: '/customer',
         title: 'Danh sách khách hàng'
       }
     ]
@@ -58,7 +58,7 @@ export const menuLink = [
       },
       {
         id: 1,
-        url: '/product/detail',
+        url: '/product',
         title: 'Danh sách sản phẩm'
       }
     ]
@@ -76,7 +76,7 @@ export const menuLink = [
       },
       {
         id: 1,
-        url: '/staff/detail',
+        url: '/staff',
         title: 'Danh sách nhân viên'
       }
     ]
