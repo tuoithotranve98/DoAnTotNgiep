@@ -104,6 +104,47 @@
                             width: 100%;
                             font-size: 13px;
                             font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+
+                            #editting-customer-address-district {
+                                margin: 10px 0 0;
+                                display: flex;
+
+                                .select2-container {
+                                    width: 100% !important;
+                                }
+
+                                .select2-selection.select2-selection--single {
+                                    background-color: #fff;
+                                    border: 1px solid #aaa;
+                                }
+
+                                &.default {
+                                    .select2 {
+                                        .select2-selection.select2-selection--single {
+                                            background: #f3f4f5;
+                                            border: 1px solid rgba(137, 143, 156, 0.2) !important;
+                                        }
+                                    }
+                                }
+                            }
+
+                            #editting-customer-address-ward {
+                                margin: 10px 0 0;
+                                display: flex;
+                                .select2.select2-container {
+                                  width: 100% !important;
+                                }
+                                .select2-selection.select2-selection--single {
+                                  background-color: #fff;
+                                  border: 1px solid #aaa;
+                                }
+                                &.default {
+                                  .select2-selection.select2-selection--single {
+                                    background: #f3f4f5;
+                                    border: 1px solid rgba(137, 143, 156, 0.2) !important;
+                                  }
+                                }
+                              }
                         }
                     }
                 }

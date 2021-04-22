@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import { getCity } from "pages/customer/actions/locationActions";
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import SideBar from './components/sideBar/SideBar';
@@ -14,8 +15,12 @@ import Modals from './components/modal/modal';
 import './styles/app.scss';
 
 function App (props) {
-  const { showMenu } = props
-  console.log("show", showMenu);
+  const { showMenu } = props;
+
+  useEffect(() => {
+    props.getCity();
+  }, [])
+
   return (
     <React.Fragment>
       <Router history={createBrowserHistory()}>
@@ -42,4 +47,4 @@ const mapStateToProps = (state) => {
     showMenu
   }
 }
-export default withRouter(connect(mapStateToProps, null)(App))
+export default withRouter(connect(mapStateToProps, { getCity })(App))

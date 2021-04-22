@@ -4,9 +4,10 @@ export default (fetchImplementation) => (store) => (next) => (action) => {
   if (action) {
     if (action.type && action.type === "FETCH") {
       const { url, params } = action;
-        const urlWithAccountId = url.includes("?")
-          ? `${url}&userId=${store.getState().auth.user.id}`
-          : `${url}?userId=${store.getState().auth.user.id}`;
+        // const urlWithAccountId = url.includes("?")
+        //   ? `${url}&userId=${store.getState().auth.user.id}`
+        //   : `${url}?userId=${store.getState().auth.user.id}`;
+        const urlWithAccountId = url;
         const token = store.getState().auth.accessToken;
       return wrapAccessToken(
         urlWithAccountId,

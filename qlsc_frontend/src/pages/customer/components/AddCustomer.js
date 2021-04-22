@@ -1,34 +1,110 @@
 import React, { Component } from "react";
-import SelectDistricts from './SelectAddress/SelectDistricts';
+import { connect } from "react-redux";
+import { saveCustomer } from "../actions/customerAction";
+import { getWard, receiveWard } from "../actions/locationActions";
+import SelectDistricts from "./SelectAddress/SelectDistricts";
+import SelectWards from "./SelectAddress/SelectWards";
+import pushstate from "utils/pushstate";
 import "../styles/addCustomer.scss";
 
+const initialState = {
+  name: null,
+  code: null,
+  phone: null,
+  email: null,
+  address: null,
+  city: null,
+  ward: null,
+  description: null,
+};
+
 export class AddCustomer extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      nameReceiver: null,
-      phone: null,
-      address: null,
-      city: null,
-      ward: null,
-      illusory: null,
-      isInvalidPhone: false,
-      isInvalidAddress: false,
-      isAddPosAddress: false,
-      isAddSocialAddress: false,
-      showPopupPosAddress: false,
-      selectWardClicked: false,
-      selectDistrictClicked: false,
-      country_id: 0,
-      city_id: 0,
-      district_id: 0,
-      ward_id: 0,
-      phoneReceiver: null,
-      isEditPhone: false,
-      isEditName: false,
-    };
+  constructor(props) {
+    super(props);
+    this.state = initialState;
   }
-  
+
+  onSaveCustomer() {
+    const { name, code, phone, email, address, city, ward } = this.state;
+    const customer = { name, code, phone, email, address, city, ward };
+    this.props.onSaveCustomer(customer).then(json => {
+      if (json) {
+        this.setState({ initialState });
+        this.props.onClearWards();
+        pushstate(this.props.history, "/customer");
+      }
+    });
+  }
+
+  onCancel() {
+    this.setState({ initialState });
+    pushstate(this.props.history, "/customer");
+    this.props.onClearWards();
+  }
+
+  onChangeName(name) {
+    if (name && name.length > 80) {
+      console.log("Tên khách hàng không quá 80 kí tự");
+    } else {
+      this.setState({ name: name });
+    }
+  }
+
+  onChangeCode(code) {
+    if (code && code.length > 20) {
+      console.log("Mã khách hàng không quá 20 kí tự");
+    } else {
+      this.setState({ code: code });
+    }
+  }
+
+  onChangePhone(phone) {
+    if (phone && phone.length > 11) {
+      console.log("Số điện thoại không quá 11 kí tự");
+    } else {
+      this.setState({ phone: phone });
+    }
+  }
+
+  onChangeEmail(email) {
+    if (email && email.length > 40) {
+      console.log("Số điện thoại không quá 40 kí tự");
+    } else {
+      this.setState({ email: email });
+    }
+  }
+
+  onChangeAddress(address) {
+    if (address && address.length > 80) {
+      console.log("Số điện thoại không quá 80 kí tự");
+    } else {
+      this.setState({ address: address });
+    }
+  }
+
+  onChangeSelectDistrict(id) {
+    const { cities } = this.props;
+    if (id) {
+      const district = Object.values(cities).find(
+        (item) => item.id === parseInt(id)
+      );
+      if (district) {
+        this.props.onGetWard(district.code);
+        this.setState({ city: district });
+      }
+    }
+  }
+
+  onChangeSelectWard(id) {
+    const { wards } = this.props;
+    if (id) {
+      const ward = Object.values(wards).find(
+        (item) => item.id === parseInt(id)
+      );
+      if (ward) this.setState({ ward: ward });
+    }
+  }
+
   header() {
     return (
       <div className="ui-title-bar-container">
@@ -50,12 +126,22 @@ export class AddCustomer extends Component {
             {/* customer-name */}
             <div className="col-12 field p-0">
               <div className="label mb-2 label-required">Tên khách hàng</div>
-              <input className="customer-name" type="text" name="name" />
+              <input
+                className="customer-name"
+                type="text"
+                name="name"
+                onChange={(e) => this.onChangeName(e.target.value)}
+              />
             </div>
             {/* customer-code */}
             <div className="col-6 field pl-0">
               <div className="label mb-2">Mã khách hàng</div>
-              <input className="customer-name" type="text" name="code" />
+              <input
+                className="customer-name"
+                type="text"
+                name="code"
+                onChange={(e) => this.onChangeCode(e.target.value)}
+              />
             </div>
             {/* customer-group */}
             <div className="col-6 field pr-0">
@@ -65,23 +151,37 @@ export class AddCustomer extends Component {
             {/* customer-phone */}
             <div className="col-6 field pl-0">
               <div className="label mb-2">Số điện thoại</div>
-              <input className="customer-name" type="text" name="phone" />
+              <input
+                className="customer-name"
+                type="text"
+                name="phone"
+                onChange={(e) => this.onChangePhone(e.target.value)}
+              />
             </div>
             {/* customer-email */}
             <div className="col-6 field pr-0">
               <div className="label mb-2">Email</div>
-              <input className="customer-name" type="text" name="email" />
+              <input
+                className="customer-name"
+                type="text"
+                name="email"
+                onChange={(e) => this.onChangeEmail(e.target.value)}
+              />
             </div>
           </div>
         </div>
-
         <div className="page-info">
           <div className="page-info-title">Thông tin địa chỉ</div>
           <div className="page-info-body">
             {/* customer-address */}
             <div className="col-6 field pl-0">
               <div className="label mb-2">Địa chỉ</div>
-              <input className="customer-name" type="text" name="address" />
+              <input
+                className="customer-name"
+                type="text"
+                name="address"
+                onChange={(e) => this.onChangeAddress(e.target.value)}
+              />
             </div>
             {/* customer-cityDistrict */}
             <div className="col-6 field pr-0">
@@ -91,11 +191,10 @@ export class AddCustomer extends Component {
                 ref={(e) => {
                   this.selectDistrict = e;
                 }}
-                className="customer-name"
+                // className="customer-name"
               >
                 <SelectDistricts
                   city={this.state.city}
-                  illusory={this.state.illusory}
                   onSelect={(e) => this.onChangeSelectDistrict(e.target.value)}
                   ref={this.setCityRef}
                 />
@@ -106,7 +205,19 @@ export class AddCustomer extends Component {
             {/* customer-ward */}
             <div className="col-6 field pr-0">
               <div className="label mb-2">Phường xã</div>
-              <input className="customer-name" type="text" name="ward" />
+              <div
+                id="editting-customer-address-ward"
+                ref={(el) => {
+                  this.selectWard = el;
+                }}
+              >
+                <SelectWards
+                  city={this.state.city}
+                  ward={this.state.ward}
+                  onSelect={(e) => this.onChangeSelectWard(e.target.value)}
+                  ref={this.setWardRef}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -122,7 +233,7 @@ export class AddCustomer extends Component {
           <div className="page-info-body">
             {/* choose-customer */}
             <div className="col-12 field p-0">
-              <div class="label mb-2">Nhân viên phụ trách</div>
+              <div className="label mb-2">Nhân viên phụ trách</div>
               <div className="select__wrapper " id="search-account-wrap">
                 {/* <a
                   class="customer-select select--a select-suggest"
@@ -133,7 +244,7 @@ export class AddCustomer extends Component {
                 >
                   Chọn nhân viên
                 </a> */}
-                <div class="filter-body--suggest"></div>
+                <div className="filter-body--suggest"></div>
               </div>
             </div>
             {/* customer-description */}
@@ -163,8 +274,15 @@ export class AddCustomer extends Component {
   customnerBottom() {
     return (
       <div className="ui-title-bottom-bar">
-        <a class="btn btn-default right btn-create-customer">Lưu</a>
-        <a class="btn btn-blank right mr-3">Huỷ</a>
+        <a
+          className="btn btn-default right btn-create-customer"
+          onClick={() => this.onSaveCustomer()}
+        >
+          Lưu
+        </a>
+        <a className="btn btn-blank right mr-3" onClick={() => this.onCancel()}>
+          Huỷ
+        </a>
       </div>
     );
   }
@@ -173,6 +291,7 @@ export class AddCustomer extends Component {
     const createLeftElm = this.customerMainInfo();
     const createRightElm = this.customerDifferentInfo();
     const saveAndCancelElm = this.customnerBottom();
+    console.log("check state ...", this.state);
     return (
       <div className="wrapper-add-customer">
         {headerElm}
@@ -186,4 +305,20 @@ export class AddCustomer extends Component {
   }
 }
 
-export default AddCustomer;
+const mapStateToProps = (state) => {
+  const {
+    locations: { city, ward },
+  } = state;
+  return {
+    cities: city,
+    wards: ward,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onGetWard: (id) => dispatch(getWard(id)),
+  onClearWards: () => dispatch(receiveWard([])),
+  onSaveCustomer: (customer) => dispatch(saveCustomer(customer)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCustomer);
