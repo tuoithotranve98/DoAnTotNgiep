@@ -1,5 +1,6 @@
 package com.doan.customer.entity.main;
 
+import com.doan.customer.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

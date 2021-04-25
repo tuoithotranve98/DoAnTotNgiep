@@ -19,7 +19,6 @@ function FilterOption(props) {
     })
   }, [selectedFilter]);
 
-  console.log('selectedOption', selectedOption);
   return (
     <div className="filter-option">
       <button

@@ -1,6 +1,7 @@
 package com.doan.customer.dto.main;
 
 import com.doan.customer.dto.base.BaseDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 public class CustomerDTO extends BaseDTO {
 
     private String name;
-    private String phoneNumber;
+    private String phone;
     private String code;
     private String email;
     private String description;

@@ -7,6 +7,24 @@ function TopbarCustomer (props) {
     // pushstate(props.history, '/manage-staff')
   }
   const url = props.location ? props.location.pathname : ''
+  if (url.includes('edit')) {
+    return (
+      <div className="wrapper-customer-topbar">
+        <div className="current">
+          <span>Cập nhật thông tin khách hàng</span>
+        </div>
+      </div>
+    )
+  }
+  if (url.includes('customer', 'info')) {
+    return (
+      <div className="wrapper-customer-topbar">
+        <div className="current">
+          <span>Thông tin khách hàng</span>
+        </div>
+      </div>
+    )
+  }
   if (url.includes('customer/create')) {
     return (
       <div className="wrapper-customer-topbar">

@@ -11,8 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class WardDTO {
 
+    private int id;
     private String name;
     private String code;
     private DistrictDTO district;
+    private String text;
 
 }

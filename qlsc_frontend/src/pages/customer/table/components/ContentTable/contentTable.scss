@@ -54,7 +54,7 @@
     box-sizing: border-box;
     border-radius: 4px;
     min-width: 920px;
-    min-height: 580px;
+    min-height: 367px;
 
     .customer-list-wrapper {
       padding: 0 5px;
@@ -89,7 +89,7 @@
         }
 
         .header-customer-phone {
-          width: calc((100% - 193px) * 23 / 100);
+          width: calc((100% - 193px) * 20 / 100);
         }
 
         .header-customer-address {
@@ -153,11 +153,11 @@
           }
 
           .item-phone {
-            width: calc((100% - 193px) * 23 / 100);
+            width: calc((100% - 193px) * 20 / 100);
           }
 
           .item-address {
-            width: calc((100% - 193px) * 15 / 100);
+            //width: calc((100% - 193px) * 15 / 100);
           }
         }
 

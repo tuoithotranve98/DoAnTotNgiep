@@ -18,7 +18,7 @@ public class CustomerConverter {
         customerDTO.setCode(customer.getCode());
         customerDTO.setCreatedDate(customer.getCreatedDate());
         customerDTO.setModifiedDate(customer.getModifiedDate());
-        customerDTO.setPhoneNumber(customer.getPhoneNumber());
+        customerDTO.setPhone(customer.getPhone());
         customerDTO.setName(customer.getName());
         customerDTO.setEmail(customer.getEmail());
         customerDTO.setDescription(customer.getDescription());

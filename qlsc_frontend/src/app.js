@@ -10,9 +10,12 @@ import ProductList from './pages/product/list/ProductList.js';
 //customer
 import CustomerList from './pages/customer/components/CustomerList';
 import AddCustomer from './pages/customer/components/AddCustomer';
+import CustomerInfo from './pages/customer/components/CustomerInfo';
+import EditCustomer from './pages/customer/components/EditCustomer';
 
 import Modals from './components/modal/modal';
 import './styles/app.scss';
+
 
 function App (props) {
   const { showMenu } = props;
@@ -30,8 +33,11 @@ function App (props) {
           <TopBar />
           <Switch>
             <Route exact path="/product" component={ProductList}/>
+            {/* customer */}
             <Route exact path="/customer" component={CustomerList}/>
             <Route exact path="/customer/create" component={AddCustomer}/>
+            <Route exact path="/customer/:id/info" component={CustomerInfo}/>
+            <Route exact path="/customer/:id/edit" component={EditCustomer}/>
           </Switch>
         </div>
       </Router>

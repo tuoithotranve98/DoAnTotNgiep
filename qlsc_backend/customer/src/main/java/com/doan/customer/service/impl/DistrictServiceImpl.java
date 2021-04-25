@@ -23,6 +23,11 @@ public class DistrictServiceImpl implements DistrictService {
         List<DistrictDTO> districtDTOS;
         List<District> districts = districtRepository.getDistinct();
         districtDTOS = districts.stream().map(districtConverter::convertToDTO).collect(Collectors.toList());
+        int index = 0;
+        for (DistrictDTO districtDTO : districtDTOS) {
+            districtDTO.setId(index);
+            index++;
+        }
         return districtDTOS;
     }
 }

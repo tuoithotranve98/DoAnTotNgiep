@@ -1,4 +1,5 @@
-.content-dashboard{
+.content-dashboard {
+    min-height: 635px;
     width: calc(100% - 230px);
     margin-left: 230px;
     padding-top: 59px;
@@ -8,9 +9,11 @@
         padding-left: 10px;
     }
 }
-.content-dashboard-active{
+
+.content-dashboard-active {
     width: calc(100% - 57px);
     margin-left: 57px;
     padding-top: 59px;
     background-color: #f4f6f8;
+    min-height: 635px;
 }

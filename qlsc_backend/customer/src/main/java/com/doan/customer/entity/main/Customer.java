@@ -24,7 +24,7 @@ public class Customer extends BaseEntity {
 
     @Column(nullable = false, length = 11)
     @CustomerPhone
-    private String phoneNumber;
+    private String phone;
 
     @Column(length = 11, unique = true, nullable = false)
     private String code;
@@ -51,7 +51,7 @@ public class Customer extends BaseEntity {
     public void setCustomer(CustomerDTO customerDTO) {
         this.code = customerDTO.getCode();
         this.name = customerDTO.getName();
-        this.phoneNumber = customerDTO.getPhoneNumber();
+        this.phone = customerDTO.getPhone();
         this.email = customerDTO.getEmail();
         this.description = customerDTO.getDescription();
         this.status = customerDTO.getStatus();

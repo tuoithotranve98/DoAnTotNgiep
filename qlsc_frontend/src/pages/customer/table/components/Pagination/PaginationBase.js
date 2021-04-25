@@ -20,7 +20,7 @@ function PaginationBase(props) {
     <div id="wrapper-pagination">
       <div id="pagination-count">
         {`Hiển thị kết quả từ ${(page - 1) * size + 1} - ${
-          (page + 1) * size
+          (page * size)
         } trên tổng ${customer.totalItems}`}
       </div>
       {total > 20 ? (

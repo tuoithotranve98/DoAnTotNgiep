@@ -1,6 +1,7 @@
 package com.doan.customer.controller;
 
 import com.doan.customer.dto.main.CustomerDTO;
+import com.doan.customer.model.CustomerRes;
 import com.doan.customer.model.SearchCustomer;
 import com.doan.customer.service.CustomerService;
 import com.doan.customer.exception.DataTooLongException;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("http://localhost:8686")
+@CrossOrigin
 @RequestMapping("/admin/")
 @RequiredArgsConstructor
 public class CustomerController {
@@ -21,11 +22,10 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("customers")
-    public ResponseEntity<CustomerDTO> addCustomer(
+    public CustomerRes addCustomer(
             @RequestBody CustomerDTO customerDTO)
             throws ParseException, DataTooLongException {
-        CustomerDTO customer = customerService.addCustomer(customerDTO);
-        return ResponseEntity.ok(customer);
+        return customerService.addCustomer(customerDTO);
     }
 
     @GetMapping("customers/{id}")
@@ -43,11 +43,10 @@ public class CustomerController {
     }
 
     @PutMapping("customers/{idCustomer}")
-    public ResponseEntity<Object> updateCustomer(
+    public CustomerRes updateCustomer(
             @RequestBody CustomerDTO customerDTO,
             @PathVariable("idCustomer") Long idCustomer) {
-        CustomerDTO customer = customerService.updateCustomer(customerDTO, idCustomer);
-        return ResponseEntity.ok(customer);
+        return customerService.updateCustomer(customerDTO, idCustomer);
     }
 
     @DeleteMapping("customers/{idCustomer}")

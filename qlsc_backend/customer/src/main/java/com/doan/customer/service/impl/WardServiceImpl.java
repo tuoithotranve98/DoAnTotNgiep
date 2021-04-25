@@ -23,6 +23,11 @@ public class WardServiceImpl implements WardService {
         List<WardDTO> wardDTOS;
         List<Ward> wards = wardRepository.getWardByDistrict(district);
         wardDTOS = wards.stream().map(wardConverter::convertToDTO).collect(Collectors.toList());
+        int index = 0;
+        for (WardDTO wardDTO : wardDTOS) {
+            wardDTO.setId(index);
+            index++;
+        }
         return wardDTOS;
     }
 }

@@ -3,6 +3,7 @@ package com.doan.customer.service.impl;
 import com.doan.customer.common.Const;
 import com.doan.customer.dto.main.CustomerDTO;
 import com.doan.customer.entity.main.Customer;
+import com.doan.customer.model.CustomerRes;
 import com.doan.customer.repository.CustomerRepository;
 import com.doan.customer.converter.CustomerConverter;
 import com.doan.customer.converter.WardConverter;
@@ -12,6 +13,7 @@ import com.doan.customer.exception.EntityNotFoundException;
 import com.doan.customer.model.SearchCustomer;
 import com.doan.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerConverter customerConverter;
 
     @Override
-    public CustomerDTO addCustomer(CustomerDTO customerDTO) throws DataTooLongException {
+    public CustomerRes addCustomer(CustomerDTO customerDTO) {
 
         if (StringUtils.isEmpty(customerDTO.getCode())) {
             String code = generateCode();
@@ -40,13 +42,14 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (StringUtils.isNotEmpty(customerDTO.getCode())) {
             Customer existedCode = customerRepository.findOneByCode(customerDTO.getCode());
-            if (existedCode != null) throw new DuplicateFieldException("Code", Const.CUSTOMER);
+            if (existedCode != null) {
+                new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại");
+            }
         }
 
-        if (StringUtils.isNotEmpty(customerDTO.getPhoneNumber())
-            && checkPhoneNumber(customerDTO.getPhoneNumber())
-            && customerDTO.getPhoneNumber().length() >= 10) {
-            throw new DuplicateFieldException("Phone", Const.CUSTOMER);
+        if (StringUtils.isNotEmpty(customerDTO.getPhone())
+            && BooleanUtils.isTrue(checkPhoneNumber(customerDTO.getPhone()))) {
+            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại");
         }
 
         customerDTO.setCreatedDate(new Date());
@@ -57,13 +60,12 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerConverter.convertToEntity(customerDTO);
 
         try {
-            customer = customerRepository.save(customer);
+            customerRepository.save(customer);
+            return new CustomerRes(Boolean.TRUE, "");
         } catch (DuplicateFieldException e) {
             e.printStackTrace();
-        } catch (Exception exception) {
-            throw new DataTooLongException();
+            return new CustomerRes(Boolean.FALSE, "");
         }
-        return customerConverter.convertToDTO(customer);
     }
 
     @Override
@@ -106,7 +108,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO updateCustomer(CustomerDTO customerDTO, Long idCustomer) {
+    public CustomerRes updateCustomer(CustomerDTO customerDTO, Long idCustomer) {
 
         Customer customer = getCustomerById(idCustomer);
         customerDTO.setCreatedDate(new Date());
@@ -123,27 +125,28 @@ public class CustomerServiceImpl implements CustomerService {
             && StringUtils.isNotEmpty(customerDTO.getCode())
             && !customerDTO.getCode().equals(customer.getCode())) {
             Customer existedCode = customerRepository.findOneByCode(customerDTO.getCode());
-            if (existedCode != null) throw new DuplicateFieldException("Code", Const.CUSTOMER);
+            if (existedCode != null) {
+                return new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại");
+            }
         }
 
-        if (!customerDTO.getPhoneNumber().equals(customer.getPhoneNumber())
-            && checkPhoneNumber(customerDTO.getPhoneNumber())) {
-            throw new DuplicateFieldException("Phone", Const.CUSTOMER);
+        if (!customerDTO.getPhone().equals(customer.getPhone())
+            && BooleanUtils.isTrue(checkPhoneNumber(customerDTO.getPhone()))) {
+            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại");
         }
-
         customer.setCustomer(customerDTO);
-        if (customerDTO.getWard() != null) {
+        if (!Objects.isNull(customerDTO.getWard())) {
             customer.setWard(wardConverter.convertToEntity(customerDTO.getWard()));
         } else {
             customer.setWard(null);
         }
-
         try {
-            customer = customerRepository.save(customer);
+            customerRepository.save(customer);
+            return new CustomerRes(Boolean.TRUE, "");
         } catch (Exception e) {
             e.printStackTrace();
+            return new CustomerRes(Boolean.FALSE, "");
         }
-        return customerConverter.convertToDTO(customer);
     }
 
     @Override
@@ -227,7 +230,7 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customer = new Customer();
             String code = "kh" + i;
             customer.setCode(code);
-            customer.setPhoneNumber("0347481199");
+            customer.setPhone("0347481199");
             customer.setName(first.get(new Random().nextInt(first.size())) + last.get(new Random().nextInt(first.size())));
             customer.setEmail(email.get(new Random().nextInt(first.size())));
             customer.setStatus(new Byte("1"));

@@ -11,8 +11,9 @@ export const getCity = () => (dispatch) => {
 
 export const getWard = (districtId) => (dispatch) => {
   const endPoint = `${API_CUSTOMER}/wards?districtId=${districtId}`;
-  dispatch(fetch(endPoint)).then((res) => {
+  return dispatch(fetch(endPoint)).then((res) => {
     dispatch(receiveWard(res));
+    return res;
   });
 };
 

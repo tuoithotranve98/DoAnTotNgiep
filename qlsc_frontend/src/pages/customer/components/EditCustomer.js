@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveCustomer } from "../actions/customerAction";
+import { updateCustomer, getCustomerById } from "../actions/customerAction";
 import { getWard, receiveWard } from "../actions/locationActions";
 import SelectDistricts from "./SelectAddress/SelectDistricts";
 import SelectWards from "./SelectAddress/SelectWards";
+import Guard from "components/loading/Guard";
 import pushstate from "utils/pushstate";
 import "../styles/addCustomer.scss";
 
@@ -16,19 +17,51 @@ const initialState = {
   city: null,
   ward: null,
   description: null,
+  loading: true,
 };
 
-export class AddCustomer extends Component {
+class EditCustomer extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
   }
 
-  onSaveCustomer() {
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      this.setState({ loading: true });
+      this.props.onGetCustomer(this.props.match.params.id).then((json) => {
+        if (json) {
+            if (json.ward && json.ward.district && json.ward.district.code) {
+                const wardCode = json.ward && json.ward.code;
+                const _city = this.props.cities.find((item) => item.code === json.ward.district.code);
+                if (_city) this.setState({ city: _city });
+                this.props.onGetWard(json.ward.district.code).then((json) => {
+                    if (json) {
+                        const _ward = json.find((item) => item.code === wardCode);
+                        if (_ward) this.setState({ ward: _ward });
+                    }
+                });
+            }
+          this.setState({
+            loading: false,
+            name: json.name,
+            phone: json.phone,
+            code: json.code,
+            email: json.email,
+            address: json.address,
+          });
+        }
+      });
+    }
+  }
+
+  onUpdateCustomer() {
     const { name, code, phone, email, address, city, ward } = this.state;
     const customer = { name, code, phone, email, address, city, ward };
-    this.props.onSaveCustomer(customer).then((json) => {
+    const id = this.props.match.params.id || '';
+    this.props.onUpdateCustomer(id, customer).then((json) => {
       if (json && json.success) {
+        console.info('Cập nhật thông tin khách hàng thành công');
         this.setState({ initialState });
         this.props.onClearWards();
         pushstate(this.props.history, "/customer");
@@ -40,10 +73,6 @@ export class AddCustomer extends Component {
     this.setState({ initialState });
     this.onRedirectCustomers();
     this.props.onClearWards();
-  }
-
-  onRedirectCustomers() {
-    pushstate(this.props.history, "/customer");
   }
 
   onChangeName(name) {
@@ -120,7 +149,7 @@ export class AddCustomer extends Component {
             Danh sách khách hàng
           </div>
           <div className="ui-title-bar__main-group">
-            <h1 className="ui-title-bar__title">Thêm mới khách hàng</h1>
+            <h1 className="ui-title-bar__title">Cập nhật khách hàng</h1>
           </div>
         </div>
       </div>
@@ -128,6 +157,7 @@ export class AddCustomer extends Component {
   }
 
   customerMainInfo() {
+    const { name, phone, code, email, address } = this.state;
     return (
       <div className="customer-create-left">
         <div className="page-info">
@@ -139,6 +169,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="name"
+                value={name || ""}
                 onChange={(e) => this.onChangeName(e.target.value)}
               />
             </div>
@@ -149,6 +180,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="code"
+                value={code || ""}
                 onChange={(e) => this.onChangeCode(e.target.value)}
               />
             </div>
@@ -164,6 +196,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="phone"
+                value={phone || ""}
                 onChange={(e) => this.onChangePhone(e.target.value)}
               />
             </div>
@@ -174,6 +207,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="email"
+                value={email || ""}
                 onChange={(e) => this.onChangeEmail(e.target.value)}
               />
             </div>
@@ -189,6 +223,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="address"
+                value={address || ""}
                 onChange={(e) => this.onChangeAddress(e.target.value)}
               />
             </div>
@@ -245,14 +280,14 @@ export class AddCustomer extends Component {
               <div className="label mb-2">Nhân viên phụ trách</div>
               <div className="select__wrapper " id="search-account-wrap">
                 {/* <a
-                  class="customer-select select--a select-suggest"
-                  id="search-account"
-                  href="javascript:"
-                  data-original-title=""
-                  title=""
-                >
-                  Chọn nhân viên
-                </a> */}
+                      class="customer-select select--a select-suggest"
+                      id="search-account"
+                      href="javascript:"
+                      data-original-title=""
+                      title=""
+                    >
+                      Chọn nhân viên
+                    </a> */}
                 <div className="filter-body--suggest"></div>
               </div>
             </div>
@@ -285,7 +320,7 @@ export class AddCustomer extends Component {
       <div className="ui-title-bottom-bar">
         <a
           className="btn btn-default right btn-create-customer"
-          onClick={() => this.onSaveCustomer()}
+          onClick={() => this.onUpdateCustomer()}
         >
           Lưu
         </a>
@@ -296,10 +331,19 @@ export class AddCustomer extends Component {
     );
   }
   render() {
+    console.log("this.state", this.state);
     const headerElm = this.header();
     const createLeftElm = this.customerMainInfo();
     const createRightElm = this.customerDifferentInfo();
     const saveAndCancelElm = this.customnerBottom();
+    if (this.state.loading) {
+      return (
+        <div className="wrapper-add-customer">
+          {headerElm}
+          <Guard />
+        </div>
+      );
+    }
     return (
       <div className="wrapper-add-customer">
         {headerElm}
@@ -318,15 +362,16 @@ const mapStateToProps = (state) => {
     locations: { city, ward },
   } = state;
   return {
-    cities: city,
-    wards: ward,
+    cities: Object.values(city),
+    wards: Object.values(ward),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onGetWard: (id) => dispatch(getWard(id)),
   onClearWards: () => dispatch(receiveWard([])),
-  onSaveCustomer: (customer) => dispatch(saveCustomer(customer)),
+  onGetCustomer: (id) => dispatch(getCustomerById(id)),
+  onUpdateCustomer: (id, customer) => dispatch(updateCustomer(id, customer)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCustomer);
+export default connect(mapStateToProps, mapDispatchToProps)(EditCustomer);
