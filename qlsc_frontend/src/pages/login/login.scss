@@ -1,0 +1,89 @@
+$bg-img1: url("../../../asset/resource/sapo.png");
+$bg-img2: url("../../../asset/resource/login-background.png");
+.root {
+  height: 100vh;
+  background-size: contain !important;
+  background-color: #f4f6f8 !important;
+  background: url('../../images/login-background.png') no-repeat center center fixed;
+  background-size: cover;
+}
+.login-warpper {
+  margin-top: calc((100vh - 588px) / 2);
+  margin-left: auto;
+  margin-right: auto;
+}
+.divlogo {
+  text-align: center;
+  padding-top: 20;
+}
+.logo {
+  width: 150px;
+}
+.area-login {
+  max-height: 588px;
+  height: 588px;
+  width: 100%;
+  background: url('../../images/sapo.png') no-repeat center center fixed;
+}
+.btn-login {
+  margin-top: 20;
+  background: linear-gradient("180deg;#4697fe;#08f");
+  border-color: #08f;
+  box-shadow: inset 0 1px 0 0 #549cf9;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  height: 45px;
+  line-height: 40px;
+  z-index: 999;
+  padding: 0 93px;
+  text-transform: inherit;
+  &:hover {
+    background: linear-gradient("180deg;#4697fe;#08f");
+    border-color: #08f;
+    // boxShadow: 'inset 0 1px 0 0 #549cf9';
+  }
+}
+.div-action-login {
+  text-align: center;
+}
+.tit {
+  display: block;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  float: left;
+  &:before {
+    content: "";
+    width: 97%;
+    padding: 1px 0px 0px;
+    background: #ebebeb;
+    color: #ebebeb;
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    line-height: 32px;
+    z-index: 1;
+  }
+}
+.tit-item {
+  font-size: 14px;
+  line-height: 32px;
+  padding: 0px 15px;
+  background-color: #fff;
+  display: inline-block;
+  background: #fff;
+  color: #898989;
+  z-index: 12;
+  position: relative;
+}
+.login-more {
+  cursor: pointer;
+  padding-left: 5px;
+  display: inline-block !important;
+  height: 35px !important;
+  margin: 0 auto !important;
+}

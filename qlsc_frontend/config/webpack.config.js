@@ -43,11 +43,9 @@ const config = {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif|pdf)$/,
-        use: [
-          'file-loader'
-        ]
-      }
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ]
   }
 }
