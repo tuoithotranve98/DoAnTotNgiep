@@ -6,6 +6,7 @@ import SelectDistricts from "./SelectAddress/SelectDistricts";
 import SelectWards from "./SelectAddress/SelectWards";
 import pushstate from "utils/pushstate";
 import "../styles/addCustomer.scss";
+import { toastError, toastSuccess } from "../../../utils/toast";
 
 const initialState = {
   name: null,
@@ -285,7 +286,8 @@ export class AddCustomer extends Component {
       <div className="ui-title-bottom-bar">
         <a
           className="btn btn-default right btn-create-customer"
-          onClick={() => this.onSaveCustomer()}
+          // onClick={() => this.onSaveCustomer()}
+          onClick={() =>toastError("thành công")}
         >
           Lưu
         </a>

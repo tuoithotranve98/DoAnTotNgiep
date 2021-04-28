@@ -33,9 +33,9 @@ const config = {
   ],
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader' },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: [
           'style-loader',
           'css-loader',
