@@ -60,6 +60,7 @@ function App (props) {
               <Route exact path="/customer/create" component={AddCustomer}/>
               <Route exact path="/customer/:id/info" component={CustomerInfo}/>
               <Route exact path="/customer/:id/edit" component={EditCustomer}/>
+              <Route exact path="/maintentance-card/create" component={MaintenanceCardCreate}/>
           </div>
         </Switch>
       </Router>
