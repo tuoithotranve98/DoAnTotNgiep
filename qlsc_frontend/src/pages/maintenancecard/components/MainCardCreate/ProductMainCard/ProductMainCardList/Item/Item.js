@@ -1,95 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import {
-  TIKI, SENDO, SHOPEE, LAZADA, CHANNEL_LOGO
-} from 'common/channelTypeConstants';
 import ReactTooltip from 'react-tooltip';
-import Tooltip from 'components/general/ToolTip/TextWithToolTip';
 import { moneyFormat } from 'util/moneyFormat';
-import NumberFormat from 'react-number-format';
 
 function Item(props) {
-  const {
-    item,
-    onChangeItem,
-  } = props;
-  const inputShipFee = useRef();
-  const inputToltalAmount = useRef();
-  const {
-    id,
-    connection_id,
-    channel_delivery_collation_id,
-    channel_delivery_collation_code,
-    channel_order_number,
-    sapo_order_id,
-    sapo_order_code,
-    sapo_fulfillment_code,
-    sapo_location_id,
-    sapo_delivery_service_provider_id,
-    system_cod_amount,
-    system_ship_fee,
-    service_provider_cod_amount,
-    service_provider_ship_fee,
-    collation_status,
-    sapo_tracking_code,
-    paid
-  } = item;
-  const handleClick = (name, e) => {
-    if (name === 'ship-fee') {
-      inputShipFee.current.select();
-    }
-    if (name === 'total-amount') {
-      inputToltalAmount.current.select();
-    }
-  };
 
-  const tenant = JSON.parse(sessionStorage.getItem('tenant')) || {};
-  const { connections } = tenant || [];
-  const connection = connections.find((it) => it.id === connection_id) || {};
-  const calcHref = (channelType) => {
-    switch (channelType) {
-      case SENDO:
-        return `https://ban.sendo.vn/don-hang/${item.channel_order_number}`;
-      case TIKI:
-        return `http://sellercenter.tiki.vn/#/orders-search?code=${item.channel_order_number}`;
-      case SHOPEE:
-        if (ENV === 'prod') {
-          return `https://banhang.shopee.vn/portal/sale?search=${item.channel_order_number}`;
-        }
-        return `https://banhang.uat.shopee.vn/portal/sale?search=${item.channel_order_number}`;
-
-      case LAZADA:
-        return `https://sellercenter.lazada.vn/order/detail/${item.channel_order_number}/3`;
-      default:
-        break;
-    }
-  };
-
-  const calcHrefFulfillment = () => {
-    if (tenant) {
-      return `https://${tenant.alias}.mysapo.vn/admin/shipments/${item.sapo_fulfillment_id}`;
-    }
-  };
-
-  const tenantComp = (
-    <span>
-      <img
-        alt="img"
-        src={CHANNEL_LOGO[connection.channel_type]}
-        width={20}
-        height={20}
-        style={{ borderRadius: '50%', marginTop: -4 }}
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = 'https://bizweb.dktcdn.net/100/330/411/files/sendoicon.png?v=1582269208377';
-        }}
-      />
-      <span style={{ marginLeft: 5, lineBreak: 'anywhere' }}>{connection.short_name}</span>
-    </span>
-  );
-  const systemCodAmount = item.system_cod_amount ? moneyFormat(item.system_cod_amount) : 0;
-  const systemShipFee = item.system_ship_fee ? moneyFormat(item.system_ship_fee) : 0;
   return (
     <div className="d-flex align-items-center delivery-collation-order-row">
       <div className="order text-ellipsis">
