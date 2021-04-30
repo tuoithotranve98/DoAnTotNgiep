@@ -54,23 +54,23 @@ function App (props) {
           limit={1}
         />
         <Modals />
-        {/* <TopBar />
-        <SideBar /> */}
+        <TopBar />
+        <SideBar />
         <Switch>
           <Route exact path="/login" component={login}/>
           <div className={showMenu ? 'content-dashboard-active' : 'content-dashboard'}>
               <TopBar />
               {/* customer */}
               <Route exact path="/customer" component={CustomerList}/>
-              {/* <Route exact path="/customer/create" component={AddCustomer}/>
-              <Route exact path="/customer/:id/info" component={CustomerInfo}/>
-              <Route exact path="/customer/:id/edit" component={EditCustomer}/> */}
               <Route exact path="/maintenance-card" component={MainCardList}/>
               <Route exact path="/maintenance-card/create" component={MainCardCreate}/>
               <Route exact path="/staff" component={StaffList}/>
               <Route exact path="/product" component={ProductList}/>
               <Route exact path="/report" component={ReportMain}/>
               {/* <Route exact path="/staff/create" component={StaffCreate}/> */}
+              {/* <Route exact path="/customer/create" component={AddCustomer}/>
+              <Route exact path="/customer/:id/info" component={CustomerInfo}/>
+              <Route exact path="/customer/:id/edit" component={EditCustomer}/> */}
           </div>
         </Switch>
       </Router>
