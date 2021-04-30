@@ -34,13 +34,17 @@ function LoginPage(props) {
                   </div>
                   <input
                     onChange={(e) => handleChange(e)}
+                    className="input"
                     // inputRef={register({ required: true })}
                     name="email"
+                    placeholder="Địa chỉ email"
                     style={{ width: "100%", margin: "20px 0px" }}
                   />
                   {/* {errors.email && "email is required."} */}
                   <input
                     onChange={(e) => handleChange(e)}
+                    className="input"
+                    placeholder="Mật khẩu"
                     // inputRef={register({ required: true })}
                     type="password"
                     name="password"
@@ -52,27 +56,9 @@ function LoginPage(props) {
                       Đăng nhập
                     </button>
                   </div>
-                  <div className="btn btn-register">
-                    <p className="tit">
-                      <p
-                        style={{ textAlign: 'center'}}
-                        className="tit-item"
-                      >
-                        Hoặc đăng ký
-                      </p>
-                    </p>
-                  </div>
-                  <div>
-                    <p style={{ textAlign: 'center'}}>
-                      Bạn chưa có tài khoản ?{" "}
-                      <a style={{ cursor: "pointer" }}>Đăng ký tại đây</a>
-                    </p>
-                    <p align="center">
-                      <a style={{ cursor: "pointer" }}>Quên mật khẩu</a>
-                    </p>
-                  </div>
-                  <div style={{ textAlign: "center", marginTop: 20 }}>
-                    <p variant="body1" style={{ marginBottom: 10 }}>
+
+                  <div style={{ textAlign: "center", marginTop: 15 }}>
+                    <p variant="body1" style={{ fontSize:14, fontWeight:400, marginBottom: 17 }}>
                       Hoặc đăng nhập bằng
                     </p>
                     <a className="login-more">

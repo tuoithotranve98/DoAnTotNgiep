@@ -54,9 +54,10 @@ function App (props) {
           limit={1}
         />
         <Modals />
-        <TopBar />
-        <SideBar />
+        {/* <TopBar />
+        <SideBar /> */}
         <Switch>
+          <Route exact path="/login" component={login}/>
           <div className={showMenu ? 'content-dashboard-active' : 'content-dashboard'}>
               <TopBar />
               {/* customer */}

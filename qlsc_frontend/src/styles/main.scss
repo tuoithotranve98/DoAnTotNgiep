@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "reset.scss";
 @import "checkbox.scss";
+// @import "./../../dist/css/bootstrap-datepicker.min.css";
 html,
 body {
     height: 100%;
@@ -23,7 +24,27 @@ body {
             z-index: 1;
         }
       }
-    }
+  }
+  .ranges li:last-child {
+    display: none;
+  }
+
+  .daterangepicker {
+    line-height: 1.7;
+    color: #515151;
+    font-size: 14px;
+    width: auto;
+    display: none;
+    z-index: 2;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+  }
   .hyper-link {
     color: #0088FF!important;
     cursor: pointer;
