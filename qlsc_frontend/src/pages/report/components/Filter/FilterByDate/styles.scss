@@ -1,0 +1,24 @@
+.report-filter-by-date {
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+    position: relative;
+    .filter-date-content {
+      background-color: #FFF;
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid #EAEAEA;
+      border-radius: 32px;
+      padding: 9.5px 15px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-top: 10px;
+      .content {
+        margin: 0 7px;
+      }
+    }
+  }
+  

@@ -3,13 +3,6 @@ import React from 'react'
 import * as Icons from 'common/icons'
 export const menuLink = [
   {
-    id: 99,
-    url: '/dashboard',
-    icon: <Icons.ReportIcon />,
-    title: 'Tổng quan',
-    submenu: []
-  },
-  {
     id: 0,
     url: '/maintenancecard',
     icon: <Icons.CustomerIcon />,

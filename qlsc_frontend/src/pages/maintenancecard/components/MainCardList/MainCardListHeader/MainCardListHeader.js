@@ -13,7 +13,7 @@ function MainCardListHeader(props) {
     pushstate(history, `/maintenance-card/create`);
   };
   return (
-    <div className="tilte-action">
+    <div className="main-card-tilte-action">
       <div className="d-flex list-header">
         <div className="header-title">
           <div style={{ fontSize: '22px' }}>Danh sách phiếu sửa chữa</div>

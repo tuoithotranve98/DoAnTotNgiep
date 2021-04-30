@@ -27,6 +27,7 @@ import StaffList from "./pages/staff/components/StaffList/StaffList";
 import MainCardCreate from "./pages/maintenancecard/components/MainCardCreate/MainCardCreate";
 import ProductList from "./pages/product/components/ProductList/ProductList";
 import CustomerList from "./pages/customer/components/CustomerList/CustomerList";
+import ReportMain from "./pages/report/components/ReportMain";
 
 
 function App (props) {
@@ -67,6 +68,7 @@ function App (props) {
               <Route exact path="/maintenance-card/create" component={MainCardCreate}/>
               <Route exact path="/staff" component={StaffList}/>
               <Route exact path="/product" component={ProductList}/>
+              <Route exact path="/report" component={ReportMain}/>
               {/* <Route exact path="/staff/create" component={StaffCreate}/> */}
           </div>
         </Switch>

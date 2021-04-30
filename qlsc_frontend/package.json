@@ -46,6 +46,7 @@
     "query-string": "^6.12.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
+    "react-bootstrap-daterangepicker": "^7.0.0",
     "react-bootstrap-datetimerangepicker": "^2.0.4",
     "react-chatview": "^0.2.5",
     "react-datepicker": "^2.16.0",
