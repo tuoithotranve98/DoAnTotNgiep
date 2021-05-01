@@ -9,6 +9,7 @@ export const login = (user = {}) => (dispatch, getState) => {
     }
     return dispatch(
       fetch(API_USER_AUTH, {
+        mode:'no-cors',
         method: "POST",
         body: JSON.stringify(data),
       })

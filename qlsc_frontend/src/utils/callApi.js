@@ -1,5 +1,6 @@
 import axios from 'axios';
 import storage from './storage';
+import * as API from 'constants/api';
 
 const callApi = function callApi(url, options) {
   const accessToken = storage.get('token', false);
@@ -7,20 +8,23 @@ const callApi = function callApi(url, options) {
     options.mode = 'cors';
   }
   if (options.headers) {
-    if (!options.headers['X-BIZWEB-APP-FPAGE-TOKEN']) {
-      Object.assign(options.headers, { 'X-BIZWEB-APP-FPAGE-TOKEN': accessToken });
+    if (!options.headers['X-APP-PAGE-TOKEN']) {
+      Object.assign(options.headers, { 'X-APP-PAGE-TOKEN': accessToken });
     }
     if (!options.headers['Content-Type']) {
       Object.assign(options.headers, { 'Content-Type': 'application/json' });
     }
-    if (!options.headers['X-SOCIAL-TIMESTAMP']) {
-      Object.assign(options.headers, { 'X-SOCIAL-TIMESTAMP': new Date().getTime() });
+    if (!options.headers['Access-Control-Allow-Origin']) {
+      Object.assign(options.headers, { 'Access-Control-Allow-Origin': "*"});
     }
   } else {
     options.headers = {
-      'X-BIZWEB-APP-FPAGE-TOKEN': accessToken,
+      'X-APP-PAGE-TOKEN': accessToken,
+      'Origin': '*',
       'Content-Type': 'application/json',
-      'X-SOCIAL-TIMESTAMP': new Date().getTime(),
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'HEAD, GET, POST, PUT, PATCH, DELETE',
+
     };
   }
   options.url = url;

@@ -25,39 +25,33 @@ function LoginPage(props) {
           <div className="col-10 login-warpper">
             <div className="row area-login">
               <div className="col-6">
-                <form
-                  name="form"
-                  onSubmit={() => handleSubmit()}
-                  className="form-login"
-                >
+                <div className="form-login">
                   <div className="div-logo">
                     <img src={logo} alt="" className="logo"></img>
                   </div>
                   <input
                     onChange={(e) => handleChange(e)}
                     className="input"
-                    // inputRef={register({ required: true })}
                     name="email"
                     placeholder="Địa chỉ email"
                     style={{ width: "100%", margin: "20px 0px" }}
                   />
-                  {/* {errors.email && "email is required."} */}
                   <input
                     onChange={(e) => handleChange(e)}
                     className="input"
                     placeholder="Mật khẩu"
-                    // inputRef={register({ required: true })}
                     type="password"
                     name="password"
                     style={{ width: "100%", margin: "20px 0px" }}
                   />
-                  {/* {errors.password && "password is required."} */}
-                  <div className="div-action-login">
+                  <div
+                    className="div-action-login"
+                    onClick={() => handleSubmit()}
+                  >
                     <button className="btn btn-login" type="submit">
                       Đăng nhập
                     </button>
                   </div>
-
                   <div style={{ textAlign: "center", marginTop: 15 }}>
                     <p
                       variant="body1"
@@ -84,7 +78,7 @@ function LoginPage(props) {
                       ></img>
                     </a>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
