@@ -2,5 +2,5 @@ bundle/
 node_modules/
 .vscode/
 .idea/
-dist/
+# dist/
 debug.log
