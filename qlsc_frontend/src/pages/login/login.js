@@ -5,6 +5,7 @@ import "./login.scss";
 import logo from "../../images/logo_sapo.svg";
 import fb from "../../images/facebook-8-1-2020.svg";
 import google from "../../images/gp-btn.svg";
+import pushstate from "utils/pushstate";
 
 function LoginPage(props) {
   const [user, setUser] = useState({
@@ -16,7 +17,11 @@ function LoginPage(props) {
     setUser({ ...user, [name]: value });
   };
   const handleSubmit = () => {
-    props.onLogin(user);
+    props.onLogin(user).then((res) => {
+      if (res && res.status === 200) {
+        pushstate(props.history, "/customer");
+      } 
+    });
   };
   return (
     <div className="root">

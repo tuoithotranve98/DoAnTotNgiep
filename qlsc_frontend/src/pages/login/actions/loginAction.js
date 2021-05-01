@@ -23,6 +23,7 @@ export const login = (user = {}) => (dispatch, getState) => {
       } else {
         //
       }
+      return res;
     })
     .catch((err) => {
       return err;

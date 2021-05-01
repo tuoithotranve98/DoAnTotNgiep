@@ -7,7 +7,7 @@ import * as Icons from 'common/icons'
 import './sideBar.scss'
 import SubMenu from './submenu/SubMenu'
 import { changeShowMenuTopBar } from '../../actions/globalUiActions'
-import { menuLink } from 'utils/router.js'
+import { menuLinkFull } from 'utils/router.js'
 
 function SideBar (props) {
   // eslint-disable-next-line react/prop-types
@@ -20,7 +20,7 @@ function SideBar (props) {
   useEffect(() => {
     // eslint-disable-next-line react/prop-types
     const url = props.history.location.pathname
-    const item = menuLink.filter((a) => url.includes(a.url))
+    const item = menuLinkFull.filter((a) => url.includes(a.url))
     if (item[0]) {
       const subItem = item[0].submenu.length > 0 ? item[0].submenu.find((a) => a.url === url) : ''
       if (subItem) {

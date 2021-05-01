@@ -1,18 +1,30 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import * as Icons from 'common/icons'
-import { menuLink } from 'utils/router.js'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import * as Icons from 'common/icons';
+import { menuLinkFull, menuLinkCoordinator } from 'utils/router.js';
 import './submenu.scss'
 
 function SubMenu (props) {
-  const url = props.history.location.pathname
+  const url = props.history.location.pathname;
+  const [menuLink, setMenuLink] = useState([]);
   const {
     onSetInit,
     init,
-    showMenu
+    showMenu,
+    user,
   } = props
+
+  useEffect(() => {
+    setMenuLink(menuLinkFull || []);
+  }, [])
+
+  useEffect(() => {
+    if (user && user.role === 1) {
+      setMenuLink(menuLinkCoordinator);
+    }
+  }, [user])
 
   return (
     <React.Fragment>
@@ -48,4 +60,13 @@ function SubMenu (props) {
     </React.Fragment>
   )
 }
-export default withRouter(connect(null, null)(SubMenu))
+
+const mapStateToProps = (state) => {
+  const { auth } = state;
+  const user = auth.user;
+  return {
+    user,
+  };
+};
+
+export default withRouter(connect(mapStateToProps, null)(SubMenu))
