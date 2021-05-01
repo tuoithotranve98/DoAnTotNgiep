@@ -28,8 +28,6 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
-		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-		   .antMatchers("/image" + "/admin/**").hasRole("1")
             .anyRequest().permitAll();
     }
 
