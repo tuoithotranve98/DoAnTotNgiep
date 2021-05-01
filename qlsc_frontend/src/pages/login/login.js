@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import './login.scss';
-import logo from '../../images/logo_sapo.svg';
-import fb from '../../images/facebook-8-1-2020.svg';
-import google from '../../images/gp-btn.svg';
+import { login } from "./actions/loginAction";
+import "./login.scss";
+import logo from "../../images/logo_sapo.svg";
+import fb from "../../images/facebook-8-1-2020.svg";
+import google from "../../images/gp-btn.svg";
+
 function LoginPage(props) {
-  const [sateUser, setSateUser] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setSateUser({ ...sateUser, [name]: value });
+    setUser({ ...user, [name]: value });
   };
-  // const onSubmit = (data) => {
-
-  //   login(data);
-  // };
+  const handleSubmit = () => {
+    props.onLogin(user);
+  };
   return (
     <div className="root">
       <div maxWidth="lg" className="container">
@@ -26,7 +27,7 @@ function LoginPage(props) {
               <div className="col-6">
                 <form
                   name="form"
-                  // onSubmit={handleSubmit(onSubmit)}
+                  onSubmit={() => handleSubmit()}
                   className="form-login"
                 >
                   <div className="div-logo">
@@ -58,7 +59,14 @@ function LoginPage(props) {
                   </div>
 
                   <div style={{ textAlign: "center", marginTop: 15 }}>
-                    <p variant="body1" style={{ fontSize:14, fontWeight:400, marginBottom: 17 }}>
+                    <p
+                      variant="body1"
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 400,
+                        marginBottom: 17,
+                      }}
+                    >
                       Hoặc đăng nhập bằng
                     </p>
                     <a className="login-more">
@@ -86,7 +94,7 @@ function LoginPage(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  // login: (data) => dispatch(loginThunk(data)),
+const mapDispatchToProps = (dispatch) => ({
+  onLogin: (data) => dispatch(login(data)),
 });
 export default connect(null, mapDispatchToProps)(LoginPage);
