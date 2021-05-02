@@ -28,6 +28,7 @@ import MainCardCreate from "./pages/maintenancecard/components/MainCardCreate/Ma
 import ProductList from "./pages/product/components/ProductList/ProductList";
 import CustomerList from "./pages/customer/components/CustomerList/CustomerList";
 import ReportMain from "./pages/report/components/ReportMain";
+import StaffCreate from "./pages/staff/components/StaffCreate/StaffCreate";
 
 
 function App (props) {
@@ -67,7 +68,7 @@ function App (props) {
               <Route exact path="/staff" component={StaffList}/>
               <Route exact path="/product" component={ProductList}/>
               <Route exact path="/report" component={ReportMain}/>
-              {/* <Route exact path="/staff/create" component={StaffCreate}/> */}
+              <Route exact path="/staff/create" component={StaffCreate}/>
               {/* <Route exact path="/customer/create" component={AddCustomer}/>
               <Route exact path="/customer/:id/info" component={CustomerInfo}/>
               <Route exact path="/customer/:id/edit" component={EditCustomer}/> */}
