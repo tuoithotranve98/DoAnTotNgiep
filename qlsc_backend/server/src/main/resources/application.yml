@@ -7,6 +7,7 @@ spring:
 #               uri: https://github.com/NguyenTho98/configQlsc
 #               username: nxtho0109@gmail.com
 #               password: xuantho98
+
                uri: https://github.com/manhbui98/configQlsc
                username: manhbui98@gmail.com
                password: buimanh98

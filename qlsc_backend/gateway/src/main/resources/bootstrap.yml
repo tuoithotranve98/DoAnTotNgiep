@@ -12,6 +12,13 @@ eureka:
 
 zuul:
   ignored-services: "*"
+  routes:
+    user:
+      path: /user/**
+      service-id: user
+    customer:
+      path: /customer/**
+      service-id: customer
 
 server:
   port: 8762

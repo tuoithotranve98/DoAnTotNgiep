@@ -14,10 +14,10 @@ public class WebConfig  implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
     	registry.addMapping("/**").allowedMethods("*").allowedOrigins("*").allowedHeaders("*");
     }
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//    	registry.addResourceHandler("/**")
-//        .addResourceLocations("classpath:/static/");
-//    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	registry.addResourceHandler("/**")
+        .addResourceLocations("classpath:/static/");
+    }
 }
