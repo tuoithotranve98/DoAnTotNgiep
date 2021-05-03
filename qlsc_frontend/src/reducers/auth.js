@@ -9,7 +9,9 @@ const initState = {
 const auth = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.RECEIVE_ACCESS_TOKEN:
-      storage.set("token", action.accessToken, false);
+      const tokenBefore = action.accessToken;
+      const tokenAfter = tokenBefore.substr(7)
+      storage.set("token", tokenAfter, false);
       return {
         ...state,
         accessToken: action.accessToken,

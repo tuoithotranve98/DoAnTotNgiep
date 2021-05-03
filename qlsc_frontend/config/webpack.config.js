@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -18,10 +19,7 @@ const config = {
     historyApiFallback: true,
     hot: true,
     compress: {
-      // remove warnings
-         warnings: false,
-
-      // Drop console statements
+         warnings: true,
          drop_console: true
     },
     open: true,
@@ -46,32 +44,6 @@ const config = {
       }
     )
   ],
-  optimization: {
-    minimizer: [
-        new UglifyJSPlugin({
-            uglifyOptions: {
-                compress: {
-                    pure_funcs: [
-                        'console.log',
-                        // 'console.error',
-                        // 'console.warn',
-                        // ...
-                    ],
-                },
-                // Make sure symbols under `pure_funcs`,
-                // are also under `mangle.reserved` to avoid mangling.
-                mangle: {
-                    reserved: [
-                        'console.log',
-                        // 'console.error',
-                        // 'console.warn',
-                        // ...
-                    ],
-                },
-            },
-        }),
-    ],
-},
   module: {
     rules: [
       { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader' },
@@ -86,6 +58,14 @@ const config = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+        },
       },
     ]
   }
