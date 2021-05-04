@@ -14,7 +14,7 @@
     "lint": "eslint src config",
     "dev": "webpack-cli serve --mode development --config config/webpack.config.dev.js",
     "test": "export NODE_ENV=test && jest",
-    "start": "webpack-cli serve --mode development --config config/webpack.config.dev.js"
+    "start": "webpack-cli serve --mode development --config ./webpack.config.js"
   },
   "author": "MyEkko",
   "license": "ISC",
