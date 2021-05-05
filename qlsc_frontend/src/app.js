@@ -29,6 +29,7 @@ import ProductList from "./pages/product/components/ProductList/ProductList";
 import CustomerList from "./pages/customer/components/CustomerList/CustomerList";
 import ReportMain from "./pages/report/components/ReportMain";
 import StaffCreate from "./pages/staff/components/StaffCreate/StaffCreate";
+import PrivateRoute from "./components/router/PrivateRoute";
 
 
 function App (props) {
@@ -62,7 +63,7 @@ function App (props) {
           <div className={showMenu ? 'content-dashboard-active' : 'content-dashboard'}>
               <TopBar />
               {/* customer */}
-              <Route exact path="/customer" component={CustomerList}/>
+              <PrivateRoute exact path="/customer" component={CustomerList}/>
               <Route exact path="/maintenance-card" component={MainCardList}/>
               <Route exact path="/maintenance-card/create" component={MainCardCreate}/>
               <Route exact path="/staff" component={StaffList}/>
