@@ -6,43 +6,12 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import '../../styles/wrapper.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
-import { getListCustomer } from '../../../../../../actions/customerAction';
 
 function Wrapper(props) {
-  // const [selectedIds, setSelectedIds] = useState([]);
-  const {
-    selectedIds, selectedMainCardIds, fetching, isEmpty
-  } = props;
+  const { customer } = props;
+  const [selectedIds, setSelectedIds] = useState([]);
+
   const listRef = React.useRef();
-
-  useEffect(() => {
-    const filterInfo = getFilterFromURL();
-    listRef && listRef.current && listRef.current.getData(filterInfo);
-  }, []);
-
-  useEffect(() => {
-    if (!fetching) {
-        selectedMainCardIds([]);
-    }
-  }, [fetching]);
-
-  const getFilterFromURL = () => {
-    const { history } = props;
-    const { search } = history.location;
-    if (!search || !search.includes('filter')) return undefined;
-    try {
-      const filter = search.split('?filter=')[1].split('&hmac')[0].split('%')[0];
-      return JSON.parse(atob(filter));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const onCheckBoxClick = (id) => {
-    selectedMainCardIds(
-      selectedIds.includes(id) ? selectedIds.filter(it => it !== id) : selectedIds.concat(id)
-    );
-  };
 
   const resetSelected = () => {
     selectedMainCardIds([]);
@@ -50,10 +19,6 @@ function Wrapper(props) {
 
   const onClick = () => {
     listRef && listRef.current.onCheckAll();
-  };
-
-  const onCheckBoxListClick = (ids) => {
-    selectedMainCardIds(ids);
   };
 
   const renderCheckInfo = () => {
@@ -67,7 +32,7 @@ function Wrapper(props) {
   };
 
   const child = renderCheckInfo();
-  const ordersSize = props.itemIds && props.itemIds.length;
+  const isEmpty = customer && customer.length;
   if (isEmpty) {
     return (
       <div className="delivery-collations-list-wrapper">
@@ -87,19 +52,12 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <Header
           onClick={onClick}
-          checked={selectedIds.length && selectedIds.length === ordersSize}
-          minus={selectedIds.length && selectedIds.length < ordersSize}
+          checked={false}
+          minus={false}
           child={child}
         />
         <List
-          ref={listRef}
-          itemIds={props.itemIds}
-          fetchMainCard={() => props.fetchMainCard()}
-          onCheckBoxClick={onCheckBoxClick}
-          selectedIds={selectedIds}
-          onCheckBoxListClick={onCheckBoxListClick}
-          isEmpty={isEmpty}
-          fetching={fetching}
+          customer={props.customer}
         />
         <Footer
           resetSelected={resetSelected}
@@ -111,18 +69,14 @@ function Wrapper(props) {
 }
 Wrapper.defaultProps = {
   selectedIds: [],
-  selectedMainCardIds: () => {}
+  customer: [],
 };
+
 const mapStateToProps = (state) => {
-  const { products: { ui: { fetching, isEmpty }, product: { selectedIds } } } = state;
+  const { customer } = state;
   return {
-    fetching,
-    isEmpty,
-    selectedIds,
+    customer,
   };
 };
-const mapDispatchToProps = (dispatch) => ({
-  onGetListCustomer: (filter) => dispatch(getListCustomer(filter)),
-});
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wrapper));
+export default withRouter(connect(mapStateToProps, null)(Wrapper));

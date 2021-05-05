@@ -9,12 +9,11 @@ const initState = {
 const auth = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.RECEIVE_ACCESS_TOKEN:
-      const tokenBefore = action.accessToken;
-      const tokenAfter = tokenBefore.substr(7)
-      storage.set("token", tokenAfter, false);
+      const token = action.accessToken;
+      storage.set("token", token, false);
       return {
         ...state,
-        accessToken: action.accessToken,
+        accessToken: token,
       };
     case actionTypes.RECEIVE_USER_ACCOUNT:
       return {

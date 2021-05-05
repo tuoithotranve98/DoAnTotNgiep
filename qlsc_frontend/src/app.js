@@ -21,17 +21,31 @@ import { ToastContainer } from 'react-toastify';
 
 import Modals from "./components/modal/modal";
 import "./styles/app.scss";
-import login from "./pages/login/login";
+import LoginPage from "./pages/login/login";
 import DashBoard from "./pages/dashboard/DashBoard";
-import PrivateRoute from "./utils/privateRoute";
 import PrivateRoute from "./components/router/PrivateRoute";
+import storage from "./utils/storage";
+import { checkInfoUser } from "./pages/login/actions/loginAction";
+import pushstate from "utils/pushstate";
 
 function App (props) {
   const { showMenu } = props;
 
-  // useEffect(() => {
-  //   props.getCity();
-  // }, []);
+  useEffect(() => {
+    const token = storage.get("token", false);
+    if (token) {
+      props.onCheckInfoUser(token).then((json) => {
+        if (json && json.role) {
+          pushstate(props.history, "/");
+        } else {
+          pushstate(props.history, "/login");
+        }
+      });
+    } else {
+      pushstate(props.history, "/login");
+    }
+  }, []);
+
   return (
     <Router history={createBrowserHistory()}>
       <ToastContainer
@@ -49,7 +63,7 @@ function App (props) {
       />
       <Modals />
       <Switch>
-        <Route path="/login" component={login}/>
+        <Route path="/login" component={LoginPage}/>
         <PrivateRoute path="/" component={()=> <DashBoard showMenu={showMenu} />}/>
       </Switch>
     </Router>
@@ -64,4 +78,7 @@ const mapStateToProps = (state) => {
     showMenu,
   };
 };
-export default withRouter(connect(mapStateToProps, null)(App));
+const mapDispatchToProps = (dispatch) => ({
+  onCheckInfoUser: (token) => dispatch(checkInfoUser(token)),
+});
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

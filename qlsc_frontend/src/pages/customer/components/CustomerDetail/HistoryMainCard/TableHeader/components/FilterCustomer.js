@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import debounce from 'utils/debounce';
 import '../styles/filterCustomer.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
-import { showFilter } from '../../../../../actions/customer';
 
 function FilterMainCard(props) {
   const { showFilter } = props;

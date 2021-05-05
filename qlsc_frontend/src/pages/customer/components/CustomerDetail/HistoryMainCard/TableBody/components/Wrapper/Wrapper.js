@@ -10,7 +10,6 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import '../../styles/wrapper.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
-import { fetchMainCard, selectedMainCardIds } from '../../../../../../actions/customer';
 
 function Wrapper(props) {
   // const [selectedIds, setSelectedIds] = useState([]);

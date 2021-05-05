@@ -3,7 +3,9 @@ import { API_CUSTOMER } from "constants/api";
 import { fetch } from "utils/fetchMiddleware";
 
 export const getListCustomer = (options = {}) => (dispatch, getState) => {
-  return dispatch(fetch(`${API_CUSTOMER}/customers`))
+  return dispatch(fetch(`${API_CUSTOMER}/customers`, {
+    method: 'GET',
+  }))
     .then((json) => {
       if (json && json.customers) {
         const { customers, currentPage, totalItems, totalPages } = json;

@@ -30,12 +30,18 @@ export const login = (user = {}) => (dispatch, getState) => {
     });
 };
 
-export const checkInfoUser = () => (dispatch, getState) => {
-  return dispatch(fetch(`${API_USER}/checkUser`))
+export const checkInfoUser = (token) => (dispatch, getState) => {
+  return dispatch(fetch(`${API_USER}/checkUser`, {
+    method: 'GET',
+    headers: {
+      'X-APP-PAGE-TOKEN': token,
+    }
+  }))
     .then((json) => {
-      if (json) {
-         return dispatch(receiveAccount(json));
+      if (json && json.role) {
+        dispatch(receiveAccount(json));
       }
+      return json;
     })
     .catch((e) => {
       return e;

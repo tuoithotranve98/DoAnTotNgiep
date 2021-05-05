@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("admin")
 @RequiredArgsConstructor
 public class CustomerController {

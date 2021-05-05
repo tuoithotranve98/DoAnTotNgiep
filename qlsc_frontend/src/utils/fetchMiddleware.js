@@ -1,14 +1,17 @@
 import * as API from 'constants/api';
+import storage from "./storage";
 
 export default (fetchImplementation) => (store) => (next) => (action) => {
   if (action) {
     if (action.type && action.type === "FETCH") {
       const { url, params } = action;
-        // const urlWithAccountId = url.includes("?")
-        //   ? `${url}&userId=${store.getState().auth.user.id}`
-        //   : `${url}?userId=${store.getState().auth.user.id}`;
         const urlWithAccountId = url;
-        const token = store.getState().auth.accessToken;
+        let token= null;
+        if (store.getState().auth.accessToken) {
+          token = store.getState().auth.accessToken;
+        } else {
+          token = storage.get("token", false);
+        }
       return wrapAccessToken(
         urlWithAccountId,
         params,
@@ -28,6 +31,7 @@ const wrapAccessToken = (url, params, token, store) => (
   params.headers["Origin"] = API.PORT;
   params.headers["Access-Control-Allow-Origin"] = "*";
   params.headers["Access-Control-Allow-Methods"] = "HEAD, GET, POST, PUT, PATCH, DELETE";
+  console.log('params', params);
   if (params.isContentType !== false) {
     params.headers["Content-Type"] = "application/json";
   }
