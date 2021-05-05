@@ -8,12 +8,73 @@ function CustomerDetailInfo(props) {
   return (
     <div className="customer-detail-info">
       <div className="card">
-        <div className="title">Thông tin khách hàng</div>
+        <div className="label">Thông tin khách hàng</div>
         <div className="content">
-          xin chào
+          <div className="row">
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="row">
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="d-flex item">
+                <div className="label">Mã khách hàng</div>
+                <div className="content-value">KH001</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
   );
 }
