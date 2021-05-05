@@ -8,7 +8,17 @@ function StaffLogin(props) {
   }, []);
   return (
     <div className="staff-login-create">
-
+      <div className="page-info">
+        <div className="col-12 field p-0">
+          <div className="label mb-2 label-required">Tên khách hàng</div>
+          <input
+            className="customer-name"
+            type="text"
+            name="name"
+            // onChange={(e) => this.onChangeName(e.target.value)}
+          />
+        </div>
+      </div>
     </div>
   );
 }

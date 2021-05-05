@@ -1,0 +1,37 @@
+.info-customer-right{
+    .card{
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #d3d3d3;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-bottom: 0px;
+        .title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #212b35;
+            border-bottom: 1px solid #e3e3e3;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-bottom: 17px;
+        }
+        .content {
+            padding: 1rem;
+            .control-label{
+                margin-bottom: 10px;
+                
+            }
+            textarea {
+                font-size: 14px;
+                width: 100%;
+                padding: 8px;
+                outline: none;
+                resize: none;
+                height: 90px;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+            }
+        }
+    }
+}

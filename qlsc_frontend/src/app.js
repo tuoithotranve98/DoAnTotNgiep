@@ -22,15 +22,9 @@ import { ToastContainer } from 'react-toastify';
 import Modals from "./components/modal/modal";
 import "./styles/app.scss";
 import login from "./pages/login/login";
-import MainCardList from "./pages/maintenancecard/components/MainCardList/MainCardList";
-import StaffList from "./pages/staff/components/StaffList/StaffList";
-import MainCardCreate from "./pages/maintenancecard/components/MainCardCreate/MainCardCreate";
-import ProductList from "./pages/product/components/ProductList/ProductList";
-import CustomerList from "./pages/customer/components/CustomerList/CustomerList";
-import ReportMain from "./pages/report/components/ReportMain";
-import StaffCreate from "./pages/staff/components/StaffCreate/StaffCreate";
+import DashBoard from "./pages/dashboard/DashBoard";
+import PrivateRoute from "./utils/privateRoute";
 import PrivateRoute from "./components/router/PrivateRoute";
-
 
 function App (props) {
   const { showMenu } = props;
@@ -38,45 +32,27 @@ function App (props) {
   // useEffect(() => {
   //   props.getCity();
   // }, []);
- {/* <Route exact path="/login" component={login}/> */}
   return (
-    <React.Fragment>
-      <Router history={createBrowserHistory()}>
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable={false}
-          pauseOnHover={false}
-          closeButton={false}
-          limit={1}
-        />
-        <Modals />
-        <TopBar />
-        <SideBar />
-        <Switch>
-          <Route exact path="/login" component={login}/>
-          <div className={showMenu ? 'content-dashboard-active' : 'content-dashboard'}>
-              <TopBar />
-              {/* customer */}
-              <PrivateRoute exact path="/customer" component={CustomerList}/>
-              <Route exact path="/maintenance-card" component={MainCardList}/>
-              <Route exact path="/maintenance-card/create" component={MainCardCreate}/>
-              <Route exact path="/staff" component={StaffList}/>
-              <Route exact path="/product" component={ProductList}/>
-              <Route exact path="/report" component={ReportMain}/>
-              <Route exact path="/staff/create" component={StaffCreate}/>
-              {/* <Route exact path="/customer/create" component={AddCustomer}/>
-              <Route exact path="/customer/:id/info" component={CustomerInfo}/>
-              <Route exact path="/customer/:id/edit" component={EditCustomer}/> */}
-          </div>
-        </Switch>
-      </Router>
-    </React.Fragment>
+    <Router history={createBrowserHistory()}>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        closeButton={false}
+        limit={1}
+      />
+      <Modals />
+      <Switch>
+        <Route path="/login" component={login}/>
+        <PrivateRoute path="/" component={()=> <DashBoard showMenu={showMenu} />}/>
+      </Switch>
+    </Router>
   );
 }
 const mapStateToProps = (state) => {

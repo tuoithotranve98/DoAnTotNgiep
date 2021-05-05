@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import StaffInfo from './StaffInfo/StaffInfo';
+import StaffLogin from './StaffLogin/StaffLogin';
 import './styles.scss';
 function StaffCreate(props) {
   const {  } = props;
@@ -22,7 +23,9 @@ function StaffCreate(props) {
       <div className="col-md-8">
         <StaffInfo user={user} />
       </div>
-      <div className="col-md-4"></div>
+      <div className="col-md-4">
+        <StaffLogin />
+      </div>
     </div>
   );
 }

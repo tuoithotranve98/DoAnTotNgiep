@@ -1,0 +1,61 @@
+.staff-login-create{
+    .page-info {
+        background-color: #fff;
+        box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        padding: 20px;
+        position: relative;
+        margin-bottom: 20px;
+    
+        .page-info-title {
+            font-weight: 500;
+            font-size: 16px;
+            padding-bottom: 13px;
+        }
+    
+        .page-info-body {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+    
+            .page-info-item {
+                padding-left: 0;
+                padding-right: 0;
+                font-size: 13px;
+                margin-bottom: 12px;
+                font-weight: 500;
+    
+                .page-info-item-title {
+                    font-size: 13px;
+                    margin-bottom: 12px;
+                    font-weight: 500;
+                }
+    
+                .customer-textbox {
+                    display: inline-block;
+                    width: auto;
+                    height: 34px;
+                    padding: 1px;
+                    margin: 0;
+                    border: 1px solid #95a7b7;
+                    border-radius: 0;
+                    border-style: inset;
+                    color: #000;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    padding: 4px 2px 4px 6px;
+                    border: 1px solid #c4cdd5;
+                    border-radius: 3px;
+                    font-weight: 400;
+                    text-transform: none;
+                    letter-spacing: normal;
+                    box-sizing: border-box;
+                    display: block;
+                    width: 100%;
+                    font-size: 13px;
+                    font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+                }
+            }
+        }
+    }    
+}

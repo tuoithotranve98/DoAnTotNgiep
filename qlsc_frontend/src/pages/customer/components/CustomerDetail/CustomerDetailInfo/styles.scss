@@ -1,0 +1,24 @@
+.customer-detail-info {
+    .card{
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #d3d3d3;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-bottom: 0px;
+        .title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #212b35;
+            border-bottom: 1px solid #e3e3e3;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-bottom: 17px;
+        }
+        .content {
+            padding: 1rem;
+        }
+    }
+    
+}

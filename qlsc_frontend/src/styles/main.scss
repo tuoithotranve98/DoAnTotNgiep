@@ -81,15 +81,15 @@ body {
   }
 
   ///* button*/
-  //.btn-primary {
-  //  font-weight: 600;
-  //  font-size: 14px;
-  //}
-  //.btn-danger {
-  //  font-weight: 600;
-  //  font-size: 14px;
-  //  background: #E3404A!important;
-  //}
+  .btn-primary {
+   font-weight: 600;
+   font-size: 14px;
+  }
+  .btn-danger {
+   font-weight: 600;
+   font-size: 14px;
+   background: #E3404A!important;
+  }
 
   .danger-red{
        background: #E3404A!important;
@@ -100,6 +100,7 @@ body {
     color: #2A2C2E;
     font-weight: 600;
     font-size: 14px;
+    align-items: center;
   }
   .margin-right20 {
     margin-right: 20px;
