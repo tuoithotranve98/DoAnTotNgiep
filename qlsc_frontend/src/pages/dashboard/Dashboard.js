@@ -32,7 +32,7 @@ function Dashboard(props) {
         <SideBar />
         <TopBar />
         <Switch>
-          <Route exact path="/customers" component={CustomerList} />
+          <Route path="/customers" component={CustomerList} />
           <Route exact path="/customer/create" component={CustomerCreate} />
           <Route exact path="/customer/detail/:id([1-9]+[0-9]*)" component={CustomerDetail} />
           <Route exact path="/maintenance-card/create" component={MainCardCreate} />
@@ -56,4 +56,4 @@ const mapStateToProps = (state) => {
     showMenu,
   };
 };
-export default connect(mapStateToProps, null)(Dashboard);
+export default withRouter(connect(mapStateToProps, null)(Dashboard));
