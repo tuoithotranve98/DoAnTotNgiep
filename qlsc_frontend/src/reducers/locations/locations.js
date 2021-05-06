@@ -2,6 +2,7 @@ import * as actionTypes from "actions/actionTypes";
 const initState = {
   city: {},
   ward: {},
+  positionCallApi: null,
 };
 
 export default (state = initState, action) => {
@@ -27,6 +28,12 @@ export default (state = initState, action) => {
       }
       return {
         ...state,
+      };
+    }
+    case actionTypes.CITY_CALLING_API: {
+      return {
+        ...state,
+        positionCallApi: action.isCallingApi,
       };
     }
     default:

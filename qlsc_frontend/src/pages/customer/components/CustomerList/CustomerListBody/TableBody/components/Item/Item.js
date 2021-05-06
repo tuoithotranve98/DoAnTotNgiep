@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
-
+import pushstate from "utils/pushstate";
 function Item(props) {
   const { checked, customer } = props;
 
@@ -12,9 +13,15 @@ function Item(props) {
     onCheckBoxClick(id);
   };
 
+  const onRedirectDetail = (e) => {
+    e.stopPropagation();
+    pushstate(props.history, `/customer/detail/${customer.id}`);
+  }
+
   return (
     <div className="delivery-collations-item-wrapper">
-      <div className="d-flex delivery-collations-listing-item">
+      <div className="d-flex delivery-collations-listing-item"
+      onClick={(e) => onRedirectDetail(e)}>
         <div
           role="presentation"
           className="checkbox header-checkbox"
@@ -70,4 +77,4 @@ Item.defaultProps = {
   item: {},
 };
 
-export default connect(null, null)(Item);
+export default withRouter(connect(null, null)(Item));

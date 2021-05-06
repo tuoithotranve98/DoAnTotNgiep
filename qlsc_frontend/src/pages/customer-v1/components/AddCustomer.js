@@ -140,6 +140,7 @@ export class AddCustomer extends Component {
                 className="customer-name"
                 type="text"
                 name="name"
+                value={name || ''}
                 onChange={(e) => this.onChangeName(e.target.value)}
               />
             </div>
