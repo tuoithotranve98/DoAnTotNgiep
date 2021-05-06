@@ -10,23 +10,8 @@ function InfoStaffLeft(props) {
         <div className="title">Thông tin khách hàng</div>
         <div className="content">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <div className="field form-group">
-                <span style={{ color: 'red', marginRight: '4px' }}>*</span>
-                <label className="control-label">Tên sản phẩm</label>
-                <div className="controls">
-                  <input
-                    className="input"
-                    data-tip=""
-                    data-for="_extends_popup_error"
-                    name="name"
-                    placeholder="Nhập tên sản phẩm"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-            <div className="field form-group">
                 <span style={{ color: 'red', marginRight: '4px' }}>*</span>
                 <label className="control-label">Tên sản phẩm</label>
                 <div className="controls">
@@ -73,48 +58,9 @@ function InfoStaffLeft(props) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="card info-staff-left-02">
-        <div className="title">Thông tin địa chỉ</div>
-        <div className="content">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="field form-group">
-                <label className="control-label">Địa chỉ</label>
-                <div className="controls">
-                  <input
-                    className="input"
-                    data-tip=""
-                    data-for="_extends_popup_error"
-                    name="name"
-                    placeholder="Nhập tên sản phẩm"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-            <div className="field form-group">
-                <span style={{ color: 'red', marginRight: '4px' }}>*</span>
-                <label className="control-label">Tên sản phẩm</label>
-                <div className="controls">
-                  <input
-                    className="input"
-                    data-tip=""
-                    data-for="_extends_popup_error"
-                    name="name"
-                    placeholder="Nhập tên sản phẩm"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
         <div className="row">
-            <div className="col-md-6">
-
-            </div>
-            <div className="col-md-6">
-            <div className="field form-group">
+            <div className="col-md-12">
+              <div className="field form-group">
                 <span style={{ color: 'red', marginRight: '4px' }}>*</span>
                 <label className="control-label">Tên sản phẩm</label>
                 <div className="controls">
@@ -129,9 +75,8 @@ function InfoStaffLeft(props) {
               </div>
             </div>
           </div>
-        </div>
       </div>
-
+    </div>
     </div>
   );
 }
