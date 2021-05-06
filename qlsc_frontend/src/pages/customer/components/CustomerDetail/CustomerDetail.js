@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import CustomerDetailInfo from './CustomerDetailInfo/CustomerDetailInfo';
 import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
 import './styles.scss';
@@ -19,4 +20,4 @@ CustomerDetail.defaultProps = {
 
 };
 
-export default React.memo(connect(null, null)(CustomerDetail));
+export default withRouter(CustomerDetail);
