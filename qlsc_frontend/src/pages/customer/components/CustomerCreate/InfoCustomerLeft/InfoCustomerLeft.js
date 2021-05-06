@@ -5,19 +5,18 @@ import SelectDistricts from "../SelectAddress/SelectDistricts";
 import SelectWards from "../SelectAddress/SelectWards";
 import "./styles.scss";
 function InfoCustomerLeft(props) {
-  const { user, onChangeUser, onGetWard, wards, cities } = props;
+  const { customer, onChangeCustomer, onGetWard, wards, cities } = props;
 
   const onChangeSelectDistrict = (id) => {
-    if (id && user && user.city && (user.city.id === id)) {
+    if (id && customer && customer.city && (customer.city.id === id)) {
       return;
     } else if (id) {
       const district = Object.values(cities).find(
         (item) => item.id === parseInt(id)
       );
-      console.log('district', district);
       if (district) {
         onGetWard(district.code);
-        onChangeUser("city", district);
+        onChangeCustomer("city", district);
       }
     }
   };
@@ -27,7 +26,7 @@ function InfoCustomerLeft(props) {
       const ward = Object.values(wards).find(
         (item) => item.id === parseInt(id)
       );
-      if (ward) onChangeUser("ward", ward);
+      if (ward) onChangeCustomer("ward", ward);
     }
   }
 
@@ -47,8 +46,8 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="name"
-                    value={user.name || ''}
-                    onChange={(e) => onChangeUser("name", e.target.value)}
+                    value={customer.name || ''}
+                    onChange={(e) => onChangeCustomer("name", e.target.value)}
                     placeholder="Nhập tên khách hàng"
                   />
                 </div>
@@ -64,8 +63,8 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="code"
-                    value={user.code || ''}
-                    onChange={(e) => onChangeUser("code", e.target.value)}
+                    value={customer.code || ''}
+                    onChange={(e) => onChangeCustomer("code", e.target.value)}
                     placeholder="Nhập mã khách hàng"
                   />
                 </div>
@@ -83,8 +82,8 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="phone"
-                    value={user.phone || ''}
-                    onChange={(e) => onChangeUser("phone", e.target.value)}
+                    value={customer.phone || ''}
+                    onChange={(e) => onChangeCustomer("phone", e.target.value)}
                     placeholder="Nhập số điện thoại"
                   />
                 </div>
@@ -100,8 +99,8 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="email"
-                    value={user.email || ''}
-                    onChange={(e) => onChangeUser("email", e.target.value)}
+                    value={customer.email || ''}
+                    onChange={(e) => onChangeCustomer("email", e.target.value)}
                     placeholder="Nhập email"
                   />
                 </div>
@@ -123,8 +122,8 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="address"
-                    value={user.address || ''}
-                    onChange={(e) => onChangeUser("address", e.target.value)}
+                    value={customer.address || ''}
+                    onChange={(e) => onChangeCustomer("address", e.target.value)}
                     placeholder="Nhập địa chỉ"
                   />
                 </div>
@@ -136,7 +135,7 @@ function InfoCustomerLeft(props) {
                 <label className="control-label">Khu vực</label>
                 <div className="controls">
                   <SelectDistricts
-                    city={user.city}
+                    city={customer.city}
                     onSelect={(e) => onChangeSelectDistrict(e.target.value)}
                   />
                 </div>
@@ -151,8 +150,8 @@ function InfoCustomerLeft(props) {
                 <label className="control-label">Phường xã</label>
                 <div className="controls">
                   <SelectWards
-                    city={user.city}
-                    ward={user.ward}
+                    city={customer.city}
+                    ward={customer.ward}
                     onSelect={(e) => onChangeSelectWard(e.target.value)}
                   />
                 </div>

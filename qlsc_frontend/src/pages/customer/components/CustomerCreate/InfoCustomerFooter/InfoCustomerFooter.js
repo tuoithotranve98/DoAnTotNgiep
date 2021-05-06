@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import './styles.scss';
 function InfoStaffFooter(props) {
+  const { saveCustomer, cancel } = props;
   return (
     <div className="info-staff-footer">
      <div className="d-flex align-items-center justify-content-end">
-          <div className="dlv-button-cancel">
+          <div className="dlv-button-cancel" onClick={() => cancel()}>
               Hủy
           </div>
           <div className="d-flex align-items-center justify-content-between dlv-button-save">
@@ -21,7 +22,7 @@ function InfoStaffFooter(props) {
                 <rect x="0.228516" width="1" height="20" fill="#0088FF" />
               </svg>
             </div>
-            <span>
+            <span onClick={() => saveCustomer()}>
               Lưu
             </span>
           </div>

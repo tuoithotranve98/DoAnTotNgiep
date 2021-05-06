@@ -20,40 +20,45 @@ const initialState = {
 };
 function CustomerCreate(props) {
   const { onClearWards, onSaveCustomer, positionCallApi } = props;
-  const [user, setUser] = useState(initialState);
+  const [customer, setCustomer] = useState(initialState);
 
   useEffect(() => {
-    if (positionCallApi) setUser({ ...user, ward: null });
+    if (positionCallApi) setCustomer({ ...customer, ward: null });
   }, [positionCallApi]);
 
-  const onChangeUser = (type, value) => {
-    setUser(() => {
+  const onChangeCustomer = (type, value) => {
+    setCustomer(() => {
       return {
-        ...user,
+        ...customer,
         [type]: value,
       };
     });
   };
 
   const saveCustomer = () => {
-    onSaveCustomer(user).then((json) => {
+    onSaveCustomer(customer).then((json) => {
       if (json && json.success) {
-        setUser(initialState);
+        setCustomer(initialState);
         onClearWards();
         pushstate(props.history, "/customer");
       }
     });
   };
+  const cancel = () => {
+    setUser(initialState);
+    pushstate(props.history, "/customer");
+  };
+
   return (
     <div className="customer-screen-wrapper-create">
       <div className="row">
         <div className="col-md-8">
-          <InfoCustomerLeft onChangeUser={onChangeUser} user={user} />
+          <InfoCustomerLeft onChangeCustomer={onChangeCustomer} customer={customer} />
         </div>
         <div className="col-md-4">
-          <InfoCustomerRight onChangeUser={onChangeUser} user={user} />
+          <InfoCustomerRight onChangeCustomer={onChangeCustomer} customer={customer} />
         </div>
-        <InfoCustomerFooter />
+        <InfoCustomerFooter saveCustomer={saveCustomer} cancel={cancel} />
       </div>
     </div>
   );

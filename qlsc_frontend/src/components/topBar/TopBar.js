@@ -63,7 +63,7 @@ function TopBar(props) {
                 &nbsp;>&nbsp;
               </span>
               <span>
-                Chi tiết sản phẩm
+                Chi tiết khách hàng
               </span>
             </React.Fragment>
           );

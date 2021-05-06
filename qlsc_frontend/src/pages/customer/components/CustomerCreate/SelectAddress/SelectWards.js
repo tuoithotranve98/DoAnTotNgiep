@@ -19,7 +19,6 @@ class SelectWards extends React.Component {
 
   render() {
     const { ward } = this.props;
-    console.log('check wards', ward);
     const listWard = this.findListWard();
     const defaultValue = listWard
       ? listWard.find((wardElm) => wardElm.id === (ward && ward.id))

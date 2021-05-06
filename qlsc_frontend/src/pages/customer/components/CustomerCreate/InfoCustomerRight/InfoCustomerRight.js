@@ -1,9 +1,9 @@
 /* eslint-disable no-shadow */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import "./styles.scss";
 function InfoCustomerRight(props) {
-  const { user, onChangeUser } = props;
+  const { customer, onChangeCustomer } = props;
   return (
     <div className="info-customer-right">
       <div className="card info-customer-right-01">
@@ -15,8 +15,8 @@ function InfoCustomerRight(props) {
               <textarea
                 name="description"
                 placeholder="Ghi chú"
-                value={user.description || ''}
-                onChange={(e) => onChangeUser("description", e.target.value)}
+                value={customer.description || ''}
+                onChange={(e) => onChangeCustomer("description", e.target.value)}
               />
             </div>
           </div>
