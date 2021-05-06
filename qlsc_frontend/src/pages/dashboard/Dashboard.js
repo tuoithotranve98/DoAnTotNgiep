@@ -34,7 +34,7 @@ function Dashboard(props) {
         <Switch>
           <Route exact path="/customers" component={CustomerList} />
           <Route exact path="/customer/create" component={CustomerCreate} />
-          <Route exact path="/customer/detail/:id" component={CustomerDetail} />
+          <Route exact path="/customer/detail/:id([1-9]+[0-9]*)" component={CustomerDetail} />
           <Route exact path="/maintenance-card/create" component={MainCardCreate} />
           <Route exact path="/maintenance-cards" component={MainCardList} />
           <Route exact path="/staffs" component={StaffList} />

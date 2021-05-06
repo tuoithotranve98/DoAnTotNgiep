@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useHistory } from 'react-router';
 import { withRouter } from "react-router-dom";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
 function Item(props) {
   const { checked, customer } = props;
+  const history = useHistory();
 
   const onCheck = (e) => {
     e.stopPropagation();
@@ -15,7 +17,7 @@ function Item(props) {
 
   const onRedirectDetail = (e) => {
     e.stopPropagation();
-    pushstate(props.history, `/customer/detail/${customer.id}`);
+    pushstate(history, `/customer/detail/${customer.id}`);
   }
 
   return (
