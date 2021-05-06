@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import InfoCustomerFooter from './InfoCustomerFooter/InfoCustomerFooter';
 import InfoCustomerLeft from './InfoCustomerLeft/InfoCustomerLeft';
 import InfoCustomerRight from './InfoCustomerRight/InfoCustomerRight';
 import './styles.scss';
@@ -27,6 +28,7 @@ function CustomerCreate(props) {
         <div className="col-md-4">
             <InfoCustomerRight />
         </div>
+        <InfoCustomerFooter />
       </div>
     </div>
   );
