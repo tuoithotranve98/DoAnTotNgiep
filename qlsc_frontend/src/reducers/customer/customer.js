@@ -5,18 +5,23 @@ const initialState = {
     customers: [],
     totalItems: 0,
     totalPages: 0,
-    customerItem: {}
+    customer: {}
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-      case actionTypes.GET_CUSTOMERS:
+      case actionTypes.RECEIVE_CUSTOMERS:
         return {
           ...state,
           customers: action.customers,
           currentPage: action.currentPage,
           totalItems: action.totalItems,
           totalPages: action.totalPages,
+        }
+      case actionTypes.RECEIVE_CUSTOMER:
+        return {
+          ...state,
+          customer: action.customer,
         }
       default:
         return state

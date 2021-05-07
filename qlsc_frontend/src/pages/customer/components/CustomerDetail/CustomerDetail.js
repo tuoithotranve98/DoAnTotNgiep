@@ -1,17 +1,23 @@
 /* eslint-disable no-shadow */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { getCustomerById } from '../../actions/customerAction';
 import CustomerDetailInfo from './CustomerDetailInfo/CustomerDetailInfo';
 import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
+import { useParams } from "react-router-dom";
 import './styles.scss';
 function CustomerDetail(props) {
-  const {  } = props;
+  const { id } = useParams();
+  const { customer, onGetCustomerById } = props;
   useEffect(() => {
+    if (id) {
+      onGetCustomerById(id);
+    }
   }, []);
   return (
     <div className="customer-screen-wrapper-detail">
-        <CustomerDetailInfo />
+        <CustomerDetailInfo customer={customer} />
         <HistoryMainCard />
     </div>
   );
@@ -19,5 +25,17 @@ function CustomerDetail(props) {
 CustomerDetail.defaultProps = {
 
 };
+const mapStateToProps = (state) => {
+  const {
+    customer: { customer }
+  } = state
+  return {
+    customer,
+  }
+}
 
-export default withRouter(CustomerDetail);
+const mapDispatchToProps = (dispatch) => ({
+  onGetCustomerById: (id) => dispatch(getCustomerById(id)),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CustomerDetail));

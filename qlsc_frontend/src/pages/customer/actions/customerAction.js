@@ -20,7 +20,10 @@ export const getListCustomer = (options = {}) => (dispatch, getState) => {
 export const getCustomerById = (id) => (dispatch, getState) => {
   return dispatch(fetch(`${API_CUSTOMER}/customers/${id}`))
     .then((json) => {
-      if (json) return json;
+      if (json) {
+        dispatch(getCustomer(json));
+      }
+      return json;
     })
     .catch((e) => {
       return e;
@@ -61,13 +64,18 @@ export const saveCustomer = (customer = {}) => (dispatch, getState) => {
     });
 };
 
+export const getCustomer = (customer) => ({
+  type: actionTypes.RECEIVE_CUSTOMER,
+  customer,
+});
+
 export const getCustomers = (
   customers,
   currentPage,
   totalItems,
   totalPages
 ) => ({
-  type: actionTypes.GET_CUSTOMERS,
+  type: actionTypes.RECEIVE_CUSTOMERS,
   customers,
   currentPage,
   totalItems,

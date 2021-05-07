@@ -32,13 +32,13 @@ function Wrapper(props) {
   };
 
   const child = renderCheckInfo();
-  const isEmpty = customer && customer.length;
+  const isEmpty = (customer && !customer.totalItems);
   if (isEmpty) {
     return (
       <div className="delivery-collations-list-wrapper">
         <div id="delivery-collations-filter-empty-wrapper">
           <div id="delivery-collations-filter-empty-text">
-              Không có phiếu sửa chữa
+              Không có khách hàng
           </div>
           <div id="delivery-collations-filter-empty-icon">
             <Icons.OrderCollationFilterEmpty />
@@ -57,10 +57,10 @@ function Wrapper(props) {
           child={child}
         />
         <List
-          customer={props.customer}
+          customer={customer}
         />
         <Footer
-          customer={props.customer}
+          customer={customer}
           resetSelected={resetSelected}
           isEmpty={isEmpty}
         />
