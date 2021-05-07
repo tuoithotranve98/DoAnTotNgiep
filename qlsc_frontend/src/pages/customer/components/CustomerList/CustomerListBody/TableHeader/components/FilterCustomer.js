@@ -1,35 +1,9 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import debounce from 'utils/debounce';
 import '../styles/filterCustomer.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
-function FilterMainCard(props) {
-  const { showFilter } = props;
-  const [filterText, setFilterText] = useState('');
-
-  useEffect(() => {
-    const { filterInfo, fetching } = props;
-    if (filterText !== filterInfo.filterText && !fetching) {
-      setFilterText(filterText);
-    }
-  }, [filterText]);
-
-  const searchChange = debounce((e) => search(e), 400);
-
-  const onChangeText = (e) => {
-    e.persist();
-    setFilterText(e.target.value);
-    searchChange(e.target.value);
-  };
-
-  const search = (e) => {
-    const { filterInfo } = props;
-    filterInfo.filterText = e;
-    // props.fetchOrderCollation(filterInfo);
-  };
+function FilterCustomer(props) {
+  const { handleInputOnchange, search } = props;
   return (
     <div id="filter-customer-wrapper">
       <div id="filter-customer-by-tab-wrapper">
@@ -49,8 +23,8 @@ function FilterMainCard(props) {
           <input
             id="filter-customer-search-input"
             placeholder="Tìm kiếm khách hàng theo tên khách hàng hoặc số điện thoại"
-            value={filterText}
-            onChange={(e) => onChangeText(e)}
+            value={search}
+            onChange={(e) => handleInputOnchange(e)}
           />
         </div>
       </div>
@@ -58,19 +32,14 @@ function FilterMainCard(props) {
   );
 }
 
-FilterMainCard.defaultProps = {
+FilterCustomer.defaultProps = {
 };
 const mapStateToProps = state => {
-  const { products: { filterInfo, ui: { fetching } } } = state;
-  return {
-    filterInfo,
-    fetching,
-  };
+  //
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  showFilter: (show) => dispatch(showFilter(show)),
-  fetchOrderCollation: (filter, page) => dispatch(fetchOrderCollation(filter, page))
+  //
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterMainCard);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterCustomer);

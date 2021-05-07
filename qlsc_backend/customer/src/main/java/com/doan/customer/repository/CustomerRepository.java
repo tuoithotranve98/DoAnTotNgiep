@@ -19,7 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Pagin
 
     @Query("SELECT c FROM Customer c WHERE c.status = 1 AND (c.name LIKE %?1%"
             + " OR c.code LIKE %?1%"
-            + " OR c.address LIKE %?1%"
             + " OR c.email LIKE %?1%"
             + " OR c.phone LIKE %?1%)")
     Page<Customer> search(Pageable pageable, String keyWork);

@@ -4,20 +4,16 @@ import { connect } from 'react-redux';
 import FilterCustomer from './components/FilterCustomer';
 
 function TableHeader(props) {
-  const { showFilter } = props;
+  const { search, handleInputOnchange } = props;
   return (
     <div id="delivery-collations-table-header" style={{ position: 'relative' }}>
-      <FilterCustomer />
+      <FilterCustomer search={search} handleInputOnchange={handleInputOnchange}/>
     </div>
   );
 }
 
 const mapStateToProps = state => {
-  const { staffs: { filterInfo } } = state;
-  const showFilter = filterInfo && filterInfo.showFilter;
-  return {
-    showFilter,
-  };
+  //
 };
 
 export default connect(mapStateToProps, null)(TableHeader);
