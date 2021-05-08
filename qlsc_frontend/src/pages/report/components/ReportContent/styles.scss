@@ -1,0 +1,101 @@
+.report-content-container{
+  margin-top: 20px;
+    @media (max-width: 985px) {
+        .report-general-container {
+          justify-content: center;
+          .report-general-order-container,
+          .report-general-today-container,
+          .report-general-order-channel-container,
+          .report-general-favor-channel-container,
+          .report-top-product-container,
+          .report-general-mapping-product-container {
+            width: 100% !important;
+          }
+        }
+      }
+      
+      .report-general-container {
+        padding: 5px 20px 10px 20px;
+        .general-header {
+          padding: 0 0 12px 0;
+          .title {
+            color: #212B35;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            svg {
+              margin-left: 5px;
+            }
+          }
+          a {
+            color: #0088FF;
+            cursor: pointer;
+            &:hover {
+              color: #0088FF;
+            }
+            svg {
+              margin-left: 5px;
+            }
+          }
+          .learn-more {
+            color: #9A9A9A;
+            text-decoration: underline;
+            &:hover {
+              color: #9A9A9A;
+              text-decoration: underline;
+            }
+          }
+        }
+        .report-general-order-container {
+          width: 60%;
+          min-width: 550px;
+          margin: 5px;
+          .general-report-header {
+      
+          }
+        }
+        .report-general-today-container {
+          width: calc(39% - 20px);
+          height: 367px;
+          min-width: 350px;
+          margin: 5px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .report-general-order-channel-container {
+          width: 39%;
+          min-width: 350px;
+          margin: 5px;
+        }
+        .report-general-favor-channel-container {
+          width: calc(60% - 20px);
+          min-width: 550px;
+          margin: 5px;
+        }
+        .report-top-product-container {
+          width: 39%;
+          margin: 5px;
+        }
+        .report-general-mapping-product-container {
+          width: calc(60% - 20px);
+          margin: 5px;
+          .report-card {
+            //min-width: 600px;
+            overflow: auto;
+            &::-webkit-scrollbar {
+              height: 5px;
+              width: 5px;
+              background: #FFF;
+              //border-radius: 5px;
+            }
+            &::-webkit-scrollbar-thumb {
+              background: #C4C4C4;
+              border-radius: 5px;
+            }
+          }
+        }
+      }
+      
+}

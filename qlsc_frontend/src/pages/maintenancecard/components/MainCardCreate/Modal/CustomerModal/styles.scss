@@ -1,0 +1,31 @@
+.content {
+    .control-label{
+        
+        margin-bottom: 10px;
+    }
+    input{
+        display: inline-block;
+        // vertical-align: baseline;
+        width: auto;
+        height: 34px;
+        padding: 1px;
+        margin: 0;
+        color: #000;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 4px 2px 4px 6px;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: normal;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        font-size: 13px;
+        font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+        Roboto, Helvetica Neue, sans-serif;
+        border-style: inset;
+        border: 1px solid #c4cdd5;
+        border-radius: 3px !important;
+        outline-color: #0088ff;
+    }
+}

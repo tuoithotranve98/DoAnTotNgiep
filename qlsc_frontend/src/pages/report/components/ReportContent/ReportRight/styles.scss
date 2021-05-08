@@ -1,0 +1,62 @@
+@media (max-width: 1068px) {
+    .instant-param {
+      .item-info {
+        margin: 9px 5px!important;
+      }
+    }
+  }
+  .general-info {
+    .content_body__bottom_empty {
+      text-align: center;
+    }
+    .general-info-content {
+      width: calc(50% - 2px);
+      background-color: #e8f4fb;
+      border-radius: 10px;
+      padding: 12px;
+      .content {
+        width: calc(100% - 42px);
+        margin-left: 10px;
+      }
+      .quantity {
+        font-weight: 500;
+        font-size: 22px;
+      }
+    }
+  }
+  
+  .instant-param {
+    width: 100%;
+    .item-info {
+      margin: 9px 5px;
+      justify-content: center;
+      width: calc(100% / 2 - 10px);
+      span {
+        width: 100%;
+        text-align: center;
+      }
+      .value {
+        color: #1E94D7;
+        font-weight: 500;
+        font-size: 24px;
+      }
+      .other-value {
+        color: #A0A0A0;
+      }
+    }
+    .border-right {
+      border-right: 1px solid #E3E3E3;
+    }
+  
+  }
+  .general-report-header{
+    padding: 0 0 12px 0;
+    .title {
+        color: #212B35;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+  }
+  

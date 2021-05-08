@@ -1,6 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 @import "reset.scss";
 @import "checkbox.scss";
+@import "datetime.scss";
+@import "chart.scss";
 // @import "./../../dist/css/bootstrap-datepicker.min.css";
 html,
 body {
@@ -8,22 +10,20 @@ body {
     margin: 0;
     #app {
       height: 100%;
-      #market-place-wrapper {
-        overflow: auto;
-        height: 100%;
-        font-size: 14px;
-        font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-        background: #F2F4F8;
-        position: relative;
-        #market-place-curtain {
-            height: 100%;
-            position: absolute;
-            width: 100%;
-            background: white;
-            opacity: 0.2;
-            z-index: 1;
-        }
-      }
+      overflow: auto;
+      height: 100%;
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: #F2F4F8;
+      position: relative;
+        // #market-place-curtain {
+        //     height: 100%;
+        //     position: absolute;
+        //     width: 100%;
+        //     background: white;
+        //     opacity: 0.2;
+        //     z-index: 1;
+        // }
   }
   .ranges li:last-child {
     display: none;

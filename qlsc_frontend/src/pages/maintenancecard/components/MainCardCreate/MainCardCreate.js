@@ -7,6 +7,7 @@ import ProductMainCard from './ProductMainCard/ProductMainCard';
 import InfoCustomer from './InfoCustomer/InfoCustomer';
 import InfoMainCard from './InfoMainCard/InfoMainCard';
 import TitleAndAction from './TitleAndAction/TitleAndAction';
+import CustomerModal from './Modal/CustomerModal/CustomerModal';
 
 function MainCardCreate(props) {
   return (
@@ -23,6 +24,7 @@ function MainCardCreate(props) {
                 </div>
             </div>
         </div>
+        <CustomerModal />
     </div>
   );
 }

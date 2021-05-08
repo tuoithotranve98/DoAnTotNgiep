@@ -1,0 +1,41 @@
+.highcharts-figure {
+    margin-top: 10px;
+    .list-legend {
+      display: flex;
+      flex-wrap: wrap;
+      margin: auto;
+      justify-content: center;
+      padding: 0 10px 20px 10px;
+  
+      div {
+        display: flex;
+        cursor: pointer;
+        position: relative;
+        margin-left: 10px;
+        align-items: center;
+  
+        .circle-icon {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          //margin-top: 5px;
+          margin-right: 5px;
+        }
+  
+        &.un-selected {
+          color: #c4c4c4;
+  
+          .circle-icon {
+            background: #c4c4c4 !important;
+          }
+        }
+      }
+    }
+    .faded {
+      color: #c4c4c4!important;
+      .circle-icon {
+        background-color: #c4c4c4!important;
+      }
+    }
+  }
+  

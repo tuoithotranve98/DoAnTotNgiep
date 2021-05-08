@@ -97,7 +97,7 @@ function FilterByDate() {
     >
       <DatetimeRangePicker
         id="datetimeRangePicker"
-        opens='center'
+        opens='right'
         drops='down'
         startDate={startDate}
         endDate={endDate}

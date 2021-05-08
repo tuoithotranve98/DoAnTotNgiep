@@ -28,13 +28,14 @@
   .order-list-search-wrapper {
     min-height: 100px;
     max-height: 500px;
-    width: calc(100% - 200px);
+    width: calc(100% - 0px);
     background: #FFFFFF;
     border: 1px solid rgba(33, 43, 53, 0.3);
     box-sizing: border-box;
     border-radius: 4px;
     top: 40px;
     padding: 10px 15px 0 15px;
+    z-index: 999;
     .head {
       font-weight: 500;
       border-bottom: 1px solid #C0C0C0;
