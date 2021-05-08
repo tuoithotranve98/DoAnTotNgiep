@@ -6,6 +6,9 @@ import debounce from "utils/debounce";
 import "./styles.scss";
 import { connect } from "react-redux";
 import OrderListSearch from "./OrderListSearch/OrderListSearch";
+import { IconIsEmptyOrder } from "../../../../../product/commons/Icons";
+import * as Icons from 'pages/maintenancecard/commons/Icons'
+import { getFilterCustomers } from "../../../../../customer/actions/customerAction";
 
 const dataFake = [
   {
@@ -569,6 +572,7 @@ const dataFake = [
 ];
 let timeOut;
 function SearchCustomer(props) {
+  const { getListCustomer } = props;
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
@@ -577,7 +581,6 @@ function SearchCustomer(props) {
   const [total, setTotal] = useState(0);
   const [list, setList] = useState(dataFake);
   const [metaData, setMetaData] = useState({});
-  const [textSearch, setTextSearch] = useState("");
   useEffect(() => {
     return () => {
       clearTimeout(timeOut);
@@ -600,12 +603,12 @@ function SearchCustomer(props) {
     setList([]);
     setMetaData({});
     setSearch(value);
-    // debounceSearch(value, true, 1);
+    debounceSearch(value, true, 1);
   };
 
   const onFocus = () => {
     setFetching(true);
-    // getOrderCollation(search || '', undefined, 1);
+    getListCustomerAction(search || '', undefined, 1);
     setFocus(true);
   };
 
@@ -618,30 +621,32 @@ function SearchCustomer(props) {
     }, 0);
   };
 
-  // const debounceSearch = debounce((value, reset, p) => {
-  //   getOrderCollation(value, reset, p);
-  // }, 400);
+  const debounceSearch = debounce((value, reset, p) => {
+    getListCustomerAction(value, reset, p);
+  }, 400);
 
-  const getOrderCollation = (s, reset, p) => {
-    // const { filterInfo, locationId, store } = props;
-    // const selectedStore = [];
-    // const selectedLocation = [];
-    // selectedLocation.push(locationId);
-    // filterInfo.filterText = s;
-    // filterInfo.selectedStore = selectedStore;
-    // filterInfo.selectedLocation = selectedLocation;
-    // props.fetchFilterOrderCollation(filterInfo, p).then(json => {
-    //   setFetching(false);
-    //   if (json && json.channel_order_collation && json.metadata) {
-    //     const newOrder = json.channel_order_collation;
-    //     setMetaData(json.metadata);
-    //     if (reset) {
-    //       setList([...newOrder]);
-    //     } else {
-    //       setList(list.concat([...newOrder]));
-    //     }
-    //   }
-    // });
+  const getListCustomerAction = (s, reset, p) => {
+    const option={};
+    option.page=p;
+    props.getFilterCustomers(search, option).then(json => {
+      setFetching(false);
+      console.log("json", json);
+        if (json && json.customers) {
+          const { customers, currentPage, totalItems, totalPages } = json;
+          const temp= {};
+          temp.page = currentPage
+          temp.total = totalPages
+          const newOrder = customers;
+          console.log("newOrder", newOrder);
+          setMetaData(temp);
+          if (reset) {
+            setList([...newOrder]);
+          } else {
+            setList(list.concat([...newOrder]));
+          }
+          console.log("list ", list);
+      }
+    });
   };
 
   const onScroll = (e) => {
@@ -650,7 +655,7 @@ function SearchCustomer(props) {
       200
     ) {
       if (metaData.page < metaData.total) {
-        // getOrderCollation(search, false, metaData.page + 1);
+        getListCustomerAction(search, false, metaData.page + 1);
       }
     }
   };
@@ -660,8 +665,9 @@ function SearchCustomer(props) {
       <div className="position-absolute order-list-search-wrapper">
         <div className="d-flex align-items-center head">
           <div className="image-create">
+            <Icons.IconCustomerIsEmpty />
           </div>
-          <div className="text">Thêm mới khách hàng</div>
+          <div className="text" style={{ marginLeft: 10 }}>Thêm mới khách hàng</div>
         </div>
         <div
           className="list-item-search"
@@ -675,9 +681,9 @@ function SearchCustomer(props) {
             onClick={(item) => {
               // props.addItemOrderCollation(item);
               setShow(false);
-              // setTextSearch('');
+              setSearch('');
             }}
-            list={dataFake}
+            list={list}
             fetching={fetching}
           />
         </div>
@@ -686,18 +692,21 @@ function SearchCustomer(props) {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-between position-relative search-order-container">
+    <div className="d-flex align-items-center justify-content-between position-relative search-maintenancecard-container">
       <div className="position-relative search-wrapper">
         <Input
           onChange={(e) => onChangeText(e)}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeHolder="Tìm kiếm đơn hàng cần đối soát theo mã đơn hàng, mã vận đơn"
+          placeHolder="Tìm kiếm khách hàng theo tên khách hàng, số điện thoại"
         />
       </div>
-      {true ? renderSearch() : null}
+      {focus ? renderSearch() : null}
     </div>
   );
 }
 
-export default connect(null, null)(SearchCustomer);
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getFilterCustomers: (search, page) => dispatch(getFilterCustomers(search, page)),
+})
+export default connect(null, mapDispatchToProps)(SearchCustomer);

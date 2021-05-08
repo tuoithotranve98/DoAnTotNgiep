@@ -9,7 +9,7 @@ function ProductMainCard(props) {
       <div className="title">
         Thông tin đơn hàng đối soát
       </div>
-      <ProductMainCardList />
+      {/* <ProductMainCardList /> */}
     </div>
   );
 }

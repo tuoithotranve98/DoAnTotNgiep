@@ -18,21 +18,7 @@ function TitleAndAction(props) {
         <div className="header-title">
           <div style={{ fontSize: '22px' }}>Thêm mới phiếu sửa chữa</div>
         </div>
-        <div className="header-action">
-          <button
-            className="d-flex align-items-center justify-content-between btn btn-create"
-            type="button"
-            onClick={onClick}
-          >
-            <span
-              className="d-flex align-items-center justify-content-center"
-              style={{ marginLeft: 10 }}
-            >
-              <Icons.Create />
-            </span>
-            Tạo mới khách hàng
-          </button>
-        </div>
+
       </div>
     </div>
   );

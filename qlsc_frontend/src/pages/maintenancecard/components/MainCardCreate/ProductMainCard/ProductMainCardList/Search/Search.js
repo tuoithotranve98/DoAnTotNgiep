@@ -46,7 +46,7 @@ function Search(props) {
 
   const onFocus = () => {
     setFetching(true);
-    getOrderCollation(search || '', undefined, 1);
+    // getOrderCollation(search || '', undefined, 1);
     setFocus(true);
   };
 

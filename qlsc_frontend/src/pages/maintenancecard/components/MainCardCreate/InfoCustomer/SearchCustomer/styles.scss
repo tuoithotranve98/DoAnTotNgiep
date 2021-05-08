@@ -1,4 +1,4 @@
-.search-order-container {
+.search-maintenancecard-container {
   margin-top: 10px;
   .import-excel-btn {
     display: flex;
@@ -37,10 +37,15 @@
     padding: 10px 15px 0 15px;
     z-index: 999;
     .head {
-      font-weight: 500;
-      border-bottom: 1px solid #C0C0C0;
-      padding: 0 15px 5px 15px;
+      // font-weight: 500;
+      // border-bottom: 1px solid #C0C0C0;
+      padding: 10px 15px;
       margin: 0 -15px;
+      cursor: pointer;
+      &:hover {
+        background: #0088FF;
+        color: #FFF;
+      }
     }
     .order-item {
       padding: 10px 15px;
@@ -108,5 +113,7 @@
     .text {
       margin-top: 10px;
     }
+  }
+  .image-info{
   }
 }

@@ -3,15 +3,16 @@ import { API_CUSTOMER } from "constants/api";
 import { fetch } from "utils/fetchMiddleware";
 
 export const getListCustomer = (search = '', option = {}) => (dispatch, getState) => {
+  const { customers, currentPage, totalItems, totalPages } = dispatch(getFilterCustomers(search, option));
+  dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+};
+export const getFilterCustomers = (search = '', option = {}) => (dispatch, getState) => {
   const filter = processOption(search, option);
   return dispatch(fetch(`${API_CUSTOMER}/customers${filter}`, {
     method: 'GET',
   }))
     .then((json) => {
-      if (json && json.customers) {
-        const { customers, currentPage, totalItems, totalPages } = json;
-        dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
-      }
+      return json
     })
     .catch((e) => {
       return e;

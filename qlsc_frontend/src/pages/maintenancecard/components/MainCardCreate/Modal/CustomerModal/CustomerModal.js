@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 function CustomerModal(props) {
   //   const { show } = props;
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleClose = () => {
     // setShow(false)
   };
@@ -164,7 +164,7 @@ function CustomerModal(props) {
                 </div>
               </div>
             </div>
-          
+
           </div>
         </div>
       </Modal.Body>
