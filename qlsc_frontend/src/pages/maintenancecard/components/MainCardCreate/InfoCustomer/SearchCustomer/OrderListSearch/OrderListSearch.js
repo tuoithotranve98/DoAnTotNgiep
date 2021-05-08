@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import OrderItemSearch from './OrderItemSearch';
-
+import Guard from 'components/Guard/Guard'
 
 function OrderListSearch(props) {
   const {
@@ -10,11 +10,11 @@ function OrderListSearch(props) {
   const {
     fetching,
   } = props;
-  // if (fetching) {
-  //   return (
-  //     <Guard />
-  //   );
-  // }
+  if (fetching) {
+    return (
+      <Guard />
+    );
+  }
   if (list.length === 0) {
     return (
       <div className="no-content-found">
@@ -37,6 +37,7 @@ function OrderListSearch(props) {
               index={index}
               item={item}
               onClick={(a) => onClick(a)}
+              setShowFilterCustomer={(a)=>props.setShowFilterCustomer(a)}
             />
           );
         })
