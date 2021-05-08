@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';

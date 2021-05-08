@@ -1,7 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-const-assign */
-/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -17,17 +13,6 @@ function Wrapper(props) {
     selectedIds, selectedMainCardIds, fetching, isEmpty
   } = props;
   const listRef = React.useRef();
-
-//   useEffect(() => {
-//     const filterInfo = getFilterFromURL();
-//     listRef && listRef.current && listRef.current.getData(filterInfo);
-//   }, []);
-
-//   useEffect(() => {
-//     if (!fetching) {
-//         selectedMainCardIds([]);
-//     }
-//   }, [fetching]);
 
   const getFilterFromURL = () => {
     const { history } = props;

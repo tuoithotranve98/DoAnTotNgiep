@@ -1,26 +1,36 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router-dom";
 import '../../styles/item.scss';
 import ReactTooltip from 'react-tooltip';
-import { moneyFormat } from 'utils/moneyFormat';
-import * as Icons from 'pages/maintenancecard/commons/Icons';
-
+import { staff_role } from "../../../../../../commons/staffConstants";
+import pushstate from "utils/pushstate";
 
 function Item(props) {
-  const { checked } = props;
+  const { checked, staff } = props;
   const onCheck = (e) => {
     e.stopPropagation();
     const { onCheckBoxClick } = props;
     onCheckBoxClick(id);
   };
 
+  const handleTextRole = () => {
+    if (staff && staff.role) {
+      const role = staff_role.find((role) => role.id === staff.role);
+      if (role) return role.name;
+    }
+    return 'Chủ cửa hàng';
+  }
+
+  const onRedirectDetail = () => {
+    pushstate(props.history, `/staff/detail/${staff.id}`);
+  }
 
   return (
     <div className="staff-item-wrapper">
       <div
         className="d-flex staff-listing-item"
+        onClick={() => onRedirectDetail()}
       >
         <div role="presentation" className="checkbox header-checkbox" onClick={(e) => onCheck(e)}>
           <input
@@ -39,11 +49,10 @@ function Item(props) {
             <a
               data-tip
               data-for={`order_collation_number_id_${1}`}
-            //   href={calcHref(connection.channel_type)}
               target="_blank"
               style={{ textDecoration: 'none' }}
             >
-              CODE01
+              {(staff && staff.code) || ''}
               <ReactTooltip
                 place="top"
                 type="dark"
@@ -51,29 +60,29 @@ function Item(props) {
                 isMultiline
                 id={`order_collation_number_id_${1}`}
               >
-                CODE01
+                {(staff && staff.code) || ''}
               </ReactTooltip>
 
             </a>
           </span>
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-            Nguyễn Thọ
+        {(staff && staff.name) || ''}
         </div>
         <div className="margin-right20 delivery-collation-location"
           data-tip
           data-for={`delivery-collation-location_${1}`}
         >
-            nxtho0109@gmail.com
+            {(staff && staff.email) || ''}
         </div>
         <div className="margin-right20 item-list" style={{ color: status.color }}>
-            0357004230
+        {(staff && staff.phone) || ''}
         </div>
         <div className="margin-right20 item-list delivery-collation-code">
-            Nhân viên sữa chưa
+        {handleTextRole()}
         </div>
         <div className="margin-right20 item-list order-collations-total-amount">
-            4
+        {(staff && staff.totalMaintenanceCard) || 0}
         </div>
       </div>
     </div>
@@ -84,4 +93,4 @@ Item.defaultProps = {
   item: {},
 };
 
-export default connect(null, null)(Item);
+export default withRouter(connect(null, null)(Item));

@@ -55,7 +55,7 @@ function InfoStaffLeft(props) {
                     data-for="_extends_popup_error"
                     name="phone"
                     value={staff.phone || ""}
-                    onChange={(e) => onChangeCustomer("phone", e.target.value)}
+                    onChange={(e) => onChangeStaff("phone", e.target.value)}
                     placeholder="Nhập số điện thoại"
                   />
                 </div>
@@ -74,9 +74,7 @@ function InfoStaffLeft(props) {
                     data-for="_extends_popup_error"
                     name="address"
                     value={staff.address || ""}
-                    onChange={(e) =>
-                      onChangeCustomer("address", e.target.value)
-                    }
+                    onChange={(e) => onChangeStaff("address", e.target.value)}
                     placeholder="Nhập địa chỉ"
                   />
                 </div>

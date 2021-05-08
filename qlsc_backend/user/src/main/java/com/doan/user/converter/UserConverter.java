@@ -17,8 +17,8 @@ public class UserConverter {
         UserDTO userDTO = new UserDTO();
         userDTO.setCode(user.getCode());
         userDTO.setEmail(user.getEmail());
-        userDTO.setFullName(user.getFullName());
-        userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setName(user.getFullName());
+        userDTO.setPhone(user.getPhoneNumber());
         userDTO.setPassword(user.getPassword());
         userDTO.setStatus(user.getStatus());
         userDTO.setCreatedDate(user.getCreatedDate());

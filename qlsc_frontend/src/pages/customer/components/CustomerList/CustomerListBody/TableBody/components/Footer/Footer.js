@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Pagination from "components/Pagination/Pagination";
 import { connect } from "react-redux";
 import "../../styles/footer.scss";
@@ -20,7 +20,7 @@ function Footer(props) {
 
   const calculateEnd = () => {
     if (totalPages === 1) {
-      return totalItems;
+      return totalItems + 1;
     }
     if (currentPage === 1) {
       return (currentPage * size);

@@ -13,11 +13,7 @@ function TableHeader(props) {
 }
 
 const mapStateToProps = state => {
-  const { staffs: { filterInfo } } = state;
-  const showFilter = filterInfo && filterInfo.showFilter;
-  return {
-    showFilter,
-  };
+  //
 };
 
 export default connect(mapStateToProps, null)(TableHeader);

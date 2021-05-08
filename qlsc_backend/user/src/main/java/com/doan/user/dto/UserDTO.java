@@ -12,10 +12,8 @@ public class UserDTO extends BaseDTO{
     private String code;
     private String email;
     private String password;
-    @JsonProperty("full_name")
-    private String fullName;
-    @JsonProperty("phone_number")
-    private String phoneNumber;
+    private String name;
+    private String phone;
     private String address;
     private byte status;
     private byte role;

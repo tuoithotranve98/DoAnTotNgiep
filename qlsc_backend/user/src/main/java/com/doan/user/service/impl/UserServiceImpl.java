@@ -101,7 +101,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO insertUser(UserDTO userDTO) throws CodeExistedException {
-
         User user = new User();
         user.setId(userDTO.getId());
         user.setAddress(userDTO.getAddress());
@@ -110,10 +109,10 @@ public class UserServiceImpl implements UserService {
         user.setModifiedDate(new Date());
         user.setCreatedDate(new Date());
         user.setPassword(encoder.encode(userDTO.getPassword()));
-        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setPhoneNumber(userDTO.getPhone());
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
-        user.setFullName(userDTO.getFullName());
+        user.setFullName(userDTO.getName());
 
         try {
             return userConverter.convertToDTO(userRepository.save(user));
@@ -132,10 +131,10 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Byte.parseByte(String.valueOf(1)));
         user.setModifiedDate(new Date());
         user.setCreatedDate(user.getCreatedDate());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setPhoneNumber(userDTO.getPhone());
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
-        user.setFullName(userDTO.getFullName());
+        user.setFullName(userDTO.getName());
         try {
 
             return userConverter.convertToDTO(userRepository.saveAndFlush(user));

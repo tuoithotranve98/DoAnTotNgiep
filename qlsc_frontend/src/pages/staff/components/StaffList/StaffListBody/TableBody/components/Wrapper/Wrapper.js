@@ -9,11 +9,12 @@ import * as Icons from "pages/maintenancecard/commons/Icons";
 
 function Wrapper(props) {
   const { staff, onChangeFilter } = props;
+  const { staffs } = staff;
   const [selectedIds, setSelectedIds] = useState([]);
   const listRef = React.useRef();
 
   const resetSelected = () => {
-    selectedMainCardIds([]);
+    setSelectedIds([]);
   };
 
   const onClick = () => {
@@ -44,11 +45,12 @@ function Wrapper(props) {
       </div>
     );
   }
+  console.log('staffs', staffs);
   return (
     <React.Fragment>
       <div className="staff-list-wrapper">
         <Header onClick={onClick} checked={false} minus={false} child={child} />
-        <List staff={staff} />
+        <List staffs={staffs} />
         <Footer
           onChangeFilter={onChangeFilter}
           staff={staff}
@@ -61,7 +63,7 @@ function Wrapper(props) {
 }
 Wrapper.defaultProps = {
   selectedIds: [],
-  staff: [],
+  staff: {},
 };
 const mapStateToProps = (state) => {
   const { staff } = state;

@@ -1,5 +1,6 @@
 package com.doan.user.controller;
 
+import com.doan.user.model.UserResponse;
 import com.doan.user.service.UserService;
 import com.doan.user.dto.PasswordPoJo;
 import com.doan.user.dto.UserDTO;
@@ -27,11 +28,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("users")
-    public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "pageNum", defaultValue = "1", required = false) int pageNum,
-                                                           @RequestParam(name = "pageSize", defaultValue = "5", required = false) int pageSize,
+    public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "page", defaultValue = "1", required = false) int pageNum,
+                                                           @RequestParam(name = "size", defaultValue = "5", required = false) int pageSize,
                                                            @RequestParam(value = "sortBy", defaultValue = "modifiedDate") String sortBy,
                                                            @RequestParam(value = "descending", defaultValue = "desc") String descending,
-                                                           @RequestParam(value = "param", defaultValue = "") String param) {
+                                                           @RequestParam(value = "search", defaultValue = "") String param) {
         Map<String, Object> allUser = userService.getListUser(pageNum, pageSize, sortBy, descending, param);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
@@ -51,8 +52,13 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public ResponseEntity<UserDTO> insertUser(@RequestBody UserDTO userDTO) throws DuplicateEmailException, CodeExistedException {
-        return new ResponseEntity<>(userService.insertUser(userDTO), HttpStatus.OK);
+    public UserResponse insertUser(@RequestBody UserDTO userDTO) {
+        try {
+            userService.insertUser(userDTO);
+            return new UserResponse(Boolean.TRUE);
+        } catch (Exception e) {
+            return new UserResponse(Boolean.FALSE);
+        }
     }
 
     @PutMapping("users/{id}")

@@ -1,27 +1,36 @@
-import React from 'react';
-import Pagination from 'components/Pagination/Pagination';
-import { connect } from 'react-redux';
-import '../../styles/footer.scss';
+import React, { useState } from "react";
+import Pagination from "components/Pagination/Pagination";
+import { connect } from "react-redux";
+import "../../styles/footer.scss";
 
 function Footer(props) {
+  const { staff, onChangeFilter } = props;
+  const { currentPage, totalItem, totalPage, staffs } = staff;
+  const [size, setSize] = useState(10);
   const calculateBegin = () => {
-    const { page, size } = props;
-    const pageTmp = page - 1;
-    if (pageTmp === 0) {
+    if (currentPage === 1) {
       return 1;
-    } return size * pageTmp + 1;
+    }
+    if (currentPage === totalPage) {
+      return size * (currentPage - 1) + staffs.length;
+    }
+    return size * currentPage + 1;
   };
 
   const calculateEnd = () => {
-    const { page, size, total } = props;
-    const pageTmp = page - 1;
-    const per = total / size;
-    if (per <= 1) {
-      return total;
+    if (totalPage === 1) {
+      return totalItem + 1;
     }
-    if (pageTmp < Math.floor(per)) {
-      return (pageTmp + 1) * size;
-    } return total;
+    if (currentPage === 1) {
+      return currentPage * size;
+    }
+    if (totalPage > currentPage) {
+      return (currentPage + 1) * size;
+    }
+    if (currentPage === totalPage) {
+      return totalItem + 1;
+    }
+    return currentPage * size + (totalItem % currentPage);
   };
 
   const onChangePage = (id) => {
@@ -30,24 +39,21 @@ function Footer(props) {
     resetSelected();
   };
 
-  const {
-    total, page, size, fetching, isEmpty
-  } = props;
-  if (fetching || isEmpty) return null;
   return (
     <div className="d-flex staff-footer">
       <div className="result-info">
         Hiển thị kết quả từ&nbsp;
         {calculateBegin()} -&nbsp;
-        {calculateEnd()} trên tổng {total}
+        {calculateEnd()} trên tổng {totalItem + 1}
       </div>
       <div className="margin-left-auto" />
       <div className="products-pagination">
         <Pagination
-          total={total}
-          page={page}
+          totalPage={totalPage}
+          page={currentPage}
+          totalItem={totalItem}
           size={size}
-          onClick={onChangePage}
+          onChangeFilter={onChangeFilter}
         />
       </div>
     </div>
@@ -55,20 +61,15 @@ function Footer(props) {
 }
 
 Footer.defaultProps = {
-  size: 20,
+  size: 10,
 };
 
 const mapStateToProps = (state) => {
-  const { mainCards: { mainCard: { total, page }, ui: { fetching } } } = state;
-  return {
-    total,
-    page,
-    fetching,
-  };
+  //
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick: (page) => dispatch(fetchMainCard(null, page)),
+  //
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Footer);

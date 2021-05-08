@@ -6,6 +6,7 @@ import InfoStaffLeft from "./InfoStaffLeft/InfoStaffLeft";
 import InfoStaffRight from "./InfoStaffRight/InfoStaffRight";
 import "./styles.scss";
 import { saveStaff } from "../../actions/staffAction";
+import pushstate from "utils/pushstate";
 
 const initialState = {
   name: null,
@@ -13,9 +14,9 @@ const initialState = {
   phone: null,
   email: null,
   address: null,
-  city: null,
-  ward: null,
   description: null,
+  password: null,
+  role: 1,
 };
 function StaffCreate(props) {
   const { onSaveStaff } = props;
@@ -31,10 +32,10 @@ function StaffCreate(props) {
     });
   };
   const saveStaff = () => {
-    onSaveStaff(customer).then((json) => {
+    onSaveStaff(staff).then((json) => {
       if (json && json.success) {
         setStaff(initialState);
-        pushstate(props.history, "/staff");
+        pushstate(props.history, "/staffs");
       }
     });
   };

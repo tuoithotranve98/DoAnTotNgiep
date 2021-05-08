@@ -28,7 +28,7 @@ function InfoStaffFooter(props) {
               />
             </svg>
           </div>
-          <div className="separate">
+          <div className="separate" onClick={() => saveStaff()}>
             <svg
               width="2"
               height="20"
