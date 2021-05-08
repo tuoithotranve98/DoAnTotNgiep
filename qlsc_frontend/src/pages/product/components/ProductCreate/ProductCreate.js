@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import TitleAndAction from "./TitleAndAction/TitleAndAction";
-import InfoProductFooter from "./InfoProductFooter/InfoProductFooter";
-import InfoProductLeft from "./InfoProductLeft/InfoProductLeft";
-import InfoProductRight from "./InfoProductRight/InfoProductRight";
 import "./styles.scss";
+import Accessories from "./Accessories/Accessories";
+import Service from "./Service/Service";
 function ProductCreate(props) {
   const {} = props;
   const [user, setUser] = useState({
@@ -18,20 +17,18 @@ function ProductCreate(props) {
     ward: null,
     description: null,
   });
+  const [showContent, setShowContent] = useState(0)
   useEffect(() => {}, []);
   return (
     <React.Fragment>
 
       <div className="product-screen-wrapper-create">
-      <TitleAndAction />
+      <TitleAndAction setShowContent={(a) => setShowContent(a)} />
         <div className="row">
-          <div className="col-md-8">
-            <InfoProductLeft />
-          </div>
-          <div className="col-md-4">
-            <InfoProductRight />
-          </div>
-          <InfoProductFooter />
+          {
+            showContent === 0 ?   <Accessories /> : <Service />
+          }
+
         </div>
       </div>
     </React.Fragment>

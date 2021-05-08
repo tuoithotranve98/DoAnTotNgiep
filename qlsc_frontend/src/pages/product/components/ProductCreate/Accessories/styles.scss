@@ -18,6 +18,14 @@
         }
         .content {
             padding: 1rem;
+            textarea{
+                height: 100px;
+                width: 100%;
+                border: 1px solid #c4cdd5;
+                padding: 6px;
+                outline-color: #0088ff;
+                border-radius: 3px !important;
+            }
             .control-label{
                 
                 margin-bottom: 10px;
@@ -51,5 +59,59 @@
     }
     .info-product-left-02{
         margin-top: 20px;
+    }
+}
+.info-product-right{
+    .text-image{
+        font-weight: 600;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+    .content-image{
+        width: 140px;
+        height: 110px;
+        margin: auto;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        svg{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .card{
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #d3d3d3;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-bottom: 0px;
+        .title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #212b35;
+            border-bottom: 1px solid #e3e3e3;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-bottom: 17px;
+        }
+        .content {
+            padding: 1rem;
+            .control-label{
+                margin-bottom: 10px;
+                
+            }
+            textarea {
+                font-size: 14px;
+                width: 100%;
+                padding: 8px;
+                outline: none;
+                resize: none;
+                height: 90px;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+            }
+        }
     }
 }

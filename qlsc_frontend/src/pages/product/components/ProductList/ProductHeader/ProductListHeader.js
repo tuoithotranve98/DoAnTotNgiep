@@ -10,7 +10,7 @@ import pushstate from '../../../../../utils/pushstate';
 function ProductListHeader(props) {
   const history = useHistory();
   const onClick = () => {
-    pushstate(history, `/staff/create`);
+    pushstate(history, `/product/create`);
   };
   return (
     <div className="tilte-action">
