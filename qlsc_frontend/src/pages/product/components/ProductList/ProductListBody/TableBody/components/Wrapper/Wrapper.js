@@ -5,41 +5,46 @@ import List from "../List/List";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "../../styles/wrapper.scss";
-import * as Icons from "pages/maintenancecard/commons/Icons";
+import * as Icons from "pages/product/commons/Icons";
 
 function Wrapper(props) {
   const { product, onChangeFilter } = props;
+  const { productSerives } = product;
+
   const [selectedIds, setSelectedIds] = useState([]);
   const listRef = React.useRef();
 
+  const onClick = () => {
+    listRef && listRef.current.onCheckAll();
+  };
+
   const onCheckBoxClick = (id) => {
-    setSelectedIds([]);
+    setSelectedIds(
+      selectedIds.includes(id)
+        ? selectedIds.filter((it) => it !== id)
+        : selectedIds.concat(id)
+    );
   };
 
   const resetSelected = () => {
     setSelectedIds([]);
   };
 
-  const onClick = () => {
-    listRef && listRef.current.onCheckAll();
-  };
-
   const onCheckBoxListClick = (ids) => {
-    setSelectedIds([]);
+    setSelectedIds(ids);
   };
 
   const renderCheckInfo = () => {
     return (
       <div className="count-check">
-        <span className="details">
-          Đã chọn ({selectedIds.length} sản phẩm dịch vụ)
-        </span>
+        <span className="details">Đã chọn ({selectedIds.length} sản phẩm)</span>
       </div>
     );
   };
 
   const child = renderCheckInfo();
-  const isEmpty = product && !product.totalItem;
+  const isEmpty = product.isEmpty;
+  const fetching = product.fetching;
   if (isEmpty) {
     return (
       <div className="product-list-wrapper">
@@ -55,13 +60,32 @@ function Wrapper(props) {
   return (
     <React.Fragment>
       <div className="product-list-wrapper">
-        <Header onClick={onClick} checked={false} minus={false} child={child} />
-        <List product={product} />
+        <Header
+          onClick={onClick}
+          checked={
+            selectedIds.length &&
+            productSerives.length === productSerives.length
+          }
+          minus={
+            selectedIds.length && selectedIds.length < productSerives.length
+          }
+          child={child}
+        />
+        <List
+          product={product}
+          ref={listRef}
+          fetching={fetching}
+          isEmpty={isEmpty}
+          onCheckBoxClick={onCheckBoxClick}
+          selectedIds={selectedIds}
+          onCheckBoxListClick={onCheckBoxListClick}
+        />
         <Footer
           onChangeFilter={onChangeFilter}
           product={product}
           resetSelected={resetSelected}
           isEmpty={isEmpty}
+          fetching={fetching}
         />
       </div>
     </React.Fragment>
