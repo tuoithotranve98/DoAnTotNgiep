@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "../../styles/footer.scss";
 
 function Footer(props) {
-  const { customer, onGetCustomer, onChangeFilter } = props;
+  const { customer, onGetCustomer, onChangeFilter, isEmpty , fetching} = props;
   const { currentPage, totalItems, totalPages, customers } = customer;
   const [size, setSize] = useState(10);
 
@@ -33,7 +33,7 @@ function Footer(props) {
     }
     return (currentPage * size) + (totalItems%currentPage);
   };
-
+  if (fetching || isEmpty) return null;
   return (
     <div className="d-flex delivery-collations-footer">
       <div className="result-info">

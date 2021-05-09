@@ -10,7 +10,7 @@ export default {
 export const menuLinkCoordinator = [
   {
     id: 0,
-    url: '/maintenance-cards',
+    url: '/maintenance-card',
     icon: <Icons.CustomerIcon />,
     title: 'Phiếu sửa chữa',
     submenu: [
@@ -28,7 +28,7 @@ export const menuLinkCoordinator = [
   },
   {
     id: 1,
-    url: '/customers',
+    url: '/customer',
     icon: <Icons.CustomerIcon />,
     title: 'Khách hàng',
     submenu: [
@@ -46,7 +46,7 @@ export const menuLinkCoordinator = [
   },
   {
     id: 2,
-    url: '/products',
+    url: '/product',
     icon: <Icons.ProductIcon />,
     title: 'Sản phẩm',
     submenu: [
@@ -64,7 +64,7 @@ export const menuLinkCoordinator = [
   },
   {
     id: 3,
-    url: '/staffs',
+    url: '/staff',
     icon: <Icons.ReportIcon />,
     title: 'Nhân viên',
     submenu: [
@@ -93,7 +93,7 @@ export const menuLinkFull = [
   },
   {
     id: 0,
-    url: '/maintenance-cards',
+    url: '/maintenance-card',
     icon: <Icons.CustomerIcon />,
     title: 'Phiếu sửa chữa',
     submenu: [
@@ -106,12 +106,16 @@ export const menuLinkFull = [
         id: 1,
         url: '/maintenance-cards',
         title: 'Danh sách phiếu sửa chữa'
+      },
+      {
+        id: 3,
+        url: '/maintenance-card/detail/',
       }
     ]
   },
   {
     id: 1,
-    url: '/customers',
+    url: '/customer',
     icon: <Icons.CustomerIcon />,
     title: 'Khách hàng',
     submenu: [
@@ -124,12 +128,16 @@ export const menuLinkFull = [
         id: 1,
         url: '/customers',
         title: 'Danh sách khách hàng'
+      },
+      {
+        id: 3,
+        url: '/customer/detail/',
       }
     ]
   },
   {
     id: 2,
-    url: '/products',
+    url: '/product',
     icon: <Icons.ProductIcon />,
     title: 'Sản phẩm',
     submenu: [
@@ -142,12 +150,16 @@ export const menuLinkFull = [
         id: 1,
         url: '/products',
         title: 'Danh sách sản phẩm'
+      },
+      {
+        id: 3,
+        url: '/product/detail/',
       }
     ]
   },
   {
     id: 3,
-    url: '/staffs',
+    url: '/staff',
     icon: <Icons.ReportIcon />,
     title: 'Nhân viên',
     submenu: [
@@ -160,6 +172,10 @@ export const menuLinkFull = [
         id: 1,
         url: '/staffs',
         title: 'Danh sách nhân viên'
+      },
+      {
+        id: 3,
+        url: '/staff/detail/',
       }
     ]
   },

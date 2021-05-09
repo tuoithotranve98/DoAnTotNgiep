@@ -8,12 +8,12 @@ const initState = {
 };
 export default (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.UPDATE_MAIN_CARD_FETCHING:
+    case actionTypes.MAIN_CARD_FETCHING:
       return {
         ...state,
         fetching: action.bool,
       };
-    case actionTypes.UPDATE_MAIN_CARD_IS_EMPTY:
+    case actionTypes.MAIN_CARD_IS_EMPTY:
       return {
         ...state,
         isEmpty: action.bool,

@@ -380,7 +380,7 @@ export const Minus = () => {
       viewBox="0 0 512 512"
       style={{
         enableBackground: "new 0 0 512 512",
-        // margin: '0 0 6px 0',
+        marginTop: 9,
         borderRadius: 2,
       }}
       xmlSpace="preserve"

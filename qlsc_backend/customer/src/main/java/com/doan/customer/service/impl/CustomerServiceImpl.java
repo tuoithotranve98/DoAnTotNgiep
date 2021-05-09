@@ -93,10 +93,17 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Page<Customer> customerPage = customerRepository.search(paging, keyWork);
+
         List<CustomerDTO> customerDTOList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<Customer> customers = customerPage.getContent();
-
+        if (customerPage.getContent().size() == 0) {
+            map.put("customers", customerDTOList);
+            map.put("currentPage", 0);
+            map.put("totalItems", 0);
+            map.put("totalPages", 0);
+            return map;
+        }
         customers.forEach(customer -> customerDTOList.add(customerConverter.convertToDTO(customer)));
         if (customers.isEmpty()) fakeDataCustomer();
 

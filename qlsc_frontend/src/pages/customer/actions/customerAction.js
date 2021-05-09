@@ -1,13 +1,25 @@
 import * as actionTypes from "actions/actionTypes";
 import { API_CUSTOMER } from "constants/api";
 import { fetch } from "utils/fetchMiddleware";
+import { toastError } from "../../../utils/toast";
 
 export const getListCustomer = (search = '', option = {}) => (dispatch, getState) => {
+  dispatch(updateCustomerFetching(true))
   dispatch(getFilterCustomers(search, option)).then((json)=>{
     const { customers, currentPage, totalItems, totalPages } = json;
-    dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+    if(customers.length===0){
+      dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+      dispatch(updateCustomerFetching(false))
+      dispatch(updateCustomerIsEmpty(true))
+    }else {
+      dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+      dispatch(updateCustomerFetching(false))
+      dispatch(updateCustomerIsEmpty(false))
+    }
+
   }).catch((e) =>{
-    console.log("Có lỗi xảy ra khi lấy danh sách sản phẩm");
+    toastError("Có lỗi xảy ra khi lấy danh sách khách hàng")
+    return;
   })
 };
 export const getFilterCustomers = (search = '', option = {}) => (dispatch, getState) => {
@@ -97,4 +109,17 @@ export const getCustomers = (
   currentPage,
   totalItems,
   totalPages,
+});
+
+
+
+export const updateCustomerIsEmpty = (bool) => ({
+  type: actionTypes.CUSTOMER_IS_EMPTY,
+  bool,
+});
+
+
+export const updateCustomerFetching = (bool) => ({
+  type: actionTypes.CUSTOMER_FETCHING,
+  bool,
 });

@@ -113,4 +113,4 @@ const mapStateToProps = (state) => {
     filterInfo,
   };
 };
-export default connect(mapStateToProps, null)(Header);
+export default connect(null, null)(Header);

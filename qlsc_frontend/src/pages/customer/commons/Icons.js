@@ -183,6 +183,7 @@ export const arrowLeft = () => {
 export const Minus = () => {
   return (
     <svg
+
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       id="Layer_1"
@@ -191,7 +192,7 @@ export const Minus = () => {
       viewBox="0 0 512 512"
       style={{
         enableBackground: 'new 0 0 512 512',
-        // margin: '0 0 6px 0',
+        marginTop: 9,
         borderRadius: 2,
       }}
       xmlSpace="preserve"

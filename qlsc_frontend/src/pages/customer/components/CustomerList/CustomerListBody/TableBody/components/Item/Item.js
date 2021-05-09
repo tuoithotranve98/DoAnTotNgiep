@@ -12,7 +12,7 @@ function Item(props) {
   const onCheck = (e) => {
     e.stopPropagation();
     const { onCheckBoxClick } = props;
-    onCheckBoxClick(id);
+    onCheckBoxClick(customer.id);
   };
 
   const onRedirectDetail = (e) => {
@@ -39,7 +39,7 @@ function Item(props) {
               data-tip
               data-for={`order_collation_number_id_${1}`}
               target="_blank"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: '#007bff' }}
             >
               {(customer && customer.code) || ''}
               <ReactTooltip

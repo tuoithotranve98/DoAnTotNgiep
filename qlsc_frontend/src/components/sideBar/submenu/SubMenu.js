@@ -28,24 +28,26 @@ function SubMenu (props) {
   console.log("menuLink", menuLink);
   console.log("init", init);
   console.log("url", url);
+  const arrTmp = url.split('/')
+  const check = arrTmp[2] === 'detail' ? true : false;
   return (
     <React.Fragment>
       {
         menuLink.map((item, key) => {
           return (
             <ul className='nav menu-top' key={key}>
-              <li className={`${url === item.url ? 'item active' : 'item'} ${item.submenu.length > 0 && init.menu === item.id ? 'active-show' : ''}`}>
+              <li className={`${url === item.url ? 'item active' : 'item'} ${item.submenu.length > 0 && init.menu === item.id  ? 'active-show' : ''}`}>
                 <Link to={`${item.submenu.length === 0 ? item.url : '#'}`} onClick={() => onSetInit(item.id, '')} className="link">
                   {item.icon}
                   <span>{ !showMenu ? item.title : ''}</span>
                 </Link>
                 {
-                  item.submenu.length > 0 && !showMenu && init.menu === item.id ? (
+                  item.submenu.length > 0 && !showMenu && init.menu === item.id || (url.includes(item.url) && check) && !showMenu ? (
                     <ul className="sub-menu">
                       {
                         item.submenu.map((a, index) => {
                           return (
-                            <Link to={`${a.url}`} className={`${url === a.url ? 'sub-item active' : 'sub-item'}`} key={index}>
+                            <Link to={`${a.url}`} className={`${url === a.url || (url.includes(item.url) && a.id === 1 && check)  ? 'sub-item active' : 'sub-item'}`} key={index}>
                               {a.title}
                             </Link>
                           )

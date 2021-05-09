@@ -20,4 +20,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(TableHeader);
+export default connect(null, null)(TableHeader);

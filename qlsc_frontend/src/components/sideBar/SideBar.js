@@ -22,8 +22,7 @@ function SideBar(props) {
     const url = props.history.location.pathname;
     const item = menuLinkFull.find((a) => {
       if (a.url.length > 1) {
-        const temp = a.url.substring(0, a.url.length - 1);
-        if (url.includes(temp)) {
+        if (url.includes(a.url)) {
           return a;
         }
         return "";
