@@ -1,8 +1,8 @@
-import React, { forwardRef } from "react";
+
+import React, { forwardRef, useImperativeHandle } from 'react';
 import "../../styles/list.scss";
 import Item from "../Item/Item";
 
-import React, { forwardRef, useImperativeHandle } from 'react';
 import Guard from 'components/Guard/Guard'
 import { normalize, schema } from 'normalizr';
 const customersTemp = new schema.Entity('items');
@@ -32,11 +32,19 @@ const List = forwardRef((props, ref) => {
   }
   return (
     <div className="order-list-container">
-      {customers.length &&
-        return <Item customer={customer}  checked={selectedIds.includes(customer.id)}
-        onCheckBoxClick={onCheckBoxClick} />
-        })}
+      {customers.map((customer) => {
+        return <Item
+              key={customer.code}
+              index={customer.code}
+              customer={customer}
+              checked={selectedIds.includes(customer.id)}
+              onCheckBoxClick={onCheckBoxClick}
+          />;
+      })}
     </div>
   );
 });
+List.defaultProps = {
+  customers: [],
+};
 export default List;

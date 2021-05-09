@@ -13,10 +13,10 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query(value = "SELECT u FROM User u WHERE u.status =1 AND (u.fullName like  %?1% or " +
+    @Query(value = "SELECT u FROM User u WHERE u.status =1 and (u.fullName like  %?1% or " +
         "u.email like %?1% or u.phoneNumber like %?1% or " +
-        "u.code like  %?1% or u.address like %1?%) ")
-    Page<User> getAllUser(Pageable pageable, String param);
+        "u.code like  %?1% or u.address like %?1%) ")
+    public Page<User> getAllUser(Pageable pageable, String param);
 
     @Query(value = "SELECT u FROM User u WHERE u.status =1 and u.role = 2 and (u.fullName like  %:param% or " +
         "u.email like %:param% or u.phoneNumber like %:param% or " +
