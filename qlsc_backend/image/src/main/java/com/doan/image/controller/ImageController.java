@@ -14,16 +14,17 @@ import java.util.Objects;
 @RequestMapping("admin")
 @CrossOrigin("*")
 @RequiredArgsConstructor
-public class AdminController {
+public class ImageController {
 
     private final StorageService storageService;
+    private static final String BASE_URL = "http://localhost:8762/api/image/admin/image/";
 
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         String type = file.getContentType();
         if (type != null && type.equals("image/png") || Objects.equals(type, "image/jpeg")) {
             storageService.store(file);
-            return StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            return StringUtils.cleanPath(BASE_URL+file.getOriginalFilename());
         } else {
             return "File không hợp lệ!";
         }
