@@ -1,7 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-const-assign */
-/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -10,7 +6,6 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import '../../styles/wrapper.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
-import { fetchMainCard, selectedMainCardIds } from '../../../../../../actions/product';
 
 function Wrapper(props) {
   // const [selectedIds, setSelectedIds] = useState([]);
@@ -29,18 +24,6 @@ function Wrapper(props) {
 //         selectedMainCardIds([]);
 //     }
 //   }, [fetching]);
-
-  const getFilterFromURL = () => {
-    const { history } = props;
-    const { search } = history.location;
-    if (!search || !search.includes('filter')) return undefined;
-    try {
-      const filter = search.split('?filter=')[1].split('&hmac')[0].split('%')[0];
-      return JSON.parse(atob(filter));
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const onCheckBoxClick = (id) => {
     selectedMainCardIds(
@@ -118,16 +101,10 @@ Wrapper.defaultProps = {
   selectedMainCardIds: () => {}
 };
 const mapStateToProps = (state) => {
-  const { products: { ui: { fetching, isEmpty }, product: { selectedIds } } } = state;
-  return {
-    fetching,
-    isEmpty,
-    selectedIds,
-  };
+  //
 };
 const mapDispatchToProps = (dispatch) => ({
-    fetchMainCard: (filter, page) => dispatch(fetchMainCard(filter, page)),
-  selectedMainCardIds: (ids) => dispatch(selectedMainCardIds(ids)),
+  //
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wrapper));

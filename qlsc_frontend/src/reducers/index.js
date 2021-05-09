@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import products from './product';
+import products from './product/product';
 import globalUI from './globalUI';
 import modal from './../components/modal/modalReducer';
 import customer from './customer/customer';

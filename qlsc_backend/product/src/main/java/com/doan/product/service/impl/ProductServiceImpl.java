@@ -61,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
         HashMap<String, Object> map = new HashMap<>();
         List<Product> products = productPage.getContent();
         products.forEach(product -> productDTOS.add(productConverter.convertToDTO(product)));
-        map.put("productAndService", productDTOS);
+        map.put("productServices", productDTOS);
         map.put("currentPage", productPage.getNumber() + 1);
         map.put("totalItem", productPage.getTotalElements());
         map.put("totalPage", productPage.getTotalPages());
