@@ -5,7 +5,12 @@ import "./styles.scss";
 import Accessories from "./Accessories/Accessories";
 import Service from "./Service/Service";
 import InfoProductFooter from "./InfoProductFooter/InfoProductFooter";
-import { upLoadImage, saveProductService } from "../../actions/ProductAction";
+import {
+  upLoadImage,
+  updateProductService,
+  getProductServiceById,
+} from "../../actions/ProductAction";
+import { useParams } from "react-router-dom";
 import pushstate from "utils/pushstate";
 
 const initialState = {
@@ -18,17 +23,24 @@ const initialState = {
   images: [],
   type: null,
 };
-function ProductCreate(props) {
-  const { onUpLoadImage, onSaveProductService } = props;
+function ProductUpdate(props) {
+  const {
+    onUpLoadImage,
+    onSaveProductService,
+    onGetProductServiceById,
+  } = props;
   const [product, setProduct] = useState(initialState);
   const [showContent, setShowContent] = useState(1);
+  const { id } = useParams();
   useEffect(() => {
     onchangeValue("type", 1);
+    if (id) {
+        onGetProductServiceById(id).then((json) => {
+        if (json) setProduct(json);
+        if (json && json.type) setShowContent(json.type);
+      });
+    }
   }, []);
-
-  useEffect(() => {
-    onchangeValue("type", showContent);
-  }, [showContent]);
 
   const onchangeValue = (type, value) => {
     setProduct({
@@ -38,7 +50,7 @@ function ProductCreate(props) {
   };
 
   const saveProductService = () => {
-    onSaveProductService(product).then((json) => {
+    onSaveProductService(id, product).then((json) => {
       if (json && json.success) {
         setProduct(initialState);
         setShowContent(1);
@@ -105,11 +117,13 @@ function ProductCreate(props) {
     </React.Fragment>
   );
 }
-ProductCreate.defaultProps = {};
+ProductUpdate.defaultProps = {};
 
 const mapDispatchToProps = (dispatch) => ({
   onUpLoadImage: (file) => dispatch(upLoadImage(file)),
-  onSaveProductService: (product) => dispatch(saveProductService(product)),
+  onSaveProductService: (id, product) =>
+    dispatch(updateProductService(id, product)),
+  onGetProductServiceById: (id) => dispatch(getProductServiceById(id)),
 });
 
-export default connect(null, mapDispatchToProps)(ProductCreate);
+export default connect(null, mapDispatchToProps)(ProductUpdate);

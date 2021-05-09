@@ -9,8 +9,8 @@ import pushstate from '../../../../../utils/pushstate';
 import Action from './Action';
 
 function TitleAndAction(props) {
-  const { setShowContent } = props;
   const history = useHistory();
+  const { setShowContent } = props;
   const onClick = () => {
     pushstate(history, `/staff/create`);
   };

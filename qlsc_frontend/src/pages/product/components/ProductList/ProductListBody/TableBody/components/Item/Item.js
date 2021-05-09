@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
-import { moneyFormat } from "utils/moneyFormat";
-import * as Icons from "pages/maintenancecard/commons/Icons";
+import pushstate from "utils/pushstate";
 
 function Item(props) {
   const { checked, productService } = props;
@@ -17,12 +15,12 @@ function Item(props) {
 
   const onRedirectDetail = (e) => {
     e.stopPropagation();
-    pushstate(history, `/products/detail/${productService.id}`);
+    pushstate(props.history, `/product/update/${productService.id}`);
   };
 
   return (
     <div className="product-item-wrapper">
-      <div className="d-flex product-listing-item">
+      <div className="d-flex product-listing-item" onClick={(e) => onRedirectDetail(e)}>
         <div
           role="presentation"
           className="checkbox header-checkbox"
@@ -84,4 +82,4 @@ Item.defaultProps = {
   item: {},
 };
 
-export default connect(null, null)(Item);
+export default withRouter(connect(null, null)(Item));

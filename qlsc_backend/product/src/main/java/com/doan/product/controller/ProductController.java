@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("admin")
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class ProductController {
     }
 
     @SneakyThrows
-    @PutMapping("products/{id}")
+    @PostMapping("products/{id}")
     public ProductResponse update(@RequestBody ProductRequest productRequest,
                                   @PathVariable("id") String id) {
         return productService.update(productRequest, Long.parseLong(id));

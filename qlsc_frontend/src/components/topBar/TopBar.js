@@ -181,6 +181,21 @@ function TopBar(props) {
       );
     }
 
+    if (url.includes("/product/update")) {
+      return (
+        <React.Fragment>
+          <span
+            className="header-top-bar-text"
+            onClick={() => pushstate(history, "/products")}
+          >
+            Sản phẩm
+          </span>
+          <span>&nbsp;{">"}&nbsp;</span>
+          <span>Cập nhật sản phẩm</span>
+        </React.Fragment>
+      );
+    }
+
     if (url.includes("/product/detail/")) {
       const split = url.split("/product/detail/");
       if (split.length > 1) {

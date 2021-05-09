@@ -38,12 +38,14 @@ function Action(props) {
   return (
     <div
       className="report-filter-group-by"
-      onClick={() => setShow(!show)}
+      style={{ cursor: 'not-allowed' }}
+      //onClick={() => setShow(!show)}
       ref={myRef}
     >
       <div
         className="d-flex align-items-center report-group-by"
-        onClick={() => setShow(!show)}
+        style={{ cursor: 'not-allowed' }}
+        //onClick={() => setShow(!show)}
       >
         <Icons.groupByIcon />
         <div className="content">

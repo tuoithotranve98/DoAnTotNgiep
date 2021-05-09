@@ -25,7 +25,6 @@ function CustomerUpdate(props) {
   const {
     onClearWards,
     onSaveCustomer,
-    positionCallApi,
     onGetCustomerById,
     onGetWard,
     cities,

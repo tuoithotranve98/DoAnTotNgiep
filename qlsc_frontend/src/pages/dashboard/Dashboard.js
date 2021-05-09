@@ -15,6 +15,7 @@ import CustomerList from "../customer/components/CustomerList/CustomerList";
 import MainCardCreate from "../maintenancecard/components/MainCardCreate/MainCardCreate";
 import MainCardList from "../maintenancecard/components/MainCardList/MainCardList";
 import ProductCreate from "../product/components/ProductCreate/ProductCreate";
+import ProductUpdate from "../product/components/ProductUpdate/ProductUpdate";
 import ProductList from "../product/components/ProductList/ProductList";
 import ReportMain from "../report/components/ReportMain";
 import StaffCreate from "../staff/components/StaffCreate/StaffCreate";
@@ -42,6 +43,7 @@ function Dashboard(props) {
           <Route exact path="/staffs" component={StaffList} />
           <Route exact path="/products" component={ProductList} />
           <Route exact path="/product/create" component={ProductCreate} />
+          <Route exact path="/product/update/:id([1-9]+[0-9]*)" component={ProductUpdate} />
           <Route exact path="/report" component={ReportMain} />
           <Route exact path="/staff/create" component={StaffCreate} />
           <Route exact path="/staff/detail/:id([1-9]+[0-9]*)" component={StaffDetail} />

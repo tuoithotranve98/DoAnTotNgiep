@@ -88,7 +88,7 @@ export const updateProductService = (id, productSerice = {}) => (
   const endpoint = `${API_PRODUCT}/products/${id}`;
   return dispatch(
     fetch(endpoint, {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify(productSerice),
     })
   )

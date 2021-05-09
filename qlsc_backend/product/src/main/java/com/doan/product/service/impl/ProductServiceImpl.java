@@ -189,12 +189,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse update(ProductRequest productReq, Long id) throws Exception {
-        Product product = productRepository.getOne(id);
-        if (ObjectUtils.isEmpty(product)) {
+    public ProductResponse update(ProductRequest productReq, Long id) {
+        Optional<Product> checkProduct = productRepository.findById(id);
+        if (checkProduct.isEmpty()) {
             new ProductResponse(Boolean.FALSE, "Sản phẩm không tồn tại");
         }
+        Product product = checkProduct.get();
         if (StringUtils.isNotBlank(productReq.getCode())
+            && product.getCode().equals(productReq.getCode())
             && isCodeExist(productReq.getCode())) {
             return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại");
         }
