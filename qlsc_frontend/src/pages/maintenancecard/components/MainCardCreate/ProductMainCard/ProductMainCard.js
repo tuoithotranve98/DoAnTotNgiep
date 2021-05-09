@@ -7,7 +7,7 @@ function ProductMainCard(props) {
   return (
     <div className="delivery-collation-order-info">
       <div className="title">
-        Thông tin đơn hàng đối soát
+        Thông tin sản phẩm
       </div>
       {/* <ProductMainCardList /> */}
     </div>

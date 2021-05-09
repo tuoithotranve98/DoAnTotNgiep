@@ -25,9 +25,9 @@
       padding: 6.5px 10px 6.5px 40px;
     }
   }
-  .order-list-search-wrapper {
+  .list-customer-main-card-search-wrapper {
     min-height: 100px;
-    max-height: 500px;
+    max-height: 300px;
     width: calc(100% - 0px);
     background: #FFFFFF;
     border: 1px solid rgba(33, 43, 53, 0.3);
@@ -81,7 +81,7 @@
     }
     .list-item-search{
       overflow-y: auto;
-      max-height: 250px;
+      max-height: 220px;
       margin-right: -14px;
       padding-right: 15px;
       margin-left: -15px;

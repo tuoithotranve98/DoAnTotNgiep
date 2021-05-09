@@ -3,8 +3,12 @@ import { API_CUSTOMER } from "constants/api";
 import { fetch } from "utils/fetchMiddleware";
 
 export const getListCustomer = (search = '', option = {}) => (dispatch, getState) => {
-  const { customers, currentPage, totalItems, totalPages } = dispatch(getFilterCustomers(search, option));
-  dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+  dispatch(getFilterCustomers(search, option)).then((json)=>{
+    const { customers, currentPage, totalItems, totalPages } = json;
+    dispatch(getCustomers(customers, currentPage, totalItems, totalPages));
+  }).catch((e) =>{
+    console.log("Có lỗi xảy ra khi lấy danh sách sản phẩm");
+  })
 };
 export const getFilterCustomers = (search = '', option = {}) => (dispatch, getState) => {
   const filter = processOption(search, option);

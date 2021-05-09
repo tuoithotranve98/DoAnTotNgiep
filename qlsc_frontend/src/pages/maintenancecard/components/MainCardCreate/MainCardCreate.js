@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.scss';
 import { connect } from 'react-redux';
 import ProductMainCard from './ProductMainCard/ProductMainCard';
@@ -10,13 +10,15 @@ import TitleAndAction from './TitleAndAction/TitleAndAction';
 import CustomerModal from './Modal/CustomerModal/CustomerModal';
 
 function MainCardCreate(props) {
+  const [customer, setCustomer] = useState({})
+  console.log("customer", customer);
   return (
     <div className="main-card-create-warpper">
         <TitleAndAction />
         <div className="contatiner">
             <div className="row">
                 <div className="col-md-8">
-                  <InfoCustomer />
+                  <InfoCustomer setCustomer={(a)=>setCustomer(a)} customer={customer} />
                   <ProductMainCard />
                 </div>
                 <div className="col-md-4">
