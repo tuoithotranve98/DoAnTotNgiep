@@ -46,6 +46,31 @@ function TopBar(props) {
       );
     }
 
+    if (url.includes('/customer/update/')) {
+      const split = url.split('/customer/update/');
+      if (split.length > 1) {
+        const id = Number(split[1]);
+        if (id) {
+          return (
+            <React.Fragment>
+              <span
+                className="header-top-bar-text"
+                onClick={() => pushstate(history, '/customers')}
+              >
+                Khách hàng
+              </span>
+              <span>
+                &nbsp;>&nbsp;
+              </span>
+              <span>
+                Cập nhật khách hàng
+              </span>
+            </React.Fragment>
+          );
+        }
+      }
+    }
+
     if (url.includes('/customer/detail/')) {
       const split = url.split('/customer/detail/');
       if (split.length > 1) {

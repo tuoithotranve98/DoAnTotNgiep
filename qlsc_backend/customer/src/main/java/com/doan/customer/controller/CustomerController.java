@@ -42,7 +42,7 @@ public class CustomerController {
         return ResponseEntity.ok(allCustomer);
     }
 
-    @PutMapping("customers/{idCustomer}")
+    @PostMapping("customers/{idCustomer}")
     public CustomerRes updateCustomer(
             @RequestBody CustomerDTO customerDTO,
             @PathVariable("idCustomer") Long idCustomer) {

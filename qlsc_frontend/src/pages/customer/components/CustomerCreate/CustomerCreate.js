@@ -7,7 +7,6 @@ import InfoCustomerFooter from './InfoCustomerFooter/InfoCustomerFooter';
 import { saveCustomer, getCustomerById } from "../../actions/customerAction";
 import { receiveWard } from "../../actions/locationActions";
 import pushstate from "utils/pushstate";
-import { useParams } from "react-router-dom";
 import "./styles.scss";
 import TitleAndAction from "./TitleAndAction/TitleAndAction";
 
@@ -22,15 +21,8 @@ const initialState = {
   description: null,
 };
 function CustomerCreate(props) {
-  const { id } = useParams();
   const { onClearWards, onSaveCustomer, positionCallApi } = props;
   const [customer, setCustomer] = useState(initialState);
-
-  useEffect(() => {
-    if (id) {
-      onGetCustomerById(id);
-    }
-  }, []);
 
   useEffect(() => {
     if (positionCallApi) setCustomer({ ...customer, ward: null });

@@ -25,9 +25,6 @@ function SubMenu (props) {
       setMenuLink(menuLinkCoordinator);
     }
   }, [user])
-  console.log("menuLink", menuLink);
-  console.log("init", init);
-  console.log("url", url);
   const arrTmp = url.split('/')
   const check = arrTmp[2] === 'detail' ? true : false;
   return (

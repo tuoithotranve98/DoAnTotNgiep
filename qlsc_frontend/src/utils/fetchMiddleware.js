@@ -30,7 +30,7 @@ const wrapAccessToken = (url, params, token, store) => (
   params.headers["X-APP-PAGE-TOKEN"] = token;
   params.headers["Origin"] = API.PORT;
   params.headers["Access-Control-Allow-Origin"] = "*";
-  params.headers["Access-Control-Allow-Methods"] = "HEAD, GET, POST, PUT, PATCH, DELETE";
+  params.headers["Access-Control-Allow-Methods"] = "*";
   if (!params.headers["Content-Type"]) {
     params.headers["Content-Type"] = "application/json";
   }

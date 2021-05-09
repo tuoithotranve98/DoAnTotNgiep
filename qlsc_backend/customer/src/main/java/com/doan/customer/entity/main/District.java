@@ -24,7 +24,7 @@ public class District {
     @Column(name = "code_district", length = 50)
     public String code;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name = "code_province")
     public Province province;
 

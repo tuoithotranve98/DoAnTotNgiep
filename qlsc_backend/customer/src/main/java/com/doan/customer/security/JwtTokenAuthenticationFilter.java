@@ -18,48 +18,45 @@ import java.util.stream.Collectors;
 
 public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
 
-	private final JwtConfig jwtConfig;
-
+	public static JwtConfig jwtConfig;
+	public static String token;
 	public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
 		this.jwtConfig = jwtConfig;
 	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
 		String header = request.getHeader(jwtConfig.getHeader());
-		if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
+		if (header == null || !header.startsWith(jwtConfig.getPrefix())) {
 			chain.doFilter(request, response);
 			return;
 		}
-
-		String token = header.replace(jwtConfig.getPrefix(), "");
-
+		token = header.replace(jwtConfig.getPrefix(), "");
 		try {
 			Claims claims = Jwts.parser()
-					.setSigningKey(jwtConfig.getSecret().getBytes())
-					.parseClaimsJws(token)
-					.getBody();
+				.setSigningKey(jwtConfig.getSecret().getBytes())
+				.parseClaimsJws(token)
+				.getBody();
 			Long now = System.currentTimeMillis();
 			Date date = new Date(now);
 			Date exp = claims.getExpiration();
-			if(date.compareTo(exp) > 0) {
+			if (date.compareTo(exp) > 0) {
 				return;
 			}
 			String username = claims.getSubject();
-			if(username != null) {
-				@SuppressWarnings("unchecked")
+			if (username != null) {
 				List<String> authorities = (List<String>) claims.get("authorities");
-				 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-								 username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-
-				 SecurityContextHolder.getContext().setAuthentication(auth);
+				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+					username, null, authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			SecurityContextHolder.clearContext();
 		}
 		chain.doFilter(request, response);
 	}
-
 }

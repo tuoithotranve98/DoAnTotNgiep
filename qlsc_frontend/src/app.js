@@ -27,7 +27,7 @@ function App(props) {
     if (token) {
       props.onCheckInfoUser(token).then((json) => {
         if (json && json.role) {
-          pushstate(props.history, "/");
+          pushstate(props.history, window.location.pathname);
         } else {
           pushstate(props.history, "/login");
         }

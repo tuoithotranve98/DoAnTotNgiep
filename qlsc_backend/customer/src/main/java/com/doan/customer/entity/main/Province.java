@@ -1,6 +1,5 @@
 package com.doan.customer.entity.main;
 
-import com.doan.customer.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class Province {
     @Column(name = "code_province", length = 50)
     public String code;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "province")
+    @OneToMany(mappedBy = "province",fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     public List<District> districts;
 
 }
