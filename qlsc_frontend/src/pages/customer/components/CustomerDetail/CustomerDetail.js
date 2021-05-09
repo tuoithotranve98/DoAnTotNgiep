@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getCustomerById } from '../../actions/customerAction';
 import CustomerDetailInfo from './CustomerDetailInfo/CustomerDetailInfo';
-import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
+// import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
 import { useParams } from "react-router-dom";
 import './styles.scss';
 import TitleAndAction from './TitleAndAction/TitleAndAction';
