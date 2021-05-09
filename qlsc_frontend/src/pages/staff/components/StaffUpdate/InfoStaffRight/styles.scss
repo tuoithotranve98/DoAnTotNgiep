@@ -1,0 +1,120 @@
+.info-staff-right {
+    .card {
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #d3d3d3;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-bottom: 0px;
+
+        .title {
+            font-size: 20px;
+            font-weight: 400;
+            color: #212b35;
+            border-bottom: 1px solid #e3e3e3;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-bottom: 17px;
+        }
+
+        .content {
+            padding: 1rem;
+
+            .control-label {
+                margin-bottom: 10px;
+
+            }
+
+            textarea {
+                font-size: 14px;
+                width: 100%;
+                padding: 8px;
+                outline: none;
+                resize: none;
+                height: 90px;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+            }
+
+            .control-label {
+
+                margin-bottom: 10px;
+            }
+
+            .btn-chosse-role {
+                display: inline-block;
+                width: auto;
+                height: 34px;
+                padding: 1px;
+                margin: 0;
+                color: #000;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                padding: 9px 2px 4px 6px;
+                font-weight: 400;
+                text-transform: none;
+                letter-spacing: normal;
+                box-sizing: border-box;
+                display: block;
+                width: 100%;
+                font-size: 13px;
+                font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+                    Roboto, Helvetica Neue, sans-serif;
+                border-style: inset;
+                border: 1px solid #c4cdd5;
+                border-radius: 3px !important;
+                outline-color: #0088ff;
+                position: relative;
+
+                .list-role {
+                    position: absolute;
+                    z-index: 4;
+                    padding: 0;
+                    background: #fff;
+                    border: 1px solid #c4c4c4;
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    width: 100%;
+                    margin-left: -6px;
+                    top: 35px;
+                    .dropdown-item {
+                        padding: 10px;
+                        &:hover {
+                            color: #fff;
+                            text-decoration: none;
+                            background-color: #0084ff;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            input {
+                display: inline-block;
+                // vertical-align: baseline;
+                width: auto;
+                height: 34px;
+                padding: 1px;
+                margin: 0;
+                color: #000;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                padding: 4px 2px 4px 6px;
+                font-weight: 400;
+                text-transform: none;
+                letter-spacing: normal;
+                box-sizing: border-box;
+                display: block;
+                width: 100%;
+                font-size: 13px;
+                font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+                    Roboto, Helvetica Neue, sans-serif;
+                border-style: inset;
+                border: 1px solid #c4cdd5;
+                border-radius: 3px !important;
+                outline-color: #0088ff;
+            }
+        }
+    }
+}

@@ -19,6 +19,7 @@ import ProductList from "../product/components/ProductList/ProductList";
 import ReportMain from "../report/components/ReportMain";
 import StaffCreate from "../staff/components/StaffCreate/StaffCreate";
 import StaffDetail from "../staff/components/StaffDetail/StaffDetail";
+import StaffUpdate from "../staff/components/StaffUpdate/StaffUpdate";
 import StaffList from "../staff/components/StaffList/StaffList";
 import "./styles.scss";
 function Dashboard(props) {
@@ -44,6 +45,7 @@ function Dashboard(props) {
           <Route exact path="/report" component={ReportMain} />
           <Route exact path="/staff/create" component={StaffCreate} />
           <Route exact path="/staff/detail/:id([1-9]+[0-9]*)" component={StaffDetail} />
+          <Route exact path="/staff/update/:id([1-9]+[0-9]*)" component={StaffUpdate} />
         </Switch>
       </div>
     </React.Fragment>

@@ -61,10 +61,15 @@ public class UserController {
         }
     }
 
-    @PutMapping("users/{id}")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO, @PathVariable("id") Long id) throws NotFoundException, CodeExistedException {
-        userDTO = userService.updateUser(userDTO, id);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    @PostMapping("users/{id}")
+    public UserResponse updateUser(@RequestBody UserDTO userDTO, @PathVariable("id") Long id) {
+        try {
+            userService.updateUser(userDTO, id);
+            return new UserResponse(Boolean.TRUE);
+        } catch (Exception e) {
+            return new UserResponse(Boolean.FALSE);
+        }
+
     }
 
     @DeleteMapping("users/delete")

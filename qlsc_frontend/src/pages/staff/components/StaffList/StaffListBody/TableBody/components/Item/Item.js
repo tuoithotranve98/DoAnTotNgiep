@@ -23,7 +23,8 @@ function Item(props) {
   }
 
   const onRedirectDetail = () => {
-    pushstate(props.history, `/staff/detail/${staff.id}`);
+    // pushstate(props.history, `/staff/detail/${staff.id}`);
+    pushstate(props.history, `/staff/update/${staff.id}`);
   }
 
   return (

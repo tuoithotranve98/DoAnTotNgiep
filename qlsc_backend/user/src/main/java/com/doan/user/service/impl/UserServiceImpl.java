@@ -136,7 +136,6 @@ public class UserServiceImpl implements UserService {
         user.setRole(userDTO.getRole());
         user.setFullName(userDTO.getName());
         try {
-
             return userConverter.convertToDTO(userRepository.saveAndFlush(user));
         } catch (Exception e) {
             throw new CodeExistedException("Duplicate Code. Try Again");
