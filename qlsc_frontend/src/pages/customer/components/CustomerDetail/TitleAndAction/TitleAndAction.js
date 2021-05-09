@@ -14,10 +14,10 @@ function TitleAndAction(props) {
     pushstate(history, `/staff/create`);
   };
   return (
-    <div className="tilte-action">
+    <div className="customer-detail-tilte-action">
       <div className="d-flex list-header">
         <div className="header-title">
-          <div style={{ fontSize: '22px' }}>{props.customer.name || '---'}</div>
+          <div style={{ fontSize: '22px', fontWeight: 600 }}>{props.customer.name || '---'}</div>
         </div>
       </div>
     </div>

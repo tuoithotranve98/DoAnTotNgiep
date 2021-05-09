@@ -1,16 +1,4 @@
-.customer-list-body{
-    margin-top: 15px;
-    background: #FFF;
-    border: 1px solid #E0E0E0;
-    // box-sizing: border-box;
-    border-radius: 4px;
-    min-width: 920px;
-    min-height: 380px;
-    &::after{
-      box-sizing: unset;
-    }
-    &::before{
-      box-sizing: unset;
-    }
-  }
+.history-main-card-screen-wrapper{
+    margin: 0 18px 20px 18px;
+}
   

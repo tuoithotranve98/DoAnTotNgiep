@@ -7,12 +7,19 @@ export const getProductService = (search = "", option = {}) => (
   dispatch,
   getState
 ) => {
+  dispatch(updateProductFetching(true));
   dispatch(getFilterProductService(search, option))
     .then((json) => {
       const { productServices, currentPage, totalItem, totalPage } = json;
-      dispatch(
-        getProductServices(productServices, currentPage, totalItem, totalPage)
-      );
+      if (productServices.length === 0) {
+        dispatch(getProductServices(productServices, currentPage, totalItem, totalPage));
+        dispatch(updateProductFetching(false));
+        dispatch(updateProductIsEmpty(true));
+      } else {
+        dispatch(getProductServices(productServices, currentPage, totalItem, totalPage));
+        dispatch(updateProductFetching(false));
+        dispatch(updateProductIsEmpty(false));
+      }
     })
     .catch((e) => {
       console.log("Có lỗi xảy ra khi lấy danh sách sản phẩm");
@@ -146,4 +153,14 @@ export const getProductServices = (
   currentPage,
   totalItem,
   totalPage,
+});
+
+export const updateProductIsEmpty = (bool) => ({
+  type: actionTypes.PRODUCT_IS_EMPTY,
+  bool,
+});
+
+export const updateProductFetching = (bool) => ({
+  type: actionTypes.PRODUCT_FETCHING,
+  bool,
 });
