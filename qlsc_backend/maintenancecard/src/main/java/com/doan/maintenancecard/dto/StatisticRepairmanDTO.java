@@ -10,6 +10,6 @@ import lombok.Setter;
 public class StatisticRepairmanDTO {
 
     private String name;
-    private int totalMaintenanceCard;
+    private int total;
 
 }

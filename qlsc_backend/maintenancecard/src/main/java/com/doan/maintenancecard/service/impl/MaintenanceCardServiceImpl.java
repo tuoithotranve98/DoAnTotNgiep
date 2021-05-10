@@ -54,7 +54,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         ObjectMapper mapper = new ObjectMapper();
         maintenanceCard.setCreatedDate(now);
         maintenanceCard.setModifiedDate(now);
-        Long total = Long.valueOf(0);
+        long total = 0L;
         boolean check = true;
         for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
             maintenanceCardDetail.setCreatedDate(now);
@@ -85,19 +85,14 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         maintenanceCard.setPrice(BigDecimal.valueOf(total));
         maintenanceCard.setPlatesNumber(maintenanceCard.getPlatesNumber().toLowerCase());
         if (maintenanceCard.getCode() == null || maintenanceCard.getCode().length() == 0) {
-            try {
-                maintenanceCard.setCode(createNewCode());
-            } catch (NotANumberException notANumberExcepton) {
-                notANumberExcepton.printStackTrace();
-            }
+            maintenanceCard.setCode(createNewCode());
         } else {
-
             int checkCode = maintenanceCardRepository.checkCode(maintenanceCard.getCode().toLowerCase(), Long.valueOf(0));
             if (checkCode != 0) throw new CodeExistedException("Code existed");
             maintenanceCard.setCode(maintenanceCard.getCode().toLowerCase());
 
         }
-        if (check && maintenanceCard.getMaintenanceCardDetails().size() != 0) {
+        if (!(!check || maintenanceCard.getMaintenanceCardDetails().size() == 0)) {
             maintenanceCard.setWorkStatus((byte) 2);
         } else {
             maintenanceCard.setWorkStatus((byte) 0);
@@ -498,13 +493,11 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         return maintenanceCardConverter.convertAllToDTO(maintenanceCard);
     }
 
-    public String createNewCode() throws NotANumberException {
+    public String createNewCode() {
         long codeNumber = 0L;
         String newCodeString;
         int index = 0;
-        String getMaxCode = null;
-        getMaxCode = maintenanceCardRepository.getMaxCode(index);
-        System.out.println(getMaxCode);
+        String getMaxCode;
         getMaxCode = maintenanceCardRepository.getMaxCode(index);
         if (getMaxCode == null) {
             getMaxCode = "0";

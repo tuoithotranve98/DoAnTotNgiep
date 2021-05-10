@@ -14,7 +14,6 @@ public interface BusinessInformationCustom {
     int getTotalMaintenanceCardSuccessNotPay(String date);
 
     int getTotalMaintenanceCardSuccessPayed(String date);
-//    BigDecimal getTotalMoney(Date startDate, Date endDate);
 
     TotalMoneyDTO getMoneyDto(String date);
 
