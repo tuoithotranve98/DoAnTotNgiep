@@ -31,12 +31,4 @@ function FilterMainCard(props) {
 
 FilterMainCard.defaultProps = {};
 
-const mapStateToProps = (state) => {
-  //
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterMainCard);
+export default connect(null, null)(FilterMainCard);

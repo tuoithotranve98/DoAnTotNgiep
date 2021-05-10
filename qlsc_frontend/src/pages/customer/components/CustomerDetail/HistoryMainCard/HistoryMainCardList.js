@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import "./styles.scss";
 import debounce from "utils/debounce";
 import HistoryMainCardListBody from "./HistoryMainCardListBody/HistoryMainCardListBody";
-import { getListHistoryMainCard } from "../../actions/customerAction";
+import { getListHistoryMainCard } from "../../../actions/historyMainCardAction";
+
 
 const initialState = {
   page: 1,
@@ -12,16 +13,22 @@ const initialState = {
   order: "",
 };
 function HistoryMainCardList(props) {
-  const { onGetHistoryMainCard } = props;
+  const { onGetHistoryMainCard, customer } = props;
   const [filter, setFilter] = useState(initialState);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    onGetHistoryMainCard(search, filter);
+    if(customer) {
+      filter.id = customer.id
+      onGetHistoryMainCard(search, filter);
+    }
   }, []);
 
   useEffect(() => {
-    onGetHistoryMainCard(search, filter);
+    if(customer) {
+      filter.id = customer.id
+      onGetHistoryMainCard(search, filter);
+    }
   }, [filter]);
 
   const handleInputOnchange = (e) => {

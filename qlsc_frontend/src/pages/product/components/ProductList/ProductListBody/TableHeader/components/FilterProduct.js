@@ -30,12 +30,5 @@ function FilterProduct(props) {
 }
 
 FilterProduct.defaultProps = {};
-const mapStateToProps = (state) => {
-  //
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterProduct);
+export default connect(null, null)(FilterProduct);

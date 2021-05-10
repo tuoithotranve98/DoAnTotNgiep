@@ -3,7 +3,7 @@ import "./styles.scss";
 import Wrapper from "./TableBody/components/Wrapper/Wrapper";
 import TableHeader from "./TableHeader/TableHeader";
 
-function ProductListBody(props) {
+function HistoryMainCardListBody(props) {
   const { onGetCustomer, handleInputOnchange, search, onChangeFilter } = props;
   return (
     <div className="customer-list-body">
@@ -19,4 +19,4 @@ function ProductListBody(props) {
     </div>
   );
 }
-export default ProductListBody;
+export default HistoryMainCardListBody;

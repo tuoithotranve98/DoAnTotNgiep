@@ -8,7 +8,7 @@ function FilterCustomer(props) {
     <div id="filter-customer-wrapper">
       <div id="filter-customer-by-tab-wrapper">
         <ul id="filter-customer-by-tab">
-          <li className="filter-customer-tab active">Tất cả khách hàng</li>
+          <li className="filter-customer-tab active">Tất cả phiếu sửa chữa</li>
         </ul>
       </div>
       <div id="filter-customer-option-wrapper">
@@ -18,7 +18,7 @@ function FilterCustomer(props) {
           </div>
           <input
             id="filter-customer-search-input"
-            placeholder="Tìm kiếm khách hàng theo tên khách hàng hoặc số điện thoại"
+            placeholder="Tìm kiếm phiếu sữa chữa theo mã phiếu hoặc số điện thoại"
             value={search}
             onChange={(e) => handleInputOnchange(e)}
           />
@@ -29,12 +29,5 @@ function FilterCustomer(props) {
 }
 
 FilterCustomer.defaultProps = {};
-const mapStateToProps = (state) => {
-  //
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterCustomer);
+export default connect(null, null)(FilterCustomer);

@@ -59,7 +59,7 @@ function Header(props) {
   };
   const { onClick, checked, minus } = props;
   return (
-    <div className="d-flex header-list delivery-collations-header" style={{ padding: checked || minus ? '0px 0 8px' : '' }}>
+    <div className="d-flex header-list history-main-card-header" style={{ padding: checked || minus ? '0px 0 8px' : '' }}>
       {
           checked || minus ? null : (
             <div className="checkbox header-checkbox" onClick={() => onClick()}>
@@ -82,16 +82,25 @@ function Header(props) {
                 &nbsp;&nbsp;
               </div>
               <div className="margin-right20 header-item order-collations-code">
-                Mã khách hàng
+                Mã phiếu
               </div>
               <div className="margin-right20 header-item order-collations-fulfillment">
-                Tên khách hàng
+                Biển số xe
               </div>
               <div className="margin-right20 header-item order-collations-loaction">
-                Số điện thoại
+                NV điều phối
               </div>
               <div className="margin-right20 header-item order-collations-status">
-                Email
+                NV sửa chữa
+              </div>
+              <div className="margin-right20 header-item order-collations-status">
+                Trạng thái thanh toán
+              </div>
+              <div className="margin-right20 header-item order-collations-status">
+                Trạng thái công việc
+              </div>
+              <div className="margin-right20 header-item order-collations-status">
+                Ngày trả xe
               </div>
             </React.Fragment>
           )

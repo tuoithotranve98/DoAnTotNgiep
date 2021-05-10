@@ -9,8 +9,9 @@ import * as Icons from "pages/customer/commons/Icons";
 
 function Wrapper(props) {
   const { historyMainCard, onGetHistoryMainCard, onChangeFilter } = props;
+  console.log("historyMainCard", historyMainCard);
   const [selectedIds, setSelectedIds] = useState([]);
-  const { customers } = historyMainCard
+  const { historyMainCards } = historyMainCard
   const listRef = React.useRef();
 
   const onClick = () => {
@@ -61,8 +62,8 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <Header
           onClick={onClick}
-          checked={selectedIds.length && selectedIds.length === customers.length}
-          minus={selectedIds.length && selectedIds.length < customers.length}
+          checked={selectedIds.length && selectedIds.length === historyMainCards.length}
+          minus={selectedIds.length && selectedIds.length < historyMainCards.length}
           child={child} />
         <List
           ref={listRef}

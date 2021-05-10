@@ -2,7 +2,7 @@ import * as actionTypes from "actions/actionTypes";
 
 const initialState = {
   currentPage: 0,
-  customers: [],
+  historyMainCards: [],
   totalItems: 0,
   totalPages: 0,
   historyMainCard: {},
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case actionTypes.RECEIVE_HISTORY_MAIN_CARDS:
       return {
         ...state,
-        customers: action.customers,
+        historyMainCards: action.historyMainCards,
         currentPage: action.currentPage,
         totalItems: action.totalItems,
         totalPages: action.totalPages,

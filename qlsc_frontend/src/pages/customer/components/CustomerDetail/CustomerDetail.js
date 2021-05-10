@@ -7,6 +7,7 @@ import CustomerDetailInfo from './CustomerDetailInfo/CustomerDetailInfo';
 import { useParams } from "react-router-dom";
 import './styles.scss';
 import TitleAndAction from './TitleAndAction/TitleAndAction';
+import HistoryMainCardList from './HistoryMainCard/HistoryMainCardList';
 function CustomerDetail(props) {
   const { id } = useParams();
   const { customer, onGetCustomerById } = props;
@@ -19,7 +20,7 @@ function CustomerDetail(props) {
     <div className="customer-screen-wrapper-detail">
         <TitleAndAction  customer={customer}/>
         <CustomerDetailInfo customer={customer} />
-        {/* <HistoryMainCard /> */}
+        <HistoryMainCardList customer={customer}/>
     </div>
   );
 }

@@ -29,12 +29,5 @@ function FilterCustomer(props) {
 }
 
 FilterCustomer.defaultProps = {};
-const mapStateToProps = (state) => {
-  //
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterCustomer);
+export default connect(null, null)(FilterCustomer);

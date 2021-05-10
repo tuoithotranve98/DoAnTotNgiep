@@ -9,13 +9,13 @@ const customersTemp = new schema.Entity('items');
 
 const List = forwardRef((props, ref) => {
   const { historyMainCard, fetching, isEmpty, selectedIds, onCheckBoxClick } = props;
-  const { customers } = historyMainCard;
+  const { historyMainCards } = historyMainCard;
 
   useImperativeHandle(ref, () => ({
     onCheckAll() {
       const { onCheckBoxListClick, selectedIds } = props;
-      if (customers.length !== selectedIds.length) {
-        const normalized = normalize(customers, [customersTemp]);
+      if (historyMainCards.length !== selectedIds.length) {
+        const normalized = normalize(historyMainCards, [customersTemp]);
         const itemIds = normalized.result;
         onCheckBoxListClick(itemIds);
       } else {
@@ -32,7 +32,7 @@ const List = forwardRef((props, ref) => {
   }
   return (
     <div className="order-list-container">
-      {customers.map((historyMainCard) => {
+      {historyMainCards.map((historyMainCard) => {
         return <Item
               key={historyMainCard.code}
               index={historyMainCard.code}
@@ -45,6 +45,6 @@ const List = forwardRef((props, ref) => {
   );
 });
 List.defaultProps = {
-  customers: [],
+  historyMainCards: [],
 };
 export default List;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import StaffDetailInfo from './StaffDetailInfo/StaffDetailInfo';
-import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
+// import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
 import { useParams } from "react-router-dom";
 import { getStaffById } from '../../actions/staffAction';
 import './styles.scss';
@@ -17,7 +17,7 @@ function StaffDetail(props) {
   return (
     <div className="staff-screen-wrapper-detail">
         <StaffDetailInfo staff={staff} />
-        <HistoryMainCard />
+        {/* <HistoryMainCard /> */}
     </div>
   );
 }

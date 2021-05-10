@@ -5,7 +5,7 @@ import "../../styles/footer.scss";
 
 function Footer(props) {
   const { historyMainCard, onGetHistoryMainCard, onChangeFilter, isEmpty , fetching} = props;
-  const { currentPage, totalItems, totalPages, customers } = historyMainCard;
+  const { currentPage, totalItems, totalPages, historyMainCards } = historyMainCard;
   const [size, setSize] = useState(10);
 
   const calculateBegin = () => {
@@ -13,7 +13,7 @@ function Footer(props) {
       return 1;
     }
     if (currentPage === totalPages) {
-      return (size * (currentPage - 1) + customers.length);
+      return (size * (currentPage - 1) + historyMainCards.length);
     }
     return (size * currentPage) + 1;
   };
@@ -60,12 +60,6 @@ Footer.defaultProps = {
   size: 10,
 };
 
-const mapStateToProps = (state) => {
-  //
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  //
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default connect(null, null)(Footer);
