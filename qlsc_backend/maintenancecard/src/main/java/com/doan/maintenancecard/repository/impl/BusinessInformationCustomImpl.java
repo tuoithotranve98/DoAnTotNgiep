@@ -88,18 +88,16 @@ public class BusinessInformationCustomImpl implements BusinessInformationCustom 
 
     @Override
     public List<StatisticRepairmanDTO> getTopRepairMan(String startDate, String endDate) {
-        String sql = "SELECT m.repairman_name as tenNV, count(m.repairman_id) as sophieuHT FROM maintenance_cards as m  \n" +
+        String sql = "SELECT m.repairman_name as name, count(m.repairman_id) as total FROM maintenance_cards as m  \n" +
             "where m.work_status = 2\n" +
             "and m.repairman_id != 0\n " +
             "and m.created_date BETWEEN Date(:startDate) AND Date(:endDate)\n" +
             "group by m.repairman_id \n" +
-            "order by sophieuHT desc limit 5; ";
+            "order by total desc limit 5; ";
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource().addValue("startDate", startDate).addValue("endDate", endDate);
-        return jdbcTemplate.query(sql, sqlParameterSource, (((resultSet, i) ->
-            new StatisticRepairmanDTO(
-                resultSet.getNString("tenNV"),
-                resultSet.getInt("sophieuHT")
-            ))));
+        return jdbcTemplate.query(sql, sqlParameterSource, ((resultSet, i) ->
+            new StatisticRepairmanDTO(resultSet.getNString("name"),
+                resultSet.getInt("total"))));
     }
 
 }
