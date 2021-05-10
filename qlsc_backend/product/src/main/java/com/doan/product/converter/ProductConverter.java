@@ -16,7 +16,7 @@ public class ProductConverter {
         productDTO.setPricePerUnit(product.getPricePerUnit());
         productDTO.setQuantity(product.getQuantity());
         productDTO.setDescription(product.getDescription());
-        productDTO.setImage(product.getImages());
+        productDTO.setImages(product.getImages());
         productDTO.setCreatedDate(product.getCreatedDate());
         productDTO.setModifiedDate(product.getModifiedDate());
         productDTO.setStatus(product.getStatus());

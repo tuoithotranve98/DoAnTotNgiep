@@ -196,7 +196,7 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = checkProduct.get();
         if (StringUtils.isNotBlank(productReq.getCode())
-            && product.getCode().equals(productReq.getCode())
+            && !product.getCode().equals(productReq.getCode())
             && isCodeExist(productReq.getCode())) {
             return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại");
         }

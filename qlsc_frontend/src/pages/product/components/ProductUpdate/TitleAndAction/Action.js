@@ -1,23 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import * as Icons from "pages/product/commons/Icons";
-
 import "./stylesAction.scss";
 
 const arr = [
   {
-    id: 0,
+    id: 1,
     name: "Linh kiện",
   },
   {
-    id: 1,
+    id: 2,
     name: "Dịch vụ",
   },
 ];
 function Action(props) {
-  const { setShowContent } = props;
+  const { showContent } = props;
   const [show, setShow] = useState(false);
-  const [currentShow, setCurrentShow] = useState(arr[0]);
   const myRef = useRef();
 
   useEffect(() => {
@@ -35,6 +32,12 @@ function Action(props) {
     setCurrentShow(item);
   };
 
+  const handleName= () => {
+    const item = arr.find((item) => item.id === showContent);
+    if (item) return item.name;
+    return '';
+  }
+
   return (
     <div
       className="report-filter-group-by"
@@ -50,7 +53,7 @@ function Action(props) {
         <Icons.groupByIcon />
         <div className="content">
           Loại sản phẩm:
-          <span>&nbsp;{currentShow.name}</span>
+          <span>&nbsp;{handleName()}</span>
         </div>
         <Icons.dropdownIcon />
       </div>
@@ -67,7 +70,7 @@ function Action(props) {
                 }}
               >
                 <span>{item.name}</span>
-                {currentShow.id === item.id ? <Icons.tick /> : null}
+                {showContent === item.id ? <Icons.tick /> : null}
               </div>
             );
           })}

@@ -12,7 +12,7 @@ public class ProductDTO extends BaseDTO {
 
     private String name;
     private String code;
-    private List<String> image;
+    private List<String> images;
     private int quantity;
     private String unit;
     private BigDecimal pricePerUnit;

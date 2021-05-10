@@ -30,12 +30,11 @@ function ProductUpdate(props) {
     onGetProductServiceById,
   } = props;
   const [product, setProduct] = useState(initialState);
-  const [showContent, setShowContent] = useState(1);
+  const [showContent, setShowContent] = useState(null);
   const { id } = useParams();
   useEffect(() => {
-    onchangeValue("type", 1);
     if (id) {
-        onGetProductServiceById(id).then((json) => {
+      onGetProductServiceById(id).then((json) => {
         if (json) setProduct(json);
         if (json && json.type) setShowContent(json.type);
       });
@@ -59,6 +58,8 @@ function ProductUpdate(props) {
     });
   };
 
+  console.log('product', product);
+
   const cancel = () => {
     setUser(initialState);
     setShowContent(1);
@@ -79,35 +80,20 @@ function ProductUpdate(props) {
       });
   };
 
-  const handleChange = () => {
-    if (showContent === 1) {
-      setShowContent(2);
-    } else {
-      setShowContent(1);
-    }
-  };
-
-  const renderContent = () => {
-    if (showContent === 1) {
-      return (
-        <Accessories
-          product={product}
-          onchangeValue={onchangeValue}
-          handleUploadImage={handleUploadImage}
-        />
-      );
-    }
-    if (showContent === 2) {
-      return <Service product={product} onchangeValue={onchangeValue} />;
-    }
-  };
-
   return (
     <React.Fragment>
       <div className="product-screen-wrapper-create">
-        <TitleAndAction setShowContent={handleChange} />
+        <TitleAndAction showContent={showContent} />
         <div className="row">
-          {renderContent()}
+          {showContent === 1 ? (
+            <Accessories
+              product={product}
+              onchangeValue={onchangeValue}
+              handleUploadImage={handleUploadImage}
+            />
+          ) : (
+            <Service product={product} onchangeValue={onchangeValue} />
+          )}
           <InfoProductFooter
             saveProductService={saveProductService}
             cancel={cancel}
