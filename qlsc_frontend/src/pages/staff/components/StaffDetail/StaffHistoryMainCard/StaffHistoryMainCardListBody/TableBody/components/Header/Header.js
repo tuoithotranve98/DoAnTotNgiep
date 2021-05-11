@@ -85,22 +85,22 @@ function Header(props) {
                 Mã phiếu
               </div>
               <div className="margin-right20 header-item order-collations-fulfillment">
-                Biển số xe
+                Khách hàng
               </div>
               <div className="margin-right20 header-item order-collations-loaction">
-                NV điều phối
+                Biển số xe
               </div>
               <div className="margin-right20 header-item order-collations-status">
-                NV sửa chữa
+                Tổng tiền
+              </div>
+              <div className="margin-right20 header-item order-collations-status">
+                NV Điều phối
               </div>
               <div className="margin-right20 header-item order-collations-status">
                 Trạng thái thanh toán
               </div>
               <div className="margin-right20 header-item order-collations-status">
                 Trạng thái công việc
-              </div>
-              <div className="margin-right20 header-item order-collations-status">
-                Ngày trả xe
               </div>
             </React.Fragment>
           )

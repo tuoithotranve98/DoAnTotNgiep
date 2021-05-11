@@ -49,7 +49,7 @@ export const getFilterStaffHistoryMainCard = (search = "", option = {}) => (
 const processOption = (search, option) => {
   let filter = "?";
   if (search) {
-    filter += `search=${search}`;
+    filter += `code=${search}`;
   }
   if (option && option.page) {
     filter += `&page=${option.page}`;

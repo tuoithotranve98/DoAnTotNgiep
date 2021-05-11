@@ -14,7 +14,7 @@ function StaffDetailInfo(props) {
   }
 
   return (
-    <div className="customer-detail-info">
+    <div className="staff-detail-info">
       <div className="card">
         <div className="label">Thông tin nhân viên</div>
         <div className="content">

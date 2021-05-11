@@ -151,10 +151,6 @@ export const menuLinkFull = [
         url: '/products',
         title: 'Danh sách sản phẩm'
       },
-      {
-        id: 3,
-        url: '/product/detail/',
-      }
     ]
   },
   {

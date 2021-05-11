@@ -196,27 +196,6 @@ function TopBar(props) {
       );
     }
 
-    if (url.includes("/product/detail/")) {
-      const split = url.split("/product/detail/");
-      if (split.length > 1) {
-        const id = Number(split[1]);
-        if (id) {
-          return (
-            <React.Fragment>
-              <span
-                className="header-top-bar-text"
-                onClick={() => pushstate(history, "/products")}
-              >
-                Sản phẩm
-              </span>
-              <span>&nbsp;{">"}&nbsp;</span>
-              <span>Chi tiết sản phẩm</span>
-            </React.Fragment>
-          );
-        }
-      }
-    }
-
     if (url.includes("/maintenance-cards")) {
       return (
         <React.Fragment>
