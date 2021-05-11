@@ -1,0 +1,22 @@
+.delivery-collations-list-wrapper{
+    #delivery-collations-filter-empty-wrapper {
+      display: flex;
+      height: 500px;
+      position: relative;
+      #delivery-collations-filter-empty-text {
+        align-self: center;
+        font-size: 30px;
+        padding: 0 0 20px 5%;
+        white-space: nowrap;
+      }
+      #delivery-collations-filter-empty-icon {
+        position: absolute;
+        right: 5%;
+        svg {
+          height: 500px;
+          width: 600px;
+        }
+      }
+    }
+  }
+  

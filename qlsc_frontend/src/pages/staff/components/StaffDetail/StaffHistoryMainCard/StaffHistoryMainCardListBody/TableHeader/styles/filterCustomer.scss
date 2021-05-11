@@ -1,0 +1,63 @@
+#filter-customer-wrapper {
+    #filter-customer-by-tab-wrapper {
+        border-bottom: 1px solid #E0E0E0;
+        #filter-customer-by-tab {
+            padding-left: 20px;
+            font-size: 14px;
+            list-style: none;
+            margin-bottom: 0;
+            color: #828282;
+            display: flex;
+            .filter-customer-tab {
+                margin-right: 40px;
+                padding: 13px 0;
+                cursor: pointer;
+            }
+            .active {
+                border-bottom: 2px solid #0088FF;
+                color: #4F4F4F;
+                font-weight: 600;
+            }
+        }
+    }
+  
+    #filter-customer-option-wrapper {
+        display: flex;
+        margin-top: 15px;
+        #filter-customer-button {
+            margin-left: 20px;
+            border-radius: 4px 0px 0px 4px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            outline: none;
+            min-width: 200px;
+            height: 35px;
+            svg {
+                margin: 0 0 2px 10px;
+            }
+        }
+        #filter-customer-search {
+            border-radius: 4px 4px 4px 4px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            height: 35px;
+            display: flex;
+            width: 96%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            #filter-customer-search-icon {
+                margin: 7px 10px 0 15px;
+            }
+            #filter-customer-search-input {
+                border: none;
+                width: -webkit-fill-available;
+                outline: none;
+            }
+            &:focus-within {
+              box-shadow: 0 0 0 1px #08f;
+              border: 1px solid #08f
+            }
+        }
+    }
+  }
+  
