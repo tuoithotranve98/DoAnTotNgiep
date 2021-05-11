@@ -6,18 +6,18 @@ import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
 function Item(props) {
-  const { checked, customer } = props;
+  const { checked, staffHistoryMainCard } = props;
   const history = useHistory();
-
+  console.log("staffHistoryMainCard", staffHistoryMainCard);
   const onCheck = (e) => {
     e.stopPropagation();
     const { onCheckBoxClick } = props;
-    onCheckBoxClick(customer.id);
+    onCheckBoxClick(staffHistoryMainCard.id);
   };
 
   const onRedirectDetail = (e) => {
     e.stopPropagation();
-    pushstate(history, `/customer/detail/${customer.id}`);
+    pushstate(history, `/staffHistoryMainCard/detail/${staffHistoryMainCard.id}`);
   }
 
   return (
@@ -41,7 +41,7 @@ function Item(props) {
               target="_blank"
               style={{ textDecoration: "none", color: '#007bff' }}
             >
-              {(customer && customer.code) || ''}
+              {(staffHistoryMainCard && staffHistoryMainCard.code) || ''}
               <ReactTooltip
                 place="top"
                 type="dark"
@@ -49,26 +49,26 @@ function Item(props) {
                 isMultiline
                 id={`order_collation_number_id_${1}`}
               >
-                {(customer && customer.code) || ''}
+                {(staffHistoryMainCard && staffHistoryMainCard.code) || ''}
               </ReactTooltip>
             </a>
           </span>
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {(customer && customer.name) || ''}
+        {(staffHistoryMainCard && staffHistoryMainCard.name) || ''}
         </div>
         <div
           className="margin-right20 delivery-collation-location"
           data-tip
           data-for={`delivery-collation-location_${1}`}
         >
-         {(customer && customer.phone) || ''}
+         {(staffHistoryMainCard && staffHistoryMainCard.phone) || ''}
         </div>
         <div
           className="margin-right20 item-list"
           style={{ color: status.color }}
         >
-          {(customer && customer.email) || ''}
+          {(staffHistoryMainCard && staffHistoryMainCard.email) || ''}
         </div>
       </div>
     </div>

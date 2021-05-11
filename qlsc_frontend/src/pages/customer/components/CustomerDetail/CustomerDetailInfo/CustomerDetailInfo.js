@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { convertSecondToDate } from 'utils/datetimeUtil';
+import * as Icons from "pages/product/commons/Icons";
 import "./styles.scss";
+import { Dropdown } from "react-bootstrap";
+import pushstate from "../../../../../utils/pushstate";
+import { useHistory, withRouter } from "react-router";
 function CustomerDetailInfo(props) {
   const { customer } = props;
-
+  const history = useHistory();
   const formatAddress = () => {
     const { ward } = customer;
     let txtAddress = '';
@@ -21,7 +25,25 @@ function CustomerDetailInfo(props) {
   return (
     <div className="customer-detail-info">
       <div className="card">
-        <div className="title">Thông tin khách hàng</div>
+        <div className="d-flex title-content">
+          <div className="title">Thông tin khách hàng</div>
+          <div className="action-diff">
+            {/* <span className="text">Thao tác khác</span>
+            <Icons.dropdownIcon /> */}
+            <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic" className="btn-action-diff">
+             Thao tác khác
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+
+              <Dropdown.Item onClick={() => { pushstate(history, `/customer/update/${customer.id}`); }}>Cập nhật thông tin</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-2">Xóa khách hàng</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </div>
+        </div>
         <div className="content">
           <div className="row">
             <div className="col-4">
@@ -88,4 +110,4 @@ function CustomerDetailInfo(props) {
 }
 CustomerDetailInfo.defaultProps = {};
 
-export default React.memo(connect(null, null)(CustomerDetailInfo));
+export default withRouter(React.memo(connect(null, null)(CustomerDetailInfo)));

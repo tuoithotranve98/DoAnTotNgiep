@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import StaffDetailInfo from './StaffDetailInfo/StaffDetailInfo';
-// import HistoryMainCard from './HistoryMainCard/HistoryMainCard';
 import { useParams } from "react-router-dom";
 import { getStaffById } from '../../actions/staffAction';
 import './styles.scss';
+import StaffHistoryMainCardList from './StaffHistoryMainCard/StaffHistoryMainCardList';
+import TitleAndAction from './TitleAndAction/TitleAndAction';
 function StaffDetail(props) {
   const { id } = useParams();
   const { staff, onGetStaffById } = props;
@@ -16,8 +17,9 @@ function StaffDetail(props) {
   }, []);
   return (
     <div className="staff-screen-wrapper-detail">
+        <TitleAndAction staff={staff} />
         <StaffDetailInfo staff={staff} />
-        {/* <HistoryMainCard /> */}
+        <StaffHistoryMainCardList  staff={staff}  />
     </div>
   );
 }

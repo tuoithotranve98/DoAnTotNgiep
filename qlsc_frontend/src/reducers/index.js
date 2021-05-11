@@ -7,6 +7,7 @@ import locations from './locations/locations';
 import auth from './auth';
 import mainCards from './maintenancecard';
 import historyMainCard from './historyMainCard/historyMainCard';
+import staffHistoryMainCard from './staffHistoryMainCard/staffHistoryMainCard';
 import staff from './staff/staff';
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
   mainCards,
   staff,
   historyMainCard,
+  staffHistoryMainCard
 })

@@ -1,0 +1,39 @@
+.delivery-collations-item-wrapper{
+    align-items: center;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 15px 0;
+    min-width: 920px;
+    flex-wrap: wrap;
+    .delivery-collations-listing-item{
+      align-items: center;
+    }
+    &:last-child{
+      border-bottom: unset;
+    }
+    .header-checkbox{
+      // margin-top: -4px;
+      margin-left: 35px;
+      padding-bottom: 0px !important;
+    }
+    .item-list{
+       width: calc((100% - 260px) / 4);
+    }
+    .order-collations-total-amount{
+      text-align: right;
+    }
+    .order-collations-paid{
+      text-align: center;
+    }
+    .order-collations-ship-fee{
+      text-align: right;
+    }
+    .delivery-collation-location{
+       width: calc((100% - 260px) / 4);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .delivery-collations-item-wrapper:nth-child(odd) {
+    background-color: #f9f9f9;
+  }

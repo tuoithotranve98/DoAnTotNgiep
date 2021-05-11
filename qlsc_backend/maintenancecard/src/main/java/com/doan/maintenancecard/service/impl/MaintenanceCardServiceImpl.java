@@ -476,9 +476,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         List<MaintenanceCardDTO> maintenanceCardDTO = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         page.toList().forEach(maintenanceCard -> maintenanceCardDTO.add(maintenanceCardConverter.convertToDTO(maintenanceCard)));
-        map.put("maintenanceCard", maintenanceCardDTO);
-        map.put("totalPage", page.getTotalPages());
-        map.put("totalElement", page.getTotalElements());
+        map.put("staffHistoryMainCards", maintenanceCardDTO);
+        map.put("totalPages", page.getTotalPages());
+        map.put("totalItems", page.getTotalElements());
         map.put("currentPage", user.getPage());
         return map;
 
