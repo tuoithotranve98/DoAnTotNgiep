@@ -1,10 +1,12 @@
 package com.doan.maintenancecard.service.impl;
 
 import com.doan.maintenancecard.converter.MaintenanceCardConverter;
+import com.doan.maintenancecard.dao.impl.MaintenanceCardsDaoImpl;
 import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.entity.MaintenanceCard;
 import com.doan.maintenancecard.entity.MaintenanceCardDetail;
 import com.doan.maintenancecard.entity.MaintenanceCardDetailStatusHistory;
+import com.doan.maintenancecard.entity.MaintenanceCardV1;
 import com.doan.maintenancecard.entity.PaymentHistory;
 import com.doan.maintenancecard.exception.CodeExistedException;
 import com.doan.maintenancecard.exception.NotANumberException;
@@ -18,6 +20,10 @@ import com.doan.maintenancecard.kafka.VehicleModel;
 import com.doan.maintenancecard.model.MaintenanceCardCustomer;
 import com.doan.maintenancecard.model.MaintenanceCardFilter;
 import com.doan.maintenancecard.model.MaintenanceCardUser;
+import com.doan.maintenancecard.model.MaintenanceCardsFilterRequest;
+import com.doan.maintenancecard.model.MaintenanceCardsMapper;
+import com.doan.maintenancecard.model.MaintenanceCardsModel;
+import com.doan.maintenancecard.model.MaintenanceCardsResponse;
 import com.doan.maintenancecard.model.MessageModel;
 import com.doan.maintenancecard.repository.MaintenanceCardDetailRepository;
 import com.doan.maintenancecard.repository.MaintenanceCardRepository;
@@ -25,6 +31,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.doan.maintenancecard.service.MaintenanceCardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -39,6 +46,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MaintenanceCardServiceImpl implements MaintenanceCardService {
@@ -46,6 +54,8 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     private final MaintenanceCardConverter maintenanceCardConverter;
     private final MaintenanceCardRepository maintenanceCardRepository;
     private final MaintenanceCardDetailRepository maintenanceCardDetailRepository;
+    private final MaintenanceCardsDaoImpl maintenanceCardsDao;
+    private final MaintenanceCardsMapper maintenanceCardsMapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
@@ -572,5 +582,66 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         return map;
     }
 
+    @Override
+    public MaintenanceCardsResponse getMantenanceCards(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest){
+        MaintenanceCardsResponse maintenanceCardsResponse
+            = new MaintenanceCardsResponse();
+        maintenanceCardsResponse.getMetadata().setPage(maintenanceCardsFilterRequest.getPage());
+        maintenanceCardsResponse.getMetadata().setLimit(maintenanceCardsFilterRequest.getLimit());
+        maintenanceCardsFilterRequest.setPage(maintenanceCardsResponse.getMetadata().getPage());
+        maintenanceCardsFilterRequest.setLimit(maintenanceCardsResponse.getMetadata().getLimit());
+        List<MaintenanceCardsModel> maintenanceCardsModels
+            = getListMantenanceCards(maintenanceCardsFilterRequest);
+        maintenanceCardsResponse.setMaintenanceCardsModels(maintenanceCardsModels);
+        int total
+            = setFilterCount(maintenanceCardsFilterRequest);
+        maintenanceCardsResponse.getMetadata().setTotal(total);
+        return maintenanceCardsResponse;
+    }
 
+    public List<MaintenanceCardsModel> getListMantenanceCards(
+        MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
+    ) {
+        int offset = (maintenanceCardsFilterRequest.getPage() - 1) * maintenanceCardsFilterRequest.getLimit();
+        String payStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getPayStatus(), ",");
+        String workStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getWorkStatus(), ",");
+        List<MaintenanceCardV1> maintenanceCardV1s = filter(
+            offset, maintenanceCardsFilterRequest.getLimit(), maintenanceCardsFilterRequest.getQuery(), payStatusIds,
+            workStatusIds,
+            maintenanceCardsFilterRequest.getFrom(), maintenanceCardsFilterRequest.getTo()
+        );
+        if (maintenanceCardV1s.size() > 0) {
+            return maintenanceCardsMapper.getMaintenanceCardsModels(maintenanceCardV1s);
+        }
+        return new ArrayList<>();
+    }
+
+    private List<MaintenanceCardV1> filter(
+        int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to
+    ) {
+        try {
+            return maintenanceCardsDao.filter(
+                offset, size, query, payStatusIds, workStatusIds, from, to
+            );
+        } catch (Exception e) {
+            log.error("filter | {}", e.toString());
+
+        }
+        return new ArrayList<>();
+    }
+
+    public int setFilterCount(
+        MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
+    ) {
+        try {
+            String payStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getPayStatus(), ",");
+            String workStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getWorkStatus(), ",");
+            return maintenanceCardsDao.filterCount(
+                maintenanceCardsFilterRequest.getQuery(), payStatusIds, workStatusIds, maintenanceCardsFilterRequest.getFrom(), maintenanceCardsFilterRequest.getTo()
+            );
+        } catch (Exception e) {
+            log.error("filterCount | {}", e.toString());
+        }
+        return 0;
+    }
 }

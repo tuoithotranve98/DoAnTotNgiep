@@ -1,6 +1,8 @@
 package com.doan.maintenancecard.controller;
 
 import com.doan.maintenancecard.model.MaintenanceCardUser;
+import com.doan.maintenancecard.model.MaintenanceCardsFilterRequest;
+import com.doan.maintenancecard.model.MaintenanceCardsResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.exception.CodeExistedException;
@@ -12,6 +14,7 @@ import com.doan.maintenancecard.model.MaintenanceCardCustomer;
 import com.doan.maintenancecard.model.MaintenanceCardFilter;
 import com.doan.maintenancecard.service.MaintenanceCardDetailService;
 import com.doan.maintenancecard.service.MaintenanceCardService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -136,4 +139,16 @@ public class MaintenanceCardController {
         Map<String, Object> map = maintenanceCardService.getMaintenanceCardByRepairMan(maintenanceCardUser);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+
+    @GetMapping
+    public ResponseEntity<MaintenanceCardsResponse> getMantenanceCards(
+        @Valid MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
+    ) {
+        MaintenanceCardsResponse maintenanceCardsResponse
+            = maintenanceCardService.getMantenanceCards(maintenanceCardsFilterRequest);
+        return ResponseEntity.ok(maintenanceCardsResponse);
+    }
+
+
 }
