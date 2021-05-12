@@ -8,9 +8,10 @@ import '../styles/filterMainCard.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
 import { default_option, default_status_work, default_status_work_detail, default_status_payment, default_status_payment_detail } from 'pages/maintenancecard/commons/mainCardConstants.js';
 import { fetchMainCard, showFilter } from '../../../../../actions/mainCard';
+import moment from 'moment';
 
 function FilterMainCard(props) {
-  const { showFilter } = props;
+  const { showFilter, filterInfo } = props;
   const [filterText, setFilterText] = useState('');
 
   useEffect(() => {
@@ -55,8 +56,6 @@ function FilterMainCard(props) {
   };
 
   const getFilterText = (filterName) => {
-    console.log("filterName", filterName);
-    console.log("filterInfo", props.filterInfo);
     if (filterName === 'statusWork') {
       for (let i = 0; i < default_status_work.length; i++) {
         if (props.filterInfo.statusWork === default_status_work[i]) {
@@ -71,8 +70,8 @@ function FilterMainCard(props) {
         }
       }
     }
-    if (filterName === 'date') {
-      return `Ngày tạo: Từ 01/09/1998- 17/09/1998`;
+    if (filterName === 'date' && filterInfo.startDate && filterInfo.endDate) {
+      return `Ngày tạo: Từ ${moment(filterInfo.startDate).format('DD/MM/YYYY')}- ${moment(filterInfo.endDate).format('DD/MM/YYYY')}`;
     }
     return null;
   };

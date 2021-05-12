@@ -50,7 +50,7 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <div id="delivery-collations-filter-empty-wrapper">
           <div id="delivery-collations-filter-empty-text">
-            Không có khách hàng
+            Không có phiếu sửa chữa
           </div>
           <div id="delivery-collations-filter-empty-icon">
             <Icons.OrderCollationFilterEmpty />

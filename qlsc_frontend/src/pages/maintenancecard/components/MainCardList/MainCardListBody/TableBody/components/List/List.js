@@ -9,7 +9,6 @@ const mainCardsTemp = new schema.Entity('items');
 
 const List = forwardRef((props, ref) => {
   const { mainCardList, filterInfo, fetching, isEmpty, selectedIds, onCheckBoxClick } = props;
-  console.log("mainCardList", mainCardList);
 
   useImperativeHandle(ref, () => ({
     getData() {
