@@ -75,6 +75,22 @@ export const updateStaff = (id, staff = {}) => (dispatch, getState) => {
     });
 };
 
+export const deleteStaff = (ids = []) => (dispatch, getState) => {
+  const endpoint = `${API_USER}/users/delete?ids=${ids}`;
+  return dispatch(
+    fetch(endpoint, {
+      method: "POST",
+    })
+  )
+    .then((json) => {
+      return json;
+    })
+    .catch((e) => {
+      console.error(e);
+      return e;
+    });
+};
+
 export const saveStaff = (staff = {}) => (dispatch, getState) => {
   const endpoint = `${API_USER}/users`;
   return dispatch(

@@ -69,16 +69,11 @@ public class UserController {
         } catch (Exception e) {
             return new UserResponse(Boolean.FALSE);
         }
-
     }
 
-    @DeleteMapping("users/delete")
-    public ResponseEntity<String> deleteUsers(@RequestParam("listID") List<Long> listID) throws Exception {
-        boolean isDelete = userService.deleteUserById(listID);
-        if (isDelete) {
-            return new ResponseEntity<>("Delete SuccessFully", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+    @PostMapping("users/delete")
+    public UserResponse deleteUsers(@RequestParam("ids") List<Long> ids) {
+        return userService.deleteUserById(ids);
     }
 
     @PutMapping("users/changePassword")

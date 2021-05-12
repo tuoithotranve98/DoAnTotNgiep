@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -73,9 +75,8 @@ public class ProductController {
 
     // multiple delete
     @PutMapping("products")
-    public ResponseEntity<String> multipleDelete(@RequestBody Long[] idArray) {
-        productService.multiDelete(idArray);
-        return new ResponseEntity<>("Products are deleted", HttpStatus.OK);
+    public ProductResponse multipleDelete(@RequestParam("ids") List<Long> ids) {
+        return productService.multiDelete(ids);
     }
 
     @GetMapping("test")

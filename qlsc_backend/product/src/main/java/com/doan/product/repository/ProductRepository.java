@@ -25,8 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Product SET status = 0 WHERE id IN :idArray")
-    void multipleDelete(@Param("idArray") Long[] idArray);
+    @Query("UPDATE Product SET status = 0 WHERE id =:id")
+    void updateStatusProduct(@Param("id") Long id);
 
     @Query("SELECT p FROM Product p WHERE p.status = 1 AND (p.name LIKE %?1%"
         + " OR p.code LIKE %?1%) AND p.type IN ?2")

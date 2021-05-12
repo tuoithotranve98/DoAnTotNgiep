@@ -16,36 +16,36 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT u FROM User u WHERE u.status =1 and (u.fullName like  %?1% or " +
         "u.email like %?1% or u.phoneNumber like %?1% or " +
         "u.code like  %?1% or u.address like %?1%) ")
-    public Page<User> getAllUser(Pageable pageable, String param);
+    Page<User> getAllUser(Pageable pageable, String param);
 
     @Query(value = "SELECT u FROM User u WHERE u.status =1 and u.role = 2 and (u.fullName like  %:param% or " +
         "u.email like %:param% or u.phoneNumber like %:param% or " +
         "u.code like  %:param% or u.address like %:param%) ")
-    public Page<User> getAllRepairman(Pageable pageable, String param);
+    Page<User> getAllRepairman(Pageable pageable, String param);
 
-    public Page<User> findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
     @Modifying
     @Query(value = "update Users set Users.status = 0 where Users.id =:UserId", nativeQuery = true)
-    public Integer updateStatusUser(@Param("UserId") Long UserId);
+    Integer updateStatusUser(@Param("UserId") Long UserId);
 
     @Query(value = "SELECT CONVERT(SUBSTRING(code, 4), UNSIGNED INTEGER ) AS newcode FROM users WHERE code LIKE '%ND%' ORDER BY newcode DESC LIMIT 1 offset :index", nativeQuery = true)
-    public String getMaxCodeUser(@Param("index") int index);
+    String getMaxCodeUser(@Param("index") int index);
 
     @Query(value = "SELECT count(code) FROM users\n" +
         "            where code = :code \n" +
         "            and id != :id ", nativeQuery = true)
-    public int checkCode(String code, Long id);
+    int checkCode(String code, Long id);
 
     @Query(value = "select u from User u where u.email =:username and u.password =:password")
-    public User checkLogin(@Param("username") String username, @Param("password") String password);
+    User checkLogin(@Param("username") String username, @Param("password") String password);
 
     @Query(value = "select u from User u where u.email =:username")
-    public User checkExistEmail(@Param("username") String username);
+    User checkExistEmail(@Param("username") String username);
 
     @Modifying
     @Query(value = "update User set password =:passwords where id =:userId")
-    public int changePassword(String passwords, Long userId);
+    int changePassword(String passwords, Long userId);
 
     @Query(value = "select u from User u where u.role =3")
     List<User> getAllManager();

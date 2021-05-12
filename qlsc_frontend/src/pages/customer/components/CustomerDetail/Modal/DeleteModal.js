@@ -43,7 +43,7 @@ function DeleteModal(props) {
         }
       });
     } else {
-      toastError("Không tìm thấy id khách hàng!");
+      toastError("Lỗi không xác định");
     }
   };
   const renderText = () => {

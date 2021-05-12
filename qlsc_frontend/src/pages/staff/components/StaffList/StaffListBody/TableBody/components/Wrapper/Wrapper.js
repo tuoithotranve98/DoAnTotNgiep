@@ -17,6 +17,10 @@ function Wrapper(props) {
     listRef && listRef.current.onCheckAll();
   };
 
+  useEffect(() => {
+    if (staff.fetching) setSelectedIds([]);
+  }, [staff.fetching])
+
   const onCheckBoxClick = (id) => {
     setSelectedIds(selectedIds.includes(id) ? selectedIds.filter(it => it !== id) : selectedIds.concat(id));
   };
@@ -54,7 +58,7 @@ function Wrapper(props) {
       </div>
     );
   }
-  console.log('staffs', staffs);
+
   return (
     <React.Fragment>
       <div className="staff-list-wrapper">
@@ -63,6 +67,7 @@ function Wrapper(props) {
           checked={selectedIds.length && selectedIds.length === staffs.length}
           minus={selectedIds.length && selectedIds.length < staffs.length}
           child={child}
+          selectedIds={selectedIds}
         />
         <List
           staffs={staffs}

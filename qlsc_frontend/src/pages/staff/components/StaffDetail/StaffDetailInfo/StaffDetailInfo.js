@@ -1,10 +1,13 @@
 import React from "react";
+import { withRouter } from "react-router";
 import { Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
 import { staff_role } from "../../../commons/staffConstants";
+import pushstate from "utils/pushstate";
+import { openModal } from '../../../../../components/modal/modalActions';
 import "./styles.scss";
 function StaffDetailInfo(props) {
-  const { staff } = props;
+  const { staff, onOpenModalDelete } = props;
 
   const handleTextRole = () => {
     if (staff && staff.role) {
@@ -14,24 +17,24 @@ function StaffDetailInfo(props) {
     return 'Chủ cửa hàng';
   }
 
+  const handleDeleteStaff = () => {
+    onOpenModalDelete("deleteStaffModal", { staff: staff});
+  }
+
   return (
     <div className="staff-detail-info">
       <div className="card">
         <div className="d-flex title-content">
           <div className="title">Thông tin nhân viên</div>
           <div className="action-diff">
-            {/* <span className="text">Thao tác khác</span>
-            <Icons.dropdownIcon /> */}
             <Dropdown>
             <Dropdown.Toggle id="dropdown-basic" className="btn-action-diff">
              Thao tác khác
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
-
-              <Dropdown.Item onClick={() => { pushstate(history, `/staff/update/${customer.id}`); }}>Cập nhật thông tin</Dropdown.Item>
+              <Dropdown.Item onClick={() => { pushstate(props.history, `/staff/update/${staff.id}`); }}>Cập nhật thông tin</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href="#/action-2">Xóa nhân viên</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleDeleteStaff()}>Xóa nhân viên</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           </div>
@@ -80,8 +83,6 @@ function StaffDetailInfo(props) {
               </div>
             </div>
           </div>
-
-
           <div className="row">
             <div className="col-4">
               <div className="d-flex item">
@@ -108,5 +109,7 @@ function StaffDetailInfo(props) {
   );
 }
 StaffDetailInfo.defaultProps = {};
-
-export default React.memo(connect(null, null)(StaffDetailInfo));
+const mapDispatchToProps = (dispatch) => ({
+  onOpenModalDelete: (modalName, data) => dispatch(openModal(modalName, data)),
+});
+export default withRouter(React.memo(connect(null, mapDispatchToProps)(StaffDetailInfo)));

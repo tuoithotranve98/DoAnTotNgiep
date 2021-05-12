@@ -1,16 +1,15 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { useHistory } from 'react-router';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
 import '../../styles/header.scss';
 import { connect } from 'react-redux';
+import { openModal } from '../../../../../../../../components/modal/modalActions';
 
 function Header(props) {
   const history = useHistory();
-  const { filterInfo } = props;
+  const { filterInfo, selectedIds, onOpenModalDelete } = props;
   const onClickCreateMainCard = () => {
-    alert("xin cahfo")
+    onOpenModalDelete("deleteStaffModal", { ids: selectedIds});
   };
 
   const renderBulkAction = () => {
@@ -106,11 +105,8 @@ function Header(props) {
     </div>
   );
 }
-const mapStateToProps = (state) => {
-  const { mainCards: { filterInfo, mainCard: { checkCreate } } } = state;
-  return {
-    checkCreate,
-    filterInfo,
-  };
-};
-export default connect(null, null)(Header);
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenModalDelete: (modalName, data) => dispatch(openModal(modalName, data)),
+});
+export default connect(null, mapDispatchToProps)(Header);

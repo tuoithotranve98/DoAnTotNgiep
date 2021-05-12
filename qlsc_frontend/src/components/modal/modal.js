@@ -6,6 +6,8 @@ import * as _ from 'lodash'
 import './modal.scss'
 import { resetModal } from './modalActions'
 import DeleteModal from '../../pages/customer/components/CustomerDetail/Modal/DeleteModal'
+import DeleteModalStaff from '../../pages/staff/components/StaffDetail/Modal/DeleteModal';
+import DeleteModalProduct from '../../pages/product/components/ProductUpdate/Modal/DeleteModal';
 // import CreateProductModal from '../../pages/product/list/CreateProductModal'
 
 function Modals (props) {
@@ -59,6 +61,8 @@ function Modals (props) {
     <div className="modal_container">
       { modal.createProductModal.show ? (<CreateProductModal />) : null }
       { modal.deleteCustomer.show ? <DeleteModal /> : null }
+      { modal.deleteStaffModal.show ? <DeleteModalStaff /> : null }
+      { modal.deleteProductModal.show ? <DeleteModalProduct /> : null }
     </div>
   )
 }

@@ -1,6 +1,7 @@
 package com.doan.user.service.impl;
 
 import com.doan.user.converter.UserConverter;
+import com.doan.user.model.UserResponse;
 import com.doan.user.service.UserService;
 import com.doan.user.dto.PasswordPoJo;
 import com.doan.user.dto.UserDTO;
@@ -143,30 +144,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean deleteUserById(List<Long> arrayID) throws Exception {
-        Integer rs = 0;
-        AtomicBoolean allowDetele = new AtomicBoolean(true);
+    public UserResponse deleteUserById(List<Long> ids) {
+        AtomicBoolean allowDelete = new AtomicBoolean(Boolean.TRUE);
         List<User> list = userRepository.findAll().stream().filter(user -> user.getRole() == 3).collect(Collectors.toList());
-        arrayID.forEach(val -> {
-            list.forEach(user -> {
-                if (user.getId() == val) {
-                    allowDetele.set(false);
-                }
-            });
-        });
-        if (Boolean.parseBoolean(String.valueOf(allowDetele))) {
-            if (arrayID.size() > 0) {
-                for (Long id : arrayID
-                ) {
-                    rs += userRepository.updateStatusUser(id);
-                }
+        ids.forEach(val -> list.forEach(user -> {
+            if (user.getId().equals(val)) {
+                allowDelete.set(Boolean.FALSE);
             }
-            return true;
-        } else {
-            throw new Exception("Không được phép xóa người quản lý");
+        }));
+        if (!Boolean.parseBoolean(String.valueOf(allowDelete))) {
+            return new UserResponse(Boolean.FALSE, "Không được phép xóa người quản lý");
         }
-
-
+        try {
+            ids.forEach(userRepository::updateStatusUser);
+            return new UserResponse(Boolean.TRUE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new UserResponse(Boolean.FALSE);
+        }
     }
 
     @Override

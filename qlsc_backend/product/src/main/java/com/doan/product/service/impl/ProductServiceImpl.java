@@ -142,8 +142,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void multiDelete(Long[] idArray) {
-        productRepository.multipleDelete(idArray);
+    public ProductResponse multiDelete(List<Long> ids) {
+        try {
+            ids.forEach(productRepository::updateStatusProduct);
+            return new ProductResponse(Boolean.TRUE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ProductResponse(Boolean.FALSE);
+        }
     }
 
     @Override

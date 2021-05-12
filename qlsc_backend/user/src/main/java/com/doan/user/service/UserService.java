@@ -5,6 +5,7 @@ import com.doan.user.dto.UserDTO;
 import com.doan.user.exception.CodeExistedException;
 import com.doan.user.exception.commonException.NotFoundException;
 import com.doan.user.exception.userException.DuplicateEmailException;
+import com.doan.user.model.UserResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ public interface UserService {
     UserDTO getUserById(Long id) throws NotFoundException;
     UserDTO insertUser(UserDTO userDTO) throws DuplicateEmailException, CodeExistedException;
     UserDTO updateUser(UserDTO userDTO, Long id) throws CodeExistedException;
-    Boolean deleteUserById(List<Long> arrayID) throws Exception;
+    UserResponse deleteUserById(List<Long> arrayID);
     String generateCode();
     Boolean checkLogin(UserDTO userDTO);
     UserDTO checkUserNameUser(String username) throws NotFoundException;

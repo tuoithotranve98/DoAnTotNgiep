@@ -23,8 +23,8 @@ function Item(props) {
   }
 
   const onRedirectDetail = () => {
-    // pushstate(props.history, `/staff/detail/${staff.id}`);
-    pushstate(props.history, `/staff/update/${staff.id}`);
+    pushstate(props.history, `/staff/detail/${staff.id}`);
+    // pushstate(props.history, `/staff/update/${staff.id}`);
   }
 
   return (
@@ -49,7 +49,7 @@ function Item(props) {
           <span className="item-name">
             <a
               data-tip
-              data-for={`order_collation_number_id_${1}`}
+              data-for={`order_collation_number_id_${staff.id}`}
               target="_blank"
               style={{ textDecoration: 'none' }}
             >
@@ -59,7 +59,7 @@ function Item(props) {
                 type="dark"
                 effect="solid"
                 isMultiline
-                id={`order_collation_number_id_${1}`}
+                id={`order_collation_number_id_${staff.id}`}
               >
                 {(staff && staff.code) || ''}
               </ReactTooltip>
