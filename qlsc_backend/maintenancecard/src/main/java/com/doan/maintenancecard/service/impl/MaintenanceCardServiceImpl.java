@@ -40,6 +40,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -583,65 +584,44 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public MaintenanceCardsResponse getMantenanceCards(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest){
-        MaintenanceCardsResponse maintenanceCardsResponse
-            = new MaintenanceCardsResponse();
-        maintenanceCardsResponse.getMetadata().setPage(maintenanceCardsFilterRequest.getPage());
-        maintenanceCardsResponse.getMetadata().setLimit(maintenanceCardsFilterRequest.getLimit());
-        maintenanceCardsFilterRequest.setPage(maintenanceCardsResponse.getMetadata().getPage());
-        maintenanceCardsFilterRequest.setLimit(maintenanceCardsResponse.getMetadata().getLimit());
-        List<MaintenanceCardsModel> maintenanceCardsModels
-            = getListMantenanceCards(maintenanceCardsFilterRequest);
+    public MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest filter){
+        MaintenanceCardsResponse maintenanceCardsResponse = new MaintenanceCardsResponse();
+        maintenanceCardsResponse.getMetadata().setPage(filter.getPage());
+        maintenanceCardsResponse.getMetadata().setLimit(filter.getLimit());
+        filter.setPage(maintenanceCardsResponse.getMetadata().getPage());
+        filter.setLimit(maintenanceCardsResponse.getMetadata().getLimit());
+        List<MaintenanceCardsModel> maintenanceCardsModels = getMaintenanceCards(filter);
         maintenanceCardsResponse.setMaintenanceCardsModels(maintenanceCardsModels);
-        int total
-            = setFilterCount(maintenanceCardsFilterRequest);
-        maintenanceCardsResponse.getMetadata().setTotal(total);
+        maintenanceCardsResponse.getMetadata().setTotal(setFilterCount(filter));
         return maintenanceCardsResponse;
     }
 
-    public List<MaintenanceCardsModel> getListMantenanceCards(
-        MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
-    ) {
-        int offset = (maintenanceCardsFilterRequest.getPage() - 1) * maintenanceCardsFilterRequest.getLimit();
-        String payStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getPayStatus(), ",");
-        String workStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getWorkStatus(), ",");
-        List<MaintenanceCardV1> maintenanceCardV1s = filter(
-            offset, maintenanceCardsFilterRequest.getLimit(), maintenanceCardsFilterRequest.getQuery(), payStatusIds,
-            workStatusIds,
-            maintenanceCardsFilterRequest.getFrom(), maintenanceCardsFilterRequest.getTo()
-        );
-        if (maintenanceCardV1s.size() > 0) {
-            return maintenanceCardsMapper.getMaintenanceCardsModels(maintenanceCardV1s);
-        }
-        return new ArrayList<>();
+    public List<MaintenanceCardsModel> getMaintenanceCards(MaintenanceCardsFilterRequest filter) {
+        int offset = (filter.getPage() - 1) * filter.getLimit();
+        String payStatusIds = StringUtils.join(filter.getPayStatus(), ",");
+        String workStatusIds = StringUtils.join(filter.getWorkStatus(), ",");
+        List<MaintenanceCard> maintenanceCards = filter(offset, filter.getLimit(), filter.getQuery(), payStatusIds, workStatusIds, filter.getFrom(), filter.getTo());
+        if (maintenanceCards.isEmpty()) return new ArrayList<>();
+        return maintenanceCardsMapper.getMaintenanceCardsModels(maintenanceCards);
     }
 
-    private List<MaintenanceCardV1> filter(
-        int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to
-    ) {
+    private List<MaintenanceCard> filter(int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to) {
         try {
-            return maintenanceCardsDao.filter(
-                offset, size, query, payStatusIds, workStatusIds, from, to
-            );
+            return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, from, to, size, offset);
         } catch (Exception e) {
-            log.error("filter | {}", e.toString());
-
+            e.printStackTrace();
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
     }
 
-    public int setFilterCount(
-        MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
-    ) {
+    public int setFilterCount(MaintenanceCardsFilterRequest filterRequest) {
         try {
-            String payStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getPayStatus(), ",");
-            String workStatusIds = StringUtils.join(maintenanceCardsFilterRequest.getWorkStatus(), ",");
-            return maintenanceCardsDao.filterCount(
-                maintenanceCardsFilterRequest.getQuery(), payStatusIds, workStatusIds, maintenanceCardsFilterRequest.getFrom(), maintenanceCardsFilterRequest.getTo()
-            );
+            String payStatusIds = StringUtils.join(filterRequest.getPayStatus(), ",");
+            String workStatusIds = StringUtils.join(filterRequest.getWorkStatus(), ",");
+            return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds, payStatusIds, filterRequest.getFrom(), filterRequest.getTo());
         } catch (Exception e) {
-            log.error("filterCount | {}", e.toString());
+            e.printStackTrace();
+            return 0;
         }
-        return 0;
     }
 }

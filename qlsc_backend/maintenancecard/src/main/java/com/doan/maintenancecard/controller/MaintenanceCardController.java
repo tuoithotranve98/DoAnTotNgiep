@@ -141,14 +141,10 @@ public class MaintenanceCardController {
     }
 
 
-    @GetMapping
-    public ResponseEntity<MaintenanceCardsResponse> getMantenanceCards(
-        @Valid MaintenanceCardsFilterRequest maintenanceCardsFilterRequest
-    ) {
-        MaintenanceCardsResponse maintenanceCardsResponse
-            = maintenanceCardService.getMantenanceCards(maintenanceCardsFilterRequest);
+    @GetMapping("/maintenance_cards_v2")
+    public ResponseEntity<MaintenanceCardsResponse> getMaintenanceCards(@Valid MaintenanceCardsFilterRequest filterRequest) {
+        MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest);
         return ResponseEntity.ok(maintenanceCardsResponse);
     }
-
 
 }

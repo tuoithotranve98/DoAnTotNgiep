@@ -74,6 +74,22 @@ export const updateCustomer = (id, customer = {}) => (dispatch, getState) => {
     });
 };
 
+export const deleteCustomer = (ids = []) => (dispatch, getState) => {
+  const endpoint = `${API_CUSTOMER}/customers/updateStatus?ids=${ids}`;
+  return dispatch(
+    fetch(endpoint, {
+      method: "DELETE",
+    })
+  )
+    .then((json) => {
+      return json;
+    })
+    .catch((e) => {
+      console.error(e);
+      return e;
+    });
+};
+
 export const saveCustomer = (customer = {}) => (dispatch, getState) => {
   const endpoint = `${API_CUSTOMER}/customers`;
   return dispatch(

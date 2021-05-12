@@ -187,15 +187,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void updateMultipleStatusCustomer(List<Long> ids) {
+    public CustomerRes updateMultipleStatusCustomer(List<Long> ids) {
         try {
             ids.forEach(id -> {
-                Customer customer = CustomerServiceImpl.this.getCustomerById(id);
+                Customer customer = getCustomerById(id);
                 customer.setStatus((byte) 0);
                 customerRepository.save(customer);
             });
+            return new CustomerRes(Boolean.TRUE, "success");
         } catch (Exception e) {
             e.printStackTrace();
+            return new CustomerRes(Boolean.FALSE, "false");
         }
     }
 

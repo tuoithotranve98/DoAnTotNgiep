@@ -15,7 +15,7 @@ public interface CustomerService {
     Map<String, Object> searchCustomer(SearchCustomer searchCustomer);
     CustomerRes updateCustomer(CustomerDTO customerDTO, Long idCustomer);
     void deleteCustomer(Long idCustomer);
-    void updateMultipleStatusCustomer(List<Long> ids);
+    CustomerRes updateMultipleStatusCustomer(List<Long> ids);
     CustomerDTO getById(Long idCustomer);
     boolean checkPhoneNumber(String phoneNumber);
 }

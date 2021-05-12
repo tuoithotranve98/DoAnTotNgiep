@@ -57,10 +57,9 @@ public class CustomerController {
     }
 
     @DeleteMapping("customers/updateStatus")
-    public ResponseEntity<Object> updateMultipleStatusCustomer(
+    public CustomerRes updateMultipleStatusCustomer(
             @RequestParam(name = "ids", required = false, defaultValue = "") List<Long> ids) {
-        customerService.updateMultipleStatusCustomer(ids);
-        return ResponseEntity.ok("Success");
+        return customerService.updateMultipleStatusCustomer(ids);
     }
 
     @GetMapping("testCustomer")

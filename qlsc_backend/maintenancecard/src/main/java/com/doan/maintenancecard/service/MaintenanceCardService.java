@@ -38,7 +38,7 @@ public interface MaintenanceCardService {
     Map<String, Object> getMaintenanceCardByRepairMan(MaintenanceCardUser maintenanceCardUser);
 
     MaintenanceCardDTO setReturnDate(long id);
-
+    
     // update mơi ekko
-    MaintenanceCardsResponse getMantenanceCards(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest);
+    MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest);
 }
