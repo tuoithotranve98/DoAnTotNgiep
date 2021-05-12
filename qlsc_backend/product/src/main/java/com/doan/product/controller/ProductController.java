@@ -74,7 +74,7 @@ public class ProductController {
     }
 
     // multiple delete
-    @PutMapping("products")
+    @PostMapping("products/delete")
     public ProductResponse multipleDelete(@RequestParam("ids") List<Long> ids) {
         return productService.multiDelete(ids);
     }

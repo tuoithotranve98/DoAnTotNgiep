@@ -34,9 +34,4 @@ public class ImageController {
     public Resource serveFile(@PathVariable String filename) {
         return storageService.loadAsResource(filename);
     }
-
-    @GetMapping("test")
-    public String testApi() {
-        return "Success";
-    }
 }

@@ -101,6 +101,22 @@ export const updateProductService = (id, productSerice = {}) => (
     });
 };
 
+export const deleteProductService = (ids = []) => (dispatch, getState) => {
+  const endpoint = `${API_PRODUCT}/products/delete?ids=${ids}`;
+  return dispatch(
+    fetch(endpoint, {
+      method: "POST",
+    })
+  )
+    .then((json) => {
+      return json;
+    })
+    .catch((e) => {
+      console.error(e);
+      return e;
+    });
+};
+
 export const saveProductService = (productSerice = {}) => (
   dispatch,
   getState

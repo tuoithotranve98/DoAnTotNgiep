@@ -14,6 +14,10 @@ function Wrapper(props) {
   const [selectedIds, setSelectedIds] = useState([]);
   const listRef = React.useRef();
 
+  useEffect(() => {
+    if (product.fetching) setSelectedIds([]);
+  }, [product.fetching]);
+
   const onClick = () => {
     listRef && listRef.current.onCheckAll();
   };
@@ -70,6 +74,7 @@ function Wrapper(props) {
             selectedIds.length && selectedIds.length < productSerives.length
           }
           child={child}
+          selectedIds={selectedIds}
         />
         <List
           product={product}
