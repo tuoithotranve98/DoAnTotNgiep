@@ -1,6 +1,7 @@
 package com.doan.maintenancecard.service;
 
 import com.doan.maintenancecard.dto.MaintenanceCardDTO;
+import com.doan.maintenancecard.entity.MaintenanceCardV1;
 import com.doan.maintenancecard.exception.CodeExistedException;
 import com.doan.maintenancecard.exception.commonException.NotFoundException;
 import com.doan.maintenancecard.exception.commonException.UnknownException;
@@ -10,8 +11,11 @@ import com.doan.maintenancecard.exception.maintenanceCardException.NotUpdateExce
 import com.doan.maintenancecard.model.MaintenanceCardCustomer;
 import com.doan.maintenancecard.model.MaintenanceCardFilter;
 import com.doan.maintenancecard.model.MaintenanceCardUser;
+import com.doan.maintenancecard.model.MaintenanceCardsFilterRequest;
+import com.doan.maintenancecard.model.MaintenanceCardsResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MaintenanceCardService {
@@ -34,4 +38,7 @@ public interface MaintenanceCardService {
     Map<String, Object> getMaintenanceCardByRepairMan(MaintenanceCardUser maintenanceCardUser);
 
     MaintenanceCardDTO setReturnDate(long id);
+
+    // update mơi ekko
+    MaintenanceCardsResponse getMantenanceCards(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest);
 }
