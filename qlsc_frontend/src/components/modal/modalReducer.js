@@ -8,6 +8,7 @@ const defaultState = {
 
 const initState = {
   createProductModal: defaultState,
+  deleteCustomer: defaultState,
 };
 
 const modal = (state = initState, action) => {

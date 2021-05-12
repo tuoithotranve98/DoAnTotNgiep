@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { convertSecondToDate } from 'utils/datetimeUtil';
-import * as Icons from "pages/product/commons/Icons";
+import { openModal } from '../../../../../components/modal/modalActions';
 import "./styles.scss";
 import { Dropdown } from "react-bootstrap";
 import pushstate from "../../../../../utils/pushstate";
 import { useHistory, withRouter } from "react-router";
 function CustomerDetailInfo(props) {
-  const { customer } = props;
+  const { customer, onOpenModalDelete } = props;
   const history = useHistory();
   const formatAddress = () => {
     const { ward } = customer;
@@ -20,6 +20,9 @@ function CustomerDetailInfo(props) {
       txtAddress += ward.district.text;
     }
     return txtAddress;
+  }
+  const handleDeleteCustomer = () => {
+    onOpenModalDelete("deleteCustomer", {});
   }
   const dateTime = customer && customer.createdDate ? convertSecondToDate(customer.createdDate) : '---';
   return (
@@ -39,7 +42,7 @@ function CustomerDetailInfo(props) {
 
               <Dropdown.Item onClick={() => { pushstate(history, `/customer/update/${customer.id}`); }}>Cập nhật thông tin</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item href="#/action-2">Xóa khách hàng</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleDeleteCustomer()}>Xóa khách hàng</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           </div>
@@ -110,4 +113,8 @@ function CustomerDetailInfo(props) {
 }
 CustomerDetailInfo.defaultProps = {};
 
-export default withRouter(React.memo(connect(null, null)(CustomerDetailInfo)));
+const mapDispatchToProps = (dispatch) => ({
+  onOpenModalDelete: (modalName, data) => dispatch(openModal(modalName, data)),
+});
+
+export default withRouter(React.memo(connect(null, mapDispatchToProps)(CustomerDetailInfo)));

@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
+import { closeModal } from '../../../../../components/modal/modalActions';
 
 function DeleteModal(props) {
-
-  const [show, setShow] = useState(false);
+  const { onCloseModalDelete } = props;
   const handleClose = () => {
-    // setShow(false)
+    onCloseModalDelete();
   };
   const onConfirm = () => {};
   return (
     <Modal
-      show={show}
+      show
       onHide={handleClose}
       size="lg"
       dialogClassName="modal-create-customer"
@@ -41,5 +41,7 @@ function DeleteModal(props) {
     </Modal>
   );
 }
-
-export default connect(null, null)(DeleteModal);
+const mapDispatchToProps = (dispatch) => ({
+  onCloseModalDelete: () => dispatch(closeModal("deleteCustomer", {})),
+});
+export default connect(null, mapDispatchToProps)(DeleteModal);
