@@ -6,15 +6,14 @@ import "./styles.scss";
 import { connect } from "react-redux";
 
 function CustomerModal(props) {
-  //   const { show } = props;
-  const [show, setShow] = useState(false);
+    const { showModalCustomer, setShowModalCustomer } = props;
   const handleClose = () => {
-    // setShow(false)
+    setShowModalCustomer(false)
   };
   const onConfirm = () => {};
   return (
     <Modal
-      show={show}
+      show={showModalCustomer}
       onHide={handleClose}
       size="lg"
       dialogClassName="modal-create-customer"

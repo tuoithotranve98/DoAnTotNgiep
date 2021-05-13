@@ -38,7 +38,7 @@ function Wrapper(props) {
     return (
       <div className="count-check">
         <span className="details">
-          Đã chọn ({selectedIds.length} đơn hàng)
+          Đã chọn ({selectedIds.length} phiếu sửa chữa)
         </span>
       </div>
     );

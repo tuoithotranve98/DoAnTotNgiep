@@ -15,7 +15,6 @@ export const fetchMainCard = (_filterInfo, page) => (dispatch, getState) => {
   dispatch(updateMainCardFetching(true));
   dispatch(filterMainCard(filter, page))
     .then((json) => {
-      console.log("json", json);
       const { maintenance_cards, metadata } = json;
       const { limit, page, total } = metadata;
       if (maintenance_cards.length === 0) {

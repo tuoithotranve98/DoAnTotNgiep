@@ -11,7 +11,7 @@ class SelectDistricts extends React.Component {
     if (city) {
       const defaultValue = cities.find(
         (item) =>
-        item.id === city.id 
+        item.id === city.id
       );
       if (defaultValue && defaultValue.code) {
         getWard(defaultValue.code);
@@ -27,6 +27,7 @@ class SelectDistricts extends React.Component {
   render() {
     const { city, listAddress } = this.props;
     const cities = Object.values(listAddress);
+
     return (
       <Select2
         defaultValue={city ? city.id : ""}

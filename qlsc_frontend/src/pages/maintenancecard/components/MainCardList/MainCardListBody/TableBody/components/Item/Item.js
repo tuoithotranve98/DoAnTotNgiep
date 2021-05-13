@@ -8,7 +8,6 @@ import pushstate from "utils/pushstate";
 function Item(props) {
   const { checked, mainCard } = props;
   const history = useHistory();
-  console.log("mainCard", mainCard);
   const onCheck = (e) => {
     e.stopPropagation();
     const { onCheckBoxClick } = props;

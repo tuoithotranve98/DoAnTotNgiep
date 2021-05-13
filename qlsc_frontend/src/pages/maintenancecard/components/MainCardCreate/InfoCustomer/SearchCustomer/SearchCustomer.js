@@ -12,7 +12,6 @@ import { getFilterCustomers } from "../../../../../customer/actions/customerActi
 
 let timeOut;
 function SearchCustomer(props) {
-  const { getListCustomer } = props;
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
@@ -100,7 +99,11 @@ function SearchCustomer(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute list-customer-main-card-search-wrapper">
-        <div className="d-flex align-items-center head">
+        <div onClick={(e)=>{
+          e.persist();
+          e.stopPropagation();
+          alert('xin chào')
+        }} className="d-flex align-items-center head" style={{ borderBottom: `${list.length > 0 ? 'none' : '1px solid #e3e3e3'}`}}>
           <div className="image-create">
             <Icons.IconCustomerIsEmpty />
           </div>

@@ -173,7 +173,6 @@ function FilterMainCardsModal(props) {
       endDate,
       startDate,
     };
-    console.log("afterInfo", afterInfo);
     props.fetchMainCard(afterInfo);
   };
 

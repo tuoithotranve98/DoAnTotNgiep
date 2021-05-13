@@ -45,7 +45,20 @@
       &:hover {
         background: #0088FF;
         color: #FFF;
+        .image-create{
+          svg{
+            circle{
+              fill:#0088FF;
+            }
+            
+            path{
+              background-color: #FFFFFF;
+            }
+          }
+        }
+       
       }
+     
     }
     .order-item {
       padding: 10px 15px;
@@ -55,6 +68,12 @@
       &:hover {
         background: #0088FF;
         color: #FFF;
+        .image-info{
+          svg{
+            border: 1px solid;
+            border-radius: 44px;
+          }
+        }
       }
     }
     .order-code {
@@ -113,7 +132,5 @@
     .text {
       margin-top: 10px;
     }
-  }
-  .image-info{
   }
 }

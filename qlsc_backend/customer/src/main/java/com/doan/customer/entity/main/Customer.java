@@ -22,7 +22,7 @@ public class Customer extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 11)
+    @Column(name = "phone_number",nullable = false, length = 11)
     @CustomerPhone
     private String phone;
 

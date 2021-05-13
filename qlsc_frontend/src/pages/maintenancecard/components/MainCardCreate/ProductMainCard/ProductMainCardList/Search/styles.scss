@@ -1,22 +1,6 @@
-.search-order-container {
+.search-product-container {
   margin-top: 10px;
-  .import-excel-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1.5px solid #0088FF;
-    padding: 5.25px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    &:hover {
-      background: #0084ff;
-      color: white;
-    }
-    .separate {
-      margin: 0 8px;
-    }
-  }
-  .search-wrapper { 
+  .search-wrapper {
     width: 100%;
     .input-prefix-common {
       top: 5px;
@@ -25,73 +9,86 @@
       padding: 6.5px 10px 6.5px 40px;
     }
   }
-  .order-list-search-wrapper {
+  .product-list-search-wrapper {
     min-height: 100px;
     max-height: 500px;
-    width: calc(100% - 200px);
-    background: #FFFFFF;
+    width: 100%;
+    background: #ffffff;
     border: 1px solid rgba(33, 43, 53, 0.3);
     box-sizing: border-box;
     border-radius: 4px;
     top: 40px;
-    padding: 10px 15px 0 15px;
+    padding: 0px 15px 0 15px;
     .head {
       font-weight: 500;
-      border-bottom: 1px solid #C0C0C0;
-      padding: 0 15px 5px 15px;
+      border-bottom: 1px solid #c0c0c0;
       margin: 0 -15px;
-    }
-    .order-item {
-      padding: 10px 15px;
-      margin: 0 -15px;
-      cursor: pointer;
-      padding-left: 30px !important;
-      &:hover {
-        background: #0088FF;
-        color: #FFF;
+      .content-info-image {
+        width: 54px;
+        text-align: center;
+        float: left;
+        height: 55px;
+        padding-top: 8px;
+      }
+      .content-info {
+        padding: 20px 20px 20px 14px;
+        float: left;
+        width: calc(100% - 185px);
+        border-left: 1px solid #dcdee2;
+        .search-name {
+          width: 100%;
+        }
       }
     }
-    .order-code {
-      width: 20%;
-    }
-    .tracking-code {
-      width: 20%;
-    }
-    .tenant {
-      width: 20%;
-    }
-    .order-total-amount {
-      width: 20%;
-      text-align: right;
-    }
-    .order-ship-fee {
-      width: 20%;
-      text-align: right;
-    }
-    .is-empty-order-collation{
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .list-item-search{
+    .list-item-search {
       overflow-y: auto;
       max-height: 250px;
       margin-right: -14px;
-      padding-right: 15px;
+      padding-right: 1px;
       margin-left: -15px;
+      .product-item-info {
+        width: 100%;
+        cursor: pointer;
+        border-bottom: 1px solid #dcdee2;
+        &:hover {
+          background: #0088ff;
+          color: #fff;
+        }
+        .content-info-image {
+          width: 55px;
+          text-align: center;
+          float: left;
+          height: 55px;
+          padding-top: 8px;
+        }
+        .content-info {
+          padding: 14px;
+          float: left;
+          width: calc(100% - 185px);
+          border-left: 1px solid #dcdee2;
+          .search-name {
+            width: 100%;
+          }
+        }
+        .content-info-price {
+          width: 130px;
+          float: left;
+          text-align: right;
+          padding: 6px;
+        }
+      }
       &::-webkit-scrollbar {
         height: 5px;
-        background: #FFF;
+        background: #fff;
         width: 6px;
         //border-radius: 5px;
       }
       &::-webkit-scrollbar-thumb {
-        background: #C4C4C4;
+        background: #c4c4c4;
         border-radius: 5px;
         width: 2px;
       }
     }
-
   }
   .display-none {
     margin: unset;

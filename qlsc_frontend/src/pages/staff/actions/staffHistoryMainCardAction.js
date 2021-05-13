@@ -11,7 +11,6 @@ export const getListStaffHistoryMainCard = (search = "", option = {}) => (
   dispatch(getFilterStaffHistoryMainCard(search, option))
     .then((json) => {
       const { staffHistoryMainCards, currentPage, totalItems, totalPages } = json;
-      console.log("json", json);
       if (staffHistoryMainCards.length === 0) {
         dispatch(getStaffHistoryMainCards(staffHistoryMainCards, currentPage, totalItems, totalPages));
         dispatch(updateStaffHistoryMainCardFetching(false));

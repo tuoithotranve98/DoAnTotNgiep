@@ -1022,7 +1022,6 @@ export const Confirm = () => {
   );
 };
 
-
 export const IconIsEmptyOrder = () => {
   return (
     <svg
@@ -1040,3 +1039,4 @@ export const IconIsEmptyOrder = () => {
     </svg>
   );
 };
+

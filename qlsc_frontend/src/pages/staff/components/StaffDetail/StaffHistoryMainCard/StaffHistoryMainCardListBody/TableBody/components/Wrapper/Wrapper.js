@@ -9,7 +9,6 @@ import * as Icons from "pages/customer/commons/Icons";
 
 function Wrapper(props) {
   const { staffHistoryMainCard, onGetStaffHistoryMainCard, onChangeFilter } = props;
-  console.log("staffHistoryMainCard", staffHistoryMainCard);
   const [selectedIds, setSelectedIds] = useState([]);
   const { staffHistoryMainCards } = staffHistoryMainCard
   const listRef = React.useRef();
