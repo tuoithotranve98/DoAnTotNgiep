@@ -1,0 +1,96 @@
+.report-border {
+    background: #FFFFFF;
+    border: 1px solid #E3E3E3;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    border-radius: 4px;
+}
+
+.report-top-staff-component {
+
+    .report-title {
+        font-size: 16px;
+        font-weight: 500;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .content-loading-staff {
+        height: 224px;
+        width: calc(100% - 10px);
+        margin: auto;
+
+        >div {
+            >div {
+                >div {
+                    margin-bottom: 20px !important;
+                }
+            }
+        }
+    }
+
+    .cnt-header {
+        display: flex;
+        width: 100%;
+        background: #F1F1F1;
+        align-items: center;
+        height: 44px;
+        font-weight: 500;
+        padding: 0 20px;
+    }
+
+    .cnt-body {
+        height: 180px;
+
+        .line-item {
+            display: flex;
+            margin: 0 20px;
+            align-items: center;
+            height: 60px;
+            border-bottom: 1px solid #E8E8E8;
+
+            &:last-child {
+                border: none;
+            }
+
+            .cnt {
+                word-break: break-word;
+
+                .staff-info-data {
+                    width: 100%;
+
+                    .staff-avatar {
+                        width: 35px;
+                        margin-right: 10px;
+
+                        img {
+                            object-fit: cover;
+                            border-radius: 50%;
+                            border: 1px solid #9A9A9A;
+                        }
+                    }
+
+                    .name {
+                        width: calc(100% - 45px);
+                    }
+                }
+
+                &.cnt-0 {
+                    color: #59D189;
+                    font-weight: 500;
+                }
+
+                &.cnt-1 {
+                    color: #2F80ED;
+                    font-weight: 500;
+                }
+
+                &.cnt-2 {
+                    color: #F2994A;
+                    font-weight: 500;
+                }
+            }
+        }
+
+    }
+}

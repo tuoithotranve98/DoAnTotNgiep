@@ -1,103 +1,145 @@
 import React, { useState, useEffect } from "react";
 
-import { useHistory } from "react-router";
-import ReportOrderOverview from "./ReportOrderOverview";
-import Chart from "./Chart";
+import ChartRevenueDashboard from "./ChartRevenueDashboard";
 import "./styles.scss";
-const dataTest = {
-  change_rate_average_revenue: -100,
-  change_rate_order_count: -100,
-  change_rate_revenue: -100,
-  current_average_revenue: 0,
-  current_order_count: 0,
-  current_revenue: 0,
-  current_time: "01/05/2021 - 07/05/2021",
-  day_count: 7,
-  last_period_average_revenue: 74411.76,
-  last_period_order_count: 17,
-  last_period_revenue: 1265000,
-  last_period_time: "24/04/2021 - 30/04/2021",
-};
 const data2 = [
-  { time: "07/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "06/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "05/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "04/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "03/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "02/05/2021", total: 0, quantity: 0, average: 0 },
-  { time: "01/05/2021", total: 0, quantity: 0, average: 0 },
+  {
+    date_key: 20210507,
+    week_key: 202118,
+    month_key: 202105,
+    date_text: "07/05/2021",
+    month_text: "05/2021",
+    day_of_week: 5,
+    day_of_month: 7,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 22.0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210508,
+    week_key: 202118,
+    month_key: 202105,
+    date_text: "08/05/2021",
+    month_text: "05/2021",
+    day_of_week: 6,
+    day_of_month: 8,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210509,
+    week_key: 202118,
+    month_key: 202105,
+    date_text: "09/05/2021",
+    month_text: "05/2021",
+    day_of_week: 7,
+    day_of_month: 9,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210510,
+    week_key: 202119,
+    month_key: 202105,
+    date_text: "10/05/2021",
+    month_text: "05/2021",
+    day_of_week: 1,
+    day_of_month: 10,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 9022442.0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210511,
+    week_key: 202119,
+    month_key: 202105,
+    date_text: "11/05/2021",
+    month_text: "05/2021",
+    day_of_week: 2,
+    day_of_month: 11,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 410111.0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210512,
+    week_key: 202119,
+    month_key: 202105,
+    date_text: "12/05/2021",
+    month_text: "05/2021",
+    day_of_week: 3,
+    day_of_month: 12,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 0,
+    group_by: "day",
+  },
+  {
+    date_key: 20210513,
+    week_key: 202119,
+    month_key: 202105,
+    date_text: "13/05/2021",
+    month_text: "05/2021",
+    day_of_week: 4,
+    day_of_month: 13,
+    month_of_year: 5,
+    year: 2021,
+    day_of_week_start_text: null,
+    day_of_week_end_text: null,
+    week_start_date_timestamp: null,
+    week_end_date_timestamp: null,
+    total_amount: 0,
+    group_by: "day",
+  },
 ];
 function ReportLeft(props) {
   const { data, fetching } = props;
-  const [viewActive, setViewActive] = useState([1]);
   const [dataState, setDataState] = useState(data2);
-  const history = useHistory();
-  const { search } = history.location;
-  const searchParams = new URLSearchParams(search);
-  const group = searchParams.get("group");
 
   useEffect(() => {
     if (data && data.totalMonies) {
       setDataState(data.totalMonies);
     }
-  }, [data])
+  }, [data]);
 
-  //   const onDirect = () => {
-  //     pushstate(history, '/home/report?type=2');
-  //   };
-
-  //   if (fetching) {
-  //     return (
-  //       <div className="report-card">
-  //         <div className="d-flex align-items-center justify-content-between general-header general-report-header">
-  //         <span className="title">
-  //           Giá trị đơn hàng
-  //         </span>
-  //           <a
-  //             className="direct"
-  //             onClick={onDirect}
-  //           >
-  //             Báo cáo Đơn hàng
-  //             <Icons.arrowRightIcon />
-  //           </a>
-  //         </div>
-  //         <ChartLoading />
-  //       </div>
-  //     );
-  //   }
-
-  //   if (!data.comparison || !data.revenues) {
-  //     return (
-  //       <div className="report-card">
-  //         <ChartEmpty />
-  //       </div>
-  //     )
-  //   }
+  const isLoading = false;
 
   return (
-    <div className="report-card">
-      <div className="d-flex align-items-center justify-content-between general-header general-report-header">
-        <span className="title">Giá trị đơn hàng</span>
-        {/* <a
-          className="direct"
-          onClick={onDirect}
-        >
-          Báo cáo Đơn hàng
-          <Icons.arrowRightIcon />
-        </a> */}
-      </div>
-      <div className="report-general-order">
-        <ReportOrderOverview
-          data={dataTest}
-          viewActive={viewActive}
-          setViewActive={setViewActive}
-        />
-        <Chart
-          data={dataState}
-          viewActive={viewActive}
-          setViewActive={setViewActive}
-          group={"day"}
-        />
+    <div className="report-revenue-component report-border ">
+      <div className="report-title">Doanh thu dự kiến</div>
+      <div className="content">
+        <ChartRevenueDashboard revenue={data2} />
       </div>
     </div>
   );
