@@ -98,8 +98,13 @@ function Search(props) {
     return (
       <div className="position-absolute product-list-search-wrapper">
         <div
+          onMouseDown={(e)=>{
+            e.persist();
+            e.stopPropagation();
+            props.setShowModalProduct(true)
+          }}
           className="d-flex align-items-center head"
-          style={{ borderBottom: "1px solid #e3e3e3" }}
+          style={{ borderBottom: "1px solid #e3e3e3", cursor: 'pointer' }}
         >
           <div className="content-info-image">
             <Icons.IconCustomerIsEmpty />

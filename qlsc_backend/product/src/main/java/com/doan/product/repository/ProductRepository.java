@@ -16,7 +16,8 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query(value = "SELECT MAX(CONVERT(SUBSTRING(code, 4), UNSIGNED INTEGER)) as maxcode FROM products WHERE code LIKE 'sp%' LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT MAX(CONVERT(SUBSTRING(code, 5), UNSIGNED INTEGER)) as maxcode FROM "
+        + "products WHERE code LIKE 'sp%' LIMIT 1", nativeQuery = true)
     List<String> getMaxCode();
 
     Optional<String> findByCode(String code);

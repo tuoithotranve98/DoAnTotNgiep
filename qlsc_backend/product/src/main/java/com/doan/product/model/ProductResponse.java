@@ -1,5 +1,6 @@
 package com.doan.product.model;
 
+import com.doan.product.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +14,9 @@ public class ProductResponse {
 
     private Boolean success;
     private String message;
-
-    public ProductResponse(boolean success) {
+    private Product product;
+    public ProductResponse(boolean success, Product product) {
         this.success = success;
+        this.product = product;
     }
 }

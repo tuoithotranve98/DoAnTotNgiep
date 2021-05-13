@@ -12,6 +12,7 @@ function ProductMainCard(props) {
       <ProductMainCardList
         addProduct={(a)=>props.addProduct(a)} products={props.products}
         removeProduct={(a)=>props.removeProduct(a)}
+        setShowModalProduct={(a)=>props.setShowModalProduct(a)}
       />
     </div>
   );

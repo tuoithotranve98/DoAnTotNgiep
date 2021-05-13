@@ -143,21 +143,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse multiDelete(List<Long> ids) {
+        Product pro =new Product();
         try {
             ids.forEach(productRepository::updateStatusProduct);
-            return new ProductResponse(Boolean.TRUE);
+            return new ProductResponse(Boolean.TRUE, pro);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ProductResponse(Boolean.FALSE);
+            return new ProductResponse(Boolean.FALSE, pro);
         }
     }
 
     @Override
     public ProductResponse save(ProductRequest productReq) {
+        Product pro =new Product();
         Product product = new Product();
         if (StringUtils.isNotBlank(productReq.getCode())
             && isCodeExist(productReq.getCode())) {
-            return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại");
+            return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại", pro);
         }
         if (StringUtils.isNotBlank(productReq.getCode())) {
             product.setCode(productReq.getCode());
@@ -175,36 +177,37 @@ public class ProductServiceImpl implements ProductService {
         product.setModifiedDate(new Date());
         product.setStatus((byte) 1);
         try {
-            Product savedProduct = productRepository.save(product);
+            pro = productRepository.save(product);
             if (product.getType() == 1) {
                 ProductHistory productHistory = new ProductHistory();
-                productHistory.setAmountChargeInUnit(savedProduct.getQuantity());
-                productHistory.setName(savedProduct.getName());
+                productHistory.setAmountChargeInUnit(pro.getQuantity());
+                productHistory.setName(pro.getName());
                 productHistory.setNote("Thêm sản phẩm");
-                productHistory.setProductId(savedProduct.getId());
-                productHistory.setStockRemain(savedProduct.getQuantity());
+                productHistory.setProductId(pro.getId());
+                productHistory.setStockRemain(pro.getQuantity());
                 productHistory.setCreatedDate(new Date());
                 productHistory.setModifiedDate(new Date());
                 productHistoryRepository.save(productHistory);
             }
         } catch (Exception e) {
-            return new ProductResponse(Boolean.FALSE, "false");
+            return new ProductResponse(Boolean.FALSE, "false", pro);
         }
-        return new ProductResponse(Boolean.TRUE, "success");
+        return new ProductResponse(Boolean.TRUE, "success", pro);
 
     }
 
     @Override
     public ProductResponse update(ProductRequest productReq, Long id) {
+        Product pro =new Product();
         Optional<Product> checkProduct = productRepository.findById(id);
         if (checkProduct.isEmpty()) {
-            new ProductResponse(Boolean.FALSE, "Sản phẩm không tồn tại");
+            new ProductResponse(Boolean.FALSE, "Sản phẩm không tồn tại", pro);
         }
         Product product = checkProduct.get();
         if (StringUtils.isNotBlank(productReq.getCode())
             && !product.getCode().equals(productReq.getCode())
             && isCodeExist(productReq.getCode())) {
-            return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại");
+            return new ProductResponse(Boolean.FALSE, "Mã sp đã tồn tại", pro);
         }
         if (StringUtils.isNotBlank(productReq.getCode())) {
             product.setCode(productReq.getCode());
@@ -218,22 +221,22 @@ public class ProductServiceImpl implements ProductService {
         product.setDescription(productReq.getDescription());
         product.setType(productReq.getType());
         try {
-            Product savedProduct = productRepository.save(product);
-            if (product.getType() == 1 && product.getQuantity() != savedProduct.getQuantity()) {
+            pro = productRepository.save(product);
+            if (product.getType() == 1 && product.getQuantity() != pro.getQuantity()) {
                 Date now = new Date();
                 ProductHistory productHistory = new ProductHistory();
-                productHistory.setAmountChargeInUnit(savedProduct.getQuantity() - product.getQuantity());
-                productHistory.setName(savedProduct.getName());
+                productHistory.setAmountChargeInUnit(pro.getQuantity() - product.getQuantity());
+                productHistory.setName(pro.getName());
                 productHistory.setNote("Cập nhật số lượng");
-                productHistory.setProductId(savedProduct.getId());
-                productHistory.setStockRemain(savedProduct.getQuantity());
+                productHistory.setProductId(pro.getId());
+                productHistory.setStockRemain(pro.getQuantity());
                 productHistory.setCreatedDate(now);
                 productHistory.setModifiedDate(now);
                 productHistoryRepository.save(productHistory);
             }
-            return new ProductResponse(Boolean.TRUE, "success");
+            return new ProductResponse(Boolean.TRUE, "success", pro);
         } catch (Exception e) {
-            return new ProductResponse(Boolean.FALSE, "false");
+            return new ProductResponse(Boolean.FALSE, "false", pro);
         }
     }
 

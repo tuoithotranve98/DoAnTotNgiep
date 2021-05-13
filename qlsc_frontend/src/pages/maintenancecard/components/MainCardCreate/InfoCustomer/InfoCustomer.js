@@ -6,8 +6,7 @@ import SearchCustomer from "./SearchCustomer/SearchCustomer";
 import "./styles.scss";
 
 function InfoCustomer(props) {
-  const { setCustomer, customer } = props;
-  const [showFilterCustomer, setShowFilterCustomer] = useState(false);
+  const { setCustomer, customer, showFilterCustomer, setShowFilterCustomer } = props;
   return (
     <div className="info-customer-warpper">
       <div className="title">Thông tin khách hàng</div>

@@ -99,10 +99,8 @@ function SearchCustomer(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute list-customer-main-card-search-wrapper">
-        <div onClick={(e)=>{
-          e.persist();
-          e.stopPropagation();
-          alert('xin chào')
+        <div onMouseDown={(e)=>{
+         props.setShowModalCustomer(true)
         }} className="d-flex align-items-center head" style={{ borderBottom: `${list.length > 0 ? 'none' : '1px solid #e3e3e3'}`}}>
           <div className="image-create">
             <Icons.IconCustomerIsEmpty />

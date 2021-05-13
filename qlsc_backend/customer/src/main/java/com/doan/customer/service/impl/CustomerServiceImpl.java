@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerRes addCustomer(CustomerDTO customerDTO) {
-
+        Customer cus = new Customer();
         if (StringUtils.isEmpty(customerDTO.getCode())) {
             String code = generateCode();
             customerDTO.setCode(code);
@@ -43,13 +43,13 @@ public class CustomerServiceImpl implements CustomerService {
         if (StringUtils.isNotEmpty(customerDTO.getCode())) {
             Customer existedCode = customerRepository.findOneByCode(customerDTO.getCode());
             if (existedCode != null) {
-                new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại");
+                new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại", cus);
             }
         }
 
         if (StringUtils.isNotEmpty(customerDTO.getPhone())
             && BooleanUtils.isTrue(checkPhoneNumber(customerDTO.getPhone()))) {
-            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại");
+            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại", cus);
         }
 
         customerDTO.setCreatedDate(new Date());
@@ -60,11 +60,11 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerConverter.convertToEntity(customerDTO);
 
         try {
-            customerRepository.save(customer);
-            return new CustomerRes(Boolean.TRUE, "");
+            cus =customerRepository.save(customer);
+            return new CustomerRes(Boolean.TRUE, "", cus);
         } catch (DuplicateFieldException e) {
             e.printStackTrace();
-            return new CustomerRes(Boolean.FALSE, "");
+            return new CustomerRes(Boolean.FALSE, "", cus);
         }
     }
 
@@ -116,7 +116,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerRes updateCustomer(CustomerDTO customerDTO, Long idCustomer) {
-
+        Customer cus = new Customer();
         Customer customer = getCustomerById(idCustomer);
         customerDTO.setCreatedDate(new Date());
         customerDTO.setModifiedDate(new Date());
@@ -133,13 +133,13 @@ public class CustomerServiceImpl implements CustomerService {
             && !customerDTO.getCode().equals(customer.getCode())) {
             Customer existedCode = customerRepository.findOneByCode(customerDTO.getCode());
             if (existedCode != null) {
-                return new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại");
+                return new CustomerRes(Boolean.FALSE, "Mã khách hàng đã tồn tại", cus);
             }
         }
 
         if (!customerDTO.getPhone().equals(customer.getPhone())
             && BooleanUtils.isTrue(checkPhoneNumber(customerDTO.getPhone()))) {
-            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại");
+            return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại", cus);
         }
         customer.setCustomer(customerDTO);
         if (!Objects.isNull(customerDTO.getWard())) {
@@ -148,11 +148,11 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setWard(null);
         }
         try {
-            customerRepository.save(customer);
-            return new CustomerRes(Boolean.TRUE, "");
+            cus = customerRepository.save(customer);
+            return new CustomerRes(Boolean.TRUE, "", cus);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CustomerRes(Boolean.FALSE, "");
+            return new CustomerRes(Boolean.FALSE, "", cus);
         }
     }
 
@@ -188,16 +188,17 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public CustomerRes updateMultipleStatusCustomer(List<Long> ids) {
+        Customer cus = new Customer();
         try {
             ids.forEach(id -> {
                 Customer customer = getCustomerById(id);
                 customer.setStatus((byte) 0);
                 customerRepository.save(customer);
             });
-            return new CustomerRes(Boolean.TRUE, "success");
+            return new CustomerRes(Boolean.TRUE, "success", cus);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CustomerRes(Boolean.FALSE, "false");
+            return new CustomerRes(Boolean.FALSE, "false", cus);
         }
     }
 
@@ -248,5 +249,4 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepository.save(customer);
         }
     }
-
 }

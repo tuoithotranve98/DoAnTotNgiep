@@ -9,7 +9,7 @@ import * as Icons from 'pages/maintenancecard/commons/Icons'
 function ProductMainCardList(props) {
   return (
     <div className="delivery-collation-order-list-wrapper">
-      <Search addProduct={(a) => props.addProduct(a)} />
+      <Search addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
       <Header />
       {props.products.length > 0 ? (
         <React.Fragment>

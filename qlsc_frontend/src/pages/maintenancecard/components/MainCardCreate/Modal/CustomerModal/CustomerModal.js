@@ -4,13 +4,43 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "./styles.scss";
 import { connect } from "react-redux";
+import SelectDistricts from "./SelectDistricts";
+import { getWard } from "../../../../../customer/actions/locationActions";
+import SelectWards from "./SelectWards";
 
 function CustomerModal(props) {
-    const { showModalCustomer, setShowModalCustomer } = props;
-  const handleClose = () => {
-    setShowModalCustomer(false)
+    const { customer, showModalCustomer,
+      setShowModalCustomer, onChangeCustomer, saveCustomer, cities , wards ,onGetWard,
+      setCreateCustomer,
+      initialStateCustomer,
+    } = props;
+    const handleClose = () => {
+      setCreateCustomer(initialStateCustomer)
+      setShowModalCustomer(false)
+    };
+  const onChangeSelectDistrict = (id) => {
+    if (id) {
+      const district = Object.values(cities).find(
+        (item) => item.id === parseInt(id)
+      );
+      if (district) {
+        onGetWard(district.code);
+        onChangeCustomer("city", district);
+      }
+    }
   };
-  const onConfirm = () => {};
+
+  const onChangeSelectWard = (id) => {
+    if (id) {
+      const ward = Object.values(wards).find(
+        (item) => item.id === parseInt(id)
+      );
+      if (ward) onChangeCustomer("ward", ward);
+    }
+  }
+  const onConfirm = () => {
+    saveCustomer();
+  };
   return (
     <Modal
       show={showModalCustomer}
@@ -37,7 +67,9 @@ function CustomerModal(props) {
                       data-tip=""
                       data-for="_extends_popup_error"
                       name="name"
-                      placeholder="Nhập tên sản phẩm"
+                      value={customer.name || ''}
+                      onChange={(e) => onChangeCustomer("name", e.target.value)}
+                      placeholder="Nhập tên khách hàng"
                     />
                   </div>
                 </div>
@@ -50,8 +82,10 @@ function CustomerModal(props) {
                       className="input"
                       data-tip=""
                       data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                      name="phone"
+                      value={customer.phone || ''}
+                      onChange={(e) => onChangeCustomer("phone", e.target.value)}
+                      placeholder="Nhập số điện thoại"
                     />
                   </div>
                 </div>
@@ -66,8 +100,10 @@ function CustomerModal(props) {
                       className="input"
                       data-tip=""
                       data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                      name="address"
+                      value={customer.address || ''}
+                      onChange={(e) => onChangeCustomer("address", e.target.value)}
+                      placeholder="Nhập địa chỉ"
                     />
                   </div>
                 </div>
@@ -78,12 +114,9 @@ function CustomerModal(props) {
                 <div className="field form-group">
                   <label className="control-label">Khu vực</label>
                   <div className="controls">
-                    <input
-                      className="input"
-                      data-tip=""
-                      data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                    <SelectDistricts
+                      city={customer.city}
+                      onSelect={(e) => onChangeSelectDistrict(e.target.value)}
                     />
                   </div>
                 </div>
@@ -92,12 +125,10 @@ function CustomerModal(props) {
                 <div className="field form-group">
                   <label className="control-label">Phường xã</label>
                   <div className="controls">
-                    <input
-                      className="input"
-                      data-tip=""
-                      data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                    <SelectWards
+                      city={customer.city}
+                      ward={customer.ward}
+                      onSelect={(e) => onChangeSelectWard(e.target.value)}
                     />
                   </div>
                 </div>
@@ -112,28 +143,14 @@ function CustomerModal(props) {
                       className="input"
                       data-tip=""
                       data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                      name="code"
+                      value={customer.code || ''}
+                      onChange={(e) => onChangeCustomer("code", e.target.value)}
+                      placeholder="Nhập tên khách hàng"
                     />
                   </div>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="field form-group">
-                  <label className="control-label">Ngày sinh</label>
-                  <div className="controls">
-                    <input
-                      className="input"
-                      data-tip=""
-                      data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
               <div className="col-md-6">
                 <div className="field form-group">
                   <label className="control-label">Email</label>
@@ -142,27 +159,16 @@ function CustomerModal(props) {
                       className="input"
                       data-tip=""
                       data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="field form-group">
-                  <label className="control-label">Giới tính</label>
-                  <div className="controls">
-                    <input
-                      className="input"
-                      data-tip=""
-                      data-for="_extends_popup_error"
-                      name="name"
-                      placeholder="Nhập tên sản phẩm"
+                      name="email"
+                      value={customer.email || ''}
+                      onChange={(e) => onChangeCustomer("email", e.target.value)}
+                      placeholder="Nhập Email"
                     />
                   </div>
                 </div>
               </div>
             </div>
+
 
           </div>
         </div>
@@ -181,4 +187,17 @@ function CustomerModal(props) {
   );
 }
 
-export default connect(null, null)(CustomerModal);
+const mapStateToProps = (state) => {
+  const {
+    locations: { city, ward },
+  } = state;
+  return {
+    cities: city,
+    wards: ward,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onGetWard: (id) => dispatch(getWard(id)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerModal);

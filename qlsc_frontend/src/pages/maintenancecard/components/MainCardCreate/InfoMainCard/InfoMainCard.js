@@ -33,7 +33,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="phone"
-          onChange={(e) => this.onChangePhone(e.target.value)}
+          // onChange={(e) => this.onChangePhone(e.target.value)}
         />
       </div>
       <div className=" field">
@@ -42,7 +42,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="phone"
-          onChange={(e) => this.onChangePhone(e.target.value)}
+          // onChange={(e) => this.onChangePhone(e.target.value)}
         />
       </div>
       <div className=" field">
@@ -55,7 +55,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="phone"
-          onChange={(e) => this.onChangePhone(e.target.value)}
+          // onChange={(e) => this.onChangePhone(e.target.value)}
         />
       </div>
       <div className=" field">
@@ -64,7 +64,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="phone"
-          onChange={(e) => this.onChangePhone(e.target.value)}
+          // onChange={(e) => this.onChangePhone(e.target.value)}
         />
       </div>
 
@@ -77,7 +77,7 @@ function InfoMainCard(props) {
           readOnly
           disabled
           value="Nguyễn Thọ"
-          onChange={(e) => this.onChangePhone(e.target.value)}
+          // onChange={(e) => this.onChangePhone(e.target.value)}
         />
       </div>
       <div className=" field">

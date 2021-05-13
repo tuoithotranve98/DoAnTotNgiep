@@ -46,9 +46,9 @@ function CustomerCreate(props) {
       }
     });
   };
-  
+
   const cancel = () => {
-    setUser(initialState);
+    setCustomer(initialState);
     pushstate(props.history, "/customer");
   };
 

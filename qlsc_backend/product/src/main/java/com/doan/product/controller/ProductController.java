@@ -1,5 +1,6 @@
 package com.doan.product.controller;
 
+import com.doan.product.entity.Product;
 import com.doan.product.exception.NotANumberException;
 import com.doan.product.exception.productException.ProductNotFoundException;
 import com.doan.product.model.ProductRequest;
@@ -47,10 +48,11 @@ public class ProductController {
 
     @PostMapping("products")
     public ProductResponse create(@RequestBody ProductRequest productRequest) {
+        Product pro =new Product();
         try {
             return productService.save(productRequest);
         } catch (Exception e) {
-            return new ProductResponse(Boolean.FALSE, "false");
+            return new ProductResponse(Boolean.FALSE, "false", pro);
         }
     }
 

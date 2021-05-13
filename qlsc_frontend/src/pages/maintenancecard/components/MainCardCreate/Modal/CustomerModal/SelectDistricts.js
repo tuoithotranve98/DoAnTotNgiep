@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Select2 from "react-select2-wrapper";
-import { getWard } from "../../../actions/locationActions";
+import { getWard } from "pages/customer/actions/locationActions";
 import "./select2.scss";
 
 class SelectDistricts extends React.Component {
