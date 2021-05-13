@@ -13,6 +13,7 @@ import { saveCustomer } from '../../../customer/actions/customerAction';
 import { receiveWard } from '../../../customer/actions/locationActions';
 import ProductModal from './Modal/ProductModal/ProductModal';
 import { saveProductService } from '../../../product/actions/ProductAction';
+import { saveMainCard } from '../../actions/mainCard';
 const initialStateCustomer = {
   name: null,
   code: null,
@@ -33,10 +34,29 @@ const initialStateProduct = {
   images: [],
   type: null,
 };
+const initialStateMainCard = {
+  code: null,
+  platesNumber: null,
+  customer: {},
+  repairman: {},
+  coordinator: {},
+  description: null,
+  returnDate: null,
+  price: null,
+  workStatus: null,
+  payStatus: null,
+  model: null,
+  color: null,
+  expectedReturnDate: null,
+  maintenanceCardDetails: [],
+  paymentHistories: [],
+  maintenanceCardDetailStatusHistories: [],
+};
 function MainCardCreate(props) {
-  const { onSaveCustomer, onClearWards, onSaveProductService } = props;
+  const { onSaveCustomer, onClearWards, onSaveProductService, saveMainCard } = props;
   const [customer, setCustomer] = useState({})
   const [products, setProducts] = useState([])
+  const [mainCard, setMainCard] = useState(initialStateMainCard)
   const [showModalCustomer, setShowModalCustomer] = useState(false)
   const [showModalProduct, setShowModalProduct] = useState(false)
   const [createCustomer, setCreateCustomer] = useState(initialStateCustomer);
@@ -97,6 +117,30 @@ function MainCardCreate(props) {
       });
     };
   //end product
+
+  //mainCard
+
+  const onChangeMainCard= (type, value) => {
+    setMainCard(() => {
+      return {
+        ...mainCard,
+        [type]: value,
+      };
+    });
+  };
+
+  const saveMaintenanceCard = () => {
+    mainCard.customer = customer;
+    saveMainCard(mainCard).then((json) => {
+      if (json && json.success) {
+
+        toastSuccess('Thêm phiếu sửa chữa thành công');
+      } else {
+        toastError('Có lỗi xảy ra khi thêm phiếu sửa chữa ');
+      }
+    });
+  };
+  //end mainCard
   const removeProduct = (id) => {
     const arr = products.filter((item)=> item.id !== id)
     setProducts(arr);
@@ -170,6 +214,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSaveCustomer: (customer) => dispatch(saveCustomer(customer)),
   onClearWards: () => dispatch(receiveWard([])),
   onSaveProductService: (product) => dispatch(saveProductService(product)),
+  saveMainCard: (mainCard) => dispatch(saveMainCard(mainCard)),
 });
 
 export default React.memo(connect(null, mapDispatchToProps)(MainCardCreate));

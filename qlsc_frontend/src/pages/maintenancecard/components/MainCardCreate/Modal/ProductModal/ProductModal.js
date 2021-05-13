@@ -15,6 +15,8 @@ function CustomerModal(props) {
      setCreateProduct,
      initialStateProduct,
      saveProductService,
+     showContent,
+     setShowContent,
   } = props;
   const handleClose = () => {
     setCreateProduct(initialStateProduct)
@@ -23,17 +25,6 @@ function CustomerModal(props) {
   const onConfirm = () => {
     saveProductService()
   };
-
-  const [showContent, setShowContent] = useState(1);
-  useEffect(() => {
-    onchangeProduct("type", 1);
-  }, []);
-
-  useEffect(() => {
-    onchangeProduct("type", showContent);
-  }, [showContent]);
-
-
   const handleUploadImage = (file) => {
     onUpLoadImage(file)
       .then((json) => {

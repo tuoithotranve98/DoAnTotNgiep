@@ -8,25 +8,10 @@ function Total(props) {
   return (
     <div className="d-flex align-items-center justify-content-end delivery-total">
       <div style={{ width: 400 }}>
-        <div className="d-flex align-items-center justify-content-between total-item">
-          <div>
-            Tổng giá trị đơn hàng ( 1đơn)
-          </div>
-          <div>
-            100000 đ
-          </div>
-        </div>
-        <div className="d-flex align-items-center justify-content-between total-item">
-          <div>
-            Tổng phí phải chi
-          </div>
-          <div>
-            100000 đ
-          </div>
-        </div>
+
         <div className="d-flex align-items-center justify-content-between total-item font-weight-bold">
           <div>
-            Tổng doanh thu sau đối soát
+            Tổng tiền
           </div>
           <div>
             100000 đ

@@ -127,12 +127,12 @@ export const deleteMainCard = (ids = []) => (dispatch, getState) => {
     });
 };
 
-export const saveMainCard = (customer = {}) => (dispatch, getState) => {
+export const saveMainCard = (cardMain = {}) => (dispatch, getState) => {
   const endpoint = `${API_MAINTENANCECARD}/maintenancecards`;
   return dispatch(
     fetch(endpoint, {
       method: "POST",
-      body: JSON.stringify(customer),
+      body: JSON.stringify(cardMain),
     })
   )
     .then((json) => {
