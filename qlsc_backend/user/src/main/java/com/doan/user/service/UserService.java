@@ -15,6 +15,7 @@ public interface UserService {
 
     Map<String, Object> getListUser(int page, int size, String sortBy, String descending, String search);
     Map<String, Object> getAllUser(int pageNumber, int size);
+    Map<String, Object> getListUserV1();
     HashMap<String, Object> getTotalMaintenanceCardByRepairman(int page, int size, String key);
     UserDTO getUserById(Long id) throws NotFoundException;
     UserDTO insertUser(UserDTO userDTO) throws DuplicateEmailException, CodeExistedException;

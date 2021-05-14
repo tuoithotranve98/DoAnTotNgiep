@@ -18,6 +18,7 @@ import PrivateRoute from "./components/router/PrivateRoute";
 import storage from "./utils/storage";
 import { checkInfoUser } from "./pages/login/actions/loginAction";
 import pushstate from "utils/pushstate";
+import { getStaffsByRepairman } from "./actions/commons";
 
 function App(props) {
   const { showMenu } = props;
@@ -36,6 +37,7 @@ function App(props) {
       pushstate(props.history, "/login");
     }
     props.onGetCity();
+    props.getStaffsByRepairman();
   }, []);
 
   return (
@@ -74,5 +76,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onCheckInfoUser: (token) => dispatch(checkInfoUser(token)),
   onGetCity: () => dispatch(getCity()),
+  getStaffsByRepairman: () => dispatch(getStaffsByRepairman()),
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

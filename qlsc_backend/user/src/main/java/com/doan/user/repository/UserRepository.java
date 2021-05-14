@@ -17,7 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
         "u.email like %?1% or u.phoneNumber like %?1% or " +
         "u.code like  %?1% or u.address like %?1%) ")
     Page<User> getAllUser(Pageable pageable, String param);
-
+    @Query(value = "select u from User u where u.role =2")
+    List<User> getAllUserV1();
     @Query(value = "SELECT u FROM User u WHERE u.status =1 and u.role = 2 and (u.fullName like  %:param% or " +
         "u.email like %:param% or u.phoneNumber like %:param% or " +
         "u.code like  %:param% or u.address like %:param%) ")

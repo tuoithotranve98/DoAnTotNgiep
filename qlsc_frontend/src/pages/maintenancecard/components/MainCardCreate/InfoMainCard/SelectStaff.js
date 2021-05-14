@@ -4,34 +4,15 @@ import Select2 from "react-select2-wrapper";
 import "./stylesStaff.scss";
 
 class SelectStaff extends React.Component {
-  // componentDidMount() {
-  //   const { staffs, getWard } = this.props;
-  //   const cities = Object.values(listAddress);
-  //   if (city) {
-  //     const defaultValue = cities.find(
-  //       (item) =>
-  //       item.id === city.id
-  //     );
-  //     if (defaultValue && defaultValue.code) {
-  //       getWard(defaultValue.code);
-  //     }
-  //   }
-  // }
-
   render() {
-    const { staffs } = this.props;
-    // const cities = Object.values(listAddress);
-  //   const arrNew = [];
-  //  array.forEach(element => {
-
-  //  });
+    const { staffs, staff } = this.props;
     return (
       <Select2
-        // defaultValue={city ? city.id : ""}
+        defaultValue={staff ? staff.name : ""}
         data={staffs}
-        // onSelect={this.props.onSelect}
+        onSelect={this.props.onSelect}
         options={{
-          placeholder: "Tỉnh/Thành phố - Quận/Huyện",
+          placeholder: "Chọn nhân viên sửa chữa",
         }}
       />
     );
@@ -40,10 +21,10 @@ class SelectStaff extends React.Component {
 
 const mapStateToProps = (state) => {
   const {
-    staff: { staffs },
+    staff: { staffByRepairMan },
   } = state;
   return {
-    staffs
+    staffs: staffByRepairMan
   };
 };
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { moneyFormat } from 'utils/moneyFormat';
 
 function Total(props) {
-
+  const { totalPriceMainCard, products } = props;
   // if (listOrderCollation.length === 0) return '';
   return (
     <div className="d-flex align-items-center justify-content-end delivery-total">
@@ -14,12 +14,12 @@ function Total(props) {
             Tổng tiền
           </div>
           <div>
-            100000 đ
+            {totalPriceMainCard(products)}
           </div>
         </div>
         <hr className="hr-line" />
         <div className="d-flex align-items-center justify-content-end">
-          <div className="d-flex align-items-center justify-content-between dlv-button">
+          <div className="d-flex align-items-center justify-content-between dlv-button" onClick={() => props.saveMaintenanceCard()}>
             <div className="icon-button">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 20C7.32891 20 4.81766 18.9598 2.92891 17.0711C1.04016 15.1823 0 12.6711 0 10C0 7.32891 1.0402 4.8177 2.92891 2.92891C4.81762 1.04012 7.32891 0 10 0C12.6711 0 15.1823 1.04016 17.0711 2.92891C18.9598 4.81766 20 7.32891 20 10C20 12.6711 18.9598 15.1823 17.0711 17.0711C15.1824 18.9599 12.6711 20 10 20ZM10 1.25C5.17523 1.25 1.25 5.17523 1.25 10C1.25 14.8248 5.17523 18.75 10 18.75C14.8248 18.75 18.75 14.8248 18.75 10C18.75 5.17523 14.8248 1.25 10 1.25Z" fill="#0084FF" />

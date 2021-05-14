@@ -7,6 +7,8 @@ import SelectStaff from "./SelectStaff";
 
 registerLocale("vi", vi);
 function InfoMainCard(props) {
+  const { mainCard , onChangeMainCard, onChangeMainCardReairMan  } = props;
+  const coordinator = mainCard.coordinator || {}
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [focusEndDate, setFocusEndDate] = useState(true);
@@ -32,8 +34,10 @@ function InfoMainCard(props) {
         <input
           className="customer-name"
           type="text"
-          name="phone"
-          // onChange={(e) => this.onChangePhone(e.target.value)}
+          name="code"
+          value={mainCard.code || ''}
+          onChange={(e) => onChangeMainCard("code", e.target.value)}
+          placeholder="Nhập mã phiếu"
         />
       </div>
       <div className=" field">
@@ -41,21 +45,25 @@ function InfoMainCard(props) {
         <input
           className="customer-name"
           type="text"
-          name="phone"
-          // onChange={(e) => this.onChangePhone(e.target.value)}
+          name="platesNumber"
+          value={mainCard.platesNumber || ''}
+          onChange={(e) => onChangeMainCard("platesNumber", e.target.value)}
+          placeholder="Nhập biển số xe"
         />
       </div>
       <div className=" field">
         <div className="label">Nhân viên sửa chữa</div>
-          <SelectStaff />
+          <SelectStaff staff={mainCard.repairman || ''} onSelect={(e) => onChangeMainCardReairMan("repairman", e.target.value)}/>
       </div>
       <div className=" field">
         <div className="label">Màu xe</div>
         <input
           className="customer-name"
           type="text"
-          name="phone"
-          // onChange={(e) => this.onChangePhone(e.target.value)}
+          name="color"
+          value={mainCard.color || ''}
+          onChange={(e) => onChangeMainCard("color", e.target.value)}
+          placeholder="Nhập màu xe"
         />
       </div>
       <div className=" field">
@@ -63,8 +71,10 @@ function InfoMainCard(props) {
         <input
           className="customer-name"
           type="text"
-          name="phone"
-          // onChange={(e) => this.onChangePhone(e.target.value)}
+          name="model"
+          value={mainCard.model || ''}
+          onChange={(e) => onChangeMainCard("model", e.target.value)}
+          placeholder="Nhập loại xe"
         />
       </div>
 
@@ -76,8 +86,7 @@ function InfoMainCard(props) {
           name="phone"
           readOnly
           disabled
-          value="Nguyễn Thọ"
-          // onChange={(e) => this.onChangePhone(e.target.value)}
+          value={coordinator.name || ''}
         />
       </div>
       <div className=" field">
@@ -85,9 +94,9 @@ function InfoMainCard(props) {
         <div id="old-order-prepayment-datetime">
           <DatePicker
             closeOnScroll
-            selected={startDate}
+            selected={mainCard.returnDate || new Date()}
             minDate={new Date()}
-            onChange={(date) => setStartDate(date)}
+            onChange={(e) => onChangeMainCard("returnDate", e)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Từ ngày"
             locale="vi"
@@ -106,8 +115,8 @@ function InfoMainCard(props) {
           >
             <DatePicker
               closeOnScroll
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
+              selected={mainCard.expectedReturnDate || new Date()}
+              onChange={(e) => onChangeMainCard("expectedReturnDate", e)}
               minDate={new Date()}
               placeholderText="Ngày dự kiến trả xe"
               dateFormat="dd/MM/yyyy"
@@ -120,12 +129,13 @@ function InfoMainCard(props) {
           </div>
       </div>
       <div className=" field">
-        <div className="label">Mô tả</div>
+        <div className="label">Ghi chú</div>
         <textarea
           name="description"
           placeholder="Ghi chú"
-          // value={customer.description || ''}
-          // onChange={(e) => onChangeCustomer("description", e.target.value)}
+          name="description"
+          value={mainCard.description || ''}
+          onChange={(e) => onChangeMainCard("description", e.target.value)}
         />
       </div>
     </div>

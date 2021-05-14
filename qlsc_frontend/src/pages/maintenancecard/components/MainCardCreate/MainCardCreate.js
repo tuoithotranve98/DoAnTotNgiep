@@ -41,20 +41,21 @@ const initialStateMainCard = {
   repairman: {},
   coordinator: {},
   description: null,
-  returnDate: null,
+  returnDate: new Date(),
   price: null,
   workStatus: null,
   payStatus: null,
   model: null,
   color: null,
-  expectedReturnDate: null,
+  expectedReturnDate: new Date(),
   maintenanceCardDetails: [],
   paymentHistories: [],
   maintenanceCardDetailStatusHistories: [],
 };
 function MainCardCreate(props) {
-  const { onSaveCustomer, onClearWards, onSaveProductService, saveMainCard } = props;
+  const { onSaveCustomer, onClearWards, onSaveProductService, saveMainCard, user, staffByRepairMan } = props;
   const [customer, setCustomer] = useState({})
+  const [repairman, setRepairman] = useState({})
   const [products, setProducts] = useState([])
   const [mainCard, setMainCard] = useState(initialStateMainCard)
   const [showModalCustomer, setShowModalCustomer] = useState(false)
@@ -63,10 +64,14 @@ function MainCardCreate(props) {
   const [createProduct, setCreateProduct] = useState(initialStateProduct);
   const [showFilterCustomer,setShowFilterCustomer ] = useState(false);
   const [showContent, setShowContent] = useState(1);
+  console.log("products", products);
   useEffect(() => {
     onchangeProduct("type", showContent);
   }, [showContent]);
-  console.log("createProduct", createProduct);
+
+  useEffect(() => {
+    onChangeMainCard("coordinator", user);
+  }, []);
   //customer
   const saveCustomer = () => {
     onSaveCustomer(createCustomer).then((json) => {
@@ -85,7 +90,7 @@ function MainCardCreate(props) {
   const onChangeCustomer = (type, value) => {
     setCreateCustomer(() => {
       return {
-        ...createProduct,
+        ...createCustomer,
         [type]: value,
       };
     });
@@ -128,12 +133,59 @@ function MainCardCreate(props) {
       };
     });
   };
+  const onChangeMainCardReairMan= (type, value) => {
+    const staff = staffByRepairMan.find((item)=> item.id == value);
+      if(staff) {
+        setMainCard(() => {
+          return {
+            ...mainCard,
+            [type]: staff,
+          };
+        });
+      }
+  };
+  const totalPriceMainCard  = (arr) => {
+    let total = 0;
+    if(arr.length > 0) {
+      arr.forEach(element => {
+          total += element.pricePerUnit * element.quantity
+      });
+    }
+    return total;
+  }
+  const addMaintenanceCardDetailStatusHistories = (arr) => {
+    const newArr = [];
+    arr.forEach((product)=>{
+      const item = {};
+      item.name= product.name
+      item.status= 1
+      newArr.push(item);
+    })
+    return newArr;
+  }
 
+  const addMaintenanceCardDetails = (arr) => {
+    const newArr = [];
+    arr.forEach((product)=>{
+      const item = {};
+      item.product= product
+      item.price= product.pricePerUnit
+      item.quantity= product.quantity
+      item.status= 1
+      newArr.push(item);
+    })
+    return newArr;
+  }
   const saveMaintenanceCard = () => {
     mainCard.customer = customer;
+    mainCard.workStatus = 1;
+    mainCard.payStatus = 1;
+    mainCard.price = totalPriceMainCard(products);
+    mainCard.maintenanceCardDetailStatusHistories = addMaintenanceCardDetailStatusHistories(products);
+    mainCard.maintenanceCardDetails = addMaintenanceCardDetails(products);
     saveMainCard(mainCard).then((json) => {
+      console.log("jsonjson", json);
       if (json && json.success) {
-
         toastSuccess('Thêm phiếu sửa chữa thành công');
       } else {
         toastError('Có lỗi xảy ra khi thêm phiếu sửa chữa ');
@@ -148,6 +200,7 @@ function MainCardCreate(props) {
   const addProduct = (item) => {
     const newArr = [...products];
     let check = false;
+    item.quantity = 1;
     if (newArr.length === 0) {
       newArr.unshift(item);
     } else {
@@ -177,10 +230,16 @@ function MainCardCreate(props) {
                     products={products}
                     removeProduct={(a) => removeProduct(a)}
                     setShowModalProduct={setShowModalProduct}
+                    totalPriceMainCard={totalPriceMainCard}
+                    saveMaintenanceCard={saveMaintenanceCard}
                   />
                 </div>
                 <div className="col-md-3">
-                  <InfoMainCard />
+                  <InfoMainCard
+                    onChangeMainCard={(type, value) => onChangeMainCard(type, value)}
+                    onChangeMainCardReairMan={(type, value) => onChangeMainCardReairMan(type, value)}
+                    mainCard={mainCard}
+                  />
                 </div>
             </div>
         </div>
@@ -208,8 +267,15 @@ function MainCardCreate(props) {
   );
 }
 MainCardCreate.defaultProps = {
-
+  user: {}
 };
+const mapStateToProps = (state, ownProps) => {
+  const { auth : { user } , staff : { staffByRepairMan }} = state;
+  return {
+    user,
+    staffByRepairMan
+  }
+}
 const mapDispatchToProps = (dispatch) => ({
   onSaveCustomer: (customer) => dispatch(saveCustomer(customer)),
   onClearWards: () => dispatch(receiveWard([])),
@@ -217,4 +283,4 @@ const mapDispatchToProps = (dispatch) => ({
   saveMainCard: (mainCard) => dispatch(saveMainCard(mainCard)),
 });
 
-export default React.memo(connect(null, mapDispatchToProps)(MainCardCreate));
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(MainCardCreate));

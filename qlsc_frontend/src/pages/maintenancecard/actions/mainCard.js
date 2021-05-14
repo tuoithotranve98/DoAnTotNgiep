@@ -128,7 +128,8 @@ export const deleteMainCard = (ids = []) => (dispatch, getState) => {
 };
 
 export const saveMainCard = (cardMain = {}) => (dispatch, getState) => {
-  const endpoint = `${API_MAINTENANCECARD}/maintenancecards`;
+  const endpoint = `${API_MAINTENANCECARD}/maintenanceCards`;
+  console.log("endpoint", endpoint);
   return dispatch(
     fetch(endpoint, {
       method: "POST",

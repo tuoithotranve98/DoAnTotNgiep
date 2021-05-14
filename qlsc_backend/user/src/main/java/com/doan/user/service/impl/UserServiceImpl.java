@@ -61,6 +61,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Map<String, Object> getListUserV1(){
+        Map<String, Object> hashMap = new HashMap<>();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        List<User> users = userRepository.getAllUserV1();
+        users.forEach(user -> userDTOs.add(userConverter.convertToDTO(user)));
+        hashMap.put("users", userDTOs);
+        return hashMap;
+    }
+
+    @Override
     public Map<String, Object> getAllUser(int pageNumber, int size) {
         Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("id").descending());
         Page<User> userPage = userRepository.findAll(paging);

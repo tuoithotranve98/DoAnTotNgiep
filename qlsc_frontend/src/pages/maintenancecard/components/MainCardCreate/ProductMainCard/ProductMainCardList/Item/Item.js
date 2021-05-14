@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import { moneyFormat } from 'utils/moneyFormat';
 
 function Item(props) {
-  const {id, code, name, quanity, price, status} = props.product
+  const {id, code, name, quanity, pricePerUnit, status} = props.product
   return (
     <div className="d-flex align-items-center delivery-collation-order-row">
       <div className="order text-ellipsis" style={{ color: '#0088FF' }}>
@@ -15,13 +15,13 @@ function Item(props) {
           {name}
       </div>
       <div className="tenant text-ellipsis">
-        1
+       {quanity}
       </div>
       <div className="d-flex align-items-center track-code">
         không bảo hành
       </div>
       <div className="d-flex align-items-center  track-code">
-        10,000 đ
+        {pricePerUnit} đ
       </div>
       <div className="d-flex align-items-center justify-content-center track-code">
           Đang chờ

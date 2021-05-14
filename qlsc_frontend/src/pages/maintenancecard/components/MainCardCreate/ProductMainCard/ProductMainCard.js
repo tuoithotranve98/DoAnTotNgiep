@@ -13,6 +13,8 @@ function ProductMainCard(props) {
         addProduct={(a)=>props.addProduct(a)} products={props.products}
         removeProduct={(a)=>props.removeProduct(a)}
         setShowModalProduct={(a)=>props.setShowModalProduct(a)}
+        totalPriceMainCard={(a)=> props.totalPriceMainCard(a)}
+        saveMaintenanceCard={()=> props.saveMaintenanceCard()}
       />
     </div>
   );

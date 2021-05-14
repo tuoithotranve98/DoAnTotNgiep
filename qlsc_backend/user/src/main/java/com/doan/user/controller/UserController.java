@@ -36,10 +36,18 @@ public class UserController {
         Map<String, Object> allUser = userService.getListUser(pageNum, pageSize, sortBy, descending, param);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
+    // lấy full nhân viên sửa chữa
+    @GetMapping("users-v1")
+    public ResponseEntity<Map<String, Object>> getAllUsersV1() {
+        Map<String, Object> allUser = userService.getListUserV1();
+        return new ResponseEntity<>(allUser, HttpStatus.OK);
+    }
+
 
     @GetMapping("users/maintenanceCard")
     public ResponseEntity<Map<String, Object>> getTotalMaintenanceCardByRepairman(@RequestParam(defaultValue = "1", required = false) int page,
-                                                             @RequestParam(defaultValue = "5", required = false) int size,
+                                                             @RequestParam(defaultValue = "20",
+                                                                 required = false) int size,
                                                              @RequestParam(defaultValue = "", required = false) String key) {
         HashMap<String, Object> allUser = userService.getTotalMaintenanceCardByRepairman(page, size, key);
         return new ResponseEntity<>(allUser, HttpStatus.OK);

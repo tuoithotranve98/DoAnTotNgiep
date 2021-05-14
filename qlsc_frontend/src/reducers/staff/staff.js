@@ -9,6 +9,7 @@ const initState = {
   //state giao điện
   fetching: false,
   isEmpty: false,
+  staffByRepairMan: []
 };
 
 export default (state = initState, action) => {
@@ -25,6 +26,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         staff: action.staff,
+      }
+    case actionTypes.STAFF_BY_REPAIRMAN:
+      return {
+        ...state,
+        staffByRepairMan: action.data,
       }
     case actionTypes.STAFF_FETCHING:
       return {
