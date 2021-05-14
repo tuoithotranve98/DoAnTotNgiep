@@ -7,6 +7,8 @@ export const API_CUSTOMER = `${API_GATEWAY}/customer/admin`
 export const API_PRODUCT = `${API_GATEWAY}/product/admin`
 export const API_IMAGE = `${API_GATEWAY}/image/admin`
 export const API_MAINTENANCECARD = `${API_GATEWAY}/maintenancecard/admin`
+export const SOCKET_URL = `${API_GATEWAY}/maintenancecard/notification`;
+export const SOCKET_URL_V2 = `http://localhost:8086/notification`;
 
 export const STATUS_CODE = {
     SUCCESS: 200,

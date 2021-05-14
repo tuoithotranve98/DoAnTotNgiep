@@ -5,6 +5,7 @@ import {
   Switch,
   withRouter,
 } from "react-router-dom";
+import SockJsClient from 'react-stomp';
 import { getCity } from "./pages/customer/actions/locationActions";
 import { createBrowserHistory } from "history";
 import { connect } from "react-redux";
@@ -18,6 +19,7 @@ import PrivateRoute from "./components/router/PrivateRoute";
 import storage from "./utils/storage";
 import { checkInfoUser } from "./pages/login/actions/loginAction";
 import pushstate from "utils/pushstate";
+import { SOCKET_URL_V2 } from "./constants/api";
 
 function App(props) {
   const { showMenu } = props;
@@ -38,8 +40,24 @@ function App(props) {
     props.onGetCity();
   }, []);
 
+  const onConnected = () => {
+    console.log("Connected!!")
+  }
+
+  const onMessageReceived = (msg) => {
+    console.log("check msg: ", msg);
+  }
+
   return (
     <Router history={createBrowserHistory()}>
+      <SockJsClient
+        url={SOCKET_URL_V2}
+        topics={['/topic/message']}
+        onConnect={onConnected}
+        onDisconnect={console.log("Disconnected!")}
+        onMessage={msg => onMessageReceived(msg)}
+        debug={false}
+      />
       <ToastContainer
         position="top-center"
         autoClose={2000}
