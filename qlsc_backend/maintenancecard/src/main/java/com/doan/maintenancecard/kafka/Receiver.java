@@ -4,26 +4,23 @@ import com.doan.maintenancecard.model.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SendMessage {
+public class Receiver {
 
-    @Value("${cloudkarafka.topic}")
-    private String topic;
-
+    private final SimpMessagingTemplate template;
     private final ObjectMapper json;
-    private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage(Message message) {
+    @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "repair-manager")
+    public void sendToClient(Message message) {
         try {
-            this.kafkaTemplate.send(topic, json.writeValueAsString(message));
+            template.convertAndSend("/topic/message", json.writeValueAsString(message));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
-
 }

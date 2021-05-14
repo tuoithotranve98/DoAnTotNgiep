@@ -1,6 +1,6 @@
-package com.doan.maintenancecard.kafka;
+package com.doan.user.kafka;
 
-import com.doan.maintenancecard.model.Message;
+import com.doan.user.model.Message;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +25,4 @@ public class SendMessage {
             e.printStackTrace();
         }
     }
-
 }
