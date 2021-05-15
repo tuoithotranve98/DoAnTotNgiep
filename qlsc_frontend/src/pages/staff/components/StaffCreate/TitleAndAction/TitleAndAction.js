@@ -7,7 +7,7 @@ function TitleAndAction() {
     <div className="tilte-action">
       <div className="d-flex list-header">
         <div className="header-title">
-          <div style={{ fontSize: '22px' }}>Danh sách nhân viên</div>
+          {/* <div style={{ fontSize: '22px' }}>Danh sách nhân viên</div> */}
         </div>
       </div>
     </div>

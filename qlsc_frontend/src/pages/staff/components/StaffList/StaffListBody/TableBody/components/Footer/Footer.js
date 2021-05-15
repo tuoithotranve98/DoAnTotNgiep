@@ -19,7 +19,7 @@ function Footer(props) {
 
   const calculateEnd = () => {
     if (totalPage === 1) {
-      return totalItem + 1;
+      return totalItem;
     }
     if (currentPage === 1) {
       return currentPage * size;
@@ -44,7 +44,7 @@ function Footer(props) {
       <div className="result-info">
         Hiển thị kết quả từ&nbsp;
         {calculateBegin()} -&nbsp;
-        {calculateEnd()} trên tổng {totalItem + 1}
+        {calculateEnd()} trên tổng {totalPage === 1 ? totalItem : (totalItem + 1)}
       </div>
       <div className="margin-left-auto" />
       <div className="products-pagination">

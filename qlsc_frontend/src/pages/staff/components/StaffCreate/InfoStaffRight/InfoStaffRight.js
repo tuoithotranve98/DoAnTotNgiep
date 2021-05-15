@@ -12,14 +12,14 @@ function InfoStaffRight(props) {
     setShowRole(!showRole);
   };
   const handleTextRole = () => {
-    const defaultText = 'Chọn vai trò nhân viên';
+    const defaultText = "Chọn vai trò nhân viên";
     if (staff && staff.role) {
       const role = staff_role.find((role) => role.id === staff.role);
       if (role) return role.name;
       return defaultText;
     }
     return defaultText;
-  }
+  };
   return (
     <div className="info-staff-right">
       <div className="card info-staff-right-01">
@@ -68,11 +68,13 @@ function InfoStaffRight(props) {
               {showRole ? (
                 <div className="list-role">
                   {staff_role.map((role) => {
+                    const active = role.id === (staff && staff.role);
                     return (
                       <div
                         key={role.id}
                         className="dropdown-item"
                         onClick={() => handleClickRole(role)}
+                        style={active ? { background: "#0084ff" } : {}}
                       >
                         {role.name}
                       </div>

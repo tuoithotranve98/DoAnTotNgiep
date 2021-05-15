@@ -8,23 +8,10 @@ import '../../styles/wrapper.scss';
 import * as Icons from 'pages/maintenancecard/commons/Icons';
 
 function Wrapper(props) {
-  // const [selectedIds, setSelectedIds] = useState([]);
   const {
     selectedIds, selectedMainCardIds, fetching, isEmpty
   } = props;
   const listRef = React.useRef();
-
-  const getFilterFromURL = () => {
-    const { history } = props;
-    const { search } = history.location;
-    if (!search || !search.includes('filter')) return undefined;
-    try {
-      const filter = search.split('?filter=')[1].split('&hmac')[0].split('%')[0];
-      return JSON.parse(atob(filter));
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const onCheckBoxClick = (id) => {
     selectedMainCardIds(

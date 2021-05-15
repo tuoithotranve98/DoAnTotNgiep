@@ -33,7 +33,7 @@ function Wrapper(props) {
     return (
       <div className="count-check">
         <span className="details">
-          Đã chọn ({selectedIds.length} đơn hàng)
+          Đã chọn ({selectedIds.length} phiếu)
         </span>
       </div>
     );
@@ -47,7 +47,7 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <div id="delivery-collations-filter-empty-wrapper">
           <div id="delivery-collations-filter-empty-text">
-            Không có khách hàng
+            Không có phiếu sửa chữa
           </div>
           <div id="delivery-collations-filter-empty-icon">
             <Icons.OrderCollationFilterEmpty />
