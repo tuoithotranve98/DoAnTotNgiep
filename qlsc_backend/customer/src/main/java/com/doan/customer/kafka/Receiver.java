@@ -15,12 +15,12 @@ public class Receiver {
     private final SimpMessagingTemplate template;
     private final ObjectMapper json;
 
-    @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "repair-manager")
-    public void sendToClient(Message message) {
-        try {
-            template.convertAndSend("/topic/message", json.writeValueAsString(message));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
+//    @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "repair-manager")
+//    public void sendToClient(Message message) {
+//        try {
+//            template.convertAndSend("/topic/message", json.writeValueAsString(message));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -37,7 +37,7 @@ public class MessageConsumer {
     @Autowired
     private UserRepository userRepository;
 
-//    @KafkaListener(topics = {"lhw3k9sy-message"}, groupId = "Group_id_1")
+    @KafkaListener(topics = {"dk3w4sws-message"}, groupId = "repair-manager")
     @Transactional
     public void consume(@Payload String messageKafka, @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key) throws JsonProcessingException, NoSuchAlgorithmException, InvalidKeyException {
         System.out.println(messageKafka);

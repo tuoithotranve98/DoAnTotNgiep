@@ -76,7 +76,7 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
                 messageModel.setRepairmanEmail(maintenanceCard1.getRepairmanEmail());
                 ObjectMapper mapper = new ObjectMapper();
                 String jsonString = mapper.writeValueAsString(messageModel);
-                ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard1.getId() + "", jsonString);
+                ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
                 kafkaTemplate.send(record);
                 return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
             } catch (Exception e) {

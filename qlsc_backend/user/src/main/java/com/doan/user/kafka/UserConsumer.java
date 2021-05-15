@@ -19,7 +19,7 @@ public class UserConsumer {
 
     private final UserRepository userRepository;
 
-//    @KafkaListener(topics = {"lhw3k9sy-user"},groupId = "Group_id_1")
+    @KafkaListener(topics = {"dk3w4sws-user"},groupId = "repair-manager")
     @Transactional
     public void consume(@Payload String message, @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key) throws JsonProcessingException {
         User user = userRepository.getOne(Long.parseLong(key));

@@ -24,7 +24,7 @@ public class VehicleConsumer {
     private final VehicleRepository vehicleRepository;
     private final CustomerRepository customerRepository;
 
-//    @KafkaListener(topics = {"lhw3k9sy-vehicle"}, groupId = "customer")
+    @KafkaListener(topics = {"dk3w4sws-customer"}, groupId = "repair-manager")
     @Transactional
     public void consume(@Payload String message, @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key) throws JsonProcessingException {
         Customer customer = customerRepository.findById(Long.parseLong(key)).orElse(null);

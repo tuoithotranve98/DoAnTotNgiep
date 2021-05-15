@@ -71,7 +71,7 @@ public class MaintenanceCardDetailServiceImpl implements MaintenanceCardDetailSe
             }
             if (check) {
                 maintenanceCard.setWorkStatus((byte) 2);
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("lhw3k9sy-user", maintenanceCard.getRepairmanId() + "", "-1");
+                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard.getRepairmanId() + "", "-1");
                 kafkaTemplate.send(record2);
             } else {
                 maintenanceCard.setWorkStatus(status);
@@ -90,7 +90,7 @@ public class MaintenanceCardDetailServiceImpl implements MaintenanceCardDetailSe
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard1.getId() + "", jsonString);
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
             kafkaTemplate.send(record);
             return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
         } else if (maintenanceCard.getRepairmanId() != 0) {

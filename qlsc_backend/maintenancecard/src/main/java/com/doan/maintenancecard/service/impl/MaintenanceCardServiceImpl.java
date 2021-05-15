@@ -82,7 +82,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 productModel.setCode(maintenanceCardDetail.getProductCode());
                 productModel.setStatus(0);
                 String jsonString = mapper.writeValueAsString(productModel);
-                ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                 kafkaTemplate.send(record);
                 total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
             } else if (maintenanceCardDetail.getProductId() != 0) {
@@ -119,7 +119,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             messageModel.setRepairmanEmail(maintenanceCard1.getRepairmanEmail());
             messageModel.setType(1);
             String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard1.getId() + "", jsonString);
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
             kafkaTemplate.send(record);
         }
         VehicleModel vehicleModel = new VehicleModel();
@@ -127,10 +127,10 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         vehicleModel.setModel(maintenanceCard.getModel());
         vehicleModel.setPlateNumber(maintenanceCard.getPlatesNumber());
         String jsonString = mapper.writeValueAsString(vehicleModel);
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-vehicle", maintenanceCard1.getCustomerId() + "", jsonString);
+        ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-customer", maintenanceCard1.getCustomerId() + "", jsonString);
         kafkaTemplate.send(record);
 
-        ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("lhw3k9sy-user", maintenanceCard1.getRepairmanId() + "", "1");
+        ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard1.getRepairmanId() + "", "1");
         kafkaTemplate.send(record2);
         return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
     }
@@ -220,7 +220,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(1);
                     String jsonString = mapper.writeValueAsString(productModel);
-                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                     kafkaTemplate.send(record);
                     total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
                 } else if (maintenanceCardDetail.getProductId() != 0) {
@@ -254,7 +254,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                             productModel.setStatus(1);
                         }
                         String jsonString = mapper.writeValueAsString(productModel);
-                        ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                        ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                         kafkaTemplate.send(record);
                     }
                     total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
@@ -281,7 +281,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                             productModel.setCode(maintenanceCardDetail.getProductCode());
                             productModel.setStatus(2);
                             String jsonString = mapper.writeValueAsString(productModel);
-                            ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                             kafkaTemplate.send(record);
                         } else {
                             MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
@@ -336,7 +336,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             maintenanceCard.setReturnDate(null);
         } else {
             if (maintenanceCard.getReturnDate() != null) {
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("lhw3k9sy-user", maintenanceCard.getRepairmanId() + "", "-1");
+                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "-1");
                 kafkaTemplate.send(record2);
                 Date returnDate = maintenanceCard.getReturnDate();
                 if (returnDate.compareTo(now) > 0) {
@@ -352,7 +352,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         } else {
             if (maintenanceCard.getRepairmanId() != 0) {
                 maintenanceCard.setRepairmanName(maintenanceCardDTO.getRepairman().getFullName());
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("lhw3k9sy-user", maintenanceCard.getRepairmanId() + "", "1");
+                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "1");
                 kafkaTemplate.send(record2);
                 MessageModel messageModel = new MessageModel();
                 messageModel.setMaintenanceCardCode(maintenanceCard.getCode());
@@ -361,7 +361,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 messageModel.setRepairmanEmail(maintenanceCard.getRepairmanEmail());
                 messageModel.setType(1);
                 String jsonString = mapper.writeValueAsString(messageModel);
-                ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard.getId() + "", jsonString);
+                ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard.getId() + "", jsonString);
                 kafkaTemplate.send(record);
             }
         }
@@ -379,14 +379,14 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 messageModel.setType(3);
             }
             String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard1.getId() + "", jsonString);
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
             kafkaTemplate.send(record);
             VehicleModel vehicleModel = new VehicleModel();
             vehicleModel.setColor(maintenanceCard.getColor());
             vehicleModel.setModel(maintenanceCard.getModel());
             vehicleModel.setPlateNumber(maintenanceCard.getPlatesNumber());
             String jsonString2 = mapper.writeValueAsString(vehicleModel);
-            ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("lhw3k9sy-vehicle", maintenanceCard1.getCustomerId() + "", jsonString2);
+            ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-customer", maintenanceCard1.getCustomerId() + "", jsonString2);
             kafkaTemplate.send(record2);
             return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
 
@@ -434,7 +434,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-message", maintenanceCard1.getId() + "", jsonString);
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
             kafkaTemplate.send(record);
             return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
         } else {
@@ -458,7 +458,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(2);
                     String jsonString = mapper.writeValueAsString(productModel);
-                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("lhw3k9sy-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                     kafkaTemplate.send(record);
                 }
                 maintenanceCardDetail.setIsDelete((byte) 1);

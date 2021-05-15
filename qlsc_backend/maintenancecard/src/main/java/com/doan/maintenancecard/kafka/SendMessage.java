@@ -12,15 +12,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SendMessage {
 
-    @Value("${cloudkarafka.topic}")
-    private String topic;
-
     private final ObjectMapper json;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage(Message message) {
+    public void sendMessage(String topic, String key, Message message) {
         try {
-            this.kafkaTemplate.send(topic, json.writeValueAsString(message));
+            kafkaTemplate.send(topic, key, json.writeValueAsString(message));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
