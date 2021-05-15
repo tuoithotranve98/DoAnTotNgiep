@@ -14,7 +14,7 @@ import { ToastContainer } from "react-toastify";
 import Modals from "./components/modal/modal";
 import "./styles/app.scss";
 import LoginPage from "./pages/login/login";
-// import DashBoard from "pages/dashboard/DashBoard.js";
+import DashBoard from "pages/dashboard/DashBoard";
 import PrivateRoute from "./components/router/PrivateRoute";
 import storage from "./utils/storage";
 import { checkInfoUser } from "./pages/login/actions/loginAction";
@@ -76,7 +76,7 @@ function App(props) {
       <Modals />
       <Switch>
         <Route path="/login" component={LoginPage} />
-        {/* <Route path="/" component={() => <DashBoard showMenu={showMenu} />} /> */}
+        <Route path="/" component={() => <DashBoard showMenu={showMenu} />} />
       </Switch>
     </Router>
   );
