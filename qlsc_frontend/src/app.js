@@ -76,7 +76,7 @@ function App(props) {
       <Modals />
       <Switch>
         <Route path="/login" component={LoginPage} />
-        <Route path="/" component={() => <DashBoard showMenu={showMenu} />} />
+        {/* <Route path="/" component={() => <DashBoard showMenu={showMenu} />} /> */}
       </Switch>
     </Router>
   );
