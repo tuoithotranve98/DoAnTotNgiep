@@ -50,19 +50,27 @@ function CustomerUpdate(props) {
             ward: null,
           };
           if (json.ward) {
-            onGetWard(json.ward.district.code);
-            const codeDistrict = json.ward.district.code;
             const codeWard = json.ward.code;
-            const district = Object.values(cities).find(
-              (item) => item.code === codeDistrict
-            );
-            const ward = Object.values(wards).find(
-              (item) => item.code === codeWard
-            );
-            obj.ward = ward;
-            obj.city = district;
+            onGetWard(json.ward.district.code)
+              .then((json) => {
+                if (json) {
+                  const ward = Object.values(json).find(
+                    (item) => item.code === codeWard
+                  );
+                  obj.ward = ward;
+                }
+              })
+              .then(() => {
+                const codeDistrict = json.ward.district.code;
+                const district = Object.values(cities).find(
+                  (item) => item.code === codeDistrict
+                );
+                obj.city = district;
+                setCustomer(obj);
+              });
+          } else {
+            setCustomer(obj);
           }
-          setCustomer(obj);
         }
       });
     }
@@ -121,6 +129,7 @@ function CustomerUpdate(props) {
     pushstate(props.history, "/customers");
   };
 
+  console.log("check customer", customer);
   return (
     <div className="customer-screen-wrapper-create">
       <TitleAndAction />
