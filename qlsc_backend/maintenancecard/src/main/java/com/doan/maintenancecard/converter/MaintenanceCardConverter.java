@@ -30,12 +30,12 @@ public class MaintenanceCardConverter {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setId(maintenanceCard.getCustomerId());
         customerDTO.setName(maintenanceCard.getCustomerName());
-        customerDTO.setPhoneNumber(maintenanceCard.getCustomerPhone());
+        customerDTO.setPhone(maintenanceCard.getCustomerPhone());
         maintenanceCardDTO.setCustomer(customerDTO);
         UserDTO repairman = new UserDTO();
         if (maintenanceCard.getRepairmanId() != 0) {
             repairman.setId(maintenanceCard.getRepairmanId());
-            repairman.setFullName(maintenanceCard.getRepairmanName());
+            repairman.setName(maintenanceCard.getRepairmanName());
             repairman.setEmail(maintenanceCard.getRepairmanEmail());
             maintenanceCardDTO.setRepairman(repairman);
         }
@@ -49,7 +49,7 @@ public class MaintenanceCardConverter {
         maintenanceCardDTO.setColor(maintenanceCard.getColor());
         UserDTO coordinator = new UserDTO();
         coordinator.setId(maintenanceCard.getCoordinatorId());
-        coordinator.setFullName(maintenanceCard.getCoordinatorName());
+        coordinator.setName(maintenanceCard.getCoordinatorName());
         coordinator.setEmail(maintenanceCard.getCoordinatorEmail());
         maintenanceCardDTO.setCoordinator(coordinator);
         maintenanceCardDTO.setId(maintenanceCard.getId());
@@ -62,16 +62,16 @@ public class MaintenanceCardConverter {
         MaintenanceCard maintenanceCard = new MaintenanceCard();
         UserDTO repairman = maintenanceCardDTO.getRepairman();
         if (repairman != null && repairman.getId() != null) {
-            maintenanceCard.setRepairmanName(repairman.getFullName());
+            maintenanceCard.setRepairmanName(repairman.getName());
             maintenanceCard.setRepairmanId(repairman.getId());
             maintenanceCard.setRepairmanEmail(repairman.getEmail());
         }
         CustomerDTO customerDTO = maintenanceCardDTO.getCustomer();
-        maintenanceCard.setCustomerPhone(customerDTO.getPhoneNumber());
+        maintenanceCard.setCustomerPhone(customerDTO.getPhone());
         maintenanceCard.setCustomerName(customerDTO.getName());
         maintenanceCard.setCustomerId(customerDTO.getId());
         UserDTO coordinator = maintenanceCardDTO.getCoordinator();
-        maintenanceCard.setCoordinatorName(coordinator.getFullName());
+        maintenanceCard.setCoordinatorName(coordinator.getName());
         maintenanceCard.setCoordinatorId(coordinator.getId());
         maintenanceCard.setCoordinatorEmail(coordinator.getEmail());
         maintenanceCard.setWorkStatus(maintenanceCardDTO.getWorkStatus());

@@ -221,7 +221,7 @@ function TopBar(props) {
             Phiếu sửa chữa
           </span>
           <span>&nbsp;{">"}&nbsp;</span>
-          <span>Chi tiết phiếu sửa chữa</span>
+          <span>Thêm mới phiếu sửa chữa</span>
         </React.Fragment>
       );
     }

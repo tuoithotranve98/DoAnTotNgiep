@@ -1,0 +1,211 @@
+.main-card-update-warpper {
+    padding: 15px 25px;
+    .go-back {
+      display: flex;
+      cursor: pointer;
+      width: fit-content;
+      &:hover {
+        color: #0088ff;
+        svg{
+          path{
+            fill: #0088ff;
+          }
+        }
+      }
+      svg {
+        margin-right: 6px;
+        height: 17px;
+        margin-top: 3px;
+      }
+      span {
+        &:last-child {
+        }
+      }
+    }
+    .delivery-collation-create-header {
+      font-size: 20px;
+      margin-top: 5px;
+    }
+    .info-container {
+      padding: 15px;
+      background: #ffffff;
+      border: 1px solid #d3d3d3;
+      box-sizing: border-box;
+      border-radius: 4px;
+      padding-bottom: 0px;
+    }
+    .title {
+      border-bottom: 1px solid #e3e3e3;
+      margin-left: -16px;
+      margin-right: -16px;
+      padding-left: 16px;
+      padding-bottom: 17px;
+      font-size: 20px;
+      font-weight: 400;
+      color: #212b35;
+    }
+    .delivery-collation-info-wrapper {
+      margin-top: 10px;
+      .bottom {
+        width: 100%;
+        .info-store{
+          margin-top: 12px;
+          padding-top: 28px;
+          height: 95px;
+          .title-option{
+            margin-top: 10px;
+            font-weight: 600;
+            color: #4F4F4F;
+            min-width: 120px;
+          }
+          .info-store-item{
+            .info{
+              margin-left: 10px;
+              margin: 5px;
+              .name{
+                color: #0084FF;
+                font-weight: 500;
+              }
+            }
+          }
+          width: 95%;
+          margin: auto;
+        }
+        .title{
+          font-size: 20px;
+          font-weight: 400;
+          color: #212b35;
+        }
+        .content{
+          padding-bottom: 20px;
+          textarea {
+            width: 100%;
+            padding: 8px;
+            outline: none;
+            resize: none;
+            height: 90px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            &:focus {
+              border: 1px solid #0084FF;
+            }
+          }
+          .delivery-collation-line {
+            align-items: end;
+          }
+          .line-name {
+            width: 95%;
+            margin: auto;
+            margin-bottom: 8px;
+          }
+          .line-value {
+            width: 95%;
+            margin: 0 auto;
+          }
+          .delivery-collations-tags{
+            width: 95%;
+            margin: 0 auto;
+            margin-top: 19px;
+            .input-tags-focus{
+              border: 1px solid #0084FF !important;
+            }
+            .input-tags {
+              height: 90px;
+              border: solid 1px #ddd;
+              border-radius: 5px;
+              cursor: pointer;
+              overflow-y: auto;
+              &:focus {
+                outline: none;
+                border: 1px solid #0084FF;
+              }
+              // &:active {
+              //   outline: none;
+              //   border: 1px solid #0084FF;
+              // }
+            }
+            .title-option {
+              margin-top: 20px;
+              color: #4f4f4f;
+              font-weight: 500;
+              margin-bottom: 6px;
+            }
+            .hashtag-input-base{
+              padding-left: 0px !important;
+              width: 100%;
+              border: none;
+              .tag-input-input{
+               padding-left: 11px;
+              }
+            }
+          }
+          .filter-delivery-collations-option {
+            width: 95%;
+            margin: auto;
+            position: relative;
+            .title-option {
+              margin-top: 20px;
+              color: #4f4f4f;
+              font-weight: 500;
+              margin-bottom: 6px;
+            }
+            .delivery-collations-dropdown-button {
+              background: #fcfcfd;
+              border: 1px solid #e0e0e0;
+              border-radius: 4px;
+              height: 38px;
+              outline: none;
+              width: 100%;
+              position: relative;
+              text-align: left;
+              padding-left: 10px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              padding-right: 30px;
+              &:hover {
+                // background: #dfe4e8;
+              }
+              &:focus {
+                border: 1px solid #0084FF;
+              }
+              svg {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+              }
+            }
+            .delivery-collations-dropdown-button::after {
+              display: none;
+            }
+            .delivery-collations-dropdown-menu {
+              font-size: 14px;
+              width: 100%;
+              padding: 0;
+              .delivery-collations-dropdown-item {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                cursor: pointer;
+                padding-left: 10px;
+                padding-right: 0pxs;
+                color: #333333;
+                &:hover {
+                  background: #0084ff;
+                  color: white;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .modal-delivery-collation-data{
+    top:170px;
+  }
+  
+  .modal-delivery-collation-data-location{
+    top:170px;
+    max-width: 600px !important;
+  }

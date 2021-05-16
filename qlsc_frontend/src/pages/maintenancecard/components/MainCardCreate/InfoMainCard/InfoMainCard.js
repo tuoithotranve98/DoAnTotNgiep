@@ -25,7 +25,6 @@ function InfoMainCard(props) {
     setFocusStartDate(!focusStartDate);
     calendar2.current.setOpen(focusStartDate);
   };
-
   return (
     <div className="info-main-card-warpper">
       <div className="title">Thông tin phiếu sửa chữa</div>
@@ -94,8 +93,9 @@ function InfoMainCard(props) {
         <div id="old-order-prepayment-datetime">
           <DatePicker
             closeOnScroll
-            selected={mainCard.returnDate || new Date()}
-            minDate={new Date()}
+            selected={mainCard.returnDate}
+            disabled
+            readOnly
             onChange={(e) => onChangeMainCard("returnDate", e)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Từ ngày"

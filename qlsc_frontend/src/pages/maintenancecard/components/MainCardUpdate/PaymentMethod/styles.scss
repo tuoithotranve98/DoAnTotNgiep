@@ -1,0 +1,92 @@
+.main-card-payment-method{
+    margin-top: 10px;
+    .card-method{
+        padding: 15px;
+        background: #ffffff;
+        border: 1px solid #d3d3d3;
+        box-sizing: border-box;
+        border-radius: 4px;
+        padding-bottom: 0px;
+        .title {
+            font-weight: 400;
+            color: #212b35;
+            border-bottom: 0px solid #e3e3e3;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-left: 16px;
+            padding-bottom: 17px;
+            padding-right: 16px;
+        }
+        .list-header {
+            .header-title {
+              width: calc(100% - 125px);
+              min-width: 125px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              margin-top: 6px;
+              .link{
+                color: #2F80ED;
+                font-size: 14px;
+                font-weight: 400;
+              }
+              .text{
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-top: 17px;
+              }
+            }
+            .header-action{
+                position: relative;
+                min-width: 250px;
+                .text{
+                    font-size: 14px;
+                    font-weight: 500;
+                    position: absolute;
+                    right: 0px;
+                    top: 45px;
+                }
+              .btn-create {
+                cursor: pointer;
+                width: 125px;
+                min-width: 125px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                background: white;
+                color: #000;
+                font-weight: 400;
+                font-size: 14px;
+                border: 1px solid #0088FF;
+                box-shadow:none;
+                padding-left: 0;
+                position: absolute;
+                right: 0px;
+                &:hover {
+                  background-color: #0084ff;
+                  color: white;
+                  span{
+                    border-right: 1px solid white;
+                    svg{
+                      path{
+                        stroke: white;
+                      }
+                    }
+                  }
+                }
+                span{
+                  border-right: 1px solid #0088FF;
+                  margin-right: 5px;
+                  svg{
+                    //margin-bottom: 5px;
+                    margin-right: 5px;
+                  }
+                }
+              }
+            }
+          }
+        .content {
+            // padding: 1rem;
+           
+        }
+    }
+}

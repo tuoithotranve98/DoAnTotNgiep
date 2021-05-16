@@ -23,6 +23,7 @@ import StaffDetail from "../staff/components/StaffDetail/StaffDetail";
 import StaffUpdate from "../staff/components/StaffUpdate/StaffUpdate";
 import StaffList from "../staff/components/StaffList/StaffList";
 import "./styles.scss";
+import MainCardUpdate from "../maintenancecard/components/MainCardUpdate/MainCardUpdate";
 function Dashboard(props) {
   const { showMenu } = props;
   useEffect(() => {}, []);
@@ -39,6 +40,7 @@ function Dashboard(props) {
           <Route exact path="/customer/detail/:id([1-9]+[0-9]*)" component={CustomerDetail} />
           <Route exact path="/customer/update/:id" component={CustomerUpdate} />
           <Route exact path="/maintenance-card/create" component={MainCardCreate} />
+          <Route exact path="/maintenance-card/detail/:id" component={MainCardUpdate} />
           <Route exact path="/maintenance-cards" component={MainCardList} />
           <Route exact path="/staffs" component={StaffList} />
           <Route exact path="/products" component={ProductList} />

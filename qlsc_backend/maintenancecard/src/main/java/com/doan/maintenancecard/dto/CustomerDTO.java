@@ -8,7 +8,7 @@ import lombok.Setter;
 public class CustomerDTO extends BaseDTO {
 
     private String name;
-    private String phoneNumber;
+    private String phone;
     private String code;
     private String email;
 }

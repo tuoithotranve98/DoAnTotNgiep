@@ -7,7 +7,7 @@ function List(props) {
     <React.Fragment>
       <div className="list-order-selected">
         {
-          props.products.map((product, index)=>{
+          props.maintenanceCardDetails.map((product, index)=>{
             return(
               <Item
                 product={product}

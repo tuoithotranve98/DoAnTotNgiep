@@ -82,10 +82,10 @@ export const fetchFilterMainCard = (filterInfo, page = 1) => (
 };
 
 export const getMainCardById = (id) => (dispatch, getState) => {
-  return dispatch(fetch(`${API_MAINTENANCECARD}/maintenancecards/${id}`))
+  return dispatch(fetch(`${API_MAINTENANCECARD}/maintenanceCards/${id}`))
     .then((json) => {
       if (json) {
-        dispatch(getMainCard(json));
+        // dispatch(getMainCard(json));
       }
       return json;
     })
@@ -94,12 +94,12 @@ export const getMainCardById = (id) => (dispatch, getState) => {
     });
 };
 
-export const updateMainCard = (id, customer = {}) => (dispatch, getState) => {
-  const endpoint = `${API_MAINTENANCECARD}/maintenancecards/${id}`;
+export const updateMainCard = (id, mainCard = {}) => (dispatch, getState) => {
+  const endpoint = `${API_MAINTENANCECARD}/maintenanceCards/${id}`;
   return dispatch(
     fetch(endpoint, {
-      method: "POST",
-      body: JSON.stringify(customer),
+      method: "PUT",
+      body: JSON.stringify(mainCard),
     })
   )
     .then((json) => {
@@ -127,9 +127,25 @@ export const deleteMainCard = (ids = []) => (dispatch, getState) => {
     });
 };
 
+
+export const updateStatusMaintenanceCardDetail = (id) => (dispatch, getState) => {
+  const endpoint = `${API_MAINTENANCECARD}/maintenanceCardDetails/status/${id}`;
+  return dispatch(
+    fetch(endpoint, {
+      method: "PUT",
+    })
+  )
+    .then((json) => {
+      return json;
+    })
+    .catch((e) => {
+      console.error(e);
+      return e;
+    });
+};
+
 export const saveMainCard = (cardMain = {}) => (dispatch, getState) => {
   const endpoint = `${API_MAINTENANCECARD}/maintenanceCards`;
-  console.log("endpoint", endpoint);
   return dispatch(
     fetch(endpoint, {
       method: "POST",

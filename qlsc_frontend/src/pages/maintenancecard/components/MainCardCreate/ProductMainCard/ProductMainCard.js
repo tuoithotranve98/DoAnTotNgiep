@@ -10,7 +10,8 @@ function ProductMainCard(props) {
         Thông tin sản phẩm
       </div>
       <ProductMainCardList
-        addProduct={(a)=>props.addProduct(a)} products={props.products}
+        addProduct={(a)=>props.addProduct(a)}
+        maintenanceCardDetails={props.maintenanceCardDetails}
         removeProduct={(a)=>props.removeProduct(a)}
         setShowModalProduct={(a)=>props.setShowModalProduct(a)}
         totalPriceMainCard={(a)=> props.totalPriceMainCard(a)}

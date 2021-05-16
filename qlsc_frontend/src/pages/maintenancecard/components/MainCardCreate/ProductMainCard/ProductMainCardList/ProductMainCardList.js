@@ -7,17 +7,17 @@ import Search from "./Search/Search";
 import * as Icons from 'pages/maintenancecard/commons/Icons'
 
 function ProductMainCardList(props) {
-  const { totalPriceMainCard } = props;
+  const { maintenanceCardDetails } = props;
   return (
-    <div className="delivery-collation-order-list-wrapper">
+    <div className="main-card-product-order-list-wrapper">
       <Search addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
       <Header />
-      {props.products.length > 0 ? (
+      {maintenanceCardDetails.length > 0 ? (
         <React.Fragment>
-          <List products={props.products} removeProduct={(a)=>props.removeProduct(a)}/>
+          <List maintenanceCardDetails={maintenanceCardDetails} removeProduct={(a)=>props.removeProduct(a)}/>
           <Total
             totalPriceMainCard={(a)=> props.totalPriceMainCard(a)}
-            products={props.products}
+            maintenanceCardDetails={maintenanceCardDetails}
             saveMaintenanceCard={() => props.saveMaintenanceCard()}
           />
         </React.Fragment>
@@ -34,5 +34,7 @@ function ProductMainCardList(props) {
     </div>
   );
 }
-
+ProductMainCardList.defaultProps ={
+  maintenanceCardDetails: []
+}
 export default ProductMainCardList;

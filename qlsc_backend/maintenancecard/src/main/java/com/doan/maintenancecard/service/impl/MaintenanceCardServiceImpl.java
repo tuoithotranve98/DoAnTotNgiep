@@ -75,6 +75,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             maintenanceCardDetail.setModifiedDate(now);
             maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
             maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(new ArrayList<>());
+            //check them so luong
             // Giam so luong trong kho: so luong con lai = so luong hien tai - so luong trong phieu sua chua
             if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                 ProductModel productModel = new ProductModel();
@@ -344,14 +345,15 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 }
             }
         }
-        maintenanceCard.setPlatesNumber(maintenanceCardUpdate.getPlatesNumber().toLowerCase());
+        maintenanceCard.setPlatesNumber(maintenanceCardDTO.getPlatesNumber().toLowerCase());
+        System.out.println(maintenanceCard);
         if (maintenanceCardUpdate.getRepairmanId() != 0) {
             maintenanceCard.setRepairmanEmail(maintenanceCardUpdate.getRepairmanEmail());
             maintenanceCard.setRepairmanId(maintenanceCardUpdate.getRepairmanId());
             maintenanceCard.setRepairmanName(maintenanceCardUpdate.getRepairmanName());
         } else {
             if (maintenanceCard.getRepairmanId() != 0) {
-                maintenanceCard.setRepairmanName(maintenanceCardDTO.getRepairman().getFullName());
+                maintenanceCard.setRepairmanName(maintenanceCardDTO.getRepairman().getName());
                 ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "1");
                 kafkaTemplate.send(record2);
                 MessageModel messageModel = new MessageModel();
@@ -365,7 +367,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 kafkaTemplate.send(record);
             }
         }
-
+        System.out.println(maintenanceCard);
         try {
             MaintenanceCard maintenanceCard1 = maintenanceCardRepository.save(maintenanceCard);
             MessageModel messageModel = new MessageModel();

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class UserDTO extends BaseDTO{
 
     private String email;
-    private String fullName;
+    private String name;
 
 }
