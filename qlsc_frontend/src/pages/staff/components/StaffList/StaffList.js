@@ -22,6 +22,7 @@ function StaffList(props) {
   }, []);
 
   useEffect(() => {
+    console.log('filter', filter);
     onGetStaff(search, filter);
   }, [filter]);
 
@@ -45,6 +46,7 @@ function StaffList(props) {
     <div className="staff-screen-wrapper">
       <StaffListHeader />
       <StaffListBody
+        filter={filter}
         search={search}
         handleInputOnchange={handleInputOnchange}
         onChangeFilter={onChangeFilter}

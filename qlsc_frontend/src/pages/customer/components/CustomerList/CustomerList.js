@@ -47,6 +47,7 @@ function CustomerList(props) {
     <div className="customer-screen-wrapper">
       <CustomerListHeader />
       <CustomerListBody
+        filter={filter}
         search={search}
         onGetCustomer={onGetCustomer}
         handleInputOnchange={handleInputOnchange}

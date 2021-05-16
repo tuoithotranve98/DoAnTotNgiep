@@ -145,6 +145,9 @@ const processOption = (search, option) => {
   if (option && option.page) {
     filter += `&page=${option.page}`;
   }
+  if (option && option.size) {
+    filter += `&size=${option.size}`;
+  }
   return filter;
 };
 

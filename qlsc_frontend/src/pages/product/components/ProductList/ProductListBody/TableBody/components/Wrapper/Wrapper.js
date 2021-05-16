@@ -8,7 +8,7 @@ import "../../styles/wrapper.scss";
 import * as Icons from "pages/product/commons/Icons";
 
 function Wrapper(props) {
-  const { product, onChangeFilter } = props;
+  const { product, onChangeFilter, filter } = props;
   const { productSerives } = product;
 
   const [selectedIds, setSelectedIds] = useState([]);
@@ -86,6 +86,7 @@ function Wrapper(props) {
           onCheckBoxListClick={onCheckBoxListClick}
         />
         <Footer
+          size={filter.size}
           onChangeFilter={onChangeFilter}
           product={product}
           resetSelected={resetSelected}

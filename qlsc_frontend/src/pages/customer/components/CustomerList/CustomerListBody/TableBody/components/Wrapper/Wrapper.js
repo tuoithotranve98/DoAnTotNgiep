@@ -8,7 +8,7 @@ import "../../styles/wrapper.scss";
 import * as Icons from "pages/customer/commons/Icons";
 
 function Wrapper(props) {
-  const { customer, onGetCustomer, onChangeFilter } = props;
+  const { customer, onGetCustomer, onChangeFilter, filter } = props;
   const [selectedIds, setSelectedIds] = useState([]);
   const { customers } = customer
   const listRef = React.useRef();
@@ -76,6 +76,7 @@ function Wrapper(props) {
           onCheckBoxListClick={onCheckBoxListClick}
         />
         <Footer
+          size={filter.size}
           onChangeFilter={onChangeFilter}
           customer={customer}
           resetSelected={resetSelected}

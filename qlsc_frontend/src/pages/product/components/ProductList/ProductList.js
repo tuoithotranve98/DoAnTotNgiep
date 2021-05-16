@@ -48,6 +48,7 @@ function ProductList(props) {
     <div className="product-screen-wrapper">
       <ProductListHeader />
       <ProductListBody
+        filter={filter}
         search={search}
         handleInputOnchange={handleInputOnchange}
         onChangeFilter={onChangeFilter}
