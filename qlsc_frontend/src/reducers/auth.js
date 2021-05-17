@@ -23,6 +23,12 @@ const auth = (state = initState, action) => {
           ...action.account,
         },
       };
+      case actionTypes.LOGOUT:
+        storage.set("token", '', false);
+        return {
+          accessToken: null,
+          user: null,
+        };  
     default:
       return state;
   }

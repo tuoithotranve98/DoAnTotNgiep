@@ -19,7 +19,7 @@ function LoginPage(props) {
   const handleSubmit = () => {
     props.onLogin(user).then((res) => {
       if (res && res.status === 200) {
-        pushstate(props.history, "/customer");
+        pushstate(props.history, "/report");
       } 
     });
   };

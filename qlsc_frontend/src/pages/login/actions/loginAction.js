@@ -57,3 +57,7 @@ export const receiveAccount = account => ({
   type: actionTypes.RECEIVE_USER_ACCOUNT,
   account,
 });
+
+export const logout = () => ({
+  type: actionTypes.LOGOUT,
+});
