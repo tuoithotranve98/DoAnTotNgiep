@@ -37,6 +37,17 @@ export const convertSecondToDate = (second) => {
   return time.toLocaleString("en-GB", options);
 };
 
+export const convertSecondToDateV1 = (second) => {
+  const time = new Date(second);
+  const options = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  return time.toLocaleString("en-GB", options);
+};
 
 export const formatDate = (date) => {
   let temp = new Date(date);

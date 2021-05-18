@@ -15,6 +15,8 @@ import ProductModal from './Modal/ProductModal/ProductModal';
 import { saveProductService } from '../../../product/actions/ProductAction';
 import { saveMainCard } from '../../actions/mainCard';
 import { array } from 'prop-types';
+import { useHistory } from 'react-router';
+import pushstate from '../../../../utils/pushstate';
 const initialStateCustomer = {
   name: null,
   code: null,
@@ -54,6 +56,7 @@ const initialStateMainCard = {
   maintenanceCardDetailStatusHistories: [],
 };
 function MainCardCreate(props) {
+  const history = useHistory();
   const { onSaveCustomer, onClearWards, onSaveProductService, saveMainCard, user, staffByRepairMan } = props;
   const [customer, setCustomer] = useState({})
   const [mainCard, setMainCard] = useState(initialStateMainCard)
@@ -74,7 +77,7 @@ function MainCardCreate(props) {
   //customer
   const saveCustomer = () => {
     onSaveCustomer(createCustomer).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         setCreateCustomer(initialStateCustomer);
         setCustomer(json.customer)
         onClearWards();
@@ -106,7 +109,7 @@ function MainCardCreate(props) {
 
     const saveProductService = () => {
       onSaveProductService(createProduct).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           const newArr = [...mainCard.maintenanceCardDetails]
           newArr.unshift(json.product)
           setMainCard({...mainCard, maintenanceCardDetails: newArr})
@@ -168,7 +171,9 @@ function MainCardCreate(props) {
     mainCard.price = totalPriceMainCard(mainCard.maintenanceCardDetails);
     mainCard.maintenanceCardDetailStatusHistories = addMaintenanceCardDetailStatusHistories(mainCard.maintenanceCardDetails);
     saveMainCard(mainCard).then((json) => {
-      if (json && json.success) {
+      console.log("json", json);
+      if (json) {
+        pushstate(history, `/maintenance-card/detail/${json.id}`);
         toastSuccess('Thêm phiếu sửa chữa thành công');
       } else {
         toastError('Có lỗi xảy ra khi thêm phiếu sửa chữa ');

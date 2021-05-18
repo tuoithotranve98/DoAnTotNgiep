@@ -67,7 +67,7 @@ function ProductCreate(props) {
       return;
     }
     onSaveProductService(product).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         setProduct(initialState);
         setShowContent(1);
         pushstate(props.history, "/products");

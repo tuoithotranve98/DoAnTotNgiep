@@ -7,32 +7,26 @@ function Footer(props) {
   const { mainCards, fetchMainCard, isEmpty , fetching} = props;
   const { currentPage, totalItems, totalPages, mainCardList } = mainCards;
 
-  const calculateBegin = () => {
-    if (currentPage === 1) {
-      return 1;
-    }
-    if (currentPage === totalPages) {
-      return (totalItems * (currentPage - 1) + mainCardList.length);
-    }
-    return (totalItems * currentPage) + 1;
-  };
+
   const onChangePage = (id) => {
     fetchMainCard(null, id);
   };
+  const calculateBegin = () => {
+    const pageTmp = currentPage - 1;
+    if (pageTmp === 0) {
+      return 1;
+    } return totalItems * pageTmp + 1;
+  };
+
   const calculateEnd = () => {
-    if (totalPages === 1) {
-      return totalItems + 1;
+    const pageTmp = currentPage - 1;
+    const per = totalPages / totalItems;
+    if (per <= 1) {
+      return totalPages;
     }
-    if (currentPage === 1) {
-      return (currentPage * totalItems);
-    }
-    if (totalPages > currentPage) {
-      return ((currentPage + 1) * totalItems);
-    }
-    if (currentPage === totalPages) {
-      return totalItems + 1;
-    }
-    return (currentPage * totalItems) + (totalItems%currentPage);
+    if (pageTmp < Math.floor(per)) {
+      return (pageTmp + 1) * totalItems;
+    } return totalPages;
   };
   if (fetching || isEmpty) return null;
   return (
@@ -40,7 +34,7 @@ function Footer(props) {
       <div className="result-info">
         Hiển thị kết quả từ&nbsp;
         {calculateBegin()} -&nbsp;
-        {calculateEnd()} trên tổng {totalItems + 1}
+        {calculateEnd()} trên tổng {totalPages}
       </div>
       <div className="margin-left-auto" />
       <div className="products-pagination">

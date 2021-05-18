@@ -5,6 +5,36 @@ import { withRouter } from "react-router-dom";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
+import { moneyFormat } from "../../../../../../../../utils/moneyFormat";
+import { convertSecondToDateV1 } from "../../../../../../../../utils/datetimeUtil";
+const listStatus = [
+  {
+    status: 0,
+    name: "Đang chờ",
+  },
+  {
+    status: 1,
+    name: "Đang sửa",
+    color: '#F19403',
+  },
+  {
+    status: 2,
+    name: "Hoàn thành",
+    color: '#20A917',
+  },
+];
+const listPayment = [
+  {
+    status: 0,
+    name: "Chưa thanh toán",
+    color: "red",
+  },
+  {
+    status: 1,
+    name: "Đã thanh toán",
+    color: '#20A917',
+  },
+];
 function Item(props) {
   const { checked, mainCard } = props;
   const history = useHistory();
@@ -16,14 +46,13 @@ function Item(props) {
 
   const onRedirectDetail = (e) => {
     e.stopPropagation();
-    pushstate(history, `/mainCard/detail/${mainCard.id}`);
+    pushstate(history, `/maintenance-card/detail/${mainCard.id}`);
   };
 
   return (
     <div className="main-card-item-wrapper">
       <div
         className="d-flex main-card-listing-item"
-        onClick={(e) => onRedirectDetail(e)}
       >
         <div
           role="presentation"
@@ -40,6 +69,7 @@ function Item(props) {
               data-tip
               data-for={`order_collation_number_id_${1}`}
               target="_blank"
+              onClick={(e) => onRedirectDetail(e)}
               style={{ textDecoration: "none", color: "#007bff" }}
             >
               {(mainCard && mainCard.code) || "---"}
@@ -63,7 +93,7 @@ function Item(props) {
           data-tip
           data-for={`delivery-collation-location_${1}`}
         >
-          {(mainCard && mainCard.customer_name) || "---"}
+          {(mainCard && mainCard.plates_number) || "---"}
         </div>
         <div
           className="margin-right20 item-list"
@@ -75,16 +105,46 @@ function Item(props) {
           {(mainCard && mainCard.repairman_name) || ""}
         </div>
         <div className="margin-right20 item-list">
-          {(mainCard && mainCard.pay_status) || ""}
+        {listPayment.map((item) => {
+            if (item.status === mainCard.pay_status) {
+              return (
+                <div
+                  className="text"
+                  style={{
+                    color: `${item.color}`,
+                  }}
+                >
+                  {item.name}
+                </div>
+              );
+            } else {
+              return ''
+            }
+          })}
         </div>
         <div className="margin-right20 item-list">
-          {(mainCard && mainCard.work_status) || ""}
+          {listStatus.map((item) => {
+            if (item.status === mainCard.work_status) {
+              return (
+                <div
+                  className="text"
+                  style={{
+                    color: `${item.color}`,
+                  }}
+                >
+                  {item.name}
+                </div>
+              );
+            } else {
+              return <div></div>;
+            }
+          })}
         </div>
         <div className="margin-right20 item-list">
-          {(mainCard && mainCard.return_date) || ""}
+          {convertSecondToDateV1(mainCard && mainCard.return_date) || ""}
         </div>
         <div className="margin-right20 item-list">
-          {(mainCard && mainCard.price  ) || ""}
+          {moneyFormat(mainCard && mainCard.price) || ""}đ
         </div>
       </div>
     </div>

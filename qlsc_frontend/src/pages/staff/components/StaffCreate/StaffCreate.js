@@ -42,7 +42,7 @@ function StaffCreate(props) {
       return;
     }
     onSaveStaff(staff).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         setStaff(initialState);
         pushstate(props.history, "/staffs");
       }

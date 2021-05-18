@@ -21,7 +21,7 @@ function DeleteModal(props) {
       deleteStaffModal.data.staff.id
     ) {
       onDeleteStaff([deleteStaffModal.data.staff.id]).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           pushstate(props.history, `/staffs`);
         } else {
           toastError("Có lỗi xảy ra khi xóa nhân viên!");
@@ -34,7 +34,7 @@ function DeleteModal(props) {
       deleteStaffModal.data.ids.length
     ) {
       onDeleteStaff(deleteStaffModal.data.ids).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           onGetListStaff();
           onCloseModalDelete();
         } else {

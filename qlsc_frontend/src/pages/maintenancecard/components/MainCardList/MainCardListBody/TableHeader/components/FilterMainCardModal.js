@@ -268,7 +268,7 @@ function FilterMainCardsModal(props) {
 
 
   const selectStatusWork = (a) => {
-    const tmp = a + 1;
+    const tmp = a;
     if (statusWork === tmp) {
       setStatusWork('');
     } else {
@@ -277,7 +277,7 @@ function FilterMainCardsModal(props) {
   };
 
   const selectStatusPayment = (a) => {
-    const tmp = a + 1;
+    const tmp = a ;
     if (statusPayment === tmp) {
       setStatusPayment('');
     } else {
@@ -347,7 +347,7 @@ function FilterMainCardsModal(props) {
         return (
           <button
             key={index}
-            className={`filter-delivery-collations-button ${statusWork === index + 1 ? 'active' : null}`}
+            className={`filter-delivery-collations-button ${statusWork === index ? 'active' : null}`}
             onClick={() => selectStatusWork(index)}
             type="button"
           >
@@ -367,7 +367,7 @@ function FilterMainCardsModal(props) {
         return (
           <button
             key={index}
-            className={`filter-delivery-collations-button ${statusPayment === index + 1 ? 'active' : null}`}
+            className={`filter-delivery-collations-button ${statusPayment === index ? 'active' : null}`}
             onClick={() => selectStatusPayment(index)}
             type="button"
           >

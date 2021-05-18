@@ -111,7 +111,7 @@ function CustomerUpdate(props) {
       return;
     }
     onSaveCustomer(id, customer).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         setCustomer(initialState);
         onClearWards();
         pushstate(props.history, "/customers");

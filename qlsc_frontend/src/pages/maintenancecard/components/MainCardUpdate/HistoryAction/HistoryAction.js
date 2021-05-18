@@ -42,12 +42,12 @@ function HistoryAction(props) {
                 <TimelineItem>
                   <TimelineSeparator>
                     <TimelineDot />
-                    <TimelineConnector />
+                    {maintenanceCardDetailStatusHistories1.length - 1 === index ? '' : <TimelineConnector />}
                   </TimelineSeparator>
                   <TimelineContent>
                     <div className="d-flex" style={{justifyContent: 'space-between' }}>
                       <div>
-                              <span style={{ fontWeight: 'bold' }}>{title}</span>
+                              <span style={{ fontWeight: 'bold' }}>{title}</span> {index}
                               <p>{maintenanceCardDetailStatusHistory.name}</p>
                           </div>
                           <div>
@@ -56,9 +56,6 @@ function HistoryAction(props) {
                                   {status}
                               </p> */}
                           </div>
-                    </div>
-                    <div>
-                      <div>aaaaaaaaaa</div>
                     </div>
                   </TimelineContent>
                 </TimelineItem>

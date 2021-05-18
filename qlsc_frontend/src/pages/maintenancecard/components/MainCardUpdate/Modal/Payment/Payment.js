@@ -5,22 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import "./styles.scss";
 import * as Icons from "pages/customer/commons/Icons";
-const payments = [
-  {
-    id: 0,
-    name: "Chọn thanh toán",
-  },
-  {
-    id: 1,
-    name: "Tiền mặt",
-  },
-  {
-    id: 2,
-    name: "Chuyển khoản",
-  },
-];
+
 function Payment(props) {
-  const { setPayment, payment, showModalPayment, setShowModalPayment } =
+  const { setPayment,setMoney, money, payment, payments, showModalPayment, setShowModalPayment, onMainCardPaymentHistory } =
     props;
   const handleClose = () => {
     setPayment({});
@@ -91,10 +78,9 @@ function Payment(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="address"
-                    // value={customer.address || ""}
-                    // onChange={(e) =>
-                    //   onChangeCustomer("address", e.target.value)
-                    // }
+                    value={money}
+                    type="number"
+                    onChange={(e)=>setMoney(e.target.value)}
                     placeholder="Số tiền thanh toán"
                   />
                 </div>
@@ -111,8 +97,8 @@ function Payment(props) {
           <Button
             variant="primary"
             onClick={() => {
-              // createDeliveryCollation();
-              // handleClose();
+              onMainCardPaymentHistory()
+              handleClose();
               // setPaymentItem({})
             }}
           >
