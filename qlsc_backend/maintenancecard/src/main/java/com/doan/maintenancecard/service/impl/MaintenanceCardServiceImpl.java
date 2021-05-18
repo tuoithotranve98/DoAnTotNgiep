@@ -611,13 +611,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     private List<MaintenanceCard> filter(int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to) {
 
         try {
-            Date dateFrom = new Date();
-            Date dateTo = new Date();
             if (from != null){
-                Timestamp fromDate = new Timestamp(from);
-                dateFrom = new Date(fromDate.getTime());
-                Timestamp tomDate = new Timestamp(to);
-                dateTo = new Date(tomDate.getTime());
+                Date dateFrom = getDateFromTimestamp(from);
+                Date dateTo = getDateFromTimestamp(to);
                 return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, dateFrom, dateTo, size, offset);
             } else {
                 return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, null, null
@@ -634,13 +630,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         try {
             String payStatusIds = StringUtils.join(filterRequest.getPayStatus(), ",");
             String workStatusIds = StringUtils.join(filterRequest.getWorkStatus(), ",");
-            Date dateFrom = new Date();
-            Date dateTo = new Date();
             if (filterRequest.getFrom() != null) {
-                Timestamp fromDate = new Timestamp(filterRequest.getFrom());
-                dateFrom = new Date(fromDate.getTime());
-                Timestamp tomDate = new Timestamp(filterRequest.getTo());
-                dateTo = new Date(tomDate.getTime());
+                Date dateFrom = getDateFromTimestamp(filterRequest.getFrom());
+                Date dateTo = getDateFromTimestamp(filterRequest.getTo());
                 return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds,
                     payStatusIds,dateFrom, dateTo);
             }else {
@@ -652,5 +644,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    private Date getDateFromTimestamp(Long timestamp) {
+        return new Date(timestamp * 1000);
     }
 }
