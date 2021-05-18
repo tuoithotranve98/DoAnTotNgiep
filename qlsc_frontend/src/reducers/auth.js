@@ -16,6 +16,7 @@ const auth = (state = initState, action) => {
         accessToken: token,
       };
     case actionTypes.RECEIVE_USER_ACCOUNT:
+      storage.set("user", JSON.stringify(action.account), false);
       return {
         ...state,
         user: {
@@ -24,7 +25,7 @@ const auth = (state = initState, action) => {
         },
       };
       case actionTypes.LOGOUT:
-        storage.set("token", '', false);
+        storage.clear();
         return {
           accessToken: null,
           user: null,

@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import storage from "../../utils/storage";
 import { Route, Redirect, withRouter } from "react-router-dom";
 
 const repairStaff = ["/maintenance-cards", "/products"];
@@ -18,34 +18,38 @@ const coordinator = [
 const handlePathname = (str) => {
   if (str.includes("/customer/detail")) return "/customer/detail";
   if (str.includes("/customer/update/")) return "/customer/update";
-  if (str.includes("/maintenance-card/detail")) return "/maintenance-card/detail";
+  if (str.includes("/maintenance-card/detail"))
+    return "/maintenance-card/detail";
   return str;
 };
 
-export const isLogin = (user, location, props) => {
-  if (!user.role && location.pathname !== '/login') return "not-found";
-  if (user && user.role === 1 && !coordinator.includes(handlePathname(location.pathname))) {
+export const isLogin = () => {
+  const pathname = window.location.pathname;
+  const user = storage.getExactType("user", false);
+  if (!user) return;
+  const role = user.role;
+  if (role === 1 && !coordinator.includes(handlePathname(pathname))) {
     return "not-found";
   }
-  if (user && user.role === 2 && !repairStaff.includes(location.pathname)) {
+  if (role === 2 && !repairStaff.includes(pathname)) {
     return "not-found";
   }
-  return user && user.role;
+  return role;
 };
 
-const PrivateRoute = ({ component: Component, auth, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        isLogin(auth.user, props.location, props) === "not-found" ? (
+        isLogin() === "not-found" ? (
           <Redirect
             to={{
               pathname: "/not-found",
               state: { from: props.location },
             }}
           />
-        ) : isLogin(auth.user, props.location, props) ? (
+        ) : isLogin() ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -60,5 +64,4 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ auth: state.auth });
-export default withRouter(connect(mapStateToProps)(PrivateRoute));
+export default withRouter(PrivateRoute);

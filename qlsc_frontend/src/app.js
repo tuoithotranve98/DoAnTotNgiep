@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import SockJsClient from 'react-stomp';
 import { getCity } from "./pages/customer/actions/locationActions";
-import { createBrowserHistory } from "history";
 import { connect } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -16,36 +15,25 @@ import "./styles/app.scss";
 import LoginPage from "./pages/login/login";
 import DashBoard from "pages/dashboard/DashBoard";
 import NotFoundComponent from "./components/notfound/NotFoundComponent";
-import storage from "./utils/storage";
 import { checkInfoUser } from "./pages/login/actions/loginAction";
-import pushstate from "utils/pushstate";
 import PrivateRoute from "./components/router/PrivateRoute";
 import { SOCKET_URL_V2 } from "./constants/api";
 import { getStaffsByRepairman } from "./actions/commons";
+import storage from "./utils/storage";
 import history from './utils/history';
 
 function App(props) {
   const { showMenu } = props;
   useEffect(() => {
     const token = storage.get("token", false);
-    console.log('token', token);
+    if (!token) history.push("/login");
+    if (token && window.location.pathname) {
+      history.push(window.location.pathname);
+    }
     if (token) {
-      props.onCheckInfoUser(token).then((json) => {
-        if (json && json.role) {
-          if (window.location.pathname && window.location.pathname !== '/not-found') {
-            history.push(window.location.pathname);
-          } else {
-            history.push("/maintenance-cards");
-          }
-        } else {
-          history.push("/login");
-        }
-      });
-    } else if (window.location.pathname !== '/login') {
-      history.push("/not-found");
-    } else history.push("/login");
-    props.onGetCity();
-    props.getStaffsByRepairman();
+      props.onGetCity();
+      props.getStaffsByRepairman();
+    }
   }, []);
 
   const onConnected = () => {

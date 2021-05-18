@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import storage from "../../../utils/storage";
 import {
   menuLinkFull,
   menuLinkCoordinator,
@@ -14,16 +15,14 @@ function SubMenu(props) {
   const { onSetInit, init, showMenu, user } = props;
 
   useEffect(() => {
-    setMenuLink(menuLinkFull || []);
-  }, []);
-
-  useEffect(() => {
+    const user = storage.getExactType("user", false);
     if (user && user.role === 1) {
       setMenuLink(menuLinkCoordinator);
     } else if (user && user.role === 2) {
       setMenuLink(menuLinkRepairer);
     } else setMenuLink(menuLinkFull);
-  }, [user]);
+  }, []);
+
   const arrTmp = url.split("/");
   const check = arrTmp[2] === "detail" ? true : false;
   return (

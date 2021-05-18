@@ -32,8 +32,6 @@ const storage = {
   clear() {
     sessionStorage.clear();
     localStorage.clear();
-    storage.removeItem("token");
-    storage.removeItem("userIdId");
   },
   removeItem(item) {
     return removeStorage(item);
