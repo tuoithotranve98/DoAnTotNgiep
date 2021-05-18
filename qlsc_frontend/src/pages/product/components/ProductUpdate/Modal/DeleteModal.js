@@ -19,7 +19,7 @@ function DeleteModal(props) {
       deleteProductModal.data.ids.length
     ) {
       onDeleteProductService(deleteProductModal.data.ids).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           onGetProductService();
           onCloseModalDelete();
         } else {

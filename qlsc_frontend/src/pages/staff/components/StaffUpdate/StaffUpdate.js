@@ -54,7 +54,7 @@ function StaffUpdate(props) {
       return;
     }
     onSaveStaff(id, staff).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         setStaff(initialState);
         pushstate(props.history, "/staffs");
       }

@@ -17,6 +17,11 @@
     }
     .item-list{
        width: calc((100% - 260px) / 9);
+       .text{
+        padding: 5px 5px 5px 5px;
+        cursor: pointer;
+        border-radius: 3px;
+      }
     }
     .order-collations-total-amount{
       text-align: right;

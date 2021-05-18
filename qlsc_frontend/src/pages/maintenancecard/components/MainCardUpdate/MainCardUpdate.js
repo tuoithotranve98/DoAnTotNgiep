@@ -13,7 +13,7 @@ import { saveCustomer } from '../../../customer/actions/customerAction';
 import { receiveWard } from '../../../customer/actions/locationActions';
 import ProductModal from './Modal/ProductModal/ProductModal';
 import { saveProductService } from '../../../product/actions/ProductAction';
-import { getMainCardById, saveMainCard, updateMainCard, updateStatusMaintenanceCardDetail } from '../../actions/mainCard';
+import { getMainCardById, mainCardPaymentHistory, saveMainCard, updateMainCard, updateStatusMaintenanceCardDetail } from '../../actions/mainCard';
 import { useParams, withRouter } from "react-router-dom";
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import HistoryAction from './HistoryAction/HistoryAction';
@@ -56,11 +56,25 @@ const initialStateMainCard = {
   paymentHistories: [],
   maintenanceCardDetailStatusHistories: [],
 };
+const payments = [
+  {
+    id: 0,
+    name: "Chọn thanh toán",
+  },
+  {
+    id: 1,
+    name: "Tiền mặt",
+  },
+  {
+    id: 2,
+    name: "Chuyển khoản",
+  },
+];
 function MainCardUpdate(props) {
   const { id } = useParams();
-  const { onClearWards, onSaveProductService, saveMainCard, user, staffByRepairMan, getMainCardById , updateStatusMaintenanceCardDetail} = props;
+  const { onClearWards, onSaveProductService, saveMainCard, user, staffByRepairMan, getMainCardById , updateStatusMaintenanceCardDetail, mainCardPaymentHistory} = props;
   const [customer, setCustomer] = useState({})
-  const [payment, setPayment] = useState({})
+  const [payment, setPayment] = useState(payments[1])
   const [products, setProducts] = useState([])
   const [mainCard, setMainCard] = useState(initialStateMainCard)
   const [showModalProduct, setShowModalProduct] = useState(false)
@@ -68,6 +82,8 @@ function MainCardUpdate(props) {
   const [createProduct, setCreateProduct] = useState(initialStateProduct);
   const [showFilterCustomer,setShowFilterCustomer ] = useState(false);
   const [showContent, setShowContent] = useState(1);
+  const [money, setMoney] = useState(0);
+
 
   useEffect(() => {
     onchangeProduct("type", showContent);
@@ -78,6 +94,7 @@ function MainCardUpdate(props) {
     if(id){
       getMainCardById(id).then((json)=>{
         setMainCard(json)
+        setMoney(json.price)
         setCustomer(json.customer)
       })
     }
@@ -93,7 +110,7 @@ function MainCardUpdate(props) {
 
     const saveProductService = () => {
       onSaveProductService(createProduct).then((json) => {
-        if (json && json.success) {
+        if (json) {
           const newArr = [...mainCard.maintenanceCardDetails]
           newArr.unshift(json.product)
           setMainCard({...mainCard, maintenanceCardDetails: newArr})
@@ -111,7 +128,7 @@ function MainCardUpdate(props) {
 
   const onUpdateStatusMaintenanceCardDetail = (id) => {
     updateStatusMaintenanceCardDetail(id).then((json)=>{
-      if(json && json.success){
+      if(json ){
         console.log("json.maintenanceCardDetails", json.maintenanceCardDetails);
         setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails})
         toastSuccess('Thêm sản phẩm thành công');
@@ -119,6 +136,30 @@ function MainCardUpdate(props) {
         toastError('Có lỗi xảy ra khi thêm sản phẩm');
       }
     })
+  }
+  const onMainCardPaymentHistory = () => {
+    const PaymentHistoryDTO = []
+    const item={};
+    item.maintenanceCard = mainCard;
+    item.paymentMethod = payment;
+    item.money = money;
+    PaymentHistoryDTO.push(item)
+    mainCardPaymentHistory(PaymentHistoryDTO).then((json)=>{
+      if(json){
+        setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails})
+      }else {
+        toastError('Có lỗi xảy ra khi thêm sản phẩm');
+      }
+    })
+  }
+  const totalAfterPayment = () => {
+    let total = 0;
+    if(mainCard.paymentHistories.length > 0) {
+      mainCard.paymentHistories.forEach((item)=>{
+        total += total + item.money
+      })
+    }
+    return total
   }
   const onChangeMainCard= (type, value) => {
     setMainCard(() => {
@@ -163,7 +204,7 @@ function MainCardUpdate(props) {
     mainCard.price = totalPriceMainCard(mainCard.maintenanceCardDetails);
     mainCard.maintenanceCardDetailStatusHistories = addMaintenanceCardDetailStatusHistories(mainCard.maintenanceCardDetails);
     props.updateMainCard(id, mainCard).then((json) => {
-      if (json && json.success) {
+      if (json ) {
         toastSuccess('Thêm phiếu sửa chữa thành công');
       } else {
         toastError('Có lỗi xảy ra khi thêm phiếu sửa chữa ');
@@ -223,7 +264,7 @@ function MainCardUpdate(props) {
                     totalPriceMainCard={totalPriceMainCard}
                     onUpdateStatusMaintenanceCardDetail={onUpdateStatusMaintenanceCardDetail}
                   />
-                  <PaymentMethod setShowModalPayment={setShowModalPayment}  mainCardTotal={mainCard.price}/>
+                  <PaymentMethod setShowModalPayment={setShowModalPayment}  mainCardTotal={mainCard.price} totalAfterPayment={totalAfterPayment} mainCard={mainCard}/>
 
                 </div>
                 <div className="col-md-4">
@@ -232,7 +273,7 @@ function MainCardUpdate(props) {
                     onChangeMainCardReairMan={(type, value) => onChangeMainCardReairMan(type, value)}
                     mainCard={mainCard}
                   />
-                  <HistoryAction  maintenanceCardDetailStatusHistories={mainCard.maintenanceCardDetailStatusHistories}/>
+                  <HistoryAction  maintenanceCardDetailStatusHistories={mainCard.maintenanceCardDetailStatusHistories} mainCard={mainCard}/>
                 </div>
             </div>
         </div>
@@ -252,6 +293,10 @@ function MainCardUpdate(props) {
           setShowModalPayment={setShowModalPayment}
           setPayment={setPayment}
           payment={payment}
+          payments={payments}
+          money={money}
+          setMoney={setMoney}
+          onMainCardPaymentHistory={onMainCardPaymentHistory}
         />
     </div>
   );
@@ -273,6 +318,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateMainCard: (id, mainCard) => dispatch(updateMainCard(id, mainCard)),
   getMainCardById: (id) => dispatch(getMainCardById(id)),
   updateStatusMaintenanceCardDetail: (id) => dispatch(updateStatusMaintenanceCardDetail(id)),
+  mainCardPaymentHistory: (data) => dispatch(mainCardPaymentHistory(data)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainCardUpdate));

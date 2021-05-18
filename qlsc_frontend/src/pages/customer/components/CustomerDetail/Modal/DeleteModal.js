@@ -22,7 +22,7 @@ function DeleteModal(props) {
       deleteCustomer.data.customer.id
     ) {
       onDeleteCustomer([deleteCustomer.data.customer.id]).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           pushstate(props.history, `/customers`);
         } else {
           toastError("Có lỗi xảy ra khi xóa khách hàng!");
@@ -35,7 +35,7 @@ function DeleteModal(props) {
       deleteCustomer.data.ids.length
     ) {
       onDeleteCustomer(deleteCustomer.data.ids).then((json) => {
-        if (json && json.success) {
+        if (json ) {
           onGetCustomer();
           onCloseModalDelete();
         } else {
