@@ -72,9 +72,10 @@ function App(props) {
       />
       <Modals />
       <Switch>
-        <Route path="/not-found" component={NotFoundComponent} />
+
         <Route path="/login" component={LoginPage} />
         <PrivateRoute path="/" component={() => <DashBoard showMenu={showMenu} />} />
+        <Route component={NotFoundComponent} />
       </Switch>
     </Router>
   );
