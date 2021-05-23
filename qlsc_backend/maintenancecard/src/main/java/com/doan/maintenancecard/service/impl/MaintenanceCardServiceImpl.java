@@ -181,10 +181,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         if (maintenanceCard.getMaintenanceCardDetails().isEmpty()) {
             checkNull = false;
         }
-        Date now = new Date();
         ObjectMapper mapper = new ObjectMapper();
         maintenanceCard.setCreatedDate(maintenanceCardUpdate.getCreatedDate());
-        maintenanceCard.setModifiedDate(now);
+        maintenanceCard.setModifiedDate(new Date());
         long total = 0L;
         Long[] maintenanceCardDetailId = new Long[10000];
         int dem = 0;
@@ -197,8 +196,8 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             }
             // neu them moi
             if (maintenanceCardDetail1Update == null) {
-                maintenanceCardDetail.setCreatedDate(now);
-                maintenanceCardDetail.setModifiedDate(now);
+                maintenanceCardDetail.setCreatedDate(new Date());
+                maintenanceCardDetail.setModifiedDate(new Date());
                 maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
                 if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                     ProductModel productModel = new ProductModel();
@@ -211,8 +210,8 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
                 } else if (maintenanceCardDetail.getProductId() != 0) {
                     MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                    maintenanceCardDetailStatusHistory.setCreatedDate(now);
-                    maintenanceCardDetailStatusHistory.setModifiedDate(now);
+                    maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
+                    maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
                     maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
                     maintenanceCardDetailStatusHistory.setStatus((byte) 0);
                     List<MaintenanceCardDetailStatusHistory> maintenanceCardDetailStatusHistories = new ArrayList<>();
@@ -227,7 +226,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 maintenanceCardDetail.setCreatedDate(maintenanceCardDetail1Update.getCreatedDate());
                 maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
                 maintenanceCardDetail.setStatus(maintenanceCardDetail1Update.getStatus());
-                maintenanceCardDetail.setModifiedDate(now);
+                maintenanceCardDetail.setModifiedDate(new Date());
                 // so luong con lai = so luong trong kho - chenh lech giua phieu sua chua truoc va sau
                 if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                     if (maintenanceCardDetail.getQuantity() - maintenanceCardDetail1Update.getQuantity() != 0) {
@@ -271,8 +270,8 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                             kafkaTemplate.send(record);
                         } else {
                             MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                            maintenanceCardDetailStatusHistory.setCreatedDate(now);
-                            maintenanceCardDetailStatusHistory.setModifiedDate(now);
+                            maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
+                            maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
                             maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
                             maintenanceCardDetailStatusHistory.setStatus((byte) (-1));
                             maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
@@ -317,7 +316,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         maintenanceCard.setCustomerName(maintenanceCardUpdate.getCustomerName());
         maintenanceCard.setCustomerPhone(maintenanceCardUpdate.getCustomerPhone());
         maintenanceCard.setPaymentHistories(maintenanceCardUpdate.getPaymentHistories());
-        maintenanceCard.setModifiedDate(now);
+        maintenanceCard.setModifiedDate(new Date());
         if (maintenanceCard.getWorkStatus() != 2 || maintenanceCard.getPayStatus() != 1) {
             maintenanceCard.setReturnDate(null);
         } else {
@@ -325,7 +324,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "-1");
                 kafkaTemplate.send(record2);
                 Date returnDate = maintenanceCard.getReturnDate();
-                if (returnDate.compareTo(now) > 0) {
+                if (returnDate.compareTo(new Date()) > 0) {
                     throw new UnknownException();
                 }
             }

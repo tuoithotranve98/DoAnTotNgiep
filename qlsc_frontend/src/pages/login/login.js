@@ -35,6 +35,7 @@ function LoginPage(props) {
                 <div className="form-login">
                   <div className="div-logo">
                     <img src={logo} alt="" className="logo"></img>
+                    {/* <img src={`/images/logo-humg.png`} alt="" className="logo" /> */}
                   </div>
                   <input
                     onChange={(e) => handleChange(e)}

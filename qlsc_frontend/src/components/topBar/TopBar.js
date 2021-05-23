@@ -173,10 +173,10 @@ function TopBar(props) {
             className="header-top-bar-text"
             onClick={() => pushstate(history, "/products")}
           >
-            Sản phẩm
+            Linh kiện
           </span>
           <span>&nbsp;{">"}&nbsp;</span>
-          <span>Thêm mới sản phẩm</span>
+          <span>Thêm mới linh kiện</span>
         </React.Fragment>
       );
     }
@@ -227,7 +227,7 @@ function TopBar(props) {
     }
 
     if (url.includes("/maintenance-card/detail/")) {
-      const split = url.split("/product/detail/");
+      const split = url.split("/maintenance-card/detail/");
       if (split.length > 1) {
         const id = Number(split[1]);
         if (id) {

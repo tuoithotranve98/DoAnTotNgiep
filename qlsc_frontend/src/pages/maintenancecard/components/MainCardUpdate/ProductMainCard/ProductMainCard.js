@@ -7,7 +7,7 @@ function ProductMainCard(props) {
   return (
     <div className="main-card-product-info">
       <div className="title">
-        Thông tin sản phẩm
+        Thông tin dịch vụ
       </div>
       <ProductMainCardList
         addProduct={(a)=>props.addProduct(a)}

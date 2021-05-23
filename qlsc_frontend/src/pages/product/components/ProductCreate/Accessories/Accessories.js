@@ -118,7 +118,7 @@ function Accessories(props) {
                         onBlur={() => onBlurName()}
                         value={product.name || ""}
                         onChange={(e) => onchangeValue("name", e.target.value)}
-                        placeholder="Nhập tên sản phẩm"
+                        placeholder="Nhập tên linh kiện"
                       />
                     </div>
                   </div>
@@ -141,7 +141,7 @@ function Accessories(props) {
                         onChange={(e) =>
                           onchangeValue("pricePerUnit", e.target.value)
                         }
-                        placeholder="Nhập giá sản phẩm"
+                        placeholder="Nhập giá linh kiện"
                       />
                     </div>
                   </div>
@@ -231,7 +231,7 @@ function Accessories(props) {
       <div className="col-md-3">
         <div className="info-product-right">
           <div className="card info-product-right-01">
-            <div className="title">Ảnh sản phẩm</div>
+            <div className="title">Ảnh linh kiện</div>
             {product.images && !product.images.length ? (
               <React.Fragment>
                 <div className="content-image" onClick={() => onOpenFile()}>

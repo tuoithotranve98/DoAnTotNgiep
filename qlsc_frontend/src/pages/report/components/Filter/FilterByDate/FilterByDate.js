@@ -67,6 +67,7 @@ function FilterByDate(props) {
   const [endDate, setEndDate] = useState(endTime ? convertDateToMoment(e) : moment());
 
   const onApply = (picker) => {
+    debugger;
     const newParams = getNewParams(history.location.search, 's', picker.startDate.unix());
     const lastParams = getNewParams(`?${newParams}`, 'e', picker.endDate.unix());
     pushstate(history, `/report?${lastParams}`);
@@ -92,7 +93,7 @@ function FilterByDate(props) {
         drops='down'
         startDate={startDate}
         endDate={endDate}
-        onApply={onApply}
+        onApply={() => onApply()}
         autoUpdateInput
         onCancel={() => {}}
         ranges={ranges}

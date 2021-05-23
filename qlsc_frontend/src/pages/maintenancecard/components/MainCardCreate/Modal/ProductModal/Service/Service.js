@@ -41,7 +41,7 @@ function Service(props) {
                       onChange={(e) =>
                         onchangeValue("pricePerUnit", e.target.value)
                       }
-                      placeholder="Nhập giá sản phẩm"
+                      placeholder="Nhập giá linh kiện"
                     />
                   </div>
                 </div>

@@ -74,7 +74,7 @@ function ReportLeft(props) {
 
   return (
     <div className="report-revenue-component report-border ">
-      <div className="report-title">Doanh thu dự kiến</div>
+      <div className="report-title">Doanh thu cửa hàng</div>
       <div className="content">
         <ChartRevenueDashboard revenue={dataState} />
       </div>

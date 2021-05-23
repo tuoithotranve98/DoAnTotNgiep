@@ -53,7 +53,7 @@ function SideBar(props) {
   return (
     <div className={`aside ${showMenu ? "col-left" : ""}`}>
       <div className="ekko-menu-top-header">
-        {!showMenu ? <div className="logo">My Ekko</div> : ""}
+        {!showMenu ? <div className="logo">Quản lý sửa chữa</div> : ""}
         <a
           className="more-icons"
           onClick={() => {
@@ -89,24 +89,6 @@ function SideBar(props) {
               </div>
             </div>
             <ul>
-              <li>
-                <a
-                  href="#"
-                  onClick={() =>
-                    window.open("https://support.sapo.vn/sapo-social")
-                  }
-                >
-                  Hướng dẫn sử dụng
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  onClick={() => window.open("https://support.sapo.vn/")}
-                >
-                  Trung tâm trợ giúp
-                </a>
-              </li>
               <li>
                 <a onClick={() => handleLogout()}>Đăng xuất</a>
               </li>

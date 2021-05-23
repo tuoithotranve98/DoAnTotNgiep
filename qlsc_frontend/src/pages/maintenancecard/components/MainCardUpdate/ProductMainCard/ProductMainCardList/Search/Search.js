@@ -110,7 +110,7 @@ function Search(props) {
             <Icons.IconCustomerIsEmpty />
           </div>
           <div className="content-info" style={{ marginLeft: 10 }}>
-              Thêm mới sản phẩm
+              Thêm mới dịch vụ - linh kiện
           </div>
         </div>
         <div
@@ -142,7 +142,7 @@ function Search(props) {
           onChange={(e) => onChangeText(e)}
           onFocus={onFocus}
           onBlur={onBlur}
-          placeHolder="Tìm kiếm khách hàng theo tên khách hàng, số điện thoại"
+          placeHolder="Tìm kiếm dịch vụ theo mã dịch vụ hoặc tên dịch vụ"
         />
       </div>
       {focus ? renderSearch() : null}
