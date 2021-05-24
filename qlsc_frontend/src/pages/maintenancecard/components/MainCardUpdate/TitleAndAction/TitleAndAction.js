@@ -1,29 +1,44 @@
-import React from "react";
+import React, {useRef} from "react";
 import * as Icons from "pages/maintenancecard/commons/Icons";
 import ExportMaintenanceCard from "../../MainCardExport/ExportMaintenanceCard";
 import ReactToPrint from "react-to-print";
 import "./styles.scss";
 import { connect } from "react-redux";
+import { useHistory } from "react-router";
+import pushstate from "../../../../../utils/pushstate";
 
-class TitleAndAction extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { onUpdateMainCard, id, mainCard } = this.props;
+function TitleAndAction(props) {
+    const { onUpdateMainCard, id, mainCard } = props;
+    const componentRef = useRef();
+    const history = useHistory();
+    const onClick = () => {
+      pushstate(history, `/maintenance-cards`);
+    };
     return (
+      <React.Fragment>
+      <div className="go-back" onClick={onClick}>
+        <Icons.arrowLeft />
+        <div style={{ marginTop: 4 }}>
+          <span>
+            Quay lại&nbsp;
+          </span>
+          <span>
+            Phiếu sữa chữa
+          </span>
+        </div>
+      </div>
+
       <div className="main-card-create-tilte-action">
         <div className="d-flex list-header">
           <div className="header-title">
-            {/* <div style={{ fontSize: '22px' }}>Thêm mới phiếu sửa chữa</div> */}
+            <div style={{ fontSize: '22px' }}>Cập nhật phiếu sửa chữa</div>
           </div>
           <div>
             <ReactToPrint
               trigger={() => <a href="#">In phiếu</a>}
-              content={() => this.componentRef}
+              content={() => componentRef.current}
             />
-            <div ref={(el) => (this.componentRef = el)}>
+            <div ref={componentRef}>
               <ExportMaintenanceCard />
             </div>
           </div>
@@ -57,8 +72,8 @@ class TitleAndAction extends React.Component {
           </div>
         </div>
       </div>
+      </React.Fragment>
     );
-  }
 }
 TitleAndAction.defaultProps = {};
 

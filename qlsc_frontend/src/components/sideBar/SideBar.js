@@ -10,7 +10,7 @@ import { menuLinkFull } from "utils/router.js";
 import pushstate from "../../utils/pushstate";
 
 function SideBar(props) {
-  const { showMenu, changeShowMenuTopBar, user, onLogout } = props;
+  const { showMenu, setShowMenu, changeShowMenuTopBar, user, onLogout } = props;
   const [init, setInit] = useState({
     menu: 99,
     submenu: "",
@@ -35,7 +35,9 @@ function SideBar(props) {
   }, []);
 
   const onClickMoreIcon = () => {
-    changeShowMenuTopBar(!showMenu);
+   setTimeout(() => {
+    setShowMenu(!showMenu);
+   }, 50);
   };
 
   const handleLogout = () => {
@@ -110,7 +112,6 @@ const mapStateToProps = (state) => {
   } = state;
   const showMenu = showMenuTopBar;
   return {
-    showMenu,
     user,
   };
 };

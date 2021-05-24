@@ -14,7 +14,7 @@ import { receiveWard } from '../../../customer/actions/locationActions';
 import ProductModal from './Modal/ProductModal/ProductModal';
 import { saveProductService } from '../../../product/actions/ProductAction';
 import { getMainCardById, mainCardPaymentHistory, saveMainCard, updateMainCard, updateStatusMaintenanceCardDetail } from '../../actions/mainCard';
-import { useParams, withRouter } from "react-router-dom";
+import { useHistory, useParams, withRouter } from "react-router-dom";
 import PaymentMethod from './PaymentMethod/PaymentMethod';
 import HistoryAction from './HistoryAction/HistoryAction';
 import Payment from './Modal/Payment/Payment';
@@ -83,7 +83,7 @@ function MainCardUpdate(props) {
   const [showFilterCustomer,setShowFilterCustomer ] = useState(false);
   const [showContent, setShowContent] = useState(1);
   const [money, setMoney] = useState(0);
-
+  const history = useHistory();
 
   useEffect(() => {
     onchangeProduct("type", showContent);
@@ -251,7 +251,7 @@ function MainCardUpdate(props) {
   };
   return (
     <div className="main-card-update-warpper">
-        <TitleAndAction onUpdateMainCard={(id, mainCard)=>onUpdateMainCard(id, mainCard)} id={id} mainCard={mainCard} />
+        <TitleAndAction history={history} onUpdateMainCard={(id, mainCard)=>onUpdateMainCard(id, mainCard)} id={id} mainCard={mainCard} />
         <div className="contatiner">
             <div className="row">
                 <div className="col-md-8">

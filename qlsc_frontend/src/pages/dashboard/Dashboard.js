@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -27,13 +27,14 @@ import PrivateRoute from "../../components/router/PrivateRoute";
 import "./styles.scss";
 import MainCardUpdate from "../maintenancecard/components/MainCardUpdate/MainCardUpdate";
 function Dashboard(props) {
-  const { showMenu, auth } = props;
+  const { auth } = props;
+  const [showMenu, setShowMenu] = useState(false)
   return (
     <div
       className={showMenu ? "content-dashboard-active" : "content-dashboard"}
     >
-      <SideBar />
-      <TopBar />
+      <SideBar showMenu={showMenu} setShowMenu={setShowMenu} />
+      <TopBar  showMenu={showMenu} setShowMenu={setShowMenu}/>
       <Switch>
         <PrivateRoute
           exact

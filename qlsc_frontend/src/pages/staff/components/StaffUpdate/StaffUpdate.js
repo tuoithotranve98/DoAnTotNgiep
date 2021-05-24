@@ -76,7 +76,7 @@ function StaffUpdate(props) {
 
   return (
     <div className="staff-screen-wrapper-create">
-      <TitleAndAction />
+      <TitleAndAction  saveStaff={saveStaff} cancel={cancel} />
       <div className="row">
         <div className="col-md-8">
           <InfoStaffLeft
@@ -96,7 +96,6 @@ function StaffUpdate(props) {
             onChangeStatusValidate={onChangeStatusValidate}
           />
         </div>
-        <InfoStaffFooter saveStaff={saveStaff} cancel={cancel} />
       </div>
     </div>
   );

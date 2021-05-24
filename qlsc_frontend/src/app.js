@@ -24,7 +24,7 @@ import storage from "./utils/storage";
 import history from './utils/history';
 
 function App(props) {
-  const { showMenu, onCheckInfoUser, onNotificationMaintenanceCard, user } = props;
+  const { onCheckInfoUser, onNotificationMaintenanceCard, user } = props;
   useEffect(() => {
     const token = storage.get("token", false);
     if (!token) history.push("/login");
@@ -77,7 +77,7 @@ function App(props) {
       <Switch>
         <Route path="/404" component={NotFoundComponent} />
         <Route path="/login" component={LoginPage} />
-        <PrivateRoute path="/" component={() => <DashBoard showMenu={showMenu} />} />
+        <PrivateRoute path="/" component={() => <DashBoard />} />
         <Route component={NotFoundComponent} />
       </Switch>
     </Router>
@@ -87,7 +87,7 @@ function App(props) {
 const mapStateToProps = (state) => {
   const {
     globalUI: { showMenuTopBar },
-    auth: { user }, 
+    auth: { user },
   } = state;
   const showMenu = showMenuTopBar;
   return {

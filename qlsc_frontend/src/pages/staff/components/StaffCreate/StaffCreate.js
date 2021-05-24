@@ -53,7 +53,7 @@ function StaffCreate(props) {
   };
   const cancel = () => {
     setStaff(initialState);
-    pushstate(props.history, "/staff");
+    pushstate(props.history, "/staffs");
   };
   return (
     <div className="staff-screen-wrapper-create">
