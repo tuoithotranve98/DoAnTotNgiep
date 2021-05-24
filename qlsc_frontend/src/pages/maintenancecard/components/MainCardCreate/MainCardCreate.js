@@ -17,6 +17,8 @@ import { saveMainCard } from '../../actions/mainCard';
 import { array } from 'prop-types';
 import { useHistory } from 'react-router';
 import pushstate from '../../../../utils/pushstate';
+import * as Icons from "pages/maintenancecard/commons/Icons";
+
 const initialStateCustomer = {
   name: null,
   code: null,
@@ -66,6 +68,9 @@ function MainCardCreate(props) {
   const [createProduct, setCreateProduct] = useState(initialStateProduct);
   const [showFilterCustomer,setShowFilterCustomer ] = useState(false);
   const [showContent, setShowContent] = useState(1);
+  const onBack = () => {
+    pushstate(history, '/maintenance-cards');
+  };
   useEffect(() => {
     onchangeProduct("type", showContent);
   }, [showContent]);
@@ -220,6 +225,7 @@ function MainCardCreate(props) {
   };
   return (
     <div className="main-card-create-warpper">
+
         <TitleAndAction saveMaintenanceCard={saveMaintenanceCard} />
         <div className="contatiner">
             <div className="row">

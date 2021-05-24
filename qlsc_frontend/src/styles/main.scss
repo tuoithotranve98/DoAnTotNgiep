@@ -243,3 +243,25 @@ button {
 .display-none{
   display: none;
 }
+.go-back {
+  display: flex;
+  cursor: pointer;
+  width: fit-content;
+  &:hover {
+    color: #0088ff;
+    svg{
+      path{
+        fill: #0088ff;
+      }
+    }
+  }
+  svg {
+    margin-right: 6px;
+    height: 17px;
+    margin-top: 3px;
+  }
+  span {
+    &:last-child {
+    }
+  }
+}

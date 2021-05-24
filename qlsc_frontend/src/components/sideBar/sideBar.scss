@@ -1,13 +1,13 @@
 
 .col-left{
   width: 56px !important;
-  transform: width 2s;
+  transition: width 300ms;
   background-color: #202d3f !important;
 }
 .aside {
     background-color: #202d3f !important;
     width: 230px;
-    transform: width 2s;
+    transition: width 300ms;
     ul {
       display: block;
     }
@@ -25,6 +25,7 @@
     z-index: 9;
     border: 1px solid #202d3f;
     top: 0px;
+    transition: width 300ms;
     .ekko-menu-top-header{
       cursor: pointer;
       height: 59px;
