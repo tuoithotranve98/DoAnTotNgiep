@@ -79,7 +79,7 @@ function CustomerDetailInfo(props) {
             <div className="col-4">
               <div className="d-flex item">
                 <div className="label">Ngày sửa:  &nbsp; </div>
-                <div className="content-value">{(customer && customer.address) || '---'}</div>
+                <div className="content-value">{(customer && customer.modifiedDate) ? convertSecondToDate(customer.modifiedDate) : '---'}</div>
               </div>
             </div>
             <div className="col-4">

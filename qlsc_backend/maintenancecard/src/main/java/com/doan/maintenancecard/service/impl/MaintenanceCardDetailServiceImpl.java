@@ -1,25 +1,22 @@
 package com.doan.maintenancecard.service.impl;
 
 import com.doan.maintenancecard.converter.MaintenanceCardConverter;
-import com.doan.maintenancecard.converter.MaintenanceCardDetailConverter;
 import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.entity.MaintenanceCard;
 import com.doan.maintenancecard.entity.MaintenanceCardDetail;
 import com.doan.maintenancecard.entity.MaintenanceCardDetailStatusHistory;
 import com.doan.maintenancecard.exception.commonException.NotFoundException;
 import com.doan.maintenancecard.exception.maintenanceCardException.NotFoundRepairmanException;
-import com.doan.maintenancecard.model.MessageModel;
+import com.doan.maintenancecard.kafka.SendMessage;
+import com.doan.maintenancecard.kafka.SendToClient;
 import com.doan.maintenancecard.repository.MaintenanceCardDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.doan.maintenancecard.service.MaintenanceCardDetailService;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -27,76 +24,72 @@ public class MaintenanceCardDetailServiceImpl implements MaintenanceCardDetailSe
 
     private final MaintenanceCardDetailRepository maintenanceCardDetailRepository;
     private final MaintenanceCardConverter maintenanceCardConverter;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final SendMessage sendMessage;
+    private final SendToClient sendToClient;
 
     @Override
     public MaintenanceCardDTO updateStatusMaintenanceCardDetail(Long id, String email) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
-        Date now = new Date();
+        // kiểm tra chi tiết phiếu có tồn tại hay không
         MaintenanceCardDetail maintenanceCardDetail = maintenanceCardDetailRepository.findById(id).orElse(null);
+        if (maintenanceCardDetail == null) {
+            throw new NotFoundException("Phiếu không tồn tại!");
+        }
         MaintenanceCard maintenanceCard = maintenanceCardDetail.getMaintenanceCard();
-        if (maintenanceCard.getRepairmanEmail() == null || maintenanceCard.getRepairmanEmail() == email) {
-            throw new NotFoundException("Not found maintenance card detail");
+        if (maintenanceCard.getRepairmanEmail() == null || maintenanceCard.getRepairmanEmail().equals(email)) {
+            throw new NotFoundException("Không tìm thấy chi tiết phiếu");
         }
         byte status = 1;
-        boolean check = true;
-        if (maintenanceCardDetail != null && maintenanceCard.getRepairmanEmail() != null) {
-            if (maintenanceCardDetail.getStatus() < 2 && maintenanceCardDetail.getProductType() == 2) {
+        boolean checkToSetWorkStatus = true;
+        if (maintenanceCard.getRepairmanEmail() != null) {
+            // kiểm tra trạng thái chi tiết phiếu
+            // nếu trạng thái là chưa hoàn thành thì cập nhật
+            if (maintenanceCardDetail.getStatus() < 2) {
                 maintenanceCardDetail.setStatus((byte) (maintenanceCardDetail.getStatus() + 1));
                 MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                maintenanceCardDetailStatusHistory.setCreatedDate(now);
-                maintenanceCardDetailStatusHistory.setModifiedDate(now);
+                maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
+                maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
                 maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
-                maintenanceCardDetailStatusHistory.setStatus((byte) (maintenanceCardDetail.getStatus()));
+                maintenanceCardDetailStatusHistory.setStatus(maintenanceCardDetail.getStatus());
                 maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
-                if (maintenanceCardDetail.getProductType() == 2) {
-                    if (maintenanceCardDetail.getStatus() == 1 || maintenanceCardDetail.getStatus() == 2) {
-                        status = 1;
-                    }
-                    if (maintenanceCardDetail.getStatus() != 2) {
-                        check = false;
-                    }
+                if (maintenanceCardDetail.getStatus() != 2) {
+                    checkToSetWorkStatus = false;
                 }
             }
-            for (MaintenanceCardDetail maintenanceCardDetail1 : maintenanceCard.getMaintenanceCardDetails()) {
-                if (maintenanceCardDetail1.getId() != maintenanceCardDetail.getId()) {
-                    if (maintenanceCardDetail1.getProductType() == 2) {
-                        if (maintenanceCardDetail1.getStatus() == 1 || maintenanceCardDetail1.getStatus() == 2) {
-                            status = 1;
-                        }
-                        if (maintenanceCardDetail1.getStatus() != 2) {
-                            check = false;
-                        }
-                    }
+            // kiểm tra tất cả chi tiết phiếu
+            // phiếu khác với phiếu hiện tại
+            // và status khác 2
+            // check = true
+            for (MaintenanceCardDetail mainCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
+                if (!mainCardDetail.getId().equals(maintenanceCardDetail.getId())
+                    && mainCardDetail.getStatus() != 2) {
+                    checkToSetWorkStatus = false;
+                    break;
                 }
             }
-            if (check) {
+
+            if (checkToSetWorkStatus) {
                 maintenanceCard.setWorkStatus((byte) 2);
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard.getRepairmanId() + "", "-1");
-                kafkaTemplate.send(record2);
+                // giảm số phiếu đang nhận của nhân viên
+                CompletableFuture.runAsync(() -> sendMessage.sendToUser(String.valueOf(maintenanceCard.getRepairmanId()), "-1"));
             } else {
                 maintenanceCard.setWorkStatus(status);
             }
-            MaintenanceCardDetail maintenanceCardDetail1 = maintenanceCardDetailRepository.save(maintenanceCardDetail);
-            MaintenanceCard maintenanceCard1 = maintenanceCardDetail1.getMaintenanceCard();
-            MessageModel messageModel = new MessageModel();
-            messageModel.setMaintenanceCardCode(maintenanceCard1.getCode());
-            messageModel.setAuthor(email);
-            messageModel.setCoordinatorEmail(maintenanceCard1.getCoordinatorEmail());
-            messageModel.setRepairmanEmail(maintenanceCard1.getRepairmanEmail());
-            if (maintenanceCard1.getWorkStatus() == 2 && maintenanceCard1.getPayStatus() == 0) {
-                messageModel.setType(2);
+
+            MaintenanceCardDetail newMaintenanceCardDetail = maintenanceCardDetailRepository.save(maintenanceCardDetail);
+            MaintenanceCard newMaintenanceCard = newMaintenanceCardDetail.getMaintenanceCard();
+            int typeMaintenanceCard;
+            if (newMaintenanceCard.getWorkStatus() == 2 && newMaintenanceCard.getPayStatus() == 0) {
+                typeMaintenanceCard = 2;
             } else {
-                messageModel.setType(3);
+                typeMaintenanceCard = 3;
             }
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
-            kafkaTemplate.send(record);
-            return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
+            // send notification to client
+            CompletableFuture.runAsync(() -> sendToClient.sendNotificationToClient(newMaintenanceCard, typeMaintenanceCard));
+            return maintenanceCardConverter.convertAllToDTO(newMaintenanceCard);
         } else if (maintenanceCard.getRepairmanId() != 0) {
-            throw new NotFoundException("Not found maintenance card detail");
+            throw new NotFoundException("Không tìm thấy chi tiết phiếu");
         } else {
-            throw new NotFoundRepairmanException("");
+            throw new NotFoundRepairmanException("Không tìm thấy nhân viên");
         }
     }
 }

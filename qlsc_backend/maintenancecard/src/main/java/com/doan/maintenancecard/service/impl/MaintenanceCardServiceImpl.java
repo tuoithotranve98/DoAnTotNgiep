@@ -116,7 +116,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         //cập nhật xe, nhân viên
         CompletableFuture.runAsync(() -> {
             sendMessage.sendToCustomer(newMC);
-            sendMessage.sendToUser(String.valueOf(newMC.getRepairmanId()));
+            sendMessage.sendToUser(String.valueOf(newMC.getRepairmanId()), "1");
         });
         return maintenanceCardConverter.convertAllToDTO(newMC);
     }

@@ -41,9 +41,9 @@ public class SendMessage {
         }
     }
 
-    //cập nhật số phiếu cho nhân viên // +1
-    public void sendToUser(String key) {
-        kafkaTemplate.send(TOPIC_USER, key, "1");
+    //cập nhật số phiếu cho nhân viên
+    public void sendToUser(String key, String value) {
+        kafkaTemplate.send(TOPIC_USER, key, value);
     }
 
 }
