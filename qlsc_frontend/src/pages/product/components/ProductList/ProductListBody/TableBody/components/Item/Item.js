@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
+import { moneyFormat } from "../../../../../../../../utils/moneyFormat";
 
 function Item(props) {
   const { checked, productService } = props;
@@ -71,7 +72,7 @@ function Item(props) {
           cái
         </div>
         <div className="margin-right20 item-list order-collations-total-amount">
-          {productService.pricePerUnit}đ
+          {moneyFormat(productService.pricePerUnit)} đ
         </div>
       </div>
     </div>
