@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { login, checkInfoUser } from "./actions/loginAction";
 import "./login.scss";
-import logo from "../../images/logo_sapo.svg";
+import logo from "../../images/KIOMO.png";
 import fb from "../../images/facebook-8-1-2020.svg";
 import google from "../../images/gp-btn.svg";
 import pushstate from "utils/pushstate";
@@ -42,7 +42,8 @@ function LoginPage(props) {
                     className="input"
                     name="email"
                     placeholder="Địa chỉ email"
-                    style={{ width: "100%", margin: "20px 0px" }}
+                    type="email"
+                    style={{ width: "100%", margin: "20px 0px", borderRadius: 3 }}
                   />
                   <input
                     onChange={(e) => handleChange(e)}
@@ -50,7 +51,7 @@ function LoginPage(props) {
                     placeholder="Mật khẩu"
                     type="password"
                     name="password"
-                    style={{ width: "100%", margin: "20px 0px" }}
+                    style={{ width: "100%", margin: "20px 0px", borderRadius: 3 }}
                   />
                   <div
                     className="div-action-login"
@@ -60,7 +61,7 @@ function LoginPage(props) {
                       Đăng nhập
                     </button>
                   </div>
-                  <div style={{ textAlign: "center", marginTop: 15 }}>
+                  {/* <div style={{ textAlign: "center", marginTop: 15 }}>
                     <p
                       variant="body1"
                       style={{
@@ -85,7 +86,7 @@ function LoginPage(props) {
                         alt=""
                       ></img>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

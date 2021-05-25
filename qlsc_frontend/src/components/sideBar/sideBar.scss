@@ -100,12 +100,13 @@
   
           a {
             padding: 10px;
-  
-            img {
+            &:hover{
+              text-decoration: none;
+            }
+            .logo-user {
               width: 30px;
               height: 30px;
               border-radius: 50%;
-              border: 1px solid #fff;
               margin-right: 15px;
               flex-shrink: 0;
               object-fit: cover;
@@ -185,11 +186,14 @@
                 position: relative;
                 margin-right: 15px;
   
-                img {
+                .logo-user {
                   width: 40px;
                   height: 40px;
                   border-radius: 50%;
                   object-fit: cover;
+                  font-size: 18px;
+                  color: #ffff;
+                  align-items: center;
                 }
   
                 .status {
@@ -374,7 +378,7 @@
   }
 /* start file sidebar.scss */
 // sidebar things
-.aside .nav.menu-bottom .user .dropdown-menu .authorization img {
+.aside .nav.menu-bottom .user .dropdown-menu .authorization .logo-user {
   width: 24px;
   height: 24px;
   margin-right: 12px;

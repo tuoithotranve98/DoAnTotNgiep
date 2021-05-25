@@ -229,7 +229,7 @@ function Accessories(props) {
         </div>
       </div>
       <div className="col-md-3">
-        <div className="info-product-right">
+        <div className="info-product-right-accessories">
           <div className="card info-product-right-01">
             <div className="title">Ảnh linh kiện</div>
             {product.images && !product.images.length ? (

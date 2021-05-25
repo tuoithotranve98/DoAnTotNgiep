@@ -111,7 +111,8 @@ function ProductUpdate(props) {
   return (
     <React.Fragment>
       <div className="product-screen-wrapper-create">
-        <TitleAndAction showContent={showContent} />
+        <TitleAndAction showContent={showContent}  saveProductService={saveProductService}
+            cancel={cancel}/>
         <div className="row">
           {showContent === 1 ? (
             <Accessories
@@ -130,10 +131,7 @@ function ProductUpdate(props) {
               onchangeValue={onchangeValue}
             />
           )}
-          <InfoProductFooter
-            saveProductService={saveProductService}
-            cancel={cancel}
-          />
+
         </div>
       </div>
     </React.Fragment>

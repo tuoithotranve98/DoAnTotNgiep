@@ -68,8 +68,8 @@
     }
 }
 
-.info-product-right {
-    width: 250px;
+.info-product-right-accessories {
+    width: 100% !important;
     min-height: 285px;
 
     .text-image {
@@ -112,7 +112,7 @@
         box-sizing: border-box;
         border-radius: 4px;
         padding-bottom: 0px;
-        width: 250px;
+        width: 100%;
         min-height: 285px;
 
         .title {

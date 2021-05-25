@@ -1,57 +1,43 @@
-.product-tilte-action{
-  margin-bottom: 15px;
-    .list-header {
+.product-update-tilte-action{
+  .list-header {
+      justify-content: space-between;
       margin: 12px 0 5px;
+      margin-bottom: 10px;
       .header-title {
-        width: calc(100% - 140px);
-        min-width: 202px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+          margin-top: 5px;
         font-size: 20px;
-        .link{
-          color: #2F80ED;
-          font-size: 14px;
-          font-weight: 400;
+      }
+  }
+  .dlv-button-save {
+      margin-right: 20px;
+      padding: 8px;
+      border: 1.5px solid #0088FF;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #0084ff;
+        color: white !important;
+          svg{
+            path{
+              fill: white !important;
+            }
+        }
+        .separate{
+          rect{
+            fill: white;
+          }
         }
       }
-      .header-action{
-        position: relative;
-        .btn-create {
-          cursor: pointer;
-          width: 140px;
-          min-width: 140px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          background: white;
-          color: #000;
-          font-weight: 400;
-          font-size: 14px;
-          border: 1px solid #0088FF;
-          box-shadow:none;
-          padding-left: 0;
-          &:hover {
-            background-color: #0084ff;
-            color: white;
-            span{
-              border-right: 1px solid white;
-              svg{
-                path{
-                  stroke: white;
-                }
-              }
-            }
-          }
-          span{
-            border-right: 1px solid #0088FF;
-            margin-right: 5px;
-            svg{
-              //margin-bottom: 5px;
-              margin-right: 5px;
-            }
-          }
-        }
+      .separate {
+        margin: 0 5px;
       }
     }
+  .dlv-button-cancel{
+      border: 1px solid #d3d3d3;
+      padding: 10.5px;
+      border-radius: 4px;
+      margin-right: 10px;
+      cursor: pointer;
   }
   
+}

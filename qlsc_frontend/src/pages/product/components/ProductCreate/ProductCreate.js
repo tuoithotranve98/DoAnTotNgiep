@@ -141,13 +141,10 @@ function ProductCreate(props) {
   return (
     <React.Fragment>
       <div className="product-screen-wrapper-create">
-        <TitleAndAction setShowContent={handleChange} />
+        <TitleAndAction setShowContent={handleChange} saveProductService={saveProductService}
+            cancel={cancel}/>
         <div className="row">
           {renderContent()}
-          <InfoProductFooter
-            saveProductService={saveProductService}
-            cancel={cancel}
-          />
         </div>
       </div>
     </React.Fragment>
