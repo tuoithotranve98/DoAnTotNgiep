@@ -75,7 +75,6 @@ function MainCardUpdate(props) {
   const { onClearWards, onSaveProductService, saveMainCard, user, staffByRepairMan, getMainCardById , updateStatusMaintenanceCardDetail, mainCardPaymentHistory} = props;
   const [customer, setCustomer] = useState({})
   const [payment, setPayment] = useState(payments[1])
-  const [products, setProducts] = useState([])
   const [mainCard, setMainCard] = useState(initialStateMainCard)
   const [showModalProduct, setShowModalProduct] = useState(false)
   const [showModalPayment, setShowModalPayment] = useState(false)
@@ -128,9 +127,10 @@ function MainCardUpdate(props) {
 
   const onUpdateStatusMaintenanceCardDetail = (id) => {
     updateStatusMaintenanceCardDetail(id).then((json)=>{
-      if(json ){
+      if(json){
         console.log("json.maintenanceCardDetails", json);
-        setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails})
+        setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails,workStatus: json.workStatus})
+
         toastSuccess('Thêm sản phẩm thành công');
       }else {
         toastError('Có lỗi xảy ra khi thêm sản phẩm');
@@ -142,11 +142,11 @@ function MainCardUpdate(props) {
     const item={};
     item.maintenanceCard = mainCard;
     item.paymentMethod = payment;
-    item.money = money;
+    item.money = mainCard.price - totalAfterPayment();
     PaymentHistoryDTO.push(item)
     mainCardPaymentHistory(PaymentHistoryDTO).then((json)=>{
       if(json){
-        setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails})
+        setMainCard({...mainCard, paymentHistories: json.paymentHistories, payStatus: json.payStatus})
       }else {
         toastError('Có lỗi xảy ra khi thêm sản phẩm');
       }
@@ -156,7 +156,7 @@ function MainCardUpdate(props) {
     let total = 0;
     if(mainCard.paymentHistories.length > 0) {
       mainCard.paymentHistories.forEach((item)=>{
-        total += total + item.money
+        total += item.money
       })
     }
     return total
@@ -297,6 +297,7 @@ function MainCardUpdate(props) {
           money={money}
           setMoney={setMoney}
           onMainCardPaymentHistory={onMainCardPaymentHistory}
+          mainCardTotal={mainCard.price} totalAfterPayment={totalAfterPayment}
         />
     </div>
   );

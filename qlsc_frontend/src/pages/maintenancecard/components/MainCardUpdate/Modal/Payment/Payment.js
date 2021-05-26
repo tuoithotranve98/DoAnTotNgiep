@@ -7,8 +7,10 @@ import "./styles.scss";
 import * as Icons from "pages/customer/commons/Icons";
 
 function Payment(props) {
-  const { setPayment,setMoney, money, payment, payments, showModalPayment, setShowModalPayment, onMainCardPaymentHistory } =
-    props;
+  const { setPayment,setMoney, money, payment, payments, showModalPayment, setShowModalPayment, onMainCardPaymentHistory,
+    mainCardTotal,
+    totalAfterPayment,
+  } = props;
   const handleClose = () => {
     setPayment({});
     setShowModalPayment(false);
@@ -26,7 +28,7 @@ function Payment(props) {
     setPaid(!paid);
     setPaymentItem(payment[0]);
   };
-
+  const total = mainCardTotal - totalAfterPayment();
   return (
     <Modal
       show={showModalPayment}
@@ -78,7 +80,7 @@ function Payment(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="address"
-                    value={money}
+                    value={total}
                     type="number"
                     onChange={(e)=>setMoney(e.target.value)}
                     placeholder="Số tiền thanh toán"

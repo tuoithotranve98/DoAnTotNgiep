@@ -80,7 +80,7 @@ function PaymentMethod(props) {
             </div>
           </div>
           <div className="header-action">
-            {workStatus === 2 ? (
+            {workStatus === 2 && props.user.role === 3 && mainCard.payStatus === 0 ? (
               <button
                 className="d-flex align-items-center justify-content-between btn btn-create"
                 type="button"
@@ -115,5 +115,10 @@ function PaymentMethod(props) {
   );
 }
 PaymentMethod.defaultProps = {};
-
-export default React.memo(connect(null, null)(PaymentMethod));
+const mapStateToProps = (state, ownProps) => {
+  const { auth : {user } } = state;
+  return {
+    user
+  }
+}
+export default React.memo(connect(mapStateToProps, null)(PaymentMethod));

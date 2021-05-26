@@ -12,7 +12,7 @@ export default (state = initState, action) => {
         ...state,
         notifications: [...notifications, action.notification],
       };
-    case "CLOSE_NOTIFICATION":
+    case "CLOSE_PROGRESS_BAR":
       return {
         ...state,
         notifications: [],
