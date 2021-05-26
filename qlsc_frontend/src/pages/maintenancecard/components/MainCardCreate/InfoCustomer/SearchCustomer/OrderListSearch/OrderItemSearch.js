@@ -20,7 +20,7 @@ function OrderItemSearch(props) {
         <Icons.IconCustomer />
       </div>
       <div className="order-code text-ellipsis" style={{ marginLeft: 10 }}>
-        <p className="name-cusomter">{name}</p>
+        <p className="name-cusomter" style={{ marginBottom: 6 }}>{name}</p>
         <p className="phone-customer">{phone}</p>
       </div>
     </div>

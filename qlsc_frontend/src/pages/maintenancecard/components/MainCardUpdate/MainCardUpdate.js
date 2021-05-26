@@ -129,7 +129,7 @@ function MainCardUpdate(props) {
   const onUpdateStatusMaintenanceCardDetail = (id) => {
     updateStatusMaintenanceCardDetail(id).then((json)=>{
       if(json ){
-        console.log("json.maintenanceCardDetails", json.maintenanceCardDetails);
+        console.log("json.maintenanceCardDetails", json);
         setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails})
         toastSuccess('Thêm sản phẩm thành công');
       }else {

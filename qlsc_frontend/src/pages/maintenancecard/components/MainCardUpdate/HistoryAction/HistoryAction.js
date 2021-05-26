@@ -47,7 +47,7 @@ function HistoryAction(props) {
                   <TimelineContent>
                     <div className="d-flex" style={{justifyContent: 'space-between' }}>
                       <div>
-                              <span style={{ fontWeight: 'bold' }}>{title}</span> {index}
+                              <span style={{ fontWeight: 'bold' }}>{title}</span>
                               <p>{maintenanceCardDetailStatusHistory.name}</p>
                           </div>
                           <div>

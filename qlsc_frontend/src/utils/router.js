@@ -11,7 +11,7 @@ export const menuLinkCoordinator = [
   {
     id: 0,
     url: '/maintenance-card',
-    icon: <Icons.CustomerIcon />,
+    icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
     submenu: [
       {
@@ -29,7 +29,7 @@ export const menuLinkCoordinator = [
   {
     id: 1,
     url: '/customer',
-    icon: <Icons.CustomerIcon />,
+    icon: <Icons.Customer />,
     title: 'Khách hàng',
     submenu: [
       {
@@ -47,7 +47,7 @@ export const menuLinkCoordinator = [
   {
     id: 2,
     url: '/product',
-    icon: <Icons.ProductIcon />,
+    icon: <Icons.Product />,
     title: 'Linh kiện - Dịch vụ',
     submenu: [
       {
@@ -63,7 +63,7 @@ export const menuLinkRepairer = [
   {
     id: 0,
     url: '/maintenance-card',
-    icon: <Icons.CustomerIcon />,
+    icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
     submenu: [
       {
@@ -76,7 +76,7 @@ export const menuLinkRepairer = [
   {
     id: 2,
     url: '/product',
-    icon: <Icons.ProductIcon />,
+    icon: <Icons.Product />,
     title: 'Linh kiện - Dịch vụ',
     submenu: [
       {
@@ -93,7 +93,7 @@ export const menuLinkFull = [
   {
     id: 0,
     url: '/maintenance-card',
-    icon: <Icons.CustomerIcon />,
+    icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
     submenu: [
       {
@@ -115,7 +115,7 @@ export const menuLinkFull = [
   {
     id: 1,
     url: '/customer',
-    icon: <Icons.CustomerIcon />,
+    icon: <Icons.Customer />,
     title: 'Khách hàng',
     submenu: [
       {
@@ -137,7 +137,7 @@ export const menuLinkFull = [
   {
     id: 2,
     url: '/product',
-    icon: <Icons.ProductIcon />,
+    icon: <Icons.Product />,
     title: 'Linh kiện - Dịch vụ',
     submenu: [
       {
@@ -155,7 +155,7 @@ export const menuLinkFull = [
   {
     id: 3,
     url: '/staff',
-    icon: <Icons.ReportIcon />,
+    icon: <Icons.User />,
     title: 'Nhân viên',
     submenu: [
       {
@@ -178,7 +178,7 @@ export const menuLinkFull = [
   {
     id: 4,
     url: '/report',
-    icon: <Icons.ReportIcon />,
+    icon: <Icons.Report />,
     title: 'Báo cáo',
     submenu: []
   },
