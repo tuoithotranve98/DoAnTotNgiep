@@ -1,0 +1,38 @@
+.report-filter-group-by {
+    width: 230px;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    .report-group-by {
+      background-color: #FFF;
+      display: flex;
+      align-items: center;
+      border: 1px solid #EAEAEA;
+      border-radius: 32px;
+      padding: 9.5px 15px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      .content {
+        margin: 0 7px;
+      }
+    }
+    .select-time-type {
+      border-radius: 4px;
+      background-color: #FFF;
+      border: 1px solid #EAEAEA;
+      width: 225px;
+      top: 75px;
+      padding: 5px 10px;
+      z-index: 1;
+      .group-by-item {
+        padding: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: #EBF6FF;
+        }
+      }
+    }
+  }
+  

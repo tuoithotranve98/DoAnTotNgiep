@@ -1,0 +1,22 @@
+.product-list-wrapper{
+    #product-filter-empty-wrapper {
+      display: flex;
+      height: 500px;
+      position: relative;
+      #product-filter-empty-text {
+        align-self: center;
+        font-size: 30px;
+        padding: 0 0 20px 5%;
+        white-space: nowrap;
+      }
+      #product-filter-empty-icon {
+        position: absolute;
+        right: 5%;
+        svg {
+          height: 500px;
+          width: 600px;
+        }
+      }
+    }
+  }
+  

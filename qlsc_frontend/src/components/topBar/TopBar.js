@@ -158,10 +158,10 @@ function TopBar(props) {
             className="header-top-bar-text"
             onClick={() => pushstate(history, "/products")}
           >
-            Linh kiện - Dịch vụ
+            Linh kiện
           </span>
           <span>&nbsp;{">"}&nbsp;</span>
-          <span>Danh sách Linh kiện - Dịch vụ</span>
+          <span>Danh sách Linh kiện</span>
         </React.Fragment>
       );
     }
@@ -173,10 +173,10 @@ function TopBar(props) {
             className="header-top-bar-text"
             onClick={() => pushstate(history, "/products")}
           >
-            Sản phẩm
+            Linh kiện 
           </span>
           <span>&nbsp;{">"}&nbsp;</span>
-          <span>Thêm mới Sản phẩm</span>
+          <span>Thêm mới Linh kiện</span>
         </React.Fragment>
       );
     }
@@ -188,10 +188,55 @@ function TopBar(props) {
             className="header-top-bar-text"
             onClick={() => pushstate(history, "/products")}
           >
-            Linh kiện - Dịch vụ
+            Linh kiện
           </span>
           <span>&nbsp;{">"}&nbsp;</span>
-          <span>Cập nhật Linh kiện - Dịch vụ</span>
+          <span>Cập nhật Linh kiện</span>
+        </React.Fragment>
+      );
+    }
+
+    if (url.includes("/services")) {
+      return (
+        <React.Fragment>
+          <span
+            className="header-top-bar-text"
+            onClick={() => pushstate(history, "/services")}
+          >
+            Dịch vụ
+          </span>
+          <span>&nbsp;{">"}&nbsp;</span>
+          <span>Danh sách Dịch vụ</span>
+        </React.Fragment>
+      );
+    }
+
+    if (url.includes("/service/create")) {
+      return (
+        <React.Fragment>
+          <span
+            className="header-top-bar-text"
+            onClick={() => pushstate(history, "/services")}
+          >
+            Dịch vụ 
+          </span>
+          <span>&nbsp;{">"}&nbsp;</span>
+          <span>Thêm mới Dịch vụ</span>
+        </React.Fragment>
+      );
+    }
+
+    if (url.includes("/service/update")) {
+      return (
+        <React.Fragment>
+          <span
+            className="header-top-bar-text"
+            onClick={() => pushstate(history, "/services")}
+          >
+            Dịch vụ
+          </span>
+          <span>&nbsp;{">"}&nbsp;</span>
+          <span>Cập nhật Dịch vụ</span>
         </React.Fragment>
       );
     }
@@ -251,6 +296,14 @@ function TopBar(props) {
       return (
         <React.Fragment>
           <span className="header-top-bar-text">Báo cáo</span>
+        </React.Fragment>
+      );
+    }
+
+    if (url.includes("/home")) {
+      return (
+        <React.Fragment>
+          <span className="header-top-bar-text">Tổng quan</span>
         </React.Fragment>
       );
     }

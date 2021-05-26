@@ -1,0 +1,15 @@
+.home-container{
+    margin: 0 18px 20px 18px;
+    .card{
+        .header{
+
+        }
+        .content{
+            text-align: center;
+            .list-action{
+                width: calc((100% - 25px) / 3);
+                
+            }
+        }
+    }
+}
