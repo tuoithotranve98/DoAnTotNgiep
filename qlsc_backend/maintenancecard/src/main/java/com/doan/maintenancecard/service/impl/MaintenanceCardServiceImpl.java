@@ -80,17 +80,15 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 productModel.setCode(mcDetail.getProductCode());
                 productModel.setStatus(0);
                 CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(mcDetail.getProductId())));
-                total += mcDetail.getPrice().longValue() * mcDetail.getQuantity();
-            } else if (mcDetail.getProductId() != 0) {
-                MaintenanceCardDetailStatusHistory mcDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                mcDetailStatusHistory.setCreatedDate(new Date());
-                mcDetailStatusHistory.setModifiedDate(new Date());
-                mcDetailStatusHistory.setMaintenanceCardDetail(mcDetail);
-                mcDetailStatusHistory.setStatus((byte) 0);
-                mcDetail.getMaintenanceCardDetailStatusHistories().add(mcDetailStatusHistory);
-                total += mcDetail.getPrice().longValue();
-                check = false;
             }
+            MaintenanceCardDetailStatusHistory mcDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
+            mcDetailStatusHistory.setCreatedDate(new Date());
+            mcDetailStatusHistory.setModifiedDate(new Date());
+            mcDetailStatusHistory.setMaintenanceCardDetail(mcDetail);
+            mcDetailStatusHistory.setStatus((byte) 0);
+            mcDetail.getMaintenanceCardDetailStatusHistories().add(mcDetailStatusHistory);
+            total += mcDetail.getPrice().longValue() * mcDetail.getQuantity();
+            check = false;
         }
         maintenanceCard.setPrice(BigDecimal.valueOf(total));
         maintenanceCard.setPlatesNumber(maintenanceCard.getPlatesNumber().toLowerCase());
