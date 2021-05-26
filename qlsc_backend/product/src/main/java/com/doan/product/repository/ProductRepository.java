@@ -30,6 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     void updateStatusProduct(@Param("id") Long id);
 
     @Query("SELECT p FROM Product p WHERE p.status = 1 AND (p.name LIKE %?1%"
-        + " OR p.code LIKE %?1%) AND p.type IN ?2")
-    Page<Product> search(Pageable pageable, String keyWork, Byte[] type);
+        + " OR p.code LIKE %?1%) AND p.type IN ?2 AND p.tenantId = ?3")
+    Page<Product> search(Pageable pageable, String keyWork, Byte[] type, Long tenantId);
 }

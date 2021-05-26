@@ -20,7 +20,7 @@ import java.util.Map;
 
 public interface MaintenanceCardService {
 
-    MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO) throws NotEnoughProductException, CodeExistedException, JsonProcessingException;
+    MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String tenantId) throws NotEnoughProductException, CodeExistedException, JsonProcessingException;
 
     Map<String, Object> searchMaintenanceCard(MaintenanceCardFilter maintenanceCardFilter, String email, int role);
 
@@ -38,7 +38,7 @@ public interface MaintenanceCardService {
     Map<String, Object> getMaintenanceCardByRepairMan(MaintenanceCardUser maintenanceCardUser);
 
     MaintenanceCardDTO setReturnDate(long id);
-    
+
     // update mơi ekko
     MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest);
 }

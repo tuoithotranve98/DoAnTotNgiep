@@ -23,9 +23,10 @@ public class CustomerController {
 
     @PostMapping("customers")
     public CustomerRes addCustomer(
-            @RequestBody CustomerDTO customerDTO)
+            @RequestBody CustomerDTO customerDTO,
+            @RequestParam String tenantId)
             throws ParseException, DataTooLongException {
-        return customerService.addCustomer(customerDTO);
+        return customerService.addCustomer(customerDTO, tenantId);
     }
 
     @GetMapping("customers/{id}")
@@ -60,11 +61,6 @@ public class CustomerController {
     public CustomerRes updateMultipleStatusCustomer(
             @RequestParam(name = "ids", required = false, defaultValue = "") List<Long> ids) {
         return customerService.updateMultipleStatusCustomer(ids);
-    }
-
-    @GetMapping("testCustomer")
-    public String testApi() {
-        return "Success";
     }
 
 }

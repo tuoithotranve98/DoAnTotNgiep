@@ -1,6 +1,7 @@
 package com.doan.user.dto;
 
 
+import com.doan.user.entity.Tenant;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +26,6 @@ public class UserDTO extends BaseDTO{
     @JsonProperty("message_number")
     private int messageNumber;
     private int totalMaintenanceCard;
+    private Tenant tenant;
 
 }

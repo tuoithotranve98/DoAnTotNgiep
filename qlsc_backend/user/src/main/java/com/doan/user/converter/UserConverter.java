@@ -1,11 +1,12 @@
 package com.doan.user.converter;
 
 import com.doan.user.dto.UserDTO;
+import com.doan.user.entity.Tenant;
 import com.doan.user.entity.User;
 import com.doan.user.service.MessageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -29,6 +30,15 @@ public class UserConverter {
         userDTO.setRole(user.getRole());
         userDTO.setMessageNumber(messageService.countMessageByUserId(user.getId()));
         userDTO.setTotalMaintenanceCard(user.getTotalMaintenanceCard());
+        if (!ObjectUtils.isEmpty(user.getTenant())) {
+            Tenant tenant = new Tenant();
+            tenant.setNameTenant(user.getTenant().getNameTenant());
+            tenant.setId(user.getTenant().getId());
+            tenant.setPhoneNumber(user.getTenant().getPhoneNumber());
+            tenant.setAddress(user.getTenant().getAddress());
+            tenant.setEmail(user.getTenant().getEmail());
+            userDTO.setTenant(tenant);
+        }
         return userDTO;
     }
 

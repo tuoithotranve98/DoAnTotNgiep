@@ -13,16 +13,14 @@ import java.util.Map;
 
 public interface UserService {
 
-    Map<String, Object> getListUser(int page, int size, String sortBy, String descending, String search);
-    Map<String, Object> getAllUser(int pageNumber, int size);
-    Map<String, Object> getListUserV1();
+    Map<String, Object> getListUser(int page, int size, String sortBy, String descending, String search, String tenantId);
+    Map<String, Object> getListUserV1(String tenantId);
     HashMap<String, Object> getTotalMaintenanceCardByRepairman(int page, int size, String key);
     UserDTO getUserById(Long id) throws NotFoundException;
-    UserDTO insertUser(UserDTO userDTO) throws DuplicateEmailException, CodeExistedException;
+    UserDTO insertUser(UserDTO userDTO, String tenantId) throws DuplicateEmailException, CodeExistedException;
     UserResponse updateUser(UserDTO userDTO, Long id) ;
     UserResponse deleteUserById(List<Long> arrayID);
     String generateCode();
-    Boolean checkLogin(UserDTO userDTO);
     UserDTO checkUserNameUser(String username) throws NotFoundException;
     UserResponse changePassword(PasswordRequest password) throws NotFoundException;
 }

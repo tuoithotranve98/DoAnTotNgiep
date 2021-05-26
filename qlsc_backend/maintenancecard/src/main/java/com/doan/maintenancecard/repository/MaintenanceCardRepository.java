@@ -30,8 +30,9 @@ public interface MaintenanceCardRepository extends JpaRepository<MaintenanceCard
     @Query("SELECT distinct wc FROM MaintenanceCard wc WHERE wc.code LIKE %?1% " +
         "AND wc.workStatus IN  ?2 " +
         "AND wc.payStatus IN  ?3 " +
-        "AND (wc.repairmanEmail = ?4 or wc.coordinatorEmail = ?4 or ?5 = 3) ")
-    Page<MaintenanceCard> search(Pageable pageable, String keyWork, byte[] workStatus, byte[] payStatus, String email, int role);
+        "AND (wc.repairmanEmail = ?4 or wc.coordinatorEmail = ?4 or ?5 = 3) " +
+        "AND wc.tenantId = ?6")
+    Page<MaintenanceCard> search(Pageable pageable, String keyWork, byte[] workStatus, byte[] payStatus, String email, int role, Long tenantId);
 
     @Query("SELECT distinct wc FROM MaintenanceCard wc WHERE wc.id = :id " +
         "AND (wc.repairmanEmail = :email or wc.coordinatorEmail = :email or :role = 3) ")

@@ -16,6 +16,8 @@ const auth = (state = initState, action) => {
         accessToken: token,
       };
     case actionTypes.RECEIVE_USER_ACCOUNT:
+      const tenant = action.account.tenant;
+      storage.set("tenantId", tenant.id, false);
       storage.set("user", JSON.stringify(action.account), false);
       return {
         ...state,

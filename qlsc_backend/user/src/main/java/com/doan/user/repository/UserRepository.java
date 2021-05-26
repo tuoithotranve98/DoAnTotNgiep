@@ -13,12 +13,15 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query(value = "SELECT u FROM User u WHERE u.status =1 and (u.fullName like  %?1% or " +
+
+    @Query(value = "SELECT u FROM User u WHERE u.status = 1 and (u.fullName like  %?1% or " +
         "u.email like %?1% or u.phoneNumber like %?1% or " +
-        "u.code like  %?1% or u.address like %?1%) ")
-    Page<User> getAllUser(Pageable pageable, String param);
-    @Query(value = "select u from User u where u.role =2")
-    List<User> getAllUserV1();
+        "u.code like  %?1% or u.address like %?1%) and u.tenant.id = ?2")
+    Page<User> getAllUser(Pageable pageable, String param, Long tenantId);
+
+    @Query(value = "select u from User u where u.role = 2 and u.tenant.id = ?1")
+    List<User> getAllUserV1(String tenantId);
+
     @Query(value = "SELECT u FROM User u WHERE u.status =1 and u.role = 2 and (u.fullName like  %:param% or " +
         "u.email like %:param% or u.phoneNumber like %:param% or " +
         "u.code like  %:param% or u.address like %:param%) ")
@@ -32,11 +35,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT CONVERT(SUBSTRING(code, 4), UNSIGNED INTEGER ) AS newcode FROM users WHERE code LIKE '%ND%' ORDER BY newcode DESC LIMIT 1 offset :index", nativeQuery = true)
     String getMaxCodeUser(@Param("index") int index);
-
-    @Query(value = "SELECT count(code) FROM users\n" +
-        "            where code = :code \n" +
-        "            and id != :id ", nativeQuery = true)
-    int checkCode(String code, Long id);
 
     @Query(value = "select u from User u where u.email =:username and u.password =:password")
     User checkLogin(@Param("username") String username, @Param("password") String password);

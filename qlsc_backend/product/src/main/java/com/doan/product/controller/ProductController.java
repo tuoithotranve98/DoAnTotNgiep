@@ -47,12 +47,12 @@ public class ProductController {
     }
 
     @PostMapping("products")
-    public ProductResponse create(@RequestBody ProductRequest productRequest) {
-        Product pro =new Product();
+    public ProductResponse create(@RequestBody ProductRequest productRequest,
+                                  @RequestParam String tenantId) {
         try {
-            return productService.save(productRequest);
+            return productService.save(productRequest, tenantId);
         } catch (Exception e) {
-            return new ProductResponse(Boolean.FALSE, "false", pro);
+            return new ProductResponse(Boolean.FALSE, "false", new Product());
         }
     }
 
@@ -81,8 +81,4 @@ public class ProductController {
         return productService.multiDelete(ids);
     }
 
-    @GetMapping("test")
-    public String testApi() {
-        return "Success";
-    }
 }

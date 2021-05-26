@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface CustomerService {
 
-    CustomerRes addCustomer(CustomerDTO customerDTO) throws ParseException, DataTooLongException;
+    CustomerRes addCustomer(CustomerDTO customerDTO, String tenantId) throws ParseException, DataTooLongException;
     Map<String, Object> searchCustomer(SearchCustomer searchCustomer);
     CustomerRes updateCustomer(CustomerDTO customerDTO, Long idCustomer);
     void deleteCustomer(Long idCustomer);

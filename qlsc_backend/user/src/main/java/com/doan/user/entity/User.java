@@ -46,4 +46,8 @@ public class User extends BaseEntity {
     @Column(name = "total_maintenance_card")
     private int totalMaintenanceCard;
 
+    @ManyToOne
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
+
 }

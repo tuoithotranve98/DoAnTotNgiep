@@ -59,10 +59,11 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     private final SendToClient sendToClient;
 
     @Override
-    public MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO) throws CodeExistedException {
+    public MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String tenantId) throws CodeExistedException {
         MaintenanceCard maintenanceCard = maintenanceCardConverter.convertToEntity(maintenanceCardDTO);
         maintenanceCard.setCreatedDate(new Date());
         maintenanceCard.setModifiedDate(new Date());
+        maintenanceCard.setTenantId(Long.parseLong(tenantId));
         long total = 0L;
         boolean check = true;
         for (MaintenanceCardDetail mcDetail : maintenanceCard.getMaintenanceCardDetails()) {
@@ -128,6 +129,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         String order = maintenanceCardFilter.getOrder();
         byte[] workStatus = maintenanceCardFilter.getWorkStatus();
         byte[] payStatus = maintenanceCardFilter.getPayStatus();
+        Long tenantId = maintenanceCardFilter.getTenantId();
         Pageable paging = PageRequest.of(page - 1, size, Sort.by("modifiedDate").descending());
 
         if (!nameField.equals("")) {
@@ -136,7 +138,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 paging = PageRequest.of(page - 1, size, Sort.by(nameField).descending());
             }
         }
-        Page<MaintenanceCard> maintenanceCardPage = maintenanceCardRepository.search(paging, search, workStatus, payStatus, email, role);
+        Page<MaintenanceCard> maintenanceCardPage = maintenanceCardRepository.search(paging, search, workStatus, payStatus, email, role, tenantId);
         List<MaintenanceCardDTO> maintenanceCardDTOList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<MaintenanceCard> maintenanceCards = maintenanceCardPage.getContent();

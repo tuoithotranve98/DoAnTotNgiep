@@ -30,17 +30,17 @@ public class UserController {
                                                            @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize,
                                                            @RequestParam(value = "sortBy", defaultValue = "modifiedDate") String sortBy,
                                                            @RequestParam(value = "descending", defaultValue = "desc") String descending,
-                                                           @RequestParam(value = "search", defaultValue = "") String param) {
-        Map<String, Object> allUser = userService.getListUser(pageNum, pageSize, sortBy, descending, param);
+                                                           @RequestParam(value = "search", defaultValue = "") String param,
+                                                           @RequestParam(value = "tenantId", defaultValue = "") String tenantId) {
+        Map<String, Object> allUser = userService.getListUser(pageNum, pageSize, sortBy, descending, param, tenantId);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
     // lấy full nhân viên sửa chữa
     @GetMapping("users-v1")
-    public ResponseEntity<Map<String, Object>> getAllUsersV1() {
-        Map<String, Object> allUser = userService.getListUserV1();
+    public ResponseEntity<Map<String, Object>> getAllUsersV1(@RequestParam(value = "tenantId", defaultValue = "") String tenantId) {
+        Map<String, Object> allUser = userService.getListUserV1(tenantId);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
-
 
     @GetMapping("users/maintenanceCard")
     public ResponseEntity<Map<String, Object>> getTotalMaintenanceCardByRepairman(@RequestParam(defaultValue = "1", required = false) int page,
@@ -58,9 +58,10 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public UserResponse insertUser(@RequestBody UserDTO userDTO) {
+    public UserResponse insertUser(@RequestBody UserDTO userDTO,
+                                   @RequestParam String tenantId) {
         try {
-            userService.insertUser(userDTO);
+            userService.insertUser(userDTO, tenantId);
             return new UserResponse(Boolean.TRUE);
         } catch (Exception e) {
             return new UserResponse(Boolean.FALSE);

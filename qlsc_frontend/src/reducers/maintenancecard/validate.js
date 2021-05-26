@@ -23,7 +23,7 @@ export default (state = initState, action) => {
     case "CLEAR-VALID":
       return {
         ...state,
-        isvalid: false,
+        isvalid: true,
         customerIsValid: false,
         serviceIsValid: false,
       };

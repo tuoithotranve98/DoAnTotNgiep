@@ -14,7 +14,9 @@ import com.doan.maintenancecard.model.MaintenanceCardCustomer;
 import com.doan.maintenancecard.model.MaintenanceCardFilter;
 import com.doan.maintenancecard.service.MaintenanceCardDetailService;
 import com.doan.maintenancecard.service.MaintenanceCardService;
+
 import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,8 +43,9 @@ public class MaintenanceCardController {
 
     // Kiem tra quyen: NV dieu phoi
     @PostMapping("maintenanceCards")
-    public ResponseEntity<MaintenanceCardDTO> insertMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO) throws NotEnoughProductException, CodeExistedException, JsonProcessingException {
-        MaintenanceCardDTO maintenanceCardDTO1 = maintenanceCardService.insertMaintenanceCard(maintenanceCardDTO);
+    public ResponseEntity<MaintenanceCardDTO> insertMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO
+        , @RequestParam String tenantId) throws NotEnoughProductException, CodeExistedException, JsonProcessingException {
+        MaintenanceCardDTO maintenanceCardDTO1 = maintenanceCardService.insertMaintenanceCard(maintenanceCardDTO, tenantId);
         return new ResponseEntity<>(maintenanceCardDTO1, HttpStatus.OK);
     }
 

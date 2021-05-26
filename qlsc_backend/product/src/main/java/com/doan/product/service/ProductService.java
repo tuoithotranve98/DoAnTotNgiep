@@ -17,7 +17,7 @@ import java.util.Map;
 public interface ProductService {
 
     Map<String, Object> getAll(SearchProduct searchProduct);
-    ProductResponse save(ProductRequest productRequest) throws Exception;
+    ProductResponse save(ProductRequest productRequest, String tenantId) throws Exception;
     ProductResponse update(ProductRequest productRequest, Long id) throws Exception;
     String createNewCode() throws NotANumberException;
     ProductDTO getOneById(Long id) throws ProductNotFoundException;

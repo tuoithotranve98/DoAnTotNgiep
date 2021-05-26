@@ -19,6 +19,7 @@ public class SearchProduct {
     private String nameField;
     private String order;
     private List<Integer> type;
+    private Long tenantId;
 
     public SearchProduct() {
         this.size = 10;
@@ -27,6 +28,7 @@ public class SearchProduct {
         this.nameField = "";
         this.order = "";
         this.type = Arrays.asList(1, 2);
+        this.tenantId = 0L;
     }
 
     @ModelAttribute("searchProduct")
@@ -37,6 +39,7 @@ public class SearchProduct {
         searchProduct.setNameField("");
         searchProduct.setOrder("");
         searchProduct.setSearch("");
+        searchProduct.setTenantId(0L);
         searchProduct.setType(Arrays.asList(1, 2));
         return searchProduct;
     }

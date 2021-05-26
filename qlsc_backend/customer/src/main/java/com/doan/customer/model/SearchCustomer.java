@@ -16,6 +16,7 @@ public class SearchCustomer {
     private String search;
     private String nameField;
     private String order;
+    private Long tenantId;
 
     public SearchCustomer(){
         this.size = 10;
@@ -23,6 +24,7 @@ public class SearchCustomer {
         this.search = "";
         this.nameField = "";
         this.order = "";
+        this.tenantId = 0L;
     }
 
     @ModelAttribute("searchCustomer")
@@ -33,6 +35,7 @@ public class SearchCustomer {
         searchCustomer.setNameField("");
         searchCustomer.setOrder("");
         searchCustomer.setSearch("");
+        searchCustomer.setTenantId(0L);
         return searchCustomer;
     }
 

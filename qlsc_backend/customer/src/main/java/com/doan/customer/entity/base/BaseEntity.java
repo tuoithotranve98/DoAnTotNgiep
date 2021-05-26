@@ -31,4 +31,7 @@ public abstract class BaseEntity {
     @Column(name = "modified_date", nullable = false, length = 19)
     private Date modifiedDate;
 
+    @Column(name = "tenant_id")
+    private Long tenantId;
+
 }

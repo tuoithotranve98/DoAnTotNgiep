@@ -26,4 +26,5 @@ public class CustomerDTO extends BaseDTO {
     private String payStatus;
     private int totalNotPay;
     private BigDecimal currentDebt;
+    private Long tenantId;
 }

@@ -2,7 +2,9 @@ package com.doan.user.service.impl;
 
 import com.doan.user.converter.UserConverter;
 import com.doan.user.dto.PasswordRequest;
+import com.doan.user.entity.Tenant;
 import com.doan.user.model.UserResponse;
+import com.doan.user.repository.TenantRepository;
 import com.doan.user.service.UserService;
 import com.doan.user.dto.UserDTO;
 import com.doan.user.entity.User;
@@ -29,10 +31,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final TenantRepository tenantRepository;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
-    public Map<String, Object> getListUser(int page, int size, String sortBy, String descending, String search) {
+    public Map<String, Object> getListUser(int page, int size, String sortBy, String descending, String search, String tenantId) {
         page = page - 1;
         if (sortBy.isEmpty()) {
             sortBy = "totalMaintenanceCard";
@@ -40,13 +43,13 @@ public class UserServiceImpl implements UserService {
         if (descending.isEmpty()) {
             descending = "desc";
         }
-        Pageable paging = PageRequest.of(page, size, Sort.by("totalMaintenanceCard").descending());
+        Pageable paging;
 
         paging = PageRequest.of(page, size, Sort.by(sortBy));
         if (descending.equals("desc")) {
             paging = PageRequest.of(page, size, Sort.by(sortBy).descending());
         }
-        Page<User> map = userRepository.getAllUser(paging, search);
+        Page<User> map = userRepository.getAllUser(paging, search, Long.parseLong(tenantId));
         Map<String, Object> hashMap = new HashMap<>();
         List<User> users = map.getContent();
         List<UserDTO> userDTOs = new ArrayList<>();
@@ -59,30 +62,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> getListUserV1(){
+    public Map<String, Object> getListUserV1(String tenantId){
         Map<String, Object> hashMap = new HashMap<>();
         List<UserDTO> userDTOs = new ArrayList<>();
-        List<User> users = userRepository.getAllUserV1();
+        List<User> users = userRepository.getAllUserV1(tenantId);
         users.forEach(user -> userDTOs.add(userConverter.convertToDTO(user)));
         hashMap.put("users", userDTOs);
         return hashMap;
-    }
-
-    @Override
-    public Map<String, Object> getAllUser(int pageNumber, int size) {
-        Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("id").descending());
-        Page<User> userPage = userRepository.findAll(paging);
-        List<UserDTO> userDTOs = new ArrayList<>();
-        HashMap<String, Object> map = new HashMap<>();
-        List<User> users = userPage.getContent();
-        for (User user : users) {
-            userDTOs.add(userConverter.convertToDTO(user));
-        }
-        map.put("suppliers", userDTOs);
-        map.put("currentPage", userPage.getNumber() + 1);
-        map.put("totalItems", userPage.getTotalElements());
-        map.put("totalPages", userPage.getTotalPages());
-        return map;
     }
 
     @Override
@@ -109,7 +95,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO insertUser(UserDTO userDTO) throws CodeExistedException {
+    public UserDTO insertUser(UserDTO userDTO, String tenantId) throws CodeExistedException {
         User user = new User();
         user.setId(userDTO.getId());
         user.setAddress(userDTO.getAddress());
@@ -122,7 +108,9 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDTO.getEmail());
         user.setRole(userDTO.getRole());
         user.setFullName(userDTO.getName());
-
+        Optional<Tenant> tenant = tenantRepository.findById(Long.parseLong(tenantId));
+        tenant.ifPresent(user::setTenant);
+        if (tenant.isEmpty()) throw new CodeExistedException("Tenant Not Found");
         try {
             return userConverter.convertToDTO(userRepository.save(user));
         } catch (Exception e) {
@@ -200,14 +188,6 @@ public class UserServiceImpl implements UserService {
         newCodeString = "ND00" + codeNumber;
         return newCodeString;
 
-    }
-
-    @Override
-    public Boolean checkLogin(UserDTO userDTO) {
-        String username = userDTO.getEmail();
-        String password = userDTO.getPassword();
-        User user = userRepository.checkLogin(username, password);
-        return user != null;
     }
 
     @Override

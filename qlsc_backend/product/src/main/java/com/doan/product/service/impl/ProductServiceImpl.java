@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
         String nameField = searchProduct.getNameField();
         String order = searchProduct.getOrder();
         String keyWork = searchProduct.getSearch();
+        Long tenantId = searchProduct.getTenantId();
         Byte[] type = convertIntToByte(searchProduct.getType());
         Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("modifiedDate").descending());
 
@@ -56,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        Page<Product> productPage = productRepository.search(paging, keyWork, type);
+        Page<Product> productPage = productRepository.search(paging, keyWork, type, tenantId);
         List<ProductDTO> productDTOS = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<Product> products = productPage.getContent();
@@ -154,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse save(ProductRequest productReq) {
+    public ProductResponse save(ProductRequest productReq, String tenantId) {
         Product pro =new Product();
         Product product = new Product();
         if (StringUtils.isNotBlank(productReq.getCode())
@@ -176,6 +177,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCreatedDate(new Date());
         product.setModifiedDate(new Date());
         product.setStatus((byte) 1);
+        product.setTenantId(Long.parseLong(tenantId));
         try {
             pro = productRepository.save(product);
             if (product.getType() == 1) {

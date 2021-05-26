@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerConverter customerConverter;
 
     @Override
-    public CustomerRes addCustomer(CustomerDTO customerDTO) {
+    public CustomerRes addCustomer(CustomerDTO customerDTO, String tenantId) {
         Customer cus = new Customer();
         if (StringUtils.isEmpty(customerDTO.getCode())) {
             String code = generateCode();
@@ -52,6 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
             return new CustomerRes(Boolean.FALSE, "Số điện thoại đã tồn tại", cus);
         }
 
+        customerDTO.setTenantId(Long.parseLong(tenantId));
         customerDTO.setCreatedDate(new Date());
         customerDTO.setModifiedDate(new Date());
         customerDTO.setStatus((byte) 1);
@@ -60,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerConverter.convertToEntity(customerDTO);
 
         try {
-            cus =customerRepository.save(customer);
+            cus = customerRepository.save(customer);
             return new CustomerRes(Boolean.TRUE, "", cus);
         } catch (DuplicateFieldException e) {
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
         String order = searchCustomer.getOrder();
         String keyWork = searchCustomer.getSearch();
         Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("modifiedDate").descending());
-
+        Long tenantId = searchCustomer.getTenantId();
         if (nameField.equals("code")) {
             if (order.equals("ascend")) {
                 paging = PageRequest.of(pageNumber - 1, size, Sort.by("code"));
@@ -92,7 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
         }
 
-        Page<Customer> customerPage = customerRepository.search(paging, keyWork);
+        Page<Customer> customerPage = customerRepository.search(paging, keyWork, tenantId);
 
         List<CustomerDTO> customerDTOList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
