@@ -10,6 +10,13 @@ export default {
 export const menuLinkCoordinator = [
   {
     id: 0,
+    url: '/home',
+    icon: <Icons.Home />,
+    title: 'Tổng quan',
+    submenu: []
+  },
+  {
+    id: 1,
     url: '/maintenance-card',
     icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
@@ -27,7 +34,7 @@ export const menuLinkCoordinator = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     url: '/customer',
     icon: <Icons.Customer />,
     title: 'Khách hàng',
@@ -45,15 +52,28 @@ export const menuLinkCoordinator = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     url: '/product',
     icon: <Icons.Product />,
-    title: 'Linh kiện - Dịch vụ',
+    title: 'Linh kiện',
     submenu: [
       {
         id: 0,
         url: '/products',
-        title: 'Danh sách linh kiện - dịch vụ'
+        title: 'Danh sách linh kiện'
+      }
+    ]
+  },
+  {
+    id: 4,
+    url: '/service',
+    icon: <Icons.Service />,
+    title: 'Dịch vụ',
+    submenu: [
+      {
+        id: 0,
+        url: '/services',
+        title: 'Danh sách dịch vụ'
       }
     ]
   },
@@ -62,6 +82,13 @@ export const menuLinkCoordinator = [
 export const menuLinkRepairer = [
   {
     id: 0,
+    url: '/home',
+    icon: <Icons.Home />,
+    title: 'Tổng quan',
+    submenu: []
+  },
+  {
+    id: 1,
     url: '/maintenance-card',
     icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
@@ -77,12 +104,25 @@ export const menuLinkRepairer = [
     id: 2,
     url: '/product',
     icon: <Icons.Product />,
-    title: 'Linh kiện - Dịch vụ',
+    title: 'Linh kiện',
     submenu: [
       {
         id: 0,
         url: '/products',
-        title: 'Danh sách linh kiện - dịch vụ'
+        title: 'Danh sách linh kiện'
+      }
+    ]
+  },
+  {
+    id: 3,
+    url: '/service',
+    icon: <Icons.Service />,
+    title: 'Dịch vụ',
+    submenu: [
+      {
+        id: 0,
+        url: '/services',
+        title: 'Danh sách dịch vụ'
       }
     ]
   },
@@ -92,6 +132,13 @@ export const menuLinkRepairer = [
 export const menuLinkFull = [
   {
     id: 0,
+    url: '/home',
+    icon: <Icons.Home />,
+    title: 'Tổng quan',
+    submenu: []
+  },
+  {
+    id: 1,
     url: '/maintenance-card',
     icon: <Icons.MainCard />,
     title: 'Phiếu sửa chữa',
@@ -113,7 +160,7 @@ export const menuLinkFull = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     url: '/customer',
     icon: <Icons.Customer />,
     title: 'Khách hàng',
@@ -135,25 +182,33 @@ export const menuLinkFull = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     url: '/product',
     icon: <Icons.Product />,
-    title: 'Linh kiện - Dịch vụ',
+    title: 'Linh kiện',
     submenu: [
       {
         id: 0,
-        url: '/product/create',
-        title: 'Thêm mới'
-      },
-      {
-        id: 1,
         url: '/products',
-        title: 'Danh sách'
-      },
+        title: 'Danh sách linh kiện'
+      }
     ]
   },
   {
-    id: 3,
+    id: 4,
+    url: '/service',
+    icon: <Icons.Service />,
+    title: 'Dịch vụ',
+    submenu: [
+      {
+        id: 0,
+        url: '/services',
+        title: 'Danh sách dịch vụ'
+      }
+    ]
+  },
+  {
+    id: 5,
     url: '/staff',
     icon: <Icons.User />,
     title: 'Nhân viên',
@@ -176,7 +231,7 @@ export const menuLinkFull = [
   },
 
   {
-    id: 4,
+    id: 6,
     url: '/report',
     icon: <Icons.Report />,
     title: 'Báo cáo',

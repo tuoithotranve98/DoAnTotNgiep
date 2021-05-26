@@ -2,12 +2,13 @@ import React from "react";
 import storage from "../../utils/storage";
 import { Route, Redirect, withRouter } from "react-router-dom";
 
-const repairStaff = ["/maintenance-cards", "/products", "/maintenance-card/detail",];
+const repairStaff = ["/maintenance-cards", "/products","/services", "/maintenance-card/detail",];
 const coordinator = [
   "/maintenance-cards",
   "/maintenance-card/create",
   "/maintenance-card/detail",
   "/products",
+  "/services",
   "/customers",
   "/customer/detail",
   "/customer/create",

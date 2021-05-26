@@ -1,0 +1,43 @@
+.product-create-tilte-action{
+  .list-header {
+      justify-content: space-between;
+      margin: 12px 0 5px;
+      margin-bottom: 10px;
+      .header-title {
+          margin-top: 5px;
+        font-size: 20px;
+      }
+  }
+  .dlv-button-save {
+      margin-right: 20px;
+      padding: 8px;
+      border: 1.5px solid #0088FF;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #0084ff;
+        color: white !important;
+          svg{
+            path{
+              fill: white !important;
+            }
+        }
+        .separate{
+          rect{
+            fill: white;
+          }
+        }
+      }
+      .separate {
+        margin: 0 5px;
+      }
+    }
+  .dlv-button-cancel{
+      border: 1px solid #d3d3d3;
+      padding: 10.5px;
+      border-radius: 4px;
+      margin-right: 10px;
+      cursor: pointer;
+  }
+  
+}

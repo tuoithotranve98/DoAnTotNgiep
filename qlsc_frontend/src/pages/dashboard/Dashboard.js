@@ -26,6 +26,10 @@ import NotFoundComponent from "../../components/notfound/NotFoundComponent";
 import PrivateRoute from "../../components/router/PrivateRoute";
 import "./styles.scss";
 import MainCardUpdate from "../maintenancecard/components/MainCardUpdate/MainCardUpdate";
+import ServiceUpdate from "../service/components/ServiceUpdate/ServiceUpdate";
+import ServiceCreate from "../service/components/ServiceCreate/ServiceCreate";
+import ServiceList from "../service/components/ServiceList/ServiceList";
+import Home from "../home/Home";
 function Dashboard(props) {
   const { auth } = props;
   const [showMenu, setShowMenu] = useState(false)
@@ -86,6 +90,21 @@ function Dashboard(props) {
           path="/product/update/:id([1-9]+[0-9]*)"
           component={ProductUpdate}
         />
+        <PrivateRoute
+          exact
+          path="/services"
+          component={ServiceList}
+        />
+        <PrivateRoute
+          exact
+          path="/service/create"
+          component={ServiceCreate}
+        />
+        <PrivateRoute
+          exact
+          path="/service/update/:id([1-9]+[0-9]*)"
+          component={ServiceUpdate}
+        />
         <PrivateRoute exact path="/report" component={ReportMain} />
         <PrivateRoute exact path="/staffs" component={StaffList} />
         <PrivateRoute exact path="/staff/create" component={StaffCreate} />
@@ -98,6 +117,11 @@ function Dashboard(props) {
           exact
           path="/staff/update/:id([1-9]+[0-9]*)"
           component={StaffUpdate}
+        />
+        <PrivateRoute
+          exact
+          path="/home"
+          component={Home}
         />
         <Route component={NotFoundComponent} />
       </Switch>
