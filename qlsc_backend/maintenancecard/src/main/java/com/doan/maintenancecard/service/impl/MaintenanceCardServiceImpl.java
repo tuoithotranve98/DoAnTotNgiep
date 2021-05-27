@@ -121,7 +121,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public Map<String, Object> searchMaintenanceCard(MaintenanceCardFilter maintenanceCardFilter, String email, int role) {
+    public Map<String, Object> searchMaintenanceCard(MaintenanceCardFilter maintenanceCardFilter, String email, int role, String tenantId) {
         int page = maintenanceCardFilter.getPage();
         int size = maintenanceCardFilter.getSize();
         String search = maintenanceCardFilter.getSearch();
@@ -129,7 +129,6 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         String order = maintenanceCardFilter.getOrder();
         byte[] workStatus = maintenanceCardFilter.getWorkStatus();
         byte[] payStatus = maintenanceCardFilter.getPayStatus();
-        Long tenantId = maintenanceCardFilter.getTenantId();
         Pageable paging = PageRequest.of(page - 1, size, Sort.by("modifiedDate").descending());
 
         if (!nameField.equals("")) {
@@ -138,7 +137,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 paging = PageRequest.of(page - 1, size, Sort.by(nameField).descending());
             }
         }
-        Page<MaintenanceCard> maintenanceCardPage = maintenanceCardRepository.search(paging, search, workStatus, payStatus, email, role, tenantId);
+        Page<MaintenanceCard> maintenanceCardPage = maintenanceCardRepository.search(paging, search, workStatus, payStatus, email, role, Long.parseLong(tenantId));
         List<MaintenanceCardDTO> maintenanceCardDTOList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<MaintenanceCard> maintenanceCards = maintenanceCardPage.getContent();
@@ -570,7 +569,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest filter){
+    public MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest filter, String tenantId){
         MaintenanceCardsResponse maintenanceCardsResponse = new MaintenanceCardsResponse();
         maintenanceCardsResponse.getMetadata().setPage(filter.getPage());
         maintenanceCardsResponse.getMetadata().setLimit(filter.getLimit());

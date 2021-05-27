@@ -2,6 +2,7 @@ package com.doan.user.controller;
 
 import com.doan.user.dto.PasswordRequest;
 import com.doan.user.model.UserResponse;
+import com.doan.user.security.AppAuthHelper;
 import com.doan.user.service.UserService;
 import com.doan.user.dto.UserDTO;
 import com.doan.user.exception.commonException.NotFoundException;
@@ -24,20 +25,22 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final AppAuthHelper appAuthHelper;
 
     @GetMapping("users")
     public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "page", defaultValue = "1", required = false) int pageNum,
                                                            @RequestParam(name = "size", defaultValue = "10", required = false) int pageSize,
                                                            @RequestParam(value = "sortBy", defaultValue = "modifiedDate") String sortBy,
                                                            @RequestParam(value = "descending", defaultValue = "desc") String descending,
-                                                           @RequestParam(value = "search", defaultValue = "") String param,
-                                                           @RequestParam(value = "tenantId", defaultValue = "") String tenantId) {
+                                                           @RequestParam(value = "search", defaultValue = "") String param) {
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
         Map<String, Object> allUser = userService.getListUser(pageNum, pageSize, sortBy, descending, param, tenantId);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
     // lấy full nhân viên sửa chữa
     @GetMapping("users-v1")
-    public ResponseEntity<Map<String, Object>> getAllUsersV1(@RequestParam(value = "tenantId", defaultValue = "") String tenantId) {
+    public ResponseEntity<Map<String, Object>> getAllUsersV1() {
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
         Map<String, Object> allUser = userService.getListUserV1(tenantId);
         return new ResponseEntity<>(allUser, HttpStatus.OK);
     }
@@ -58,9 +61,9 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public UserResponse insertUser(@RequestBody UserDTO userDTO,
-                                   @RequestParam String tenantId) {
+    public UserResponse insertUser(@RequestBody UserDTO userDTO) {
         try {
+            String tenantId = appAuthHelper.httpCredential().getTenantId();
             userService.insertUser(userDTO, tenantId);
             return new UserResponse(Boolean.TRUE);
         } catch (Exception e) {

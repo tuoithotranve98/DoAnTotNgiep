@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface ProductService {
 
-    Map<String, Object> getAll(SearchProduct searchProduct);
+    Map<String, Object> getAll(SearchProduct searchProduct, String tenantId);
     ProductResponse save(ProductRequest productRequest, String tenantId) throws Exception;
     ProductResponse update(ProductRequest productRequest, Long id) throws Exception;
     String createNewCode() throws NotANumberException;

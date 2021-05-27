@@ -70,7 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Map<String, Object> searchCustomer(SearchCustomer searchCustomer) {
+    public Map<String, Object> searchCustomer(SearchCustomer searchCustomer, String tenantId) {
 
         int pageNumber = searchCustomer.getPage();
         int size = searchCustomer.getSize();
@@ -78,7 +78,6 @@ public class CustomerServiceImpl implements CustomerService {
         String order = searchCustomer.getOrder();
         String keyWork = searchCustomer.getSearch();
         Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("modifiedDate").descending());
-        Long tenantId = searchCustomer.getTenantId();
         if (nameField.equals("code")) {
             if (order.equals("ascend")) {
                 paging = PageRequest.of(pageNumber - 1, size, Sort.by("code"));
@@ -93,12 +92,12 @@ public class CustomerServiceImpl implements CustomerService {
             }
         }
 
-        Page<Customer> customerPage = customerRepository.search(paging, keyWork, tenantId);
+        Page<Customer> customerPage = customerRepository.search(paging, keyWork, Long.parseLong(tenantId));
 
         List<CustomerDTO> customerDTOList = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<Customer> customers = customerPage.getContent();
-        if (customerPage.getContent().size() == 0) {
+        if (customerPage.getContent().isEmpty()) {
             map.put("customers", customerDTOList);
             map.put("currentPage", 0);
             map.put("totalItems", 0);

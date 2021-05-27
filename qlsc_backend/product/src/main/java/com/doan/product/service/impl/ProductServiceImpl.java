@@ -32,14 +32,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductHistoryRepository productHistoryRepository;
 
     @Override
-    public Map<String, Object> getAll(SearchProduct searchProduct) {
+    public Map<String, Object> getAll(SearchProduct searchProduct, String tenantId) {
 
         int pageNumber = searchProduct.getPage();
         int size = searchProduct.getSize();
         String nameField = searchProduct.getNameField();
         String order = searchProduct.getOrder();
         String keyWork = searchProduct.getSearch();
-        Long tenantId = searchProduct.getTenantId();
         Byte[] type = convertIntToByte(searchProduct.getType());
         Pageable paging = PageRequest.of(pageNumber - 1, size, Sort.by("modifiedDate").descending());
 
@@ -57,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
-        Page<Product> productPage = productRepository.search(paging, keyWork, type, tenantId);
+        Page<Product> productPage = productRepository.search(paging, keyWork, type, Long.parseLong(tenantId));
         List<ProductDTO> productDTOS = new ArrayList<>();
         HashMap<String, Object> map = new HashMap<>();
         List<Product> products = productPage.getContent();

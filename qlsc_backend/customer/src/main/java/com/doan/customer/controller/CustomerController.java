@@ -3,6 +3,7 @@ package com.doan.customer.controller;
 import com.doan.customer.dto.main.CustomerDTO;
 import com.doan.customer.model.CustomerRes;
 import com.doan.customer.model.SearchCustomer;
+import com.doan.customer.security.AppAuthHelper;
 import com.doan.customer.service.CustomerService;
 import com.doan.customer.exception.DataTooLongException;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,13 @@ import java.util.Map;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final AppAuthHelper appAuthHelper;
 
     @PostMapping("customers")
     public CustomerRes addCustomer(
-            @RequestBody CustomerDTO customerDTO,
-            @RequestParam String tenantId)
+            @RequestBody CustomerDTO customerDTO)
             throws ParseException, DataTooLongException {
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
         return customerService.addCustomer(customerDTO, tenantId);
     }
 
@@ -39,7 +41,8 @@ public class CustomerController {
     @GetMapping("customers")
     public ResponseEntity<Object> searchCustomer(
             @ModelAttribute("searchCustomer") SearchCustomer searchCustomer) {
-        Map<String, Object> allCustomer = customerService.searchCustomer(searchCustomer);
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
+        Map<String, Object> allCustomer = customerService.searchCustomer(searchCustomer, tenantId);
         return ResponseEntity.ok(allCustomer);
     }
 

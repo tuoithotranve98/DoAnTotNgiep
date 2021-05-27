@@ -5,9 +5,7 @@ export default (fetchImplementation) => (store) => (next) => (action) => {
   if (action) {
     if (action.type && action.type === "FETCH") {
       const { url, params } = action;
-      const urlWithTenantId = url.includes("?")
-        ? `${url}&tenantId=${storage.get("tenantId", false)}`
-        : `${url}?tenantId=${storage.get("tenantId", false)}`;
+      const urlWithTenantId = url;
       let token = null;
       if (store.getState().auth.accessToken) {
         token = store.getState().auth.accessToken;

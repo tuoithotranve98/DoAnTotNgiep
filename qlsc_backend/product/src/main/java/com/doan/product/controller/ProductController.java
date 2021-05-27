@@ -6,6 +6,7 @@ import com.doan.product.exception.productException.ProductNotFoundException;
 import com.doan.product.model.ProductRequest;
 import com.doan.product.model.ProductResponse;
 import com.doan.product.model.SearchProduct;
+import com.doan.product.security.AppAuthHelper;
 import com.doan.product.service.ProductService;
 import com.doan.product.dto.ProductDTO;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +27,14 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductService productService;
+    private final AppAuthHelper appAuthHelper;
 
     //Type 1: accessories
     //Type 2: services
     @GetMapping("products")
     public ResponseEntity<Object> getAll(@ModelAttribute("searchProduct") SearchProduct searchProduct) {
-        Map<String, Object> products = productService.getAll(searchProduct);
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
+        Map<String, Object> products = productService.getAll(searchProduct, tenantId);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -47,9 +50,9 @@ public class ProductController {
     }
 
     @PostMapping("products")
-    public ProductResponse create(@RequestBody ProductRequest productRequest,
-                                  @RequestParam String tenantId) {
+    public ProductResponse create(@RequestBody ProductRequest productRequest) {
         try {
+            String tenantId = appAuthHelper.httpCredential().getTenantId();
             return productService.save(productRequest, tenantId);
         } catch (Exception e) {
             return new ProductResponse(Boolean.FALSE, "false", new Product());

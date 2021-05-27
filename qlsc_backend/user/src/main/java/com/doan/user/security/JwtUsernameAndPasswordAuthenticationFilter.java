@@ -56,8 +56,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 credential.getUsername(), credential.getPassword(), Collections.emptyList());
             return authManager.authenticate(authToken);
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         } catch (AuthException e) {
             throw new AuthException("Tenant Not Found!");
         }
@@ -69,13 +67,15 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         HttpServletResponse response,
         FilterChain chain,
         Authentication auth) {
-        Long now = System.currentTimeMillis();
+        long now = System.currentTimeMillis();
+        User user = userRepository.checkExistEmail(auth.getName());
         List<String> s = auth.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         String token = Jwts.builder()
             .setSubject(auth.getName())
             .claim("authorities", auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+            .claim("tenantId", user.getTenant().getId().toString())
             .setIssuedAt(new Date(now))
             .setExpiration(new Date(now + jwtConfig.getExpiration() * 100000))  // in milliseconds
             .signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes())

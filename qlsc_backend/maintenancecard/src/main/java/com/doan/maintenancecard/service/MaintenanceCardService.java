@@ -22,7 +22,7 @@ public interface MaintenanceCardService {
 
     MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String tenantId) throws NotEnoughProductException, CodeExistedException, JsonProcessingException;
 
-    Map<String, Object> searchMaintenanceCard(MaintenanceCardFilter maintenanceCardFilter, String email, int role);
+    Map<String, Object> searchMaintenanceCard(MaintenanceCardFilter maintenanceCardFilter, String email, int role, String tenantId);
 
     MaintenanceCardDTO getMaintenanceCardById(Long id, String email, int role) throws NotFoundException;
 
@@ -40,5 +40,5 @@ public interface MaintenanceCardService {
     MaintenanceCardDTO setReturnDate(long id);
 
     // update mơi ekko
-    MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest maintenanceCardsFilterRequest);
+    MaintenanceCardsResponse getMaintenanceCard(MaintenanceCardsFilterRequest request, String tenantId);
 }

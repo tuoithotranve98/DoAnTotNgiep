@@ -3,6 +3,7 @@ package com.doan.maintenancecard.controller;
 import com.doan.maintenancecard.model.MaintenanceCardUser;
 import com.doan.maintenancecard.model.MaintenanceCardsFilterRequest;
 import com.doan.maintenancecard.model.MaintenanceCardsResponse;
+import com.doan.maintenancecard.security.AppAuthHelper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.exception.CodeExistedException;
@@ -40,11 +41,12 @@ public class MaintenanceCardController {
 
     private final MaintenanceCardService maintenanceCardService;
     private final MaintenanceCardDetailService maintenanceCardDetailService;
+    private final AppAuthHelper appAuthHelper;
 
     // Kiem tra quyen: NV dieu phoi
     @PostMapping("maintenanceCards")
-    public ResponseEntity<MaintenanceCardDTO> insertMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO
-        , @RequestParam String tenantId) throws NotEnoughProductException, CodeExistedException, JsonProcessingException {
+    public ResponseEntity<MaintenanceCardDTO> insertMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO) throws NotEnoughProductException, CodeExistedException, JsonProcessingException {
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
         MaintenanceCardDTO maintenanceCardDTO1 = maintenanceCardService.insertMaintenanceCard(maintenanceCardDTO, tenantId);
         return new ResponseEntity<>(maintenanceCardDTO1, HttpStatus.OK);
     }
@@ -56,7 +58,8 @@ public class MaintenanceCardController {
         Authentication authentication = context.getAuthentication();
         List<String> roles = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        Map<String, Object> allMaintenanceCard = maintenanceCardService.searchMaintenanceCard(maintenanceCardFilter, authentication.getName(), Integer.parseInt(roles.get(0).split("_")[1]));
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
+        Map<String, Object> allMaintenanceCard = maintenanceCardService.searchMaintenanceCard(maintenanceCardFilter, authentication.getName(), Integer.parseInt(roles.get(0).split("_")[1]), tenantId);
         return new ResponseEntity<>(allMaintenanceCard, HttpStatus.OK);
     }
 
@@ -144,7 +147,8 @@ public class MaintenanceCardController {
 
     @GetMapping("/maintenance_cards_v2")
     public ResponseEntity<MaintenanceCardsResponse> getMaintenanceCards(@Valid MaintenanceCardsFilterRequest filterRequest) {
-        MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest);
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
+        MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest, tenantId);
         return ResponseEntity.ok(maintenanceCardsResponse);
     }
 

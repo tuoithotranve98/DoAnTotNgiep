@@ -21,7 +21,6 @@ public class MaintenanceCardFilter {
     private String order;
     private byte[] payStatus;
     private byte[] workStatus;
-    private Long tenantId;
 
     public MaintenanceCardFilter() {
         this.size = 10;
@@ -31,7 +30,6 @@ public class MaintenanceCardFilter {
         this.order = "";
         this.payStatus = PAY_STATUS;
         this.workStatus = WORK_STATUS;
-        this.tenantId = 0L;
     }
 
     @ModelAttribute("maintenanceCardFilter")
@@ -42,7 +40,6 @@ public class MaintenanceCardFilter {
         maintenanceCardFilter.setOrder("");
         maintenanceCardFilter.setSearch("");
         maintenanceCardFilter.setSize(5);
-        maintenanceCardFilter.setTenantId(0L);
         return maintenanceCardFilter;
     }
 }
