@@ -1,0 +1,17 @@
+.report-revenue-component {
+  .report-title {
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    padding: 20px 20px;
+    margin-bottom: 0px;
+  }
+  .content {
+    padding: 0 10px;
+    height: 250px;
+    .highcharts-figure, .highcharts-data-table table{
+      margin-top: 0px;
+      padding-top: 10px;
+    }
+  }
+}
