@@ -46,7 +46,7 @@ function Footer(props) {
         {calculateBegin()} -&nbsp;
         {calculateEnd()} trên tổng {totalItem}
       </div>
-      <div className="pagination-size-custom">
+      {/* <div className="pagination-size-custom">
         <div id="pagination-size">
           <div className="pagination-size-text">Hiển thị</div>
           <div className="pagination-size-option">
@@ -81,7 +81,7 @@ function Footer(props) {
           </div>
           <div className="pagination-size-text">kết quả</div>
         </div>
-      </div>
+      </div> */}
       <div className="products-pagination">
         <Pagination
           totalPage={totalPage}

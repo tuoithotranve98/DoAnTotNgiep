@@ -28,22 +28,26 @@ public class BusinessInformationServiceImpl implements BusinessInformationServic
     private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Override
-    public BusinessResponse getReport(String from, String to) {
+    public BusinessResponse getReport(String from, String to, String tenantId) {
         BusinessResponse businessResponse = new BusinessResponse();
         try {
             Date eDatetime = new Date(new SimpleDateFormat(DATE_FORMAT).parse(to).getTime() + (1000 * 60 * 60 * 24));
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sDate = dateFormat.format(new SimpleDateFormat(DATE_FORMAT).parse(from));
             String eDate = dateFormat.format(eDatetime);
-            businessResponse.setTopStaffs(businessInformationCustom.getTopRepairMan(sDate, eDate));
-            businessResponse.setTopServices(businessInformationCustom.getTopService(sDate, eDate));
-            businessResponse.setTotalMonies(getTotalMonies(from, to));
+            Long newTenantId = Long.parseLong(tenantId);
+            businessResponse.setTopStaffs(businessInformationCustom.getTopRepairMan(sDate, eDate, newTenantId));
+            businessResponse.setTopServices(businessInformationCustom.getTopService(sDate, eDate, newTenantId));
+            businessResponse.setTopAccessories(businessInformationCustom.getTopAccessories(sDate, eDate, newTenantId));
+            businessResponse.setTotalMonies(getTotalMonies(from, to, newTenantId));
             String dateNow = getDateNow();
             BusinessToday businessToday = new BusinessToday();
-            businessToday.setTotalMaintenanceCard(businessInformationCustom.getTotalMaintenanceCard(dateNow));
-            businessToday.setTotalMaintenanceCardSuccess(businessInformationCustom.getTotalMaintenanceCardSuccess(dateNow));
-            businessToday.setTotalMaintenanceCardScPayed(businessInformationCustom.getTotalMaintenanceCardSuccessPayed(dateNow));
-            businessToday.setTotalMaintenanceCardScNotPay(businessInformationCustom.getTotalMaintenanceCardSuccessNotPay(dateNow));
+            businessToday.setTotalMoney(businessInformationCustom.getMoney(dateNow, newTenantId).getTotal());
+            businessToday.setTotalMaintenanceCardRepair(businessInformationCustom.getTotalMaintenanceCardIsRepair(dateNow, newTenantId));
+            businessToday.setTotalMaintenanceCard(businessInformationCustom.getTotalMaintenanceCard(dateNow, newTenantId));
+            businessToday.setTotalMaintenanceCardSuccess(businessInformationCustom.getTotalMaintenanceCardSuccess(dateNow, newTenantId));
+            businessToday.setTotalMaintenanceCardScPayed(businessInformationCustom.getTotalMaintenanceCardSuccessPayed(dateNow, newTenantId));
+            businessToday.setTotalMaintenanceCardScNotPay(businessInformationCustom.getTotalMaintenanceCardSuccessNotPay(dateNow, newTenantId));
             businessResponse.setBusinessToday(businessToday);
         } catch (Exception e) {
             return businessResponse;
@@ -57,7 +61,7 @@ public class BusinessInformationServiceImpl implements BusinessInformationServic
         return formatter.format(date);
     }
 
-    private List<TotalMoney> getTotalMonies(String from, String to) {
+    private List<TotalMoney> getTotalMonies(String from, String to, Long newTenantId) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDate newFrom = LocalDate.parse(from, formatter);
         LocalDate newTo = LocalDate.parse(to, formatter).plusDays(1);
@@ -68,7 +72,7 @@ public class BusinessInformationServiceImpl implements BusinessInformationServic
         List<TotalMoney> monies = new ArrayList<>();
         try {
             strDates.forEach(date -> {
-                TotalMoney totalMoney = businessInformationCustom.getMoney(date);
+                TotalMoney totalMoney = businessInformationCustom.getMoney(date, newTenantId);
                 if (totalMoney.getTime() == null) {
                     totalMoney.setTime(date.substring(0, 5));
                     totalMoney.setDateText(date);

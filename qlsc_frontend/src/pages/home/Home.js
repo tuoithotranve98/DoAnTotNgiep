@@ -6,10 +6,10 @@ import home2 from "images/Home2.png";
 import home3 from "images/home3.png";
 import home4 from "images/home4.png";
 import home5 from "images/home5.png";
-import { Icon } from "@material-ui/core";
 import { connect } from "react-redux";
 import { getDataForReport } from "../report/actions/reportAction";
 import ReportLeft from "./ReportLeft/ReportLeft";
+import { moneyFormat } from "../../utils/moneyFormat";
 import moment from "moment";
 var randomColor = require("randomcolor"); // import the script
 var color5 = randomColor();
@@ -93,9 +93,6 @@ const data1 = [
     link: "",
   },
 ];
-const convertDateToMoment = (day) => {
-  return moment(day, "DD/MM/YYYY");
-};
 
 const convertUnixToDate = (unix) => {
   return moment.unix(unix).format("DD/MM/YYYY");
@@ -115,6 +112,27 @@ function Home(props) {
       if (json) setData(json);
     });
   };
+
+  const getMoney = () => {
+    const businessToday = data.businessToday;
+    return `${moneyFormat(businessToday.totalMoney)} đ`;
+  }
+
+  const getMaintenanceCard = () => {
+    const businessToday = data.businessToday;
+    return businessToday.totalMaintenanceCard;
+  }
+
+  const getMaintenanceCardRepair = () => {
+    const businessToday = data.businessToday;
+    return businessToday.totalMaintenanceCardRepair;
+  }
+
+  const getMaintenanceCardFinish = () => {
+    const businessToday = data.businessToday;
+    return businessToday.totalMaintenanceCardSuccess;
+  }
+
   return (
     <React.Fragment>
       <div className="home-container">
@@ -140,7 +158,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Doanh thu</div>
                         <div className="sub-title" style={{ color: "#0088FF" }}>
-                          30000000đ
+                          {getMoney()}
                         </div>
                       </div>
                     </div>
@@ -151,7 +169,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu sửa mới</div>
                         <div className="sub-title" style={{ color: "#0FD186" }}>
-                          40
+                          {getMaintenanceCard()}
                         </div>
                       </div>
                     </div>
@@ -162,7 +180,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu đang sửa</div>
                         <div className="sub-title" style={{ color: "#FFAE06" }}>
-                          30
+                          {getMaintenanceCardRepair()}
                         </div>
                       </div>
                     </div>
@@ -173,7 +191,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu hoàn thành</div>
                         <div className="sub-title" style={{ color: "#4D5FFF" }}>
-                          55
+                          {getMaintenanceCardFinish()}
                         </div>
                       </div>
                     </div>

@@ -165,6 +165,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     @Override
     public MaintenanceCardDTO updateMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String email, int role) throws NotFoundException, CodeExistedException, NotUpdateException, UnknownException, JsonProcessingException {
 
+        // Kiểm tra phiếu xem có còn tồn tại không
         MaintenanceCard maintenanceCardUpdate = maintenanceCardRepository.getMaintenanceCardByIdAndCoordinatorEmail(maintenanceCardDTO.getId(), email, role);
         if (maintenanceCardUpdate == null) {
             throw new NotFoundException("Not found maintenance card");
@@ -172,15 +173,18 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         if (maintenanceCardUpdate.getReturnDate() != null) {
             throw new NotUpdateException();
         }
+
         byte status = 0;
         boolean check = true;
         boolean checkNull = true;
 
+        // convert phiếu sửa chữa từ model update
         MaintenanceCard maintenanceCard = maintenanceCardConverter.convertToEntity(maintenanceCardDTO);
         if (maintenanceCard.getMaintenanceCardDetails().isEmpty()) {
             checkNull = false;
         }
-        ObjectMapper mapper = new ObjectMapper();
+
+        //set lại thời gian
         maintenanceCard.setCreatedDate(maintenanceCardUpdate.getCreatedDate());
         maintenanceCard.setModifiedDate(new Date());
         long total = 0L;
@@ -189,25 +193,28 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
             maintenanceCardDetailId[dem] = maintenanceCardDetail.getId();
             dem++;
-            MaintenanceCardDetail maintenanceCardDetail1Update = null;
+            MaintenanceCardDetail mainCardDetailUpdate = null;
             if (maintenanceCardDetail.getId() != null) {
-                maintenanceCardDetail1Update = maintenanceCardDetailRepository.findById(maintenanceCardDetail.getId()).orElse(null);
+                mainCardDetailUpdate = maintenanceCardDetailRepository.findById(maintenanceCardDetail.getId()).orElse(null);
             }
+
+            maintenanceCardDetail.setModifiedDate(new Date());
             // neu them moi
-            if (maintenanceCardDetail1Update == null) {
+            if (mainCardDetailUpdate == null) {
                 maintenanceCardDetail.setCreatedDate(new Date());
-                maintenanceCardDetail.setModifiedDate(new Date());
                 maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
+
+                //nếu là linh kiện thì bắn kafka để giảm số lượng
                 if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                     ProductModel productModel = new ProductModel();
                     productModel.setAmountChargeInUnit(maintenanceCardDetail.getQuantity());
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(1);
-                    String jsonString = mapper.writeValueAsString(productModel);
-                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
-                    kafkaTemplate.send(record);
-                    total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
-                } else if (maintenanceCardDetail.getProductId() != 0) {
+                    CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
+                }
+
+                // tạo lịch sử thay đổi trạng thái
+                if (maintenanceCardDetail.getProductId() != 0) {
                     MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
                     maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
                     maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
@@ -216,79 +223,73 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     List<MaintenanceCardDetailStatusHistory> maintenanceCardDetailStatusHistories = new ArrayList<>();
                     maintenanceCardDetailStatusHistories.add(maintenanceCardDetailStatusHistory);
                     maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(maintenanceCardDetailStatusHistories);
-                    total += maintenanceCardDetail.getPrice().longValue();
+                    total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
                     check = false;
                 }
             }
             // neu da ton tai
             else {
-                maintenanceCardDetail.setCreatedDate(maintenanceCardDetail1Update.getCreatedDate());
+                maintenanceCardDetail.setCreatedDate(mainCardDetailUpdate.getCreatedDate());
                 maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
-                maintenanceCardDetail.setStatus(maintenanceCardDetail1Update.getStatus());
-                maintenanceCardDetail.setModifiedDate(new Date());
+                maintenanceCardDetail.setStatus(mainCardDetailUpdate.getStatus());
                 // so luong con lai = so luong trong kho - chenh lech giua phieu sua chua truoc va sau
-                if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
-                    if (maintenanceCardDetail.getQuantity() - maintenanceCardDetail1Update.getQuantity() != 0) {
-                        ProductModel productModel = new ProductModel();
-                        productModel.setAmountChargeInUnit(maintenanceCardDetail.getQuantity() - maintenanceCardDetail1Update.getQuantity());
-                        productModel.setCode(maintenanceCardDetail.getProductCode());
-                        if (maintenanceCardDetail.getQuantity() - maintenanceCardDetail1Update.getQuantity() > 0) {
-                            productModel.setStatus(2);
-                        } else {
-                            productModel.setStatus(1);
-                        }
-                        String jsonString = mapper.writeValueAsString(productModel);
-                        ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
-                        kafkaTemplate.send(record);
+                if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1
+                && maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() != 0) {
+                    ProductModel productModel = new ProductModel();
+                    productModel.setAmountChargeInUnit(maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity());
+                    productModel.setCode(maintenanceCardDetail.getProductCode());
+                    if (maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() > 0) {
+                        productModel.setStatus(2);
+                    } else {
+                        productModel.setStatus(1);
                     }
-                    total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
-                } else if (maintenanceCardDetail.getProductId() != 0) {
-                    total += maintenanceCardDetail.getPrice().longValue();
-                    if (maintenanceCardDetail1Update.getStatus() != 0) {
+                    CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
+                }
+                if (maintenanceCardDetail.getProductId() != 0) {
+                    if (mainCardDetailUpdate.getStatus() != 0) {
                         status = 1;
                     }
-                    if (maintenanceCardDetail1Update.getStatus() != 2) {
+                    if (mainCardDetailUpdate.getStatus() != 2) {
                         check = false;
                     }
+                    total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
                 }
-                maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(maintenanceCardDetail1Update.getMaintenanceCardDetailStatusHistories());
+
+                maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(mainCardDetailUpdate.getMaintenanceCardDetailStatusHistories());
             }
         }
         maintenanceCard.setPrice(BigDecimal.valueOf(total));
-        for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCardUpdate.getMaintenanceCardDetails()) {
+        maintenanceCardUpdate.getMaintenanceCardDetails().forEach(maintenanceCardDetail -> {
             if (!ArrayUtils.contains(maintenanceCardDetailId, maintenanceCardDetail.getId())) {
-                if (maintenanceCardDetail.getIsDelete() == 0) {
-                    if (!(maintenanceCardDetail.getProductType() == 2 && maintenanceCardDetail.getStatus() != 0)) {
-                        if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
-                            ProductModel productModel = new ProductModel();
-                            productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
-                            productModel.setCode(maintenanceCardDetail.getProductCode());
-                            productModel.setStatus(2);
-                            String jsonString = mapper.writeValueAsString(productModel);
-                            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
-                            kafkaTemplate.send(record);
-                        } else {
-                            MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                            maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
-                            maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
-                            maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
-                            maintenanceCardDetailStatusHistory.setStatus((byte) (-1));
-                            maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
-                        }
-                        maintenanceCardDetail.setIsDelete((byte) 1);
-
+                if (maintenanceCardDetail.getIsDelete() == 0
+                && maintenanceCardDetail.getStatus() != 0) {
+                    if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
+                        ProductModel productModel = new ProductModel();
+                        productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
+                        productModel.setCode(maintenanceCardDetail.getProductCode());
+                        productModel.setStatus(2);
+                        CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
                     }
+                    if (maintenanceCardDetail.getProductId() != 0) {
+                        MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
+                        maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
+                        maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
+                        maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
+                        maintenanceCardDetailStatusHistory.setStatus((byte) (-1));
+                        maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
+                    }
+
+                    maintenanceCardDetail.setIsDelete((byte) 1);
+
                 }
                 maintenanceCard.getMaintenanceCardDetails().add(maintenanceCardDetail);
             }
-        }
+        });
         maintenanceCard.setCode(maintenanceCard.getCode().toLowerCase());
         if (maintenanceCard.getCode() == null || maintenanceCard.getCode().length() == 0) {
             maintenanceCard.setCode(maintenanceCardUpdate.getCode());
-        } else {
-            if (maintenanceCardRepository.checkCode(maintenanceCard.getCode(), maintenanceCard.getId()) > 0) {
-                throw new CodeExistedException("Code existed");
-            }
+        } else if (maintenanceCardRepository.checkCode(maintenanceCard.getCode(), maintenanceCard.getId()) > 0) {
+            throw new CodeExistedException("Code existed");
         }
         if (check) {
             maintenanceCard.setWorkStatus((byte) 2);
@@ -318,14 +319,11 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         maintenanceCard.setModifiedDate(new Date());
         if (maintenanceCard.getWorkStatus() != 2 || maintenanceCard.getPayStatus() != 1) {
             maintenanceCard.setReturnDate(null);
-        } else {
-            if (maintenanceCard.getReturnDate() != null) {
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "-1");
-                kafkaTemplate.send(record2);
-                Date returnDate = maintenanceCard.getReturnDate();
-                if (returnDate.compareTo(new Date()) > 0) {
-                    throw new UnknownException();
-                }
+        } else if (maintenanceCard.getReturnDate() != null) {
+            CompletableFuture.runAsync(() -> sendMessage.sendToUser(String.valueOf(maintenanceCard.getRepairmanId()), "1"));
+            Date returnDate = maintenanceCard.getReturnDate();
+            if (returnDate.compareTo(new Date()) > 0) {
+                throw new UnknownException();
             }
         }
         maintenanceCard.setPlatesNumber(maintenanceCardDTO.getPlatesNumber().toLowerCase());
@@ -333,46 +331,20 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             maintenanceCard.setRepairmanEmail(maintenanceCardUpdate.getRepairmanEmail());
             maintenanceCard.setRepairmanId(maintenanceCardUpdate.getRepairmanId());
             maintenanceCard.setRepairmanName(maintenanceCardUpdate.getRepairmanName());
-        } else {
-            if (maintenanceCard.getRepairmanId() != 0) {
-                maintenanceCard.setRepairmanName(maintenanceCardDTO.getRepairman().getName());
-                ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-user", maintenanceCard.getRepairmanId() + "", "1");
-                kafkaTemplate.send(record2);
-                MessageModel messageModel = new MessageModel();
-                messageModel.setMaintenanceCardCode(maintenanceCard.getCode());
-                messageModel.setAuthor(email);
-                messageModel.setCoordinatorEmail(maintenanceCard.getCoordinatorEmail());
-                messageModel.setRepairmanEmail(maintenanceCard.getRepairmanEmail());
-                messageModel.setType(1);
-                String jsonString = mapper.writeValueAsString(messageModel);
-                ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard.getId() + "", jsonString);
-                kafkaTemplate.send(record);
-            }
+        } else if (maintenanceCard.getRepairmanId() != 0) {
+            maintenanceCard.setRepairmanName(maintenanceCardDTO.getRepairman().getName());
+            CompletableFuture.runAsync(() -> sendMessage.sendToUser(String.valueOf(maintenanceCard.getRepairmanId()), "1"));
+            MessageModel messageModel = new MessageModel();
+            messageModel.setMaintenanceCardCode(maintenanceCard.getCode());
+            messageModel.setAuthor(email);
+            messageModel.setCoordinatorEmail(maintenanceCard.getCoordinatorEmail());
+            messageModel.setRepairmanEmail(maintenanceCard.getRepairmanEmail());
+            messageModel.setType(1);
         }
         try {
-            MaintenanceCard maintenanceCard1 = maintenanceCardRepository.save(maintenanceCard);
-            MessageModel messageModel = new MessageModel();
-            messageModel.setMaintenanceCardCode(maintenanceCard1.getCode());
-            messageModel.setAuthor(email);
-            messageModel.setCoordinatorEmail(maintenanceCard1.getCoordinatorEmail());
-            messageModel.setRepairmanEmail(maintenanceCard1.getRepairmanEmail());
-            if (maintenanceCard1.getWorkStatus() == 2 && maintenanceCard1.getPayStatus() == 0) {
-                messageModel.setType(2);
-            } else {
-                messageModel.setType(3);
-            }
-            String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
-            kafkaTemplate.send(record);
-            VehicleModel vehicleModel = new VehicleModel();
-            vehicleModel.setColor(maintenanceCard.getColor());
-            vehicleModel.setModel(maintenanceCard.getModel());
-            vehicleModel.setPlateNumber(maintenanceCard.getPlatesNumber());
-            String jsonString2 = mapper.writeValueAsString(vehicleModel);
-            ProducerRecord<String, String> record2 = new ProducerRecord<String, String>("dk3w4sws-customer", maintenanceCard1.getCustomerId() + "", jsonString2);
-            kafkaTemplate.send(record2);
-            return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
-
+            MaintenanceCard newMaintenanceCard = saveMaintenanceCard(maintenanceCard);
+            CompletableFuture.runAsync(() -> sendMessage.sendToCustomer(newMaintenanceCard));
+            return maintenanceCardConverter.convertAllToDTO(newMaintenanceCard);
         } catch (Exception e) {
             e.printStackTrace();
             throw new UnknownException();
@@ -483,8 +455,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     @Override
     public MaintenanceCardDTO setReturnDate(long id) {
         MaintenanceCard maintenanceCard = maintenanceCardRepository.findById(id).orElse(null);
-        Date now = new Date();
-        maintenanceCard.setReturnDate(now);
+        if (maintenanceCard != null) {
+            maintenanceCard.setReturnDate(new Date());
+        }
         return maintenanceCardConverter.convertAllToDTO(maintenanceCard);
     }
 
@@ -521,8 +494,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public Map<String, Object> getMaintenanceCardByIdCustomer(
-        MaintenanceCardCustomer maintenanceCardCustomer) {
+    public Map<String, Object> getMaintenanceCardByIdCustomer(MaintenanceCardCustomer maintenanceCardCustomer) {
 
         int page = maintenanceCardCustomer.getPage();
         int size = maintenanceCardCustomer.getSize();
@@ -550,7 +522,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         for (MaintenanceCard maintenanceCard : maintenanceCards) {
             maintenanceCardDTOS.add(maintenanceCardConverter.convertToDTO(maintenanceCard));
         }
-        if (maintenanceCardPage.getContent().size() == 0) {
+        if (maintenanceCardPage.getContent().isEmpty()) {
             map.put("historyMainCards", maintenanceCardDTOS);
             map.put("currentPage", 0);
             map.put("totalItems", 0);
@@ -627,5 +599,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
 
     private Date getDateFromTimestamp(Long timestamp) {
         return new Date(timestamp * 1000);
+    }
+
+    private MaintenanceCard saveMaintenanceCard(MaintenanceCard maintenanceCard) {
+        return maintenanceCardRepository.save(maintenanceCard);
     }
 }

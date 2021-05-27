@@ -82,8 +82,8 @@ public class MaintenanceCardController {
         Authentication authentication = context.getAuthentication();
         List<String> roles = authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        MaintenanceCardDTO maintenanceCardDTO1 = maintenanceCardService.updateMaintenanceCard(maintenanceCardDTO, authentication.getName(), Integer.parseInt(roles.get(0).split("_")[1]));
-        return new ResponseEntity<>(maintenanceCardDTO1, HttpStatus.OK);
+        MaintenanceCardDTO newMaintenanceCard = maintenanceCardService.updateMaintenanceCard(maintenanceCardDTO, authentication.getName(), Integer.parseInt(roles.get(0).split("_")[1]));
+        return new ResponseEntity<>(newMaintenanceCard, HttpStatus.OK);
     }
 
     @GetMapping("/maintenanceCards/customer")

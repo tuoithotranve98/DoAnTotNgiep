@@ -15,6 +15,7 @@ public class BusinessResponse {
 
     private List<StatisticRepairman> topStaffs;
     private List<StatisticRepairman> topServices;
+    private List<Accessories> topAccessories;
     private List<TotalMoney> totalMonies;
     private BusinessToday businessToday;
 }
