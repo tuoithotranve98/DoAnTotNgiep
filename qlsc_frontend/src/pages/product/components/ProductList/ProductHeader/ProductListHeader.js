@@ -14,7 +14,7 @@ function ProductListHeader(props) {
     <div className="tilte-action">
       <div className="d-flex list-header">
         <div className="header-title">
-          <div style={{ fontSize: '22px' }}>Danh sách sản phẩm</div>
+          <div style={{ fontSize: '22px' }}>Danh sách linh kiện</div>
         </div>
         <div className="header-action">
           <button
@@ -28,7 +28,7 @@ function ProductListHeader(props) {
             >
               <Icons.Create />
             </span>
-            Tạo mới sản phẩm
+            Tạo mới linh kiện
           </button>
         </div>
       </div>

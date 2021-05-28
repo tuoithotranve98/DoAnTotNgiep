@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import FilterProduct from "./components/FilterProduct";
-import FilterProductModal from "./components/FilterProductModal";
 
 function TableHeader(props) {
   const { search, handleInputOnchange } = props;

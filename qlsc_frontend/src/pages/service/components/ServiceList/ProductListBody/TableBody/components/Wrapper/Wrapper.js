@@ -41,7 +41,7 @@ function Wrapper(props) {
   const renderCheckInfo = () => {
     return (
       <div className="count-check">
-        <span className="details">Đã chọn ({selectedIds.length} sản phẩm)</span>
+        <span className="details">Đã chọn ({selectedIds.length} dịch vụ)</span>
       </div>
     );
   };
@@ -53,7 +53,7 @@ function Wrapper(props) {
     return (
       <div className="product-list-wrapper">
         <div id="product-filter-empty-wrapper">
-          <div id="product-filter-empty-text">Không có sản phẩm dịch vụ</div>
+          <div id="product-filter-empty-text">Chưa có dịch vụ được tạo</div>
           <div id="product-filter-empty-icon">
             <Icons.OrderCollationFilterEmpty />
           </div>

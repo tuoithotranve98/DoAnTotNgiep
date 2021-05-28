@@ -9,7 +9,7 @@ function FilterProduct(props) {
     <div id="filter-product-wrapper">
       <div id="filter-product-by-tab-wrapper">
         <ul id="filter-product-by-tab">
-          <li className="filter-product-tab active">Tất cả sản phẩm</li>
+          <li className="filter-product-tab active">Tất cả linh kiện</li>
         </ul>
       </div>
       <div id="filter-product-option-wrapper">
@@ -19,7 +19,7 @@ function FilterProduct(props) {
           </div>
           <input
             id="filter-product-search-input"
-            placeholder="Tìm kiếm phiếu sữa chữa theo mã phiếu sữa chữa"
+            placeholder="Tìm kiếm linh kiện theo mã linh kiện hoặc tên linh kiện"
             value={search}
             onChange={(e) => handleInputOnchange(e)}
           />
