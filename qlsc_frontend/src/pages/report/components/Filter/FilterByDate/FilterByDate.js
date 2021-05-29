@@ -55,7 +55,7 @@ const locale = {
 };
 
 function FilterByDate(props) {
-  const { onGetDataByFilter } = props;
+  const { onChangeTime } = props;
   const history = useHistory();
   const { search } = history.location;
   const searchParams = new URLSearchParams(search);
@@ -79,7 +79,7 @@ function FilterByDate(props) {
     const e = convertUnixToDate(endTime ? endTime : moment().unix());
     setStartDate(startTime ? convertDateToMoment(s) : moment().subtract(6, 'days'));
     setEndDate(endTime ? convertDateToMoment(e) : moment());
-    onGetDataByFilter(s, e);
+    onChangeTime(s, e);
   }, [search]);
 
   return (

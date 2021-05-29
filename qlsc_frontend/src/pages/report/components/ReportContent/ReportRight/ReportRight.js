@@ -2,36 +2,38 @@ import React from "react";
 import TodayItem from "../components/TodayItem";
 import * as ReportIcons from './Icons';
 import "./styles.scss";
+import { moneyFormat } from "../../../../../utils/moneyFormat";
+
 function ReportRight(props) {
   const { data } = props;
   const listItem = [
     {
       id: 0,
       backgroundColorCustom: '#effbf8',
-      name: 'Tổng số phiếu',
-      value: data.totalMaintenanceCard,
-      icon: <ReportIcons.dollarColorIcon />,
+      name: 'Doanh thu',
+      value: `${moneyFormat(data.totalMoney) || 0} đ`,
+      icon: <ReportIcons.IconTotal />,
     },
     {
       id: 1,
       backgroundColorCustom: '#fef7ff',
-      name: 'Tổng số phiếu thành công',
-      value: data.totalMaintenanceCardSuccess,
-      icon: <ReportIcons.rateColorIcon />,
+      name: 'Phiếu sửa mới',
+      value: data.totalMaintenanceCard,
+      icon: <ReportIcons.IconMainCard1 />,
     },
     {
       id: 2,
       backgroundColorCustom: '#eff9fc',
-      name: 'Phiếu thành công đã thanh toán',
-      value: data.totalMaintenanceCardScPayed,
-      icon: <ReportIcons.dollarColorIcon />,
+      name: 'Phiếu đang sửa',
+      value: data.totalMaintenanceCardRepair,
+      icon: <ReportIcons.IconMainCard2 />,
     },
     {
       id: 3,
       backgroundColorCustom: '#fef5f5',
-      name: 'Phiếu thành công chưa thanh toán',
-      value: data.totalMaintenanceCardScNotPay,
-      icon: <ReportIcons.rateColorIcon />,
+      name: 'Phiếu hoàn thành',
+      value: data.totalMaintenanceCardSuccess,
+      icon: <ReportIcons.IconMainCard3 />,
     },
   ];
   return (

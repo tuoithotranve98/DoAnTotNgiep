@@ -18,7 +18,7 @@ function LineRight(props) {
                   className="cnt"
                   style={{ width: "50%", textAlign: "right" }}
                 >
-                  {item.total || ""}
+                  {item.total || 0} phiếu
                 </div>
               </div>
             );

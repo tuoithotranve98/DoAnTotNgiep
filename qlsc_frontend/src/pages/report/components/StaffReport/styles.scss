@@ -1,0 +1,102 @@
+.staff-report-table {
+    margin: 10px 10px 70px;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px #D9D9D9;
+    border-radius: 4px;
+
+    .report-table {
+        .tbl-header {
+            cursor: pointer;
+
+            &:hover {
+                background-color: #F3F2F1;
+            }
+
+            &:active {
+                background-color: #D9D9D9;
+            }
+        }
+
+        .sort-selected {
+            background-color: #F3F2F1;
+
+            .time-filter {
+                padding-right: 15px;
+            }
+        }
+
+        @media only screen and (max-width: 991px) {
+            overflow: auto;
+        }
+
+        .report-table-header {
+
+            box-sizing: border-box;
+
+            >div {
+                padding: 10px;
+                border-bottom: 1px solid #E3E3E3;
+            }
+        }
+
+        .report-table-body {
+            .tbl-item {
+
+
+                >div {
+                    border-top: 1px solid #ECECEC;
+                    padding: 10px;
+                }
+            }
+        }
+
+        .time-filter {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+
+            .arrow-down {
+                border: 5px solid transparent;
+                border-top-color: #263a53;
+                margin-top: 8px;
+                margin-left: 5px;
+                position: absolute;
+                right: 0px;
+            }
+
+            .arrow-up {
+                border: 5px solid transparent;
+                border-bottom-color: #263a53;
+                margin-top: 4px;
+                margin-left: 5px;
+                position: absolute;
+                right: 0px;
+            }
+        }
+
+    }
+
+    .report-table-body {
+        .tbl-item {
+
+            >div {
+                border-top: 1px solid #ECECEC;
+                padding: 10px;
+            }
+        }
+    }
+
+    .report-table-total {
+        background: #FAFAFA;
+        font-weight: 500;
+        .tbl-item {
+
+            >div {
+                border-top: 1px solid #ECECEC;
+                padding: 10px;
+            }
+        }
+    }
+}

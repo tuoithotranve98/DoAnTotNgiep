@@ -18,7 +18,7 @@ public class ProductReportImpl implements ProductReport {
 
     @Override
     public List<ProductReportModel> getProductReport(Long tenantId) {
-        String sql = "select p.id as id, p.code as code, p.name as name, p.quantity as quantity FROM products p where p.tenant_id = :tenantId";
+        String sql = "select p.id as id, p.code as code, p.name as name, p.quantity as quantity FROM products p where p.type = 1 and p.tenant_id = :tenantId";
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource().addValue("tenantId", tenantId);
         return jdbcTemplate.query(sql, sqlParameterSource, ((resultSet, i) ->
             new ProductReportModel(

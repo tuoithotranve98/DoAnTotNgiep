@@ -73,10 +73,8 @@ public class BusinessInformationServiceImpl implements BusinessInformationServic
         try {
             strDates.forEach(date -> {
                 TotalMoney totalMoney = businessInformationCustom.getMoney(date, newTenantId);
-                if (totalMoney.getTime() == null) {
-                    totalMoney.setTime(date.substring(0, 5));
-                    totalMoney.setDateText(date);
-                }
+                totalMoney.setTime(date.substring(0, 5));
+                totalMoney.setDateText(date);
                 if (totalMoney.getTotal() == null) {
                     totalMoney.setTotal(BigDecimal.valueOf(0));
                 }

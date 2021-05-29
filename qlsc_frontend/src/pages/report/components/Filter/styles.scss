@@ -1,7 +1,12 @@
+.align-items-center {
+    margin: 0 10px;
+}
+
 .title-report-dashboard {
     display: flex;
     align-items: center;
     font-size: 18px;
     font-weight: 500;
     margin-top: 8px;
+    width: 220px;
 }

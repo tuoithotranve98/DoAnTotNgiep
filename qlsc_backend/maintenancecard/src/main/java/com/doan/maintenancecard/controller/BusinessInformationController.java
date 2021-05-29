@@ -25,10 +25,4 @@ public class BusinessInformationController {
         return businessInformationService.getReport(filterReport.getFrom(), filterReport.getTo(), tenantId);
     }
 
-    @GetMapping("business/report_v2")
-    public BusinessResponse getReportV2(@Valid FilterReport filterReport) {
-        String tenantId = appAuthHelper.httpCredential().getTenantId();
-        return businessInformationService.getReport(filterReport.getFrom(), filterReport.getTo(), tenantId);
-    }
-
 }

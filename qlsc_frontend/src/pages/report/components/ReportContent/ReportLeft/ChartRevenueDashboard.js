@@ -4,7 +4,7 @@ import ReactHighcharts from "react-highcharts";
 import { ChartConfig } from "components/Chart/ChartConfig";
 
 function ChartRevenueDashboard(props) {
-  const { revenue } = props;
+  const { revenue, isMain } = props;
   const getRevenueInfo = () => {
     let data = {
       listTime: [],
@@ -20,7 +20,28 @@ function ChartRevenueDashboard(props) {
     return data;
   };
 
-  const revenueParse = getRevenueInfo();
+  const getRevenueInfoV2 = () => {
+    let data = {
+      listTime: [],
+      totalAmount: [],
+    };
+
+    revenue.forEach((el) => {
+      data = {
+        listTime: data.listTime.concat(el.time),
+        totalAmount: data.totalAmount.concat(el.revenue),
+      };
+    });
+    return data;
+  };
+
+  let revenueParse = [];
+  if (isMain && revenue) {
+    revenueParse = getRevenueInfoV2();
+  } else {
+    revenueParse = getRevenueInfo();
+  }
+
   const configChart = {
     ...ChartConfig,
     chart: {
@@ -52,7 +73,7 @@ function ChartRevenueDashboard(props) {
     series: [
       {
         data: revenueParse.totalAmount,
-        name: "Doanh thu dự kiến",
+        name: "Doanh thu",
       },
     ],
   };

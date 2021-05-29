@@ -1,88 +1,102 @@
 .report-main-container {
   margin: 0 18px 20px 18px;
-    .report-card {
-      background: #FFFFFF;
-      border: 1px solid #E3E3E3;
-      box-sizing: border-box;
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-      border-radius: 6px;
-      padding: 10px;
-      height: 367px;
-      .view-by {
-        justify-content: space-between;
-        .criteria-item {
-          width: calc(100% - 1px);
-          text-align: center;
-          cursor: pointer;
-          border: 1px solid #ADADAD;
-          padding: 5px 0;
-          &:hover {
-            color: #0C9EB8;
-            font-weight: 500;
-          }
-        }
-        .criteria-left {
-          border-radius: 6px 0 0 6px;
-          border-right: unset;
-        }
-        .criteria-right {
-          border-left: unset;
-          border-radius: 0 6px 6px 0;
-        }
-        .active {
-          border-color: #0C9EB8;
+
+  .report-card {
+    background: #FFFFFF;
+    border: 1px solid #E3E3E3;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    padding: 10px;
+    height: 367px;
+
+    .view-by {
+      justify-content: space-between;
+
+      .criteria-item {
+        width: calc(100% - 1px);
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid #ADADAD;
+        padding: 5px 0;
+
+        &:hover {
           color: #0C9EB8;
           font-weight: 500;
         }
-        .separator {
-          width: 1px;
-          content: "";
-          height: 33px;
-          background: #0C9EB8;
-        }
       }
-      .chart-empty-wrapper {
-        height: 100%;
-        svg {
-          width: 100%;
-        }
-        .number_empty {
-          margin-top: 10px;
-          color: #929292;
-          font-size: 15px;
-        }
+
+      .criteria-left {
+        border-radius: 6px 0 0 6px;
+        border-right: unset;
       }
-      .chart-loading {
-        height: calc(100% - 40px);
+
+      .criteria-right {
+        border-left: unset;
+        border-radius: 0 6px 6px 0;
+      }
+
+      .active {
+        border-color: #0C9EB8;
+        color: #0C9EB8;
+        font-weight: 500;
+      }
+
+      .separator {
+        width: 1px;
+        content: "";
+        height: 33px;
+        background: #0C9EB8;
       }
     }
-  }
-  
-  .chart-loading {
-    svg {
-      -webkit-animation: load3 1.4s infinite linear;
-      animation: load3 1.4s infinite linear;
+
+    .chart-empty-wrapper {
+      height: 100%;
+
+      svg {
+        width: 100%;
+      }
+
+      .number_empty {
+        margin-top: 10px;
+        color: #929292;
+        font-size: 15px;
+      }
+    }
+
+    .chart-loading {
+      height: calc(100% - 40px);
     }
   }
-  
-  @-webkit-keyframes load3 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+}
+
+.chart-loading {
+  svg {
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
   }
-  @keyframes load3 {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+}
+
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-  
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

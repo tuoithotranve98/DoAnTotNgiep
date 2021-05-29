@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.scss";
+import { moneyFormat } from "../../../../../utils/moneyFormat";
 import ChartEmpty from "./ChartEmpty";
 
 function LineLeft(props) {
@@ -11,14 +12,20 @@ function LineLeft(props) {
           data.map((item, index) => {
             return (
               <div className="line-item" key={index}>
-                <div className="cnt" style={{ width: "50%" }}>
+                <div className="cnt" style={{ width: "35%" }}>
                   {item.name || ""}
                 </div>
                 <div
                   className="cnt"
-                  style={{ width: "50%", textAlign: "right" }}
+                  style={{ width: "35%", textAlign: "center" }}
                 >
-                  {item.total || ""}
+                  {item.total || ""} phiếu
+                </div>
+                <div
+                className="cnt"
+                style={{ width: "35%", textAlign: "right" }}
+                >
+                  {moneyFormat(item.money) || 0 } đ
                 </div>
               </div>
             );
@@ -35,14 +42,20 @@ function LineLeft(props) {
         ) : (
           <React.Fragment>
             <div className="cnt-header">
-              <div className="title" style={{ width: "50%" }}>
+              <div className="title" style={{ width: "35%" }}>
                 Tên nhân viên
               </div>
               <div
                 className="title"
-                style={{ width: "50%", textAlign: "right" }}
+                style={{ width: "35%", textAlign: "center" }}
               >
                 Tổng số phiếu
+              </div>
+              <div
+                className="title"
+                style={{ width: "30%", textAlign: "right" }}
+              >
+                Doanh thu
               </div>
             </div>
             {renderLineItem()}
