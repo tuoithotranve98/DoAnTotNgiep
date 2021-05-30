@@ -80,7 +80,7 @@ public class ReportController {
     }
 
     @GetMapping("accessories_report")
-    public List<AccessoriesReport> accessoriesReport(@Valid FilterReport filterReport) throws ParseException {
+    public List<AccessoriesReport> accessoriesReport(@Valid FilterReport filterReport) {
         String tenantId = appAuthHelper.httpCredential().getTenantId();
         ResponseEntity<String> response = this.appRequestService.get(PRODUCT_URI, request.getHeader("X-APP-PAGE-TOKEN"));
         List<AccessoriesReport> accessoriesReports = new ArrayList<>();

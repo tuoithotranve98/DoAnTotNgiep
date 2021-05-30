@@ -19,7 +19,6 @@ import com.doan.maintenancecard.service.MaintenanceCardService;
 import javax.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,21 +35,23 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/admin/")
+@RequestMapping("admin")
 public class MaintenanceCardController {
 
     private final MaintenanceCardService maintenanceCardService;
     private final MaintenanceCardDetailService maintenanceCardDetailService;
     private final AppAuthHelper appAuthHelper;
 
+    // Thêm mới phiếu
     // Kiem tra quyen: NV dieu phoi
     @PostMapping("maintenanceCards")
     public ResponseEntity<MaintenanceCardDTO> insertMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO) throws NotEnoughProductException, CodeExistedException, JsonProcessingException {
         String tenantId = appAuthHelper.httpCredential().getTenantId();
-        MaintenanceCardDTO maintenanceCardDTO1 = maintenanceCardService.insertMaintenanceCard(maintenanceCardDTO, tenantId);
-        return new ResponseEntity<>(maintenanceCardDTO1, HttpStatus.OK);
+        MaintenanceCardDTO newMaintenanceCard = maintenanceCardService.insertMaintenanceCard(maintenanceCardDTO, tenantId);
+        return new ResponseEntity<>(newMaintenanceCard, HttpStatus.OK);
     }
 
+    // Lấy danh sách phiếu v1
     // NV quan li, NV dieu phoi, NV sua chua
     @GetMapping("maintenanceCards")
     public ResponseEntity<Map<String, Object>> searchMaintenanceCard(@ModelAttribute("maintenanceCardFilter") MaintenanceCardFilter maintenanceCardFilter) {
@@ -63,6 +64,7 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(allMaintenanceCard, HttpStatus.OK);
     }
 
+    // Chi tiết phiếu theo id phiếu
     // NV quan li, NV dieu phoi, NV sua chua
     @GetMapping("maintenanceCards/{id}")
     public ResponseEntity<MaintenanceCardDTO> getMaintenanceCardById(@PathVariable Long id) throws NotFoundException {
@@ -74,6 +76,7 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
+    // cập nhật phiếu
     // NV dieu phoi
     @PutMapping("maintenanceCards/{id}")
     public ResponseEntity<MaintenanceCardDTO> updateMaintenanceCard(@RequestBody MaintenanceCardDTO maintenanceCardDTO, @PathVariable Long id) throws NotEnoughProductException, NotFoundException, CodeExistedException, NotUpdateException, JsonProcessingException {
@@ -86,12 +89,16 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(newMaintenanceCard, HttpStatus.OK);
     }
 
-    @GetMapping("/maintenanceCards/customer")
+    // Lấy danh sách phiếu theo id khách hàng
+    // Lấy danh sách phiếu cho 1 khách hàng
+    @GetMapping("maintenanceCards/customer")
     public ResponseEntity<Map<String, Object>> getMaintenanceCardsByIdCustomer(@ModelAttribute("maintenanceCardCustomer") MaintenanceCardCustomer maintenanceCardCustomer) {
         Map<String, Object> allMaintenanceCards = maintenanceCardService.getMaintenanceCardByIdCustomer(maintenanceCardCustomer);
         return new ResponseEntity<>(allMaintenanceCards, HttpStatus.OK);
     }
 
+    // Cập nhật trạng thái phiếu
+    // Một phiếu
     // Kiem tra quyen : NV sua chua
     @PutMapping("maintenanceCards/workStatus/{id}")
     public ResponseEntity<MaintenanceCardDTO> updateWorkStatusMaintenanceCard(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
@@ -103,6 +110,8 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
+    // Cập nhật trạng thái phiếu
+    // Nhiều phiếu
     // Kiem tra quyen : NV sua chua
     @PutMapping(path = "maintenanceCards/workStatus", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<List<MaintenanceCardDTO>> updateMultiAllWorkStatusMaintenanceCard(@RequestBody Long[] ids) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
@@ -118,6 +127,8 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(maintenanceCardDTOs, HttpStatus.OK);
     }
 
+    // Cập nhật trạng thái của chi tiết phiếu
+    // Một chi tiết phiếu
     // Kiem tra quyen : NV sua chua
     @PutMapping("maintenanceCardDetails/status/{id}")
     public ResponseEntity<MaintenanceCardDTO> updateStatusMaintenanceCardDetail(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
@@ -127,25 +138,33 @@ public class MaintenanceCardController {
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
+    // Xóa phiếu
+    // Một phiếu
     @DeleteMapping("maintenanceCards/{id}")
     public ResponseEntity<Boolean> deleteMaintenanceCard(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, JsonProcessingException {
         boolean check = maintenanceCardService.deleteMaintenanceCard(id);
         return new ResponseEntity<>(check, HttpStatus.OK);
     }
 
+    // Cập nhật ngày trả xe
+    // Một phiếu
     @PutMapping("maintenanceCards/returnDate/{id}")
     public ResponseEntity<Object> setReturnDate(@PathVariable Long id) {
         MaintenanceCardDTO maintenanceCardDTO = maintenanceCardService.setReturnDate(id);
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
+    // Lấy danh sách phiếu theo id nhân viên
+    // Lấy danh sách phiếu cho một nhân viên
     @GetMapping("users/maintenanceCards")
     public ResponseEntity<Map<String, Object>> getMaintenanceCardByUserId(@ModelAttribute("maintenanceCardUser") MaintenanceCardUser maintenanceCardUser) {
         Map<String, Object> map = maintenanceCardService.getMaintenanceCardByRepairMan(maintenanceCardUser);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping("/maintenance_cards_v2")
+    // Lấy danh sách phiếu v2
+    // Lấy danh sách phiếu từ stored procedure
+    @GetMapping("maintenance_cards_v2")
     public ResponseEntity<MaintenanceCardsResponse> getMaintenanceCards(@Valid MaintenanceCardsFilterRequest filterRequest) {
         String tenantId = appAuthHelper.httpCredential().getTenantId();
         MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest, tenantId);

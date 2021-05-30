@@ -14,7 +14,7 @@ function Filter(props) {
   }
 
   return (
-    <div className="d-flex flex-wrap align-items-center">
+    <div className="d-flex flex-wrap align-items-center-report">
       <div className="title-report-dashboard">{renderTextHeader()}</div>
       <FilterByDate onChangeTime={onChangeTime} />
     </div>

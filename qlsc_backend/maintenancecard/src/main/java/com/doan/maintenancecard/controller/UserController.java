@@ -5,7 +5,6 @@ import com.doan.maintenancecard.exception.commonException.NotFoundException;
 import com.doan.maintenancecard.service.MaintenanceCardService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ public class UserController {
 
     private final MaintenanceCardService maintenanceCardService;
 
-    @GetMapping("/user/maintenanceCards")
+    @GetMapping("user/maintenanceCards")
     public ResponseEntity<MaintenanceCardDTO> searchMaintenanceCard(@RequestParam Long id, @RequestParam String hmac) throws NotFoundException {
         try {
             var hmacSHA256 = Mac.getInstance("HmacSHA256");
@@ -40,7 +39,7 @@ public class UserController {
         }
 
         MaintenanceCardDTO maintenanceCardDTO = maintenanceCardService.getMaintenanceCardById(id,"",3);
-        return new ResponseEntity(maintenanceCardDTO, HttpStatus.OK);
+        return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
 }

@@ -57,6 +57,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final SendMessage sendMessage;
     private final SendToClient sendToClient;
+    private static final String NOT_FOUND_MAINTENANCE_CARD = "Not found maintenance card";
 
     @Override
     public MaintenanceCardDTO insertMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String tenantId) throws CodeExistedException {
@@ -155,9 +156,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     public MaintenanceCardDTO getMaintenanceCardById(Long id, String email, int role) throws NotFoundException {
 
         MaintenanceCard maintenanceCard = maintenanceCardRepository.getMaintenanceCardByIdAndEmail(id, email, role);
-        if (maintenanceCard == null) {
-            throw new NotFoundException("Not found maintenance card");
-        }
+        if (maintenanceCard == null) throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         return maintenanceCardConverter.convertAllToDTO(maintenanceCard);
 
     }
@@ -168,7 +167,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         // Kiểm tra phiếu xem có còn tồn tại không
         MaintenanceCard maintenanceCardUpdate = maintenanceCardRepository.getMaintenanceCardByIdAndCoordinatorEmail(maintenanceCardDTO.getId(), email, role);
         if (maintenanceCardUpdate == null) {
-            throw new NotFoundException("Not found maintenance card");
+            throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         }
         if (maintenanceCardUpdate.getReturnDate() != null) {
             throw new NotUpdateException();
@@ -352,59 +351,60 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public MaintenanceCardDTO updateAllStatusMaintenanceCard(Long id, String email, int role) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
-        Date now = new Date();
+    public MaintenanceCardDTO updateAllStatusMaintenanceCard(Long id, String email, int role) throws NotFoundException {
+        // Lấy phiếu từ db theo id và email
         MaintenanceCard maintenanceCard = maintenanceCardRepository.getMaintenanceCardByIdAndRepairmanEmail(id, email, role);
         if (maintenanceCard == null) {
-            throw new NotFoundException("Not found maintenance card");
+            throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         }
+
         if (maintenanceCard.getRepairmanId() != 0) {
             byte workStatus = 2;
             maintenanceCard.setWorkStatus(workStatus);
-            for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
+            // Set lại các chi tiết phiếu thành hoàn thành
+            maintenanceCard.getMaintenanceCardDetails().forEach(maintenanceCardDetail -> {
                 if (maintenanceCardDetail.getProductType() == 2) {
                     byte dis = 1;
                     for (byte i = (byte) (maintenanceCardDetail.getStatus() + dis); i <= 2; i++) {
                         MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                        maintenanceCardDetailStatusHistory.setCreatedDate(now);
-                        maintenanceCardDetailStatusHistory.setModifiedDate(now);
+                        maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
+                        maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
                         maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
-                        maintenanceCardDetailStatusHistory.setStatus((byte) (i));
+                        maintenanceCardDetailStatusHistory.setStatus(i);
                         maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
                     }
                     maintenanceCardDetail.setStatus(workStatus);
-
                 }
-            }
-            MaintenanceCard maintenanceCard1 = maintenanceCardRepository.save(maintenanceCard);
+            });
+
+            // Xử lý bắn thông báo và lưu lại message
+            MaintenanceCard newMaintenanceCard = maintenanceCardRepository.save(maintenanceCard);
             MessageModel messageModel = new MessageModel();
-            messageModel.setMaintenanceCardCode(maintenanceCard1.getCode());
+            messageModel.setMaintenanceCardCode(newMaintenanceCard.getCode());
             messageModel.setAuthor(email);
-            messageModel.setCoordinatorEmail(maintenanceCard1.getCoordinatorEmail());
-            messageModel.setRepairmanEmail(maintenanceCard1.getRepairmanEmail());
-            if (maintenanceCard1.getWorkStatus() == 2 && maintenanceCard1.getPayStatus() == 0) {
+            messageModel.setCoordinatorEmail(newMaintenanceCard.getCoordinatorEmail());
+            messageModel.setRepairmanEmail(newMaintenanceCard.getRepairmanEmail());
+            if (newMaintenanceCard.getWorkStatus() == 2 && newMaintenanceCard.getPayStatus() == 0) {
                 messageModel.setType(2);
             } else {
                 messageModel.setType(3);
             }
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(messageModel);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-message", maintenanceCard1.getId() + "", jsonString);
-            kafkaTemplate.send(record);
-            return maintenanceCardConverter.convertAllToDTO(maintenanceCard1);
+            return maintenanceCardConverter.convertAllToDTO(newMaintenanceCard);
         } else {
             return maintenanceCardConverter.convertAllToDTO(maintenanceCard);
         }
     }
 
     @Override
-    public boolean deleteMaintenanceCard(Long id) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, UnknownException, JsonProcessingException {
+    public boolean deleteMaintenanceCard(Long id) throws NotFoundException, JsonProcessingException {
         MaintenanceCard maintenanceCard = maintenanceCardRepository.findById(id).orElse(null);
         if (maintenanceCard == null) {
-            throw new NotFoundException("Not found maintenance card");
+            throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         }
         ObjectMapper mapper = new ObjectMapper();
-        if (maintenanceCard.getWorkStatus() == 0 && maintenanceCard.getPayStatus() == 0 && maintenanceCard.getPaymentHistories().size() == 0) {
+        if (maintenanceCard.getWorkStatus() == 0
+            && maintenanceCard.getPayStatus() == 0
+            && maintenanceCard.getPaymentHistories().isEmpty()) {
 
             for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
                 if (maintenanceCardDetail.getProductType() == 2) {
@@ -413,7 +413,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(2);
                     String jsonString = mapper.writeValueAsString(productModel);
-                    ProducerRecord<String, String> record = new ProducerRecord<String, String>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
+                    ProducerRecord<String, String> record = new ProducerRecord<>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
                     kafkaTemplate.send(record);
                 }
                 maintenanceCardDetail.setIsDelete((byte) 1);
@@ -462,7 +462,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     public String createNewCode() {
-        long codeNumber = 0L;
+        long codeNumber;
         String newCodeString;
         int index = 0;
         String getMaxCode;
@@ -560,7 +560,6 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     private List<MaintenanceCard> filter(int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to, Long tenantId) {
-
         try {
             if (from != null){
                 Date dateFrom = getDateFromTimestamp(from);
@@ -570,14 +569,13 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, null, null
                     , size, offset, tenantId);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    public int setFilterCount(MaintenanceCardsFilterRequest filterRequest) {
+    private int setFilterCount(MaintenanceCardsFilterRequest filterRequest) {
         try {
             String payStatusIds = StringUtils.join(filterRequest.getPayStatus(), ",");
             String workStatusIds = StringUtils.join(filterRequest.getWorkStatus(), ",");
