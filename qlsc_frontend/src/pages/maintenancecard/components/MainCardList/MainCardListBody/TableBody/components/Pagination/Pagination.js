@@ -66,7 +66,7 @@ class Pagination extends React.Component {
             className={pageInfo.page_num === page ? 'page-item active' : 'page-item'}
             onClick={() => this.selectPageNumber(pageInfo.page_num)}
           >
-            <a className="page-link">{pageInfo.page_num}</a>
+            <a className="page-link" style={pageInfo.page_num === page ? { color: "#fff" } : {}}>{pageInfo.page_num}</a>
           </li>
         );
       });

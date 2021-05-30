@@ -5013,6 +5013,10 @@ input[type="button"].btn-block {
   color: #fff;
   background-color: #0084FF;
   border-color: #0084FF;
+
+  &:hover {
+    color: red !important;
+  }
 }
 
 .page-item.disabled .page-link {

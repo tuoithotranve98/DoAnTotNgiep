@@ -63,7 +63,7 @@ function Pagination(props) {
           }
           onClick={() => onSelectPageNumber(pageInfo.page_num)}
         >
-          <a className="page-link">{pageInfo.page_num}</a>
+          <a className="page-link" style={pageInfo.page_num === page ? { color: "#fff" } : {}}>{pageInfo.page_num}</a>
         </li>
       );
     });
