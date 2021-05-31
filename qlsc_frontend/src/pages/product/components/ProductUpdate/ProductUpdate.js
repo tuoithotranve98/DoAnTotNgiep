@@ -85,18 +85,20 @@ function ProductUpdate(props) {
   };
 
   const handleUploadImage = (files) => {
-    files.forEach((file) => {
-      onUpLoadImage(file)
+    const newImages = product.images.length ? product.images : [];
+    files.map((file) => {
+      newImages.push(onUpLoadImage(file)
         .then((json) => {
           if (json && json.data) {
-            setImages((state) => ([...state, json.data]));
+            return json.data;
           }
         })
         .catch((e) => {
           console.error(e);
           return e;
-        });
+        }));
     });
+    Promise.all(newImages).then(res => onchangeValue("images", res));
   };
 
   const removeImage = (index) => {

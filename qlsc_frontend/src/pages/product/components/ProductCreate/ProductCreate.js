@@ -21,7 +21,6 @@ const initialState = {
 };
 function ProductCreate(props) {
   const { onUpLoadImage, onSaveProductService } = props;
-  const [images, setImages] = useState([]);
   const [product, setProduct] = useState(initialState);
   const [showContent, setShowContent] = useState(1);
   const [isValid, setIsValid] = useState(true);
@@ -30,10 +29,6 @@ function ProductCreate(props) {
   useEffect(() => {
     onchangeValue("type", 1);
   }, []);
-
-  useEffect(() => {
-    onchangeValue("images", images);
-  }, [images])
 
   useEffect(() => {
     setIsValid(true);
@@ -82,26 +77,20 @@ function ProductCreate(props) {
   };
 
   const handleUploadImage = (files) => {
-    files.forEach((file) => {
-      onUpLoadImage(file)
+    const newImages = product.images.length ? product.images : [];
+    files.map((file) => {
+      newImages.push(onUpLoadImage(file)
         .then((json) => {
           if (json && json.data) {
-            console.log("arrTRC", product.images);
-            console.log("json.data", json.data);
-            const arr = [...product.images];
-            arr.push(json.data);
-            setTimeout(() => {
-              onchangeValue("images", arr);
-            }, 1000);
-            console.log("arrSau", product.images);
-            // setImages((state) => ([...state, json.data]));
+            return json.data;
           }
         })
         .catch((e) => {
           console.error(e);
           return e;
-        });
+        }));
     });
+    Promise.all(newImages).then(res => onchangeValue("images", res));
   };
 
   const handleChange = () => {
