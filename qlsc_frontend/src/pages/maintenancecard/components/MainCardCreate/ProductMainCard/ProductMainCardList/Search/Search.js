@@ -3,9 +3,8 @@ import Input from "components/input/Input";
 import debounce from "utils/debounce";
 import "./styles.scss";
 import { connect } from "react-redux";
-import { toastError } from "../../../../../../../utils/toast";
 import OrderListSearch from "./OrderListSearch/OrderListSearch";
-import * as Icons from "pages/maintenancecard/commons/Icons";
+import * as Icons from "../../../../../commons/Icons";
 import { getFilterProductService } from "../../../../../../product/actions/ProductAction";
 
 let timeOut;
@@ -13,8 +12,6 @@ function Search(props) {
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
   const [fetching, setFetching] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const [list, setList] = useState([]);
   const [metaData, setMetaData] = useState({});
   useEffect(() => {
@@ -28,7 +25,6 @@ function Search(props) {
     setSearch(e.target.value);
     onSearch(e.target.value);
   };
-  const inputRef = useRef();
 
   const debounceScroll = debounce((e) => {
     onScroll(e, false);
@@ -106,7 +102,7 @@ function Search(props) {
           style={{ borderBottom: "1px solid #e3e3e3", cursor: "pointer" }}
         >
           <div className="content-info-image">
-            <Icons.IconCustomerIsEmpty />
+            <Icons.IconServiceIsEmpty />
           </div>
           <div className="content-info" style={{ marginLeft: 10 }}>
             Thêm mới dịch vụ - linh kiện

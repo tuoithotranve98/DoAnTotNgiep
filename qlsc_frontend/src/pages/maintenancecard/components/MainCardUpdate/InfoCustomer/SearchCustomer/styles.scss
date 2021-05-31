@@ -1,5 +1,6 @@
 .search-maintenancecard-container {
   margin-top: 10px;
+
   .import-excel-btn {
     display: flex;
     align-items: center;
@@ -8,23 +9,29 @@
     padding: 5.25px 8px;
     border-radius: 4px;
     cursor: pointer;
+
     &:hover {
       background: #0084ff;
       color: white;
     }
+
     .separate {
       margin: 0 8px;
     }
   }
-  .search-wrapper { 
+
+  .search-wrapper {
     width: 100%;
+
     .input-prefix-common {
       top: 9px;
     }
+
     input {
       padding: 6.5px 10px 6.5px 40px;
     }
   }
+
   .list-customer-main-card-search-wrapper {
     min-height: 100px;
     max-height: 300px;
@@ -36,80 +43,94 @@
     top: 40px;
     padding: 10px 15px 0 15px;
     z-index: 999;
+
     .head {
-      // font-weight: 500;
-      // border-bottom: 1px solid #C0C0C0;
+      font-weight: 500;
       padding: 10px 15px;
       margin: 0 -15px;
       cursor: pointer;
+
       &:hover {
         background: #0088FF;
         color: #FFF;
-        .image-create{
-          svg{
-            circle{
-              fill:#0088FF;
+
+        .image-create {
+          svg {
+            circle {
+              fill: #0088FF;
             }
-            
-            path{
+
+            path {
               background-color: #FFFFFF;
             }
           }
         }
-       
+
       }
-     
+
     }
+
     .order-item {
       padding: 10px 15px;
       margin: 0 -15px;
       cursor: pointer;
       padding-left: 30px !important;
+
       &:hover {
         background: #0088FF;
         color: #FFF;
-        .image-info{
-          svg{
+
+        .image-info {
+          svg {
             border: 1px solid;
             border-radius: 44px;
           }
         }
       }
     }
+
     .order-code {
       width: 20%;
     }
+
     .tracking-code {
       width: 20%;
     }
+
     .tenant {
       width: 20%;
     }
+
     .order-total-amount {
       width: 20%;
       text-align: right;
     }
+
     .order-ship-fee {
       width: 20%;
       text-align: right;
     }
-    .is-empty-order-collation{
+
+    .is-empty-order-collation {
       text-align: center;
       margin-top: 10px;
       margin-bottom: 10px;
     }
-    .list-item-search{
+
+    .list-item-search {
       overflow-y: auto;
       max-height: 220px;
       margin-right: -14px;
       padding-right: 15px;
       margin-left: -15px;
+
       &::-webkit-scrollbar {
         height: 5px;
         background: #FFF;
         width: 6px;
         //border-radius: 5px;
       }
+
       &::-webkit-scrollbar-thumb {
         background: #C4C4C4;
         border-radius: 5px;
@@ -118,10 +139,12 @@
     }
 
   }
+
   .display-none {
     margin: unset;
     display: none;
   }
+
   .no-content-found {
     width: 100%;
     display: flex;
@@ -129,6 +152,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px 0 30px 0;
+
     .text {
       margin-top: 10px;
     }

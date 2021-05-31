@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable consistent-return */
 import React, { useState, useRef, useEffect } from "react";
 import Input from "components/input/Input";
 import debounce from "utils/debounce";
 import "./styles.scss";
 import { connect } from "react-redux";
 import OrderListSearch from "./OrderListSearch/OrderListSearch";
-import { IconIsEmptyOrder } from "../../../../../product/commons/Icons";
-import * as Icons from 'pages/maintenancecard/commons/Icons'
+import * as Icons from "pages/maintenancecard/commons/Icons";
 import { getFilterCustomers } from "../../../../../customer/actions/customerAction";
 
 let timeOut;
@@ -16,8 +13,6 @@ function SearchCustomer(props) {
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
   const [fetching, setFetching] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const [list, setList] = useState([]);
   const [metaData, setMetaData] = useState({});
   useEffect(() => {
@@ -47,7 +42,7 @@ function SearchCustomer(props) {
 
   const onFocus = () => {
     setFetching(true);
-    getListCustomerAction(search || '', undefined, 1);
+    getListCustomerAction(search || "", undefined, 1);
     setFocus(true);
   };
 
@@ -65,22 +60,22 @@ function SearchCustomer(props) {
   }, 400);
 
   const getListCustomerAction = (s, reset, p) => {
-    const option={};
-    option.page=p;
-    props.getFilterCustomers(search, option).then(json => {
+    const option = {};
+    option.page = p;
+    props.getFilterCustomers(search, option).then((json) => {
       setFetching(false);
-        if (json && json.customers) {
-          const { customers, currentPage, totalItems, totalPages } = json;
-          const temp= {};
-          temp.page = currentPage
-          temp.total = totalPages
-          const newOrder = customers;
-          setMetaData(temp);
-          if (reset) {
-            setList([...newOrder]);
-          } else {
-            setList(list.concat([...newOrder]));
-          }
+      if (json && json.customers) {
+        const { customers, currentPage, totalItems, totalPages } = json;
+        const temp = {};
+        temp.page = currentPage;
+        temp.total = totalPages;
+        const newOrder = customers;
+        setMetaData(temp);
+        if (reset) {
+          setList([...newOrder]);
+        } else {
+          setList(list.concat([...newOrder]));
+        }
       }
     });
   };
@@ -99,13 +94,21 @@ function SearchCustomer(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute list-customer-main-card-search-wrapper">
-        <div onMouseDown={(e)=>{
-         props.setShowModalCustomer(true)
-        }} className="d-flex align-items-center head" style={{ borderBottom: `${list.length > 0 ? 'none' : '1px solid #e3e3e3'}`}}>
+        <div
+          onMouseDown={(e) => {
+            props.setShowModalCustomer(true);
+          }}
+          className="d-flex align-items-center head"
+          style={{
+            borderBottom: `${list.length > 0 ? "none" : "1px solid #e3e3e3"}`,
+          }}
+        >
           <div className="image-create">
             <Icons.IconCustomerIsEmpty />
           </div>
-          <div className="text" style={{ marginLeft: 10 }}>Thêm mới khách hàng</div>
+          <div className="text" style={{ marginLeft: 10 }}>
+            Thêm mới khách hàng
+          </div>
         </div>
         <div
           className="list-item-search"
@@ -119,11 +122,11 @@ function SearchCustomer(props) {
             onClick={(item) => {
               props.setCustomer(item);
               setShow(false);
-              setSearch('');
+              setSearch("");
             }}
             list={list}
             fetching={fetching}
-            setShowFilterCustomer={(a)=>props.setShowFilterCustomer(a)}
+            setShowFilterCustomer={(a) => props.setShowFilterCustomer(a)}
           />
         </div>
       </div>
@@ -146,6 +149,7 @@ function SearchCustomer(props) {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  getFilterCustomers: (search, page) => dispatch(getFilterCustomers(search, page)),
-})
+  getFilterCustomers: (search, page) =>
+    dispatch(getFilterCustomers(search, page)),
+});
 export default connect(null, mapDispatchToProps)(SearchCustomer);

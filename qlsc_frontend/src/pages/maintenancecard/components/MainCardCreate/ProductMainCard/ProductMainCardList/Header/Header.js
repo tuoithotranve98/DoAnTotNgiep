@@ -4,13 +4,13 @@ function Header() {
   return (
     <div className="d-flex align-items-center delivery-collation-order-row header">
       <div className="order">
-        Mã sản phẩm
+        Mã linh kiện
       </div>
       <div className="track-code">
-        Tên sản phẩm
+        Tên linh kiện
       </div>
       <div className="track-code">
-        Loại sản phẩm
+        Loại
       </div>
       <div className="tenant">
         Số lượng

@@ -20,10 +20,10 @@ function TitleAndAction(props) {
         <Icons.arrowLeft />
         <div style={{ marginTop: 4 }}>
           <span>
-            Quay lại&nbsp;
+            Danh sách&nbsp;
           </span>
           <span>
-            Phiếu sữa chữa
+            phiếu
           </span>
         </div>
       </div>

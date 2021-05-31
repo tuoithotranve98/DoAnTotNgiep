@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import './styles.scss';
 import { connect } from 'react-redux';
@@ -7,7 +5,6 @@ import ProductMainCard from './ProductMainCard/ProductMainCard';
 import InfoCustomer from './InfoCustomer/InfoCustomer';
 import InfoMainCard from './InfoMainCard/InfoMainCard';
 import TitleAndAction from './TitleAndAction/TitleAndAction';
-import CustomerModal from './Modal/CustomerModal/CustomerModal';
 import { toastError, toastSuccess } from '../../../../utils/toast';
 import { saveCustomer } from '../../../customer/actions/customerAction';
 import { receiveWard } from '../../../customer/actions/locationActions';

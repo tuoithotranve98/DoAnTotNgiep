@@ -4,20 +4,26 @@ import List from "./List/List";
 import Total from "./Total/Total";
 import "./styles.scss";
 import Search from "./Search/Search";
-import * as Icons from 'pages/maintenancecard/commons/Icons'
-import imgNoProduct from 'images/NoProduct.png';
+import * as Icons from "pages/maintenancecard/commons/Icons";
+import imgNoProduct from "images/NoProduct.png";
 
 function ProductMainCardList(props) {
   const { maintenanceCardDetails } = props;
   return (
     <div className="main-card-product-order-list-wrapper">
-      <Search addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
+      <Search
+        addProduct={(a) => props.addProduct(a)}
+        setShowModalProduct={(a) => props.setShowModalProduct(a)}
+      />
       <Header />
       {maintenanceCardDetails.length > 0 ? (
         <React.Fragment>
-          <List maintenanceCardDetails={maintenanceCardDetails} removeProduct={(a)=>props.removeProduct(a)}/>
+          <List
+            maintenanceCardDetails={maintenanceCardDetails}
+            removeProduct={(a) => props.removeProduct(a)}
+          />
           <Total
-            totalPriceMainCard={(a)=> props.totalPriceMainCard(a)}
+            totalPriceMainCard={(a) => props.totalPriceMainCard(a)}
             maintenanceCardDetails={maintenanceCardDetails}
             saveMaintenanceCard={() => props.saveMaintenanceCard()}
           />
@@ -36,7 +42,7 @@ function ProductMainCardList(props) {
     </div>
   );
 }
-ProductMainCardList.defaultProps ={
-  maintenanceCardDetails: []
-}
+ProductMainCardList.defaultProps = {
+  maintenanceCardDetails: [],
+};
 export default ProductMainCardList;
