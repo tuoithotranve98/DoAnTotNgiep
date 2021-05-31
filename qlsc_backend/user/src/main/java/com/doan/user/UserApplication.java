@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+
 @SpringBootApplication
 @EnableEurekaClient
 @EnableCircuitBreaker
@@ -31,3 +32,4 @@ class RestTemplateConfig {
 		return new RestTemplate();
 	}
 }
+

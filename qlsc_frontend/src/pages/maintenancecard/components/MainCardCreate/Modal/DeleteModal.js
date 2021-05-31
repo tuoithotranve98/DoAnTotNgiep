@@ -3,29 +3,37 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 import { closeModal } from "../../../../../components/modal/modalActions";
-import { deleteProductService, getProductService } from "../../../actions/ProductAction";
+import { deleteMainCard, fetchMainCard } from "../../../actions/mainCard";
 import { toastError } from "../../../../../utils/toast";
 
 function DeleteModal(props) {
-  const { onCloseModalDelete, onDeleteProductService, onGetProductService, deleteProductModal } = props;
+  const {
+    onCloseModalDelete,
+    onDeleteMaintenanceCard,
+    onGetMaintenanceCard,
+    deleteMaintenanCardModal,
+  } = props;
   const handleClose = () => {
     onCloseModalDelete();
   };
   const onConfirm = () => {
     if (
-      deleteProductModal &&
-      deleteProductModal.data &&
-      deleteProductModal.data.ids &&
-      deleteProductModal.data.ids.length
+      deleteMaintenanCardModal &&
+      deleteMaintenanCardModal.data &&
+      deleteMaintenanCardModal.data.ids &&
+      deleteMaintenanCardModal.data.ids.length
     ) {
-      onDeleteProductService(deleteProductModal.data.ids).then((json) => {
-        if (json ) {
-          onGetProductService();
-          onCloseModalDelete();
-        } else {
-          toastError("Có lỗi xảy ra");
+      onDeleteMaintenanceCard(deleteMaintenanCardModal.data.ids).then(
+        (json) => {
+          if (json) {
+            onGetMaintenanceCard();
+            onCloseModalDelete();
+            
+          } else {
+            toastError("Có lỗi xảy ra");
+          }
         }
-      });
+      );
     } else {
       toastError("Lỗi không xác định");
     }
@@ -39,13 +47,13 @@ function DeleteModal(props) {
     >
       <Modal.Header closeButton>
         <div className="modal-title">
-          <span>Xóa linh kiện dịch vụ</span>
+          <span>Xóa phiếu sửa chữa</span>
         </div>
       </Modal.Header>
       <Modal.Body>
         <div className="content">
-          Thao tác này sẽ xóa các linh kiện hoặc dịch vụ bạn đã chọn. Thao tác này không thể
-          khôi phục.
+          Thao tác này sẽ xóa các phiếu sửa chữa bạn đã chọn. Thao tác này không
+          thể khôi phục.
         </div>
       </Modal.Body>
       <Modal.Footer>
@@ -64,18 +72,19 @@ function DeleteModal(props) {
 
 const mapStateToProps = (state) => {
   const {
-    modal: { deleteProductModal },
+    modal: { deleteMaintenanCardModal },
   } = state;
   return {
-    deleteProductModal,
+    deleteMaintenanCardModal,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onCloseModalDelete: () => dispatch(closeModal("deleteProductModal", {})),
-  onDeleteProductService: (ids) => dispatch(deleteProductService(ids)),
-  onGetProductService: (search, option) =>
-    dispatch(getProductService(search, option)),
+  onCloseModalDelete: () =>
+    dispatch(closeModal("deleteMaintenanCardModal", {})),
+  onDeleteMaintenanceCard: (ids) => dispatch(deleteMainCard(ids)),
+  onGetMaintenanceCard: (search, option) =>
+    dispatch(fetchMainCard(search, option)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteModal);

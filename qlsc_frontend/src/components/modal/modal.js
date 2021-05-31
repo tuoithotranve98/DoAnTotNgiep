@@ -9,6 +9,7 @@ import DeleteModal from '../../pages/customer/components/CustomerDetail/Modal/De
 import DeleteModalStaff from '../../pages/staff/components/StaffDetail/Modal/DeleteModal';
 import DeleteModalProduct from '../../pages/product/components/ProductUpdate/Modal/DeleteModal';
 import ProgressBar from '../../progressbar/ProgressBar';
+import DeleteMaintenanCard from '../../pages/maintenancecard/components/MainCardCreate/Modal/DeleteModal';
 // import CreateProductModal from '../../pages/product/list/CreateProductModal'
 
 function Modals (props) {
@@ -65,6 +66,7 @@ function Modals (props) {
       { modal.deleteStaffModal.show ? <DeleteModalStaff /> : null }
       { modal.deleteProductModal.show ? <DeleteModalProduct /> : null }
       { modal.progressBar.show ? <ProgressBar /> : null }
+      { modal.deleteMaintenanCardModal. show ? <DeleteMaintenanCard /> : null}
     </div>
   )
 }

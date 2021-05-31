@@ -68,7 +68,7 @@ function Item(props) {
               target="_blank"
               style={{ textDecoration: "none", color: '#007bff' }}
             >
-              {(staffHistoryMainCard && staffHistoryMainCard.code) || '---'}
+              {(staffHistoryMainCard && staffHistoryMainCard.code.toUpperCase()) || '---'}
               <ReactTooltip
                 place="top"
                 type="dark"
@@ -76,7 +76,7 @@ function Item(props) {
                 isMultiline
                 id={`order_collation_number_id_${1}`}
               >
-                {(staffHistoryMainCard && staffHistoryMainCard.code) || '---'}
+                {(staffHistoryMainCard && staffHistoryMainCard.code.toUpperCase()) || '---'}
               </ReactTooltip>
             </a>
           </span>

@@ -37,19 +37,19 @@ function Item(props) {
           <span className="item-name">
             <a
               data-tip
-              data-for={`order_collation_number_id_${1}`}
+              data-for={`order_collation_number_id_${customer.code}`}
               target="_blank"
               style={{ textDecoration: "none", color: '#007bff' }}
             >
-              {(customer && customer.code) || ''}
+              {(customer && customer.code.toUpperCase()) || ''}
               <ReactTooltip
                 place="top"
                 type="dark"
                 effect="solid"
                 isMultiline
-                id={`order_collation_number_id_${1}`}
+                id={`order_collation_number_id_${customer.code}`}
               >
-                {(customer && customer.code) || ''}
+                {(customer && customer.code.toUpperCase()) || ''}
               </ReactTooltip>
             </a>
           </span>

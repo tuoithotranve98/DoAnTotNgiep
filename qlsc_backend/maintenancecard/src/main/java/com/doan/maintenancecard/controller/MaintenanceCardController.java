@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("admin")
+@RequestMapping("/admin/")
 public class MaintenanceCardController {
 
     private final MaintenanceCardService maintenanceCardService;
@@ -140,9 +140,9 @@ public class MaintenanceCardController {
 
     // Xóa phiếu
     // Một phiếu
-    @DeleteMapping("maintenanceCards/{id}")
-    public ResponseEntity<Boolean> deleteMaintenanceCard(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, JsonProcessingException {
-        boolean check = maintenanceCardService.deleteMaintenanceCard(id);
+    @DeleteMapping("maintenanceCards/deletes")
+    public ResponseEntity<Boolean> deleteMaintenanceCard(@RequestParam(name = "ids", required = false, defaultValue = "") List<Long> ids) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, JsonProcessingException {
+        boolean check = maintenanceCardService.deleteMaintenanceCard(ids);
         return new ResponseEntity<>(check, HttpStatus.OK);
     }
 

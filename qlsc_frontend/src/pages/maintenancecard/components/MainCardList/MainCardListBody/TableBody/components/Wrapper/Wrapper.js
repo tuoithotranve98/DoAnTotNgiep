@@ -18,6 +18,10 @@ function Wrapper(props) {
     listRef && listRef.current && listRef.current.getData();
   }, []);
 
+  useEffect(() => {
+    if (fetching) setSelectedIds([]);
+  }, [fetching]);
+
   const onClick = () => {
     listRef && listRef.current.onCheckAll();
   };
@@ -66,6 +70,7 @@ function Wrapper(props) {
           onClick={onClick}
           checked={selectedIds.length && selectedIds.length === mainCardList.length}
           minus={selectedIds.length && selectedIds.length < mainCardList.length}
+          selectedIds={selectedIds}
           child={child} />
         <List
           ref={listRef}

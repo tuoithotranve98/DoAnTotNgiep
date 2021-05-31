@@ -11,6 +11,7 @@ const initState = {
   deleteCustomer: defaultState,
   deleteStaffModal: defaultState,
   deleteProductModal: defaultState,
+  deleteMaintenanCardModal: defaultState,
   progressBar: {
     show: true,
     isCallingApi: false,

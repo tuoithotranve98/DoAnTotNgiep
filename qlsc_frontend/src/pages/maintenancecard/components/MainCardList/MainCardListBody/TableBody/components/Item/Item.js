@@ -65,20 +65,20 @@ function Item(props) {
           <span className="item-name">
             <a
               data-tip
-              data-for={`order_collation_number_id_${1}`}
+              data-for={`order_collation_number_id_${mainCard.code}`}
               target="_blank"
               onClick={(e) => onRedirectDetail(e)}
               style={{ textDecoration: "none", color: "#007bff" }}
             >
-              {(mainCard && mainCard.code) || "---"}
+              {(mainCard && mainCard.code.toUpperCase()) || "---"}
               <ReactTooltip
                 place="top"
                 type="dark"
                 effect="solid"
                 isMultiline
-                id={`order_collation_number_id_${1}`}
+                id={`order_collation_number_id_${mainCard.code}`}
               >
-                {(mainCard && mainCard.code) || "---"}
+                {(mainCard && mainCard.code.toUpperCase()) || "---"}
               </ReactTooltip>
             </a>
           </span>

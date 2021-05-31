@@ -14,6 +14,7 @@ import com.doan.maintenancecard.model.MaintenanceCardsFilterRequest;
 import com.doan.maintenancecard.model.MaintenanceCardsResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MaintenanceCardService {
@@ -30,7 +31,7 @@ public interface MaintenanceCardService {
 
     MaintenanceCardDTO updateAllStatusMaintenanceCard(Long id, String email, int role) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException;
 
-    boolean deleteMaintenanceCard(Long id) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, UnknownException, JsonProcessingException;
+    boolean deleteMaintenanceCard(List<Long> ids) throws NotFoundException, NotFoundRepairmanException, NotEnoughProductException, UnknownException, JsonProcessingException;
 
     Map<String, Object> getMaintenanceCardByRepairMan(MaintenanceCardUser maintenanceCardUser);
 

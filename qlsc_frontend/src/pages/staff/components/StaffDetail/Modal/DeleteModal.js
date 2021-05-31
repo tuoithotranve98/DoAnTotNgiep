@@ -53,7 +53,7 @@ function DeleteModal(props) {
     ) {
       return (
         <React.Fragment>
-          Bạn có chắc chắn muốn xóa khách hàng{" "}
+          Bạn có chắc chắn muốn xóa nhân viên{" "}
           <span style={{ fontWeight: 500 }}>
             {deleteStaffModal.data &&
               deleteStaffModal.data.staff &&
@@ -65,7 +65,7 @@ function DeleteModal(props) {
     } else {
       return (
         <React.Fragment>
-          Thao tác này sẽ xóa các khách hàng bạn đã chọn. Thao tác này không thể
+          Thao tác này sẽ xóa các nhân viên bạn đã chọn. Thao tác này không thể
           khôi phục.
         </React.Fragment>
       );

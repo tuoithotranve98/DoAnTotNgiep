@@ -128,12 +128,10 @@ function MainCardUpdate(props) {
   const onUpdateStatusMaintenanceCardDetail = (id) => {
     updateStatusMaintenanceCardDetail(id).then((json)=>{
       if(json){
-        console.log("json.maintenanceCardDetails", json);
         setMainCard({...mainCard, maintenanceCardDetails: json.maintenanceCardDetails,workStatus: json.workStatus})
-
-        toastSuccess('Thêm sản phẩm thành công');
+        toastSuccess('Cập nhật trạng thái thành công');
       }else {
-        toastError('Có lỗi xảy ra khi thêm sản phẩm');
+        toastError('Có lỗi xảy ra khi cập nhật trạng thái');
       }
     })
   }
@@ -148,7 +146,7 @@ function MainCardUpdate(props) {
       if(json){
         setMainCard({...mainCard, paymentHistories: json.paymentHistories, payStatus: json.payStatus})
       }else {
-        toastError('Có lỗi xảy ra khi thêm sản phẩm');
+        toastError('Có lỗi xảy ra khi thanh toán');
       }
     })
   }

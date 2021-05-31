@@ -51,9 +51,9 @@ function Item(props) {
               data-tip
               data-for={`order_collation_number_id_${staff.id}`}
               target="_blank"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none", color: '#007bff' }}
             >
-              {(staff && staff.code) || ''}
+              {(staff && staff.code.toUpperCase()) || ''}
               <ReactTooltip
                 place="top"
                 type="dark"
@@ -61,7 +61,7 @@ function Item(props) {
                 isMultiline
                 id={`order_collation_number_id_${staff.id}`}
               >
-                {(staff && staff.code) || ''}
+                {(staff && staff.code.toUpperCase()) || ''}
               </ReactTooltip>
 
             </a>

@@ -30,6 +30,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/admin/**").hasAnyRole("2", "1", "3", "4")
             .antMatchers(HttpMethod.POST, "/admin/maintenanceCards/**").hasAnyRole("1", "3")
+            .antMatchers(HttpMethod.DELETE, "/admin/maintenanceCards/deletes").hasAnyRole("1", "3")
             .antMatchers(HttpMethod.GET, "/admin/maintenanceCards/**").hasAnyRole("1", "2", "3")
             .antMatchers(HttpMethod.PUT, "/admin/maintenanceCards/workStatus/**").hasAnyRole("2")
             .antMatchers(HttpMethod.PUT, "/admin/maintenanceCardDetails/status").hasAnyRole("2")

@@ -116,22 +116,22 @@ function Home(props) {
   const getMoney = () => {
     const businessToday = data.businessToday;
     return `${moneyFormat(businessToday.totalMoney)} đ`;
-  }
+  };
 
   const getMaintenanceCard = () => {
     const businessToday = data.businessToday;
     return businessToday.totalMaintenanceCard;
-  }
+  };
 
   const getMaintenanceCardRepair = () => {
     const businessToday = data.businessToday;
     return businessToday.totalMaintenanceCardRepair;
-  }
+  };
 
   const getMaintenanceCardFinish = () => {
     const businessToday = data.businessToday;
     return businessToday.totalMaintenanceCardSuccess;
-  }
+  };
 
   return (
     <React.Fragment>
@@ -144,7 +144,10 @@ function Home(props) {
         ) : (
           ""
         )}
-        <div className="d-flex" style={{ marginTop: `${!show ? '0px' : '45px'}`}}>
+        <div
+          className="d-flex"
+          style={{ marginTop: `${!show ? "0px" : "45px"}` }}
+        >
           <div className="col-md-8-left">
             {show ? (
               <React.Fragment>
@@ -206,137 +209,70 @@ function Home(props) {
                   <div className="card content-04-left">
                     <div className="header">Top linh kiện</div>
                     <div className="content">
-                      <div className="d-flex item">
-                        <div
-                          className="icon"
-                          style={{ background: `${color5}` }}
-                        >
-                          <span className="icon-index">01</span>
-                        </div>
-                        <div className="d-flex sub-content">
-                          <div className="left">
-                            <div className="title">
-                              Lorem ipsum dolor sitdolor....
+                      {data.topAccessories &&
+                        data.topAccessories.length &&
+                        data.topAccessories.map((item, index) => {
+                          return (
+                            <div className="d-flex item" key={index}>
+                              <div
+                                className="icon"
+                                style={{ background: `${color5}` }}
+                              >
+                                <span className="icon-index">{`0${
+                                  index + 1
+                                }`}</span>
+                              </div>
+                              <div className="d-flex sub-content">
+                                <div className="left">
+                                  <div className="title">{item.name || ""}</div>
+                                  <div className="sub-title">
+                                    {item.code.toUpperCase() || ""}
+                                  </div>
+                                </div>
+                                <div className="right">
+                                  <div className="total">
+                                    {item.money ? moneyFormat(item.money) : 0} đ
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                            <div className="sub-title">PVN19647</div>
-                          </div>
-                          <div className="right">
-                            <div className="total">25.000.000đ</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div
-                          className="icon"
-                          style={{ background: `${color4}` }}
-                        >
-                          <span className="icon-index">02</span>
-                        </div>
-                        <div className="d-flex sub-content">
-                          <div className="left">
-                            <div className="title">
-                              Lorem ipsum dolor sitdolor....
-                            </div>
-                            <div className="sub-title">PVN19647</div>
-                          </div>
-                          <div className="right">
-                            <div className="total">25.000.000đ</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div
-                          className="icon"
-                          style={{ background: `${color3}` }}
-                        >
-                          <span className="icon-index">03</span>
-                        </div>
-
-                        <div className="d-flex sub-content">
-                          <div className="left">
-                            <div className="title">
-                              Lorem ipsum dolor sitdolor....
-                            </div>
-                            <div className="sub-title">PVN19647</div>
-                          </div>
-                          <div className="right">
-                            <div className="total">25.000.000đ</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div
-                          className="icon"
-                          style={{ background: `${color2}` }}
-                        >
-                          <span className="icon-index">04</span>
-                        </div>
-                        <div className="d-flex sub-content">
-                          <div className="left">
-                            <div className="title">
-                              Lorem ipsum dolor sitdolor....
-                            </div>
-                            <div className="sub-title">PVN19647</div>
-                          </div>
-                          <div className="right">
-                            <div className="total">25.000.000đ</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div
-                          className="icon"
-                          style={{ background: `${color1}` }}
-                        >
-                          <span className="icon-index">05</span>
-                        </div>
-                        <div className="d-flex sub-content">
-                          <div className="left">
-                            <div className="title">
-                              Lorem ipsum dolor sitdolor....
-                            </div>
-                            <div className="sub-title">PVN19647</div>
-                          </div>
-                          <div className="right">
-                            <div className="total">25.000.000đ</div>
-                          </div>
-                        </div>
-                      </div>
+                          );
+                        })}
                     </div>
                   </div>
                   <div className="card content-04-right">
                     <div className="header">Nhân viên nổi bật</div>
                     <div className="content">
-                      <div className="d-flex item">
-                        <div className="sub-content">
-                          <div className="title">Nguyễn Xuân Thọ</div>
-                          <div className="sub-title">30,000 đ</div>
-                        </div>
-                        <div className="d-flex star">
-                          <Icons.Star />
-                          <Icons.Star />
-                          <Icons.Star />
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div className="sub-content">
-                          <div className="title">Bùi Đức Mạnh</div>
-                          <div className="sub-title">30,000 đ</div>
-                        </div>
-                        <div className="d-flex star">
-                          <Icons.Star />
-                          <Icons.Star />
-                        </div>
-                      </div>
-                      <div className="d-flex item">
-                        <div className="sub-content">
-                          <div className="title">Nguyễn Thị Trang</div>
-                          <div className="sub-title">30,000 đ</div>
-                        </div>
-                        <div className="d-flex star">
-                          <Icons.Star />
-                        </div>
-                      </div>
+                      {data.topStaffs &&
+                        data.topStaffs.length &&
+                        data.topStaffs.map((item, index) => {
+                          return (
+                            <div className="d-flex item" key={index}>
+                              <div className="sub-content">
+                                <div className="title">{item.name || ""}</div>
+                                <div className="sub-title">
+                                  {item.money ? moneyFormat(item.money) : 0} đ
+                                </div>
+                              </div>
+                              {index === 0 ? (
+                                <div className="d-flex star">
+                                  <Icons.Star />
+                                  <Icons.Star />
+                                  <Icons.Star />
+                                </div>
+                              ) : index === 2 ? (
+                                <div className="d-flex star">
+                                  <Icons.Star />
+                                  <Icons.Star />
+                                </div>
+                              ) : (
+                                <div className="d-flex star">
+                                  <Icons.Star />
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>

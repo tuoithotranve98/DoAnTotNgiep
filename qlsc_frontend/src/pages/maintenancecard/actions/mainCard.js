@@ -137,7 +137,7 @@ export const updateMainCard =
 export const deleteMainCard =
   (ids = []) =>
   (dispatch, getState) => {
-    const endpoint = `${API_MAINTENANCECARD}/maintenancecards/updateStatus?ids=${ids}`;
+    const endpoint = `${API_MAINTENANCECARD}/maintenanceCards/deletes?ids=${ids}`;
     return dispatch(
       fetch(endpoint, {
         method: "DELETE",

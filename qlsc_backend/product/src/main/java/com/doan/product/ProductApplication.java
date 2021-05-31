@@ -24,7 +24,7 @@ import reactor.netty.http.client.HttpClient;
 @EnableHystrixDashboard
 public class ProductApplication {
 
-    private final int timeOut = 3000;
+    private static final int TIME_OUT = 3000;
 
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);
@@ -36,7 +36,7 @@ public class ProductApplication {
 
         HttpClient httpClient = HttpClient.create()
             .tcpConfiguration(client ->
-                client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, timeOut)
+                client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, TIME_OUT)
                     .doOnConnected(conn -> conn
                         .addHandlerLast(new ReadTimeoutHandler(1000))
                     ));

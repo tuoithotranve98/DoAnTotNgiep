@@ -396,34 +396,30 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     }
 
     @Override
-    public boolean deleteMaintenanceCard(Long id) throws NotFoundException, JsonProcessingException {
-        MaintenanceCard maintenanceCard = maintenanceCardRepository.findById(id).orElse(null);
-        if (maintenanceCard == null) {
-            throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        if (maintenanceCard.getWorkStatus() == 0
-            && maintenanceCard.getPayStatus() == 0
-            && maintenanceCard.getPaymentHistories().isEmpty()) {
-
-            for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
-                if (maintenanceCardDetail.getProductType() == 2) {
-                    ProductModel productModel = new ProductModel();
-                    productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
-                    productModel.setCode(maintenanceCardDetail.getProductCode());
-                    productModel.setStatus(2);
-                    String jsonString = mapper.writeValueAsString(productModel);
-                    ProducerRecord<String, String> record = new ProducerRecord<>("dk3w4sws-product", maintenanceCardDetail.getProductId() + "", jsonString);
-                    kafkaTemplate.send(record);
-                }
-                maintenanceCardDetail.setIsDelete((byte) 1);
+    public boolean deleteMaintenanceCard(List<Long> ids) {
+        ids.forEach(id -> {
+            MaintenanceCard maintenanceCard = maintenanceCardRepository.findById(id).orElse(null);
+            if (maintenanceCard == null) {
+                return;
             }
-            maintenanceCardRepository.delete(maintenanceCard);
-            return true;
-        } else {
-            throw new UnknownException();
-        }
-
+            if (maintenanceCard.getWorkStatus() == 0
+                && maintenanceCard.getPayStatus() == 0
+                && maintenanceCard.getPaymentHistories().isEmpty()) {
+                for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
+                    if (maintenanceCardDetail.getProductType() == 2) {
+                        ProductModel productModel = new ProductModel();
+                        productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
+                        productModel.setCode(maintenanceCardDetail.getProductCode());
+                        productModel.setStatus(2);
+                    }
+                    maintenanceCardDetail.setIsDelete((byte) 1);
+                }
+                maintenanceCardRepository.delete(maintenanceCard);
+            } else {
+                throw new UnknownException();
+            }
+        });
+        return true;
     }
 
     @Override

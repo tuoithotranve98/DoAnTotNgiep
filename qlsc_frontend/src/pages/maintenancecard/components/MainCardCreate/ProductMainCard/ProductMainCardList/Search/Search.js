@@ -43,10 +43,6 @@ function Search(props) {
   };
 
   const onFocus = () => {
-    if (!props.validate.customerIsValid) {
-      toastError("Vui lòng chọn khách hàng!");
-      return;
-    }
     setFetching(true);
     getListProductAction(search || "", undefined, 1);
     setFocus(true);

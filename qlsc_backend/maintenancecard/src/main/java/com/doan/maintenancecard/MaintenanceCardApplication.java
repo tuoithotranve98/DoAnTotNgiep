@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class MaintenancecardApplication {
+public class MaintenanceCardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MaintenancecardApplication.class, args);
+		SpringApplication.run(MaintenanceCardApplication.class, args);
 	}
 
 	@Bean
@@ -40,3 +40,4 @@ class RestTemplateConfig {
 		return new RestTemplate();
 	}
 }
+
