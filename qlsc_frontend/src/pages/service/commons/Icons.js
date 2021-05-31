@@ -2579,8 +2579,8 @@ export const ImageProduct = () => {
         <path
           fill="#d6dbeb"
           stroke="#d6dbeb"
-          stroke-width=".417"
-          stroke-linecap="round"
+          strokeWidth=".417"
+          strokeLinecap="round"
           d="M15.446 15.32l-9.867.847c.37-.208.73-.43 1.093-.644.305-.185.62-.352.944-.502.166-.074.335-.14.508-.195.142-.048.286-.088.43-.12l.1-.022c.443-.1.903-.1 1.347 0 .083.02.166.045.246.075.052.02.104.04.156.065.27.125.517.304.78.438.142.077.296.13.455.16.38.07.772-.04 1.155-.114.875-.176 1.777-.17 2.65.013z"
         ></path>
         <path
@@ -2618,9 +2618,9 @@ export const ImageProduct = () => {
         <path
           fill="#e8eef5"
           stroke="#d6dbeb"
-          stroke-width=".417"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth=".417"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M10.99 7.917c.417.11.833-.088 1.185-.338s.654-.56 1.042-.72l.392 1.287c.164.544.316 1.183-.022 1.64-.18.21-.408.376-.662.485-1.042.54-1.677 1.154-2.708 1.694.667-.294.665-1.098.75-1.823s-.08-1.458-.242-2.163"
         ></path>
         <path
@@ -2642,9 +2642,9 @@ export const ImageProduct = () => {
         <path
           fill="none"
           stroke="#d6dbeb"
-          stroke-width=".417"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth=".417"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M10.99 7.917c.417.11.833-.088 1.185-.338s.654-.56 1.042-.72l.392 1.287c.164.544.316 1.183-.022 1.64-.18.21-.408.376-.662.485-1.042.54-1.677 1.154-2.708 1.694"
         ></path>
         <path
@@ -2667,8 +2667,8 @@ export const ImageProduct = () => {
         <path
           fill="#d6dbeb"
           stroke="#d6dbeb"
-          stroke-width=".417"
-          stroke-linecap="round"
+          strokeWidth=".417"
+          strokeLinecap="round"
           d="M18.333 8.635c-.37-.417-1.008-.583-1.59-.583-.156.014-.314 0-.465-.042-.162-.09-.312-.198-.446-.325-.335-.2-.738-.247-1.11-.133-.373.09-.715.26-1.083.358-.123.04-.253.052-.38.038-.158-.027-.296-.12-.452-.158-.344-.083-.723.123-1.042 0-.15-.088-.296-.185-.435-.29-.453-.238-.995.07-1.4.37 0 .007 8.416.786 8.403.766z"
         ></path>
         <path
@@ -2706,9 +2706,9 @@ export const ImageProduct = () => {
         <path
           fill="#e8eef5"
           stroke="#d6dbeb"
-          stroke-width=".417"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth=".417"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M16.58 5c.166.063.35.05.503-.04.147-.088.303-.158.467-.208l.058.538c.025.227.037.49-.13.644-.088.07-.19.118-.3.142-.447.135-.745.33-1.193.465.285-.066.344-.382.43-.662.073-.284.096-.577.068-.87"
         ></path>
         <path
