@@ -34,6 +34,7 @@ public class AppAuthHelper {
                 .getBody();
             AppCredential credential = new AppCredential();
             credential.setTenantId((String) claims.get("tenantId"));
+            credential.setUserId((String) claims.get("userId"));
             return credential;
         }
 
@@ -44,5 +45,6 @@ public class AppAuthHelper {
     @Setter
     public static class AppCredential {
         private String tenantId;
+        private String userId;
     }
 }

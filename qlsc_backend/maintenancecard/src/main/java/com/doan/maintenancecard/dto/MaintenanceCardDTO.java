@@ -26,5 +26,4 @@ public class MaintenanceCardDTO extends BaseDTO {
     private List<MaintenanceCardDetailDTO> maintenanceCardDetails;
     private List<PaymentHistoryDTO> paymentHistories;
     private List<MaintenanceCardDetailStatusHistoryDTO> maintenanceCardDetailStatusHistories;
-
 }

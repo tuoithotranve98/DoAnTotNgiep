@@ -71,6 +71,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             mcDetail.setCreatedDate(new Date());
             mcDetail.setModifiedDate(new Date());
             mcDetail.setMaintenanceCard(maintenanceCard);
+            mcDetail.setTenantId(Long.parseLong(tenantId));
             mcDetail.setMaintenanceCardDetailStatusHistories(new ArrayList<>());
             // check them so luong
             // Giam so luong trong kho: so luong con lai = so luong hien tai - so luong trong phieu sua chua
@@ -550,20 +551,26 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         int offset = (filter.getPage() - 1) * filter.getLimit();
         String payStatusIds = StringUtils.join(filter.getPayStatus(), ",");
         String workStatusIds = StringUtils.join(filter.getWorkStatus(), ",");
-        List<MaintenanceCard> maintenanceCards = filter(offset, filter.getLimit(), filter.getQuery(), payStatusIds, workStatusIds, filter.getFrom(), filter.getTo(), filter.getTenantId());
+        List<MaintenanceCard> maintenanceCards = filter(offset, payStatusIds, workStatusIds, filter.getFrom(), filter.getTo(), filter.getTenantId(), filter);
         if (maintenanceCards.isEmpty()) return new ArrayList<>();
         return maintenanceCardsMapper.getMaintenanceCardsModels(maintenanceCards);
     }
 
-    private List<MaintenanceCard> filter(int offset, int size, String query, String payStatusIds, String workStatusIds, Long from, Long to, Long tenantId) {
+    private List<MaintenanceCard> filter(int offset,
+                                         String payStatusIds,
+                                         String workStatusIds,
+                                         Long from, Long to, Long tenantId,
+                                         MaintenanceCardsFilterRequest filter) {
         try {
+            int size = filter.getLimit();
+            String query = filter.getQuery();
             if (from != null){
                 Date dateFrom = getDateFromTimestamp(from);
                 Date dateTo = getDateFromTimestamp(to);
-                return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, dateFrom, dateTo, size, offset, tenantId);
+                return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, dateFrom, dateTo, size, offset, tenantId, filter.getRepairmanId());
             } else {
                 return maintenanceCardRepository.filter(query, payStatusIds, workStatusIds, null, null
-                    , size, offset, tenantId);
+                    , size, offset, tenantId, filter.getRepairmanId());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -579,10 +586,10 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 Date dateFrom = getDateFromTimestamp(filterRequest.getFrom());
                 Date dateTo = getDateFromTimestamp(filterRequest.getTo());
                 return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds,
-                    payStatusIds,dateFrom, dateTo, filterRequest.getTenantId());
+                    payStatusIds,dateFrom, dateTo, filterRequest.getTenantId(), filterRequest.getRepairmanId());
             }else {
                 return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds,
-                    payStatusIds,null, null, filterRequest.getTenantId());
+                    payStatusIds,null, null, filterRequest.getTenantId(), filterRequest.getRepairmanId());
             }
 
         } catch (Exception e) {

@@ -17,7 +17,7 @@ const initialState = {
   pricePerUnit: null,
   description: null,
   images: [],
-  type: null,
+  type: 1,
 };
 function ProductCreate(props) {
   const { onUpLoadImage, onSaveProductService } = props;

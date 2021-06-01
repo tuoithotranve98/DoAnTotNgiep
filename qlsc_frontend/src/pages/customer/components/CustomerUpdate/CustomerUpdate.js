@@ -32,7 +32,7 @@ function CustomerUpdate(props) {
     wards,
   } = props;
   const [customer, setCustomer] = useState(initialState);
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState(false);
   const [actionSave, setActionSave] = useState(false);
   const { id } = useParams();
   useEffect(() => {

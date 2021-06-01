@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface PaymentHistoryService {
 
-    MaintenanceCardDTO insertPaymentHistory(List<PaymentHistoryDTO> paymentHistoryDTOs) throws NotFoundException, MoneyExceedException;
+    MaintenanceCardDTO insertPaymentHistory(List<PaymentHistoryDTO> paymentHistoryDTOs, String tenantId) throws NotFoundException, MoneyExceedException;
 
     Map<String, Object> getPaymentHistoryByIdCustomer(
         PaymentHistoryByIdCustomer paymentHistoryByIdCustomer);

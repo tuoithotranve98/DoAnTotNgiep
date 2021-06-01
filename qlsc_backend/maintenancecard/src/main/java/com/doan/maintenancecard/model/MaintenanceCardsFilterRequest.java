@@ -21,4 +21,5 @@ public class MaintenanceCardsFilterRequest {
     private Long from;
     private Long to;
     private Long tenantId;
+    private Long repairmanId;
 }

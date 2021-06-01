@@ -335,7 +335,7 @@ function TopBar(props) {
         {' >'}
       </div> */}
       <div className="top-bar-text">{getTopBarText()}</div>
-      <div className="d-flex top-bar-action">
+      {/* <div className="d-flex top-bar-action">
         <div className="icon-help">
           <Icons.iconHelp />
           <span>Trợ giúp</span>
@@ -346,12 +346,12 @@ function TopBar(props) {
         >
           <Icons.iconFeedback />
           <span>Góp ý</span>
-        </div>
+        </div> */}
         {/* <div className="icon-update">
             <Icons.iconUpdate />
             <span>Thông báo</span>
           </div> */}
-        <ul className="nav menu-bottom">
+        {/* <ul className="nav menu-bottom">
           <li className="user">
             <a href="#" data-toggle="dropdown">
               <Icons.iconUpdate />
@@ -359,18 +359,13 @@ function TopBar(props) {
             </a>
             <div className="dropdown-menu">
               <div className="info d-flex align-items-center">
-                aaaaaaaaaaaaaaaaa
-                aaaaaaaaaaaaaaaaa
-                aaaaaaaaaaaaaaaaa
-                aaaaaaaaaaaaaaaaa
-
-                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                a
               </div>
 
             </div>
           </li>
-        </ul>
-      </div>
+        </ul> */}
+      {/* </div> */}
     </div>
   );
 }

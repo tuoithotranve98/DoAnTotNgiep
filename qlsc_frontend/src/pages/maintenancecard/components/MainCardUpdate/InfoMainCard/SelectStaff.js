@@ -2,8 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import Select2 from "react-select2-wrapper";
 import "./stylesStaff.scss";
+import { getStaffsByRepairman } from "../../../../../actions/commons";
 
 class SelectStaff extends React.Component {
+
+  componentDidMount() {
+    this.props.getStaffsByRepairman();
+  }
+  
   render() {
     const { staffs, staff } = this.props;
     return (
@@ -27,7 +33,9 @@ const mapStateToProps = (state) => {
     staffs: staffByRepairMan
   };
 };
-
-export default connect(mapStateToProps, null, null, { withRef: true })(
+const mapDispatchToProps = (dispatch) => ({
+  getStaffsByRepairman: () => dispatch(getStaffsByRepairman()),
+});
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(
   SelectStaff
 );

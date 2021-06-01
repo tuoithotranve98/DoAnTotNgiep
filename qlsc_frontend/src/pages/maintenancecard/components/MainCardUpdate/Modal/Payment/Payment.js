@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import React from "react";
 
 import Modal from "react-bootstrap/Modal";
@@ -7,11 +6,23 @@ import "./styles.scss";
 import * as Icons from "pages/customer/commons/Icons";
 
 function Payment(props) {
-  const { setPayment,setMoney, money, payment, payments, showModalPayment, setShowModalPayment, onMainCardPaymentHistory,
+  const {
+    setPayment,
+    setMoney,
+    money,
+    payment,
+    payments,
+    showModalPayment,
+    setShowModalPayment,
+    onMainCardPaymentHistory,
     mainCardTotal,
     totalAfterPayment,
   } = props;
-  const handleClose = () => {
+
+  const handleClose = (isPay) => {
+    if (isPay && !payment.id) {
+      return;
+    }
     setPayment({});
     setShowModalPayment(false);
   };
@@ -38,7 +49,7 @@ function Payment(props) {
     >
       <Modal.Header closeButton>
         <div className="modal-title">
-          <span>Xác nhận thông tin đối soát</span>
+          <span>Xác nhận thanh toán</span>
         </div>
       </Modal.Header>
       <Modal.Body>
@@ -73,7 +84,9 @@ function Payment(props) {
             </div>
             <div className="col-md-6">
               <div className="field form-group">
-                <label className="control-label title-option">Số tiền thanh toán</label>
+                <label className="control-label title-option">
+                  Số tiền thanh toán
+                </label>
                 <div className="controls">
                   <input
                     className="input"
@@ -82,7 +95,7 @@ function Payment(props) {
                     name="address"
                     value={total}
                     type="number"
-                    onChange={(e)=>setMoney(e.target.value)}
+                    onChange={(e) => setMoney(e.target.value)}
                     placeholder="Số tiền thanh toán"
                   />
                 </div>
@@ -93,15 +106,14 @@ function Payment(props) {
       </Modal.Body>
       <Modal.Footer>
         <React.Fragment>
-          <Button variant="light" onClick={handleClose}>
+          <Button variant="light" onClick={() => handleClose()}>
             Thoát
           </Button>
           <Button
             variant="primary"
             onClick={() => {
-              onMainCardPaymentHistory()
-              handleClose();
-              // setPaymentItem({})
+              onMainCardPaymentHistory();
+              handleClose(true);
             }}
           >
             Áp dụng

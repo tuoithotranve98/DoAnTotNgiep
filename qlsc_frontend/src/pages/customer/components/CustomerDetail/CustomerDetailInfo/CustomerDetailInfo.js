@@ -73,7 +73,7 @@ function CustomerDetailInfo(props) {
             <div className="col-4">
               <div className="d-flex item">
                 <div className="label">Tên khách hàng: &nbsp; </div>
-                <div className="content-value">{(customer && customer.email) || '---'}</div>
+                <div className="content-value">{(customer && customer.name) || '---'}</div>
               </div>
             </div>
             <div className="col-4">

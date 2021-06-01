@@ -8,7 +8,8 @@ function ProgressBar(props) {
   const handleCloseModal = () => {
     onCloseProgressBar();
   };
-  if (!notifications.length) return null;
+  return null;
+  // if (!notifications.length) return null;
   return (
     <div id="wrapper-progress-bar">
       <div className="progressbar_updating">

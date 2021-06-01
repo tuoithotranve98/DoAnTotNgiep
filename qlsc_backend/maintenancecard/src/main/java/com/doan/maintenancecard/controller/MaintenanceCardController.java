@@ -41,6 +41,7 @@ public class MaintenanceCardController {
     private final MaintenanceCardService maintenanceCardService;
     private final MaintenanceCardDetailService maintenanceCardDetailService;
     private final AppAuthHelper appAuthHelper;
+    private static final String SPACE = "_";
 
     // Thêm mới phiếu
     // Kiem tra quyen: NV dieu phoi
@@ -167,6 +168,15 @@ public class MaintenanceCardController {
     @GetMapping("maintenance_cards_v2")
     public ResponseEntity<MaintenanceCardsResponse> getMaintenanceCards(@Valid MaintenanceCardsFilterRequest filterRequest) {
         String tenantId = appAuthHelper.httpCredential().getTenantId();
+        String userId = appAuthHelper.httpCredential().getUserId();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        List<String> roles = authentication.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        int role = Integer.parseInt(roles.get(0).split(SPACE)[1]);
+        if (role == 2) {
+            filterRequest.setRepairmanId(Long.parseLong(userId));
+        } else filterRequest.setRepairmanId(0L);
         MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest, tenantId);
         return ResponseEntity.ok(maintenanceCardsResponse);
     }

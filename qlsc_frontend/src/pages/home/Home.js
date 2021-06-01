@@ -12,11 +12,6 @@ import ReportLeft from "./ReportLeft/ReportLeft";
 import { moneyFormat } from "../../utils/moneyFormat";
 import moment from "moment";
 var randomColor = require("randomcolor"); // import the script
-var color5 = randomColor();
-var color4 = randomColor();
-var color3 = randomColor();
-var color2 = randomColor();
-var color1 = randomColor();
 const listAction = [
   {
     id: 1,
@@ -216,7 +211,7 @@ function Home(props) {
                             <div className="d-flex item" key={index}>
                               <div
                                 className="icon"
-                                style={{ background: `${color5}` }}
+                                style={{ background: randomColor() }}
                               >
                                 <span className="icon-index">{`0${
                                   index + 1

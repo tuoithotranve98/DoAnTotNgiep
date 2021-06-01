@@ -14,6 +14,7 @@ import com.doan.maintenancecard.entity.MaintenanceCardDetailStatusHistory;
 import com.doan.maintenancecard.entity.PaymentHistory;
 import com.doan.maintenancecard.entity.PaymentMethod;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -158,7 +159,9 @@ public class MaintenanceCardConverter {
                 paymentHistoryDTO.setMoney(paymentHistory.getMoney());
                 PaymentMethodDTO paymentMethodDTO = new PaymentMethodDTO();
                 PaymentMethod paymentMethod = paymentHistory.getPaymentMethod();
-                paymentMethodDTO.setName(paymentMethod.getName());
+                if (paymentMethod != null && StringUtils.isNotBlank(paymentMethod.getName())) {
+                    paymentMethodDTO.setName(paymentMethod.getName());
+                }
                 paymentHistoryDTO.setPaymentMethod(paymentMethodDTO);
                 paymentHistoryDTO.setCreatedDate(paymentHistory.getCreatedDate());
                 paymentHistoryDTO.setModifiedDate(paymentHistory.getModifiedDate());

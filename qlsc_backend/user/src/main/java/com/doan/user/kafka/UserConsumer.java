@@ -12,6 +12,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +23,13 @@ public class UserConsumer {
     @KafkaListener(topics = {"dk3w4sws-user"}, groupId = "repair-manager")
     public void consume(@Payload String message, @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key) {
         try {
-            User user = userRepository.getOne(Long.parseLong(key));
-            user.setTotalMaintenanceCard(user.getTotalMaintenanceCard()+Integer.parseInt(message));
-            userRepository.save(user);
+            Optional<User> user = userRepository.findById(Long.parseLong(key));
+            if(user.isPresent()) {
+                User newUser = user.get();
+                newUser.setTotalMaintenanceCard(newUser.getTotalMaintenanceCard() + Integer.parseInt(message));
+                userRepository.save(newUser);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

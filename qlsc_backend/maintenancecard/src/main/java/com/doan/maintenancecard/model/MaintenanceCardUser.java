@@ -25,7 +25,7 @@ public class MaintenanceCardUser {
     private Long id;
 
     public MaintenanceCardUser() {
-        this.size = 5;
+        this.size = 10;
         this.page = 1;
         this.sortBy = "";
         this.id = 0L;
@@ -39,7 +39,7 @@ public class MaintenanceCardUser {
     public MaintenanceCardUser getMaintenanceCardUser() {
         MaintenanceCardUser maintenanceCardUser = new MaintenanceCardUser();
         maintenanceCardUser.setPage(1);
-        maintenanceCardUser.setSize(5);
+        maintenanceCardUser.setSize(10);
         maintenanceCardUser.setSortBy("");
         maintenanceCardUser.setDescending(false);
         maintenanceCardUser.setCode("");

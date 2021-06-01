@@ -40,15 +40,15 @@ function PaymentMethod(props) {
                 >
                   <div>
                     <span style={{ fontWeight: "bold" }}>
-                      Đã thanh toán : {index}
+                      Đã thanh toán :
                     </span>
-                    <p>{payment.paymentMethod.name}</p>
+                    <p>{payment.paymentMethod.name || 'Tiền mặt'}</p>
                   </div>
                   <div>
                     <span style={{ fontWeight: "bold" }}>
                       {formatDate(payment.createdDate)}
                     </span>
-                    <p>{payment.money}</p>
+                    <p>{moneyFormat(payment.money)} đ</p>
                   </div>
                 </div>
               </TimelineContent>
@@ -76,7 +76,7 @@ function PaymentMethod(props) {
           <div className="header-title">
             <div style={{ fontSize: "20px" }}>Thanh toán</div>
             <div className="text">
-              Đã thanh toán: {moneyFormat(props.totalAfterPayment())}đ
+              Đã thanh toán: {moneyFormat(props.totalAfterPayment())} đ
             </div>
           </div>
           <div className="header-action">
@@ -103,7 +103,7 @@ function PaymentMethod(props) {
               ) : (
                 <React.Fragment>
                   Còn phải trả:{" "}
-                  {moneyFormat(mainCardTotal - props.totalAfterPayment())}đ
+                  {moneyFormat(mainCardTotal - props.totalAfterPayment())} đ
                 </React.Fragment>
               )}
             </div>

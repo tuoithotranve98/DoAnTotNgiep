@@ -49,8 +49,9 @@ function Item(props) {
                 style={{
                   color: `${item.color}`,
                   border: `1px solid ${item.color}`,
+                  cursor: item.status === 2 ? "not-allowed" : ""
                 }}
-                onClick={() =>
+                onClick={() => item.status === 2 ? null : 
                   props.onUpdateStatusMaintenanceCardDetail(product.id)
                 }
               >

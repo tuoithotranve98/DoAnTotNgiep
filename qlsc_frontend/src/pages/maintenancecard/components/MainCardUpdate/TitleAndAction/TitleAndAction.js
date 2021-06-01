@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import pushstate from "../../../../../utils/pushstate";
 
 function TitleAndAction(props) {
-    const { onUpdateMainCard, id, mainCard } = props;
+    const { onUpdateMainCard, id, mainCard, finish } = props;
     const componentRef = useRef();
     const history = useHistory();
     const onClick = () => {
@@ -42,10 +42,11 @@ function TitleAndAction(props) {
               <ExportMaintenanceCard />
             </div>
           </div>
-          <div className="header-action">
+          <div className="header-action" style={finish ? {cursor: 'not-allowed'} : {}}>
             <button
               className="d-flex align-items-center justify-content-between btn btn-create"
               type="button"
+              style={finish ? {cursor: 'not-allowed'} : {}}
               onClick={() => onUpdateMainCard(id, mainCard)}
             >
               <span

@@ -9,21 +9,19 @@ registerLocale("vi", vi);
 function InfoMainCard(props) {
   const { mainCard , onChangeMainCard, onChangeMainCardReairMan  } = props;
   const coordinator = mainCard.coordinator || {}
-  const [endDate, setEndDate] = useState("");
-  const [startDate, setStartDate] = useState("");
   const [focusEndDate, setFocusEndDate] = useState(true);
   const [focusStartDate, setFocusStartDate] = useState(true);
   const calendar1 = useRef();
   const calendar2 = useRef();
 
   const onClickFocusEndDate = () => {
-    setFocusEndDate(!focusEndDate);
-    calendar2.current.setOpen(focusEndDate);
+    // setFocusEndDate(!focusEndDate);
+    // calendar2.current.setOpen(focusEndDate);
   };
 
   const onClickFocusStartDate = () => {
-    setFocusStartDate(!focusStartDate);
-    calendar2.current.setOpen(focusStartDate);
+    // setFocusStartDate(!focusStartDate);
+    // calendar2.current.setOpen(focusStartDate);
   };
   return (
     <div className="info-main-card-warpper">
@@ -34,6 +32,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="code"
+          readOnly
           value={mainCard.code || ''}
           onChange={(e) => onChangeMainCard("code", e.target.value)}
           placeholder="Nhập mã phiếu"

@@ -23,13 +23,13 @@ function InfoMainCard(props) {
   });
 
   const onClickFocusEndDate = () => {
-    setFocusEndDate(!focusEndDate);
-    calendar2.current.setOpen(focusEndDate);
+    // setFocusEndDate(!focusEndDate);
+    // calendar2.current.setOpen(focusEndDate);
   };
 
   const onClickFocusStartDate = () => {
-    setFocusStartDate(!focusStartDate);
-    calendar2.current.setOpen(focusStartDate);
+    // setFocusStartDate(!focusStartDate);
+    // calendar2.current.setOpen(focusStartDate);
   };
   return (
     <div className="info-main-card-warpper">

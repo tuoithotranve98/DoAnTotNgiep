@@ -15,31 +15,19 @@ const initialState = {
   pricePerUnit: null,
   description: null,
   images: [],
-  type: null,
+  type: 2,
 };
 function ServiceCreate(props) {
   const { onUpLoadImage, onSaveProductService } = props;
-  const [images, setImages] = useState([]);
   const [product, setProduct] = useState(initialState);
   const [showContent, setShowContent] = useState(1);
   const [isValid, setIsValid] = useState(true);
   const [actionSave, setActionSave] = useState(false);
 
-  useEffect(() => {
-    onchangeValue("type", 1);
-  }, []);
-
-  useEffect(() => {
-    onchangeValue("images", images);
-  }, [images]);
 
   useEffect(() => {
     setIsValid(true);
     setActionSave(false);
-  }, [showContent]);
-
-  useEffect(() => {
-    onchangeValue("type", showContent);
   }, [showContent]);
 
   const onchangeValue = (type, value) => {

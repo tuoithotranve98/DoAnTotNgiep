@@ -4,6 +4,7 @@ import com.doan.maintenancecard.dto.PaymentHistoryDTO;
 import com.doan.maintenancecard.exception.commonException.NotFoundException;
 import com.doan.maintenancecard.exception.maintenanceCardException.MoneyExceedException;
 import com.doan.maintenancecard.model.PaymentHistoryByIdCustomer;
+import com.doan.maintenancecard.security.AppAuthHelper;
 import com.doan.maintenancecard.service.PaymentHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,12 @@ import java.util.Map;
 public class PaymentHistoryController {
 
     private final PaymentHistoryService paymentHistoryService;
+    private final AppAuthHelper appAuthHelper;
 
     @PostMapping("paymentHistories")
     public ResponseEntity<MaintenanceCardDTO> insertPaymentHistory(@RequestBody List<PaymentHistoryDTO> paymentHistoryDTOs) throws NotFoundException, MoneyExceedException {
-        MaintenanceCardDTO maintenanceCardDTO = paymentHistoryService.insertPaymentHistory(paymentHistoryDTOs);
+        String tenantId = appAuthHelper.httpCredential().getTenantId();
+        MaintenanceCardDTO maintenanceCardDTO = paymentHistoryService.insertPaymentHistory(paymentHistoryDTOs, tenantId);
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 

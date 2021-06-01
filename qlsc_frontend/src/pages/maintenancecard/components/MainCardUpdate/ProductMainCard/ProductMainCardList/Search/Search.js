@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable consistent-return */
 import React, { useState, useRef, useEffect } from "react";
 import Input from "components/input/Input";
 import debounce from "utils/debounce";
@@ -14,8 +12,6 @@ function Search(props) {
   const [search, setSearch] = useState("");
   const [focus, setFocus] = useState(false);
   const [fetching, setFetching] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const [list, setList] = useState([]);
   const [metaData, setMetaData] = useState({});
   useEffect(() => {
@@ -44,9 +40,11 @@ function Search(props) {
   };
 
   const onFocus = () => {
-    setFetching(true);
-    getListProductAction(search || "", undefined, 1);
-    setFocus(true);
+    if (!props.finish) {
+      setFetching(true);
+      getListProductAction(search || "", undefined, 1);
+      setFocus(true);
+    }
   };
 
   const onBlur = () => {
