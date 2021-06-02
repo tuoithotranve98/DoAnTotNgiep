@@ -1,0 +1,20 @@
+
+server:
+   port: 8082
+spring:
+   servlet:
+      multipart: 
+         enabled: true
+         file-size-threshold: 2KB
+         max-file-size: 200MB
+         max-request-size: 215MB
+management:
+   endpoints:
+      web:
+         exposure:
+            include: hystrix.stream
+databaseName: image
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

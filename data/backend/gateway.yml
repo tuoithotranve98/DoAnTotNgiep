@@ -1,0 +1,28 @@
+server:
+   port: 8762
+zuul:
+   ignored-services: "*"
+
+   routes:
+      image:
+         path: /image/**
+         service-id: image
+         sensitive-headers: Cookie,Set-Cookie
+      auth:
+         path: /auth/**
+         service-id: auth
+         strip-prefix: false
+         sensitive-headers: Cookie,Set-Cookie
+spring:
+    http:
+        multipart:
+           maxFileSize: 1048576KB
+           maxRequestSize: 1048576KB
+hystrix.command.default.execution.timeout.enabled: false
+ribbon:
+  ConnectTimeout:  10000
+  ReadTimeout:  10000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

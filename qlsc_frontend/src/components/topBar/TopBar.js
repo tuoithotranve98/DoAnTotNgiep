@@ -335,23 +335,23 @@ function TopBar(props) {
         {' >'}
       </div> */}
       <div className="top-bar-text">{getTopBarText()}</div>
-      {/* <div className="d-flex top-bar-action">
-        <div className="icon-help">
+      <div className="d-flex top-bar-action">
+        {/* <div className="icon-help">
           <Icons.iconHelp />
           <span>Trợ giúp</span>
-        </div>
+        </div> */}
         <div
           className="icon-feed-back"
           onClick={() => props.changeShowFeedBack(true)}
         >
           <Icons.iconFeedback />
           <span>Góp ý</span>
-        </div> */}
+        </div>
         {/* <div className="icon-update">
             <Icons.iconUpdate />
             <span>Thông báo</span>
           </div> */}
-        {/* <ul className="nav menu-bottom">
+        <ul className="nav menu-bottom">
           <li className="user">
             <a href="#" data-toggle="dropdown">
               <Icons.iconUpdate />
@@ -364,8 +364,8 @@ function TopBar(props) {
 
             </div>
           </li>
-        </ul> */}
-      {/* </div> */}
+        </ul>
+      </div>
     </div>
   );
 }

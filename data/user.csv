@@ -1,0 +1,6 @@
+id,created_date,modified_date,address,code,email,full_name,password,phone_number,role,status,total_maintenance_card,tenant_id
+1,"2021-04-29 21:53:41.835000","2021-04-29 21:53:41.835000","Bắc Ninh",code01,quanly@gmail.com,"NV Quản Lý",$2a$10$p5UU0sBOtvt46uNy/gyvZOjKEH6niOtYuSfenqORvHgL6OTvo83lq,0357004230,3,1,0,1
+2,"2021-04-29 21:53:41.835000","2021-04-29 21:53:41.835000","Bắc Ninh",code02,suachua01@gmail.com,"NV Sửa Chữa 01",$2a$10$p5UU0sBOtvt46uNy/gyvZOjKEH6niOtYuSfenqORvHgL6OTvo83lq,0357004230,2,1,0,1
+3,"2021-04-29 21:53:41.835000","2021-04-29 21:53:41.835000","Bắc Ninh",code03,suachua02@gmail.com,"NV Sửa Chữa 02",$2a$10$p5UU0sBOtvt46uNy/gyvZOjKEH6niOtYuSfenqORvHgL6OTvo83lq,0357004230,2,1,0,1
+4,"2021-04-29 21:53:41.835000","2021-04-29 21:53:41.835000","Bắc Ninh",code04,suachua03@gmail.com,"NV Sửa Chữa 03",$2a$10$p5UU0sBOtvt46uNy/gyvZOjKEH6niOtYuSfenqORvHgL6OTvo83lq,0357004230,2,1,0,1
+5,"2021-04-29 21:53:41.835000","2021-04-29 21:53:41.835000","Bắc Ninh",code05,dieuphoi@gmail.com,"NV Điều Phối",$2a$10$p5UU0sBOtvt46uNy/gyvZOjKEH6niOtYuSfenqORvHgL6OTvo83lq,0357004230,1,1,0,1
