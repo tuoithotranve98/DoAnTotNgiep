@@ -10,7 +10,7 @@ function ProductMainCardList(props) {
   const { maintenanceCardDetails, finish } = props;
   return (
     <div className="main-card-product-order-list-wrapper">
-      <Search finish addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
+      <Search finish={finish} addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
       <Header />
       {maintenanceCardDetails.length > 0 ? (
         <React.Fragment>
@@ -29,7 +29,7 @@ function ProductMainCardList(props) {
         <React.Fragment>
           <div className="d-flex align-items-center no-product">
             <div>
-              <h4>Không có dịch vụ</h4>
+              <h4>Chưa có dịch vụ</h4>
             </div>
             <Icons.iconNoProduct></Icons.iconNoProduct>
           </div>

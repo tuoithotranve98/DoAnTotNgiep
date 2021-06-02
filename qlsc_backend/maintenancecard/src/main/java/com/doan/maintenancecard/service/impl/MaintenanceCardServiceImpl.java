@@ -79,7 +79,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             // type = 2: dich vu
             if (mcDetail.getProductId() != 0 && mcDetail.getProductType() == 1) {
                 ProductModel productModel = new ProductModel();
-                productModel.setAmountChargeInUnit(mcDetail.getQuantity());
+                productModel.setAmount(mcDetail.getQuantity());
                 productModel.setCode(mcDetail.getProductCode());
                 productModel.setStatus(0);
                 CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(mcDetail.getProductId())));
@@ -207,7 +207,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 //nếu là linh kiện thì bắn kafka để giảm số lượng
                 if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                     ProductModel productModel = new ProductModel();
-                    productModel.setAmountChargeInUnit(maintenanceCardDetail.getQuantity());
+                    productModel.setAmount(maintenanceCardDetail.getQuantity());
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(1);
                     CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
@@ -236,7 +236,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1
                 && maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() != 0) {
                     ProductModel productModel = new ProductModel();
-                    productModel.setAmountChargeInUnit(maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity());
+                    productModel.setAmount(maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity());
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     if (maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() > 0) {
                         productModel.setStatus(2);
@@ -265,7 +265,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 && maintenanceCardDetail.getStatus() != 0) {
                     if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                         ProductModel productModel = new ProductModel();
-                        productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
+                        productModel.setAmount(-maintenanceCardDetail.getQuantity());
                         productModel.setCode(maintenanceCardDetail.getProductCode());
                         productModel.setStatus(2);
                         CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
@@ -409,7 +409,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                 for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
                     if (maintenanceCardDetail.getProductType() == 2) {
                         ProductModel productModel = new ProductModel();
-                        productModel.setAmountChargeInUnit(-maintenanceCardDetail.getQuantity());
+                        productModel.setAmount(-maintenanceCardDetail.getQuantity());
                         productModel.setCode(maintenanceCardDetail.getProductCode());
                         productModel.setStatus(2);
                     }

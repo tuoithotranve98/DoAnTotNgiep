@@ -2,15 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import * as Icons from "../../../../../../commons/Icons";
 import { moneyFormat } from "utils/moneyFormat";
+import { toastError } from "utils/toast";
 
 function OrderItemSearch(props) {
   const { item, onClick } = props;
+
+  const onChooseProduct = () => {
+    if (!item.quantity) {
+      toastError("Linh kiện hiện đang không còn")
+    } else {
+      onClick(item);
+    }
+  }
   return (
     <div
       className="d-flex align-items-center product-item-info"
-      onMouseDown={() => {
-        onClick(item);
-      }}
+      onMouseDown={() => onChooseProduct()}
     >
       <div className="content-info-image">
         <Icons.IconService />

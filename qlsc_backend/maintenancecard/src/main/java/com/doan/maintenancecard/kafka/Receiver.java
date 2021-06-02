@@ -12,5 +12,4 @@ public class Receiver {
     private final SimpMessagingTemplate template;
     private final ObjectMapper json;
 
-
 }

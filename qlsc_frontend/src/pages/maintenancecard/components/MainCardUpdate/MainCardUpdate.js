@@ -150,6 +150,7 @@ function MainCardUpdate(props) {
         setMainCard({
           ...mainCard,
           maintenanceCardDetails: json.maintenanceCardDetails,
+          maintenanceCardDetailStatusHistories: json.maintenanceCardDetailStatusHistories,
           workStatus: json.workStatus,
         });
         toastSuccess("Cập nhật trạng thái thành công");

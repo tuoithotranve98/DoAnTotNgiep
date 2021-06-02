@@ -6,6 +6,7 @@ import home2 from "images/Home2.png";
 import home3 from "images/home3.png";
 import home4 from "images/home4.png";
 import home5 from "images/home5.png";
+import Guard from 'components/Guard/Guard';
 import { connect } from "react-redux";
 import { getDataForReport } from "../report/actions/reportAction";
 import ReportLeft from "./ReportLeft/ReportLeft";
@@ -95,37 +96,47 @@ const convertUnixToDate = (unix) => {
 
 function Home(props) {
   const { onGetDataForReport } = props;
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [show, setShow] = useState(false);
+
   useEffect(() => {
     const s = convertUnixToDate(moment().subtract(6, "days").unix());
     const e = convertUnixToDate(moment().unix());
     onGetDataByFilter(s, e);
   }, []);
+
+  useEffect(() => {
+    if (data) setShow(true);
+  }, [data])
+
   const onGetDataByFilter = (from, to) => {
     onGetDataForReport(from, to).then((json) => {
       if (json) setData(json);
     });
   };
+  
 
   const getMoney = () => {
     const businessToday = data.businessToday;
-    return `${moneyFormat(businessToday.totalMoney)} đ`;
+    if (businessToday) {
+      return `${moneyFormat(businessToday.totalMoney)} đ`;
+    }
+    return `0 đ`;
   };
 
   const getMaintenanceCard = () => {
     const businessToday = data.businessToday;
-    return businessToday.totalMaintenanceCard;
+    return businessToday.totalMaintenanceCard || 0;
   };
 
   const getMaintenanceCardRepair = () => {
     const businessToday = data.businessToday;
-    return businessToday.totalMaintenanceCardRepair;
+    return businessToday.totalMaintenanceCardRepair || 0;
   };
 
   const getMaintenanceCardFinish = () => {
     const businessToday = data.businessToday;
-    return businessToday.totalMaintenanceCardSuccess;
+    return businessToday.totalMaintenanceCardSuccess || 0;
   };
 
   return (
@@ -167,7 +178,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu sửa mới</div>
                         <div className="sub-title" style={{ color: "#0FD186" }}>
-                          {getMaintenanceCard()}
+                          {getMaintenanceCard()} phiếu
                         </div>
                       </div>
                     </div>
@@ -178,7 +189,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu đang sửa</div>
                         <div className="sub-title" style={{ color: "#FFAE06" }}>
-                          {getMaintenanceCardRepair()}
+                          {getMaintenanceCardRepair()} phiếu
                         </div>
                       </div>
                     </div>
@@ -189,7 +200,7 @@ function Home(props) {
                       <div className="sub-content">
                         <div className="title">Phiếu hoàn thành</div>
                         <div className="sub-title" style={{ color: "#4D5FFF" }}>
-                          {getMaintenanceCardFinish()}
+                          {getMaintenanceCardFinish()} phiếu
                         </div>
                       </div>
                     </div>
@@ -274,7 +285,8 @@ function Home(props) {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div className="card content-01">
+                <Guard />
+                {/* <div className="card content-01">
                   <div className="header">
                     <div className="title">
                       Chào mừng Nguyễn Thu Hà, bắt đầu sử dụng phần mềm Kiomo
@@ -352,7 +364,7 @@ function Home(props) {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </React.Fragment>
             )}
           </div>
@@ -383,7 +395,7 @@ function Home(props) {
                 })}
               </div>
             </div>
-            <div className="card content-02">
+            {/* <div className="card content-02">
               <div className="header">Có thể bạn quan tâm</div>
               <div className="content">
                 {data2.map((item, index) => {
@@ -402,7 +414,7 @@ function Home(props) {
                   );
                 })}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

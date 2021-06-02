@@ -31,18 +31,17 @@ public class VehicleConsumer {
         if (customer == null) {
             return;
         }
-
         VehicleModel vehicleModel = new ObjectMapper().readValue(message, VehicleModel.class);
         Vehicle vehicle = vehicleRepository.getVehicleByPlateNumber(vehicleModel.getPlateNumber());
-        Date now = new Date();
         if (vehicle == null) {
             Vehicle newVehicle = new Vehicle();
-            newVehicle.setModifiedDate(now);
-            newVehicle.setCreatedDate(now);
+            newVehicle.setModifiedDate(new Date());
+            newVehicle.setCreatedDate(new Date());
             newVehicle.setCustomer(customer);
             newVehicle.setColor(vehicleModel.getColor());
             newVehicle.setModel(vehicleModel.getModel());
             newVehicle.setPlateNumber(vehicleModel.getPlateNumber());
+            newVehicle.setTenantId(customer.getTenantId());
             vehicleRepository.save(newVehicle);
         } else {
             checkToSet(vehicleModel, vehicle);

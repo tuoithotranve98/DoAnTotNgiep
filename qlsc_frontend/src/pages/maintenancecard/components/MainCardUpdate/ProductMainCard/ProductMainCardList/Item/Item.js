@@ -45,6 +45,7 @@ function Item(props) {
           if (item.status === product.status) {
             return (
               <div
+                key={item.name}
                 className="text"
                 style={{
                   color: `${item.color}`,

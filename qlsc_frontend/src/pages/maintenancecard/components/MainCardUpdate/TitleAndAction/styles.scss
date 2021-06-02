@@ -1,57 +1,89 @@
-.main-card-create-tilte-action{
-    .list-header {
-      margin: 12px 0 5px;
-      .header-title {
-        width: calc(100% - 80px);
+.main-card-create-tilte-action {
+  .list-header {
+    margin: 12px 0 5px;
+
+    .header-title {
+      width: calc(100% - 80px);
+      min-width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 20px;
+
+      .link {
+        color: #2F80ED;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .print {
+      border: 1px solid #2F80ED;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+      width: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 35px;
+
+      a {
+        color: #000;
+      }
+
+      &:hover {
+        background: #2F80ED;
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .header-action {
+      position: relative;
+
+      .btn-create {
+        cursor: pointer;
+        width: 80px;
         min-width: 80px;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 20px;
-        .link{
-          color: #2F80ED;
-          font-size: 14px;
-          font-weight: 400;
-        }
-      }
-      .header-action{
-        position: relative;
-        .btn-create {
-          cursor: pointer;
-          width: 80px;
-          min-width: 80px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          background: white;
-          color: #000;
-          font-weight: 400;
-          font-size: 14px;
-          border: 1px solid #0088FF;
-          box-shadow:none;
-          padding-left: 0;
-          &:hover {
-            background-color: #0084ff;
-            color: white;
-            span{
-              border-right: 1px solid white;
-              svg{
-                path{
-                  stroke: white;
-                  strokeWidth: 1;
-                }
+        white-space: nowrap;
+        background: white;
+        color: #000;
+        font-weight: 400;
+        font-size: 14px;
+        border: 1px solid #0088FF;
+        box-shadow: none;
+        padding-left: 0;
+
+        &:hover {
+          background-color: #0084ff;
+          color: white;
+
+          span {
+            border-right: 1px solid white;
+
+            svg {
+              path {
+                stroke: white;
+                stroke-width: 1;
               }
             }
           }
-          span{
-            border-right: 1px solid #0088FF;
+        }
+
+        span {
+          border-right: 1px solid #0088FF;
+          margin-right: 5px;
+
+          svg {
             margin-right: 5px;
-            svg{
-              //margin-bottom: 5px;
-              margin-right: 5px;
-            }
           }
         }
       }
     }
   }
-  
+}

@@ -21,7 +21,7 @@ public class SendMessage {
     public void sendToProduct(ProductModel product, String key) {
         try {
             String message = json.writeValueAsString(product);
-            kafkaTemplate.send(TOPIC_PRODUCT, key, json.writeValueAsString(message));
+            kafkaTemplate.send(TOPIC_PRODUCT, key, message);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -35,7 +35,7 @@ public class SendMessage {
         vehicleModel.setPlateNumber(maintenanceCard.getPlatesNumber());
         try {
             String message = json.writeValueAsString(vehicleModel);
-            kafkaTemplate.send(TOPIC_CUSTOMER, maintenanceCard.getId().toString(), json.writeValueAsString(message));
+            kafkaTemplate.send(TOPIC_CUSTOMER, String.valueOf(maintenanceCard.getCustomerId()), message);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

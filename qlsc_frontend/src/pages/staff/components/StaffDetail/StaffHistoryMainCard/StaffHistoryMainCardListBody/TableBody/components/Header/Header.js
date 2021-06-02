@@ -97,10 +97,10 @@ function Header(props) {
                 NV Điều phối
               </div>
               <div className="margin-right20 header-item order-collations-status">
-                Trạng thái thanh toán
+                TT thanh toán
               </div>
               <div className="margin-right20 header-item order-collations-status">
-                Trạng thái công việc
+                TT công việc
               </div>
             </React.Fragment>
           )

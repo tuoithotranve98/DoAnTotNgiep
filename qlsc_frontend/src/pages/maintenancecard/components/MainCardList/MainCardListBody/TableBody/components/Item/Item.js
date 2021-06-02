@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
-import { moneyFormat } from "../../../../../../../../utils/moneyFormat";
+import { moneyFormat, formatDate } from "../../../../../../../../utils/moneyFormat";
 import { convertSecondToDateV1 } from "../../../../../../../../utils/datetimeUtil";
 const listStatus = [
   {
@@ -154,7 +154,7 @@ function Item(props) {
           })}
         </div>
         <div className="margin-right20 item-list">
-          {convertSecondToDateV1(mainCard && mainCard.return_date) || ""}
+          {convertSecondToDateV1(mainCard.return_date)}
         </div>
         <div className="margin-right20 item-list">
           {moneyFormat(mainCard && mainCard.price) || 0} đ

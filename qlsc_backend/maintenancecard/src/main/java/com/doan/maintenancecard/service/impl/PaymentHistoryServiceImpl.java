@@ -75,6 +75,7 @@ public class PaymentHistoryServiceImpl implements PaymentHistoryService {
             byte status = 1;
             if (total == maintenanceCard.getPrice().longValue()) {
                 maintenanceCard.setPayStatus(status);
+                maintenanceCard.setReturnDate(new Date());
             } else if (total > maintenanceCard.getPrice().longValue()) {
                 throw new MoneyExceedException();
             }

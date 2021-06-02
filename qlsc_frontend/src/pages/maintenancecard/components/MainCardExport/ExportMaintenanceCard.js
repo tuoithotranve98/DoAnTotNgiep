@@ -1,6 +1,8 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { convertSecondToDateV1 } from "utils/datetimeUtil";
+import { moneyFormat } from "utils/moneyFormat";
 import "./styles.scss";
 
 class ExportMaintenanceCard extends React.Component {
@@ -21,7 +23,25 @@ class ExportMaintenanceCard extends React.Component {
     }
   }
 
+  totalMoney() {
+    const { mainCard } = this.props;
+    let total = 0;
+    if (mainCard.maintenanceCardDetails && mainCard.maintenanceCardDetails.length) {
+      mainCard.maintenanceCardDetails.forEach(item => {
+        total += (item.product.pricePerUnit * item.quantity);
+      });
+    }
+    return `${moneyFormat(total)} đ`;
+  }
+
+  toPadZeroString(n) {
+    return n >= 10 ? `${n}` : `0${n}`;
+  }
+
   render() {
+    const date = new Date();
+    const { mainCard } = this.props;
+    console.log("check mainCard", mainCard);
     return (
       <div className="export-maintenance-card">
         <h1 className="herder">Hóa đơn sửa chữa</h1>
@@ -33,25 +53,17 @@ class ExportMaintenanceCard extends React.Component {
               <tbody>
                 <tr>
                   <td>Mã phiếu sửa chữa : </td>
-                  <td>
-                    {this.isRender()
-                      ? this.props.data.info.code.toUpperCase()
-                      : ""}
-                  </td>
+                  <td>{mainCard && mainCard.code && mainCard.code.toUpperCase()}</td>
                 </tr>
                 <tr>
                   <td>Ngày tạo phiếu : </td>
-                  <td>
-                    {this.isRender()
-                      ? formatDate(this.props.data.createdDate)
-                      : ""}
-                  </td>
+                  <td>{convertSecondToDateV1(mainCard.createdDate)}</td>
                 </tr>
                 <tr>
                   <td>Ngày trả xe : </td>
                   <td>
-                    {this.isRender()
-                      ? formatDate(this.props.data.info.returnDate)
+                    {mainCard.returnDate
+                      ? convertSecondToDateV1(mainCard.returnDate)
                       : ""}
                   </td>
                 </tr>
@@ -77,15 +89,13 @@ class ExportMaintenanceCard extends React.Component {
                 <tr>
                   <td>Họ và tên : </td>
                   <td style={{ paddingLeft: 10 }}>
-                    {this.isRender() ? this.props.data.customerItem.name : ""}
+                    {mainCard.customer && mainCard.customer.name}
                   </td>
                 </tr>
                 <tr>
                   <td>Số điện thoại : </td>
                   <td style={{ paddingLeft: 10 }}>
-                    {this.isRender()
-                      ? this.props.data.customerItem.phoneNumber
-                      : ""}
+                    {mainCard.customer && mainCard.customer.phone}
                   </td>
                 </tr>
               </tbody>
@@ -98,21 +108,19 @@ class ExportMaintenanceCard extends React.Component {
                 <tr>
                   <td>Biển số xe : </td>
                   <td style={{ paddingLeft: 10 }}>
-                    {this.isRender()
-                      ? formatPlate(this.props.data.info.platesNumber)
-                      : ""}
+                    {mainCard.platesNumber}
                   </td>
                 </tr>
                 <tr>
                   <td>Loại xe : </td>
                   <td style={{ paddingLeft: 10 }}>
-                    {this.isRender() ? this.props.data.info.model : ""}
+                    {mainCard.model}
                   </td>
                 </tr>
                 <tr>
                   <td>Màu xe : </td>
                   <td style={{ paddingLeft: 10 }}>
-                    {this.isRender() ? this.props.data.info.color : ""}
+                    {mainCard.color}
                   </td>
                 </tr>
               </tbody>
@@ -123,15 +131,15 @@ class ExportMaintenanceCard extends React.Component {
         {/* product */}
         <Row style={{ marginTop: 50 }}>
           <Col span={24}>
-            <h2>Sản phẩm</h2>
+            <h2>Linh kiện - dịch vụ</h2>
             <table width="100%" border="1">
               <thead>
                 <tr>
                   <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Mã sản phẩm
+                    Mã
                   </td>
                   <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Tên sản phẩm
+                    Tên
                   </td>
                   <td style={{ textAlign: "center", fontWeight: "bold" }}>
                     Số lượng
@@ -145,33 +153,30 @@ class ExportMaintenanceCard extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.isRender()
-                  ? this.props.data.products.map((product, index) => (
+                {mainCard.maintenanceCardDetails.length &&
+                  mainCard.maintenanceCardDetails.map((item, index) => {
+                    return (
                       <tr key={index}>
                         <td style={{ textAlign: "center" }}>
-                          {product.code.toUpperCase()}
-                        </td>
-                        <td style={{ textAlign: "center" }}>{product.name}</td>
-                        <td style={{ textAlign: "center" }}>
-                          {product.amount}
+                          {item.product.code.toUpperCase()}
                         </td>
                         <td style={{ textAlign: "center" }}>
-                          {formatMonney(product.pricePerUnit)} đ
+                          {item.product.name}
+                        </td>
+                        <td style={{ textAlign: "center" }}>{item.quantity}</td>
+                        <td style={{ textAlign: "center" }}>
+                          {moneyFormat(item.product.pricePerUnit)} đ
                         </td>
                         <td style={{ textAlign: "center" }}>
-                          {formatMonney(product.pricePerUnit * product.amount)}{" "}
-                          đ
+                          {moneyFormat(item.price)} đ
                         </td>
                       </tr>
-                    ))
-                  : ""}
+                    );
+                  })}
               </tbody>
             </table>
-            <div style={{ textAlign: "right", marginTop: 10 }}>
-              Tổng tiền :{" "}
-              {this.isRender()
-                ? formatMonney(this.props.data.price) + " đ"
-                : "1.000.000.000 đ"}
+            <div style={{ textAlign: "right", marginTop: 10, fontWeight: 600, fontSize: 20 }}>
+              Tổng tiền :{" "}{this.totalMoney()}
             </div>
           </Col>
         </Row>
@@ -184,22 +189,12 @@ class ExportMaintenanceCard extends React.Component {
               <thead></thead>
               <tbody>
                 <tr>
-                  <td>Nhân viên sửa chữa : </td>
-                  <td>
-                    {this.isRender() &&
-                    this.props.data.repairman !== null &&
-                    this.props.data.repairman !== undefined
-                      ? this.props.data.repairman.fullName
-                      : ""}
-                  </td>
+                  <td>Nhân viên sửa chữa :</td>
+                  <td>{' '}{mainCard.repairman.name}</td>
                 </tr>
                 <tr>
-                  <td>Nhân viên điều phối : </td>
-                  <td>
-                    {this.isRender()
-                      ? this.props.data.coordinator.fullName
-                      : ""}
-                  </td>
+                  <td>Nhân viên điều phối :</td>
+                  <td>{' '}{mainCard.coordinator.name}</td>
                 </tr>
               </tbody>
             </table>
@@ -212,17 +207,15 @@ class ExportMaintenanceCard extends React.Component {
             <h2>Ký xác nhận</h2>
           </Col>
           <Col span={12}>
-            <div>
-              Hà Nội, ngày 22, tháng 05, năm 2021
-            </div>
+            <div>Hà Nội, ngày {this.toPadZeroString(date.getDay())}, tháng {this.toPadZeroString(date.getMonth() + 1)}, năm {date.getFullYear()}</div>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-            <b>Người tạo phiếu</b>
+            <b style={{ textAlign: "center" }}>Người tạo phiếu</b>
           </Col>
           <Col span={12}>
-            <b>Chủ xe</b>
+            <b style={{ textAlign: "center" }}>Chủ xe</b>
           </Col>
         </Row>
         {/* end information */}

@@ -32,7 +32,7 @@ function ProductMainCardList(props) {
         <React.Fragment>
           <div className="d-flex align-items-center no-product">
             <div>
-              <h4>Không có dịch vụ</h4>
+              <h4>Chưa có dịch vụ</h4>
             </div>
             {/* <Icons.iconNoProduct /> */}
             <img src={imgNoProduct} alt=""></img>

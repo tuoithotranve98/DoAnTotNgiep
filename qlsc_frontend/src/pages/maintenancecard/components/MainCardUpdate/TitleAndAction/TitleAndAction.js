@@ -33,13 +33,13 @@ function TitleAndAction(props) {
           <div className="header-title">
             <div style={{ fontSize: '22px' }}>Cập nhật phiếu sửa chữa</div>
           </div>
-          <div>
+          <div className="print">
             <ReactToPrint
               trigger={() => <a href="#">In phiếu</a>}
               content={() => componentRef.current}
             />
             <div ref={componentRef}>
-              <ExportMaintenanceCard />
+              <ExportMaintenanceCard mainCard={mainCard} />
             </div>
           </div>
           <div className="header-action" style={finish ? {cursor: 'not-allowed'} : {}}>

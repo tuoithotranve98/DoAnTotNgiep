@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select u from User u where u.role = 2 and u.tenant.id = ?1")
     List<User> getAllUserV1(String tenantId);
 
-    @Query(value = "SELECT u FROM User u WHERE u.status =1 and u.role = 2 and (u.fullName like  %:param% or " +
+    @Query(value = "SELECT u FROM User u WHERE u.status = 1 and u.role = 2 and (u.fullName like  %:param% or " +
         "u.email like %:param% or u.phoneNumber like %:param% or " +
         "u.code like  %:param% or u.address like %:param%) ")
     Page<User> getAllRepairman(Pageable pageable, String param);

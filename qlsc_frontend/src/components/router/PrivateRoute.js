@@ -32,7 +32,7 @@ export const isLogin = () => {
   if (role === 1 && !coordinator.includes(handlePathname(pathname))) {
     return "404";
   }
-  if (role === 2 && !repairStaff.includes(pathname)) {
+  if (role === 2 && !repairStaff.includes(handlePathname(pathname))) {
     return "404";
   }
   return role;
