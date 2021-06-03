@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "maintenance_card_details")
 public class MaintenanceCardDetail extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "maintenance_card_id")
     private MaintenanceCard maintenanceCard;
 
