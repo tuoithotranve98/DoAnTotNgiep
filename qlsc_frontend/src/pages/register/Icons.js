@@ -3,34 +3,34 @@ import React from "react";
 export const backgoundRegister = () => {
   return (
     <svg
-      width="1366"
-      height="210"
-      viewBox="0 0 1366 210"
+      width="1920"
+      height="288"
+      viewBox="0 0 1920 288"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         opacity="0.07"
-        d="M-285.214 22.0232C-285.214 22.0232 -198.278 222.6 186.867 198.766C491.968 179.886 587.949 39.396 910.351 117.215C1121.62 168.184 1280.78 232.794 1463.98 124.035L1493.42 898.776L-328 912.416L-285.214 22.0232Z"
+        d="M-400.887 31.6576C-400.887 31.6576 -278.693 313.719 262.653 280.203C691.492 253.652 826.4 56.0881 1279.56 165.521C1576.51 237.197 1800.22 328.054 2057.72 175.111L2099.09 1264.59L-461.025 1283.77L-400.887 31.6576Z"
         fill="url(#paint0_linear)"
       />
       <path
         opacity="0.08"
-        d="M-153.338 22.5974C-153.338 22.5974 -42.2817 164.954 205.388 133.654C453.059 102.354 606.83 -45.6735 834.543 14.0545C1062.33 73.8543 1184.73 182.04 1352.71 119.368C1520.7 56.7687 1497.87 759.075 1497.87 759.075H-187.51L-153.338 22.5974Z"
+        d="M-215.527 32.4651C-215.527 32.4651 -59.4296 232.654 288.687 188.639C636.803 144.623 852.938 -63.5408 1173 20.4517C1493.17 104.545 1665.21 256.681 1901.32 168.549C2137.44 80.5185 2105.35 1068.14 2105.35 1068.14H-263.557L-215.527 32.4651Z"
         fill="url(#paint1_linear)"
       />
       <path
         opacity="0.07"
-        d="M-288.66 148.299C-288.66 148.299 -191.889 40.1136 -12.4896 25.8994C166.838 11.6853 433.819 191.013 757.154 164.451C1127.22 134.085 1231.25 -50.3399 1425.22 16.4234C1656.74 96.1086 1599.81 770.92 1599.81 770.92L-322.831 773.792L-288.66 148.299Z"
+        d="M-405.73 209.232C-405.73 209.232 -269.712 57.097 -17.5548 37.1084C234.502 17.1198 609.761 269.299 1064.23 231.947C1584.39 189.244 1730.59 -70.1032 2003.23 23.7827C2328.65 135.84 2248.63 1084.79 2248.63 1084.79L-453.76 1088.83L-405.73 209.232Z"
         fill="url(#paint2_linear)"
       />
       <defs>
         <linearGradient
           id="paint0_linear"
-          x1="-328.011"
-          y1="467.217"
-          x2="1493.33"
-          y2="467.217"
+          x1="-461.04"
+          y1="657.711"
+          x2="2098.97"
+          y2="657.711"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0.3931" stop-color="#0082F3" />
@@ -38,10 +38,10 @@ export const backgoundRegister = () => {
         </linearGradient>
         <linearGradient
           id="paint1_linear"
-          x1="-187.526"
-          y1="379.527"
-          x2="1498.87"
-          y2="379.527"
+          x1="-263.58"
+          y1="534.397"
+          x2="2106.76"
+          y2="534.397"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0.3931" stop-color="#0082F3" />
@@ -49,10 +49,10 @@ export const backgoundRegister = () => {
         </linearGradient>
         <linearGradient
           id="paint2_linear"
-          x1="1594.7"
-          y1="821.604"
-          x2="-323.038"
-          y2="-104.826"
+          x1="2241.45"
+          y1="1156.07"
+          x2="-454.548"
+          y2="-145.693"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0.582188" stop-color="#0082F3" />
@@ -85,10 +85,28 @@ export const IconLogo = () => {
 };
 
 export const IconClose = () => {
-  return(
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13.9139 1.01379L1.91394 13.0138" stroke="#7B7B7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M1.91394 1.01379L13.9139 13.0138" stroke="#7B7B7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13.9139 1.01379L1.91394 13.0138"
+        stroke="#7B7B7B"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M1.91394 1.01379L13.9139 13.0138"
+        stroke="#7B7B7B"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
-  )
-}
+  );
+};

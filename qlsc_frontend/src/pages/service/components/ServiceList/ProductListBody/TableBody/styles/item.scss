@@ -1,4 +1,4 @@
-.product-item-wrapper {
+.service-item-wrapper {
   align-items: center;
   border-bottom: 1px solid #E0E0E0;
   padding: 15px 0;
@@ -25,7 +25,7 @@
   }
 
   .item-list {
-    width: calc((100% - 260px) / 6);
+    width: calc((100% - 260px) / 3);
   }
 
   .order-collations-total-amount {
@@ -41,7 +41,7 @@
   }
 
   .delivery-collation-location {
-    width: calc((100% - 260px) / 6);
+    width: calc((100% - 260px) / 3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

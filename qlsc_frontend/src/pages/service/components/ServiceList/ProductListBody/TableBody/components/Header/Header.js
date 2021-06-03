@@ -49,7 +49,9 @@ function Header(props) {
             Lựa chọn thao tác
           </button>
           <div className="dropdown-menu bulk-dd-menu" aria-labelledby="dropdownMenuButton">
-            <a className="dropdown-item" onClick={() => onClickCreateMainCard()}>Xoá</a>
+          {props.user && props.user.role && props.user.role !== 2 ? (
+            <a className="dropdown-item" onClick={() => onClickCreateMainCard()}>Xoá</a> ) : ''
+            }
           </div>
         </div>
       </React.Fragment>
@@ -57,7 +59,7 @@ function Header(props) {
   };
   const { onClick, checked, minus } = props;
   return (
-    <div className="d-flex header-list product-header" style={{ padding: checked || minus ? '0px 0 8px' : '' }}>
+    <div className="d-flex header-list service-header" style={{ padding: checked || minus ? '0px 0 8px' : '' }}>
       {
           checked || minus ? null : (
             <div className="checkbox header-checkbox" onClick={() => onClick()}>
@@ -85,17 +87,8 @@ function Header(props) {
               <div className="margin-right20 header-item order-collations-fulfillment">
                 Tên dịch vụ
               </div>
-              <div className="margin-right20 header-item order-collations-loaction">
-                Loại
-              </div>
-              <div className="margin-right20 header-item order-collations-status">
-                Số lượng
-              </div>
-              <div className="margin-right20 header-item order-collations-channel-code">
-                Đơn vị
-              </div>
               <div className="margin-right20 header-item order-collations-total-amount">
-                Giá mỗi đơn vị
+                Giá tiền
               </div>
             </React.Fragment>
           )
@@ -106,4 +99,10 @@ function Header(props) {
 const mapDispatchToProps = (dispatch) => ({
   onOpenModalDelete: (modalName, data) => dispatch(openModal(modalName, data)),
 });
-export default connect(null, mapDispatchToProps)(Header);
+const mapStateToProps = (state, ownProps) => {
+  const { auth : { user } } = state
+  return {
+    user
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

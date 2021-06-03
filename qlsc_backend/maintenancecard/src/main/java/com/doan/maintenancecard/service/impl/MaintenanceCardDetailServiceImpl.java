@@ -35,7 +35,7 @@ public class MaintenanceCardDetailServiceImpl implements MaintenanceCardDetailSe
             throw new NotFoundException("Phiếu không tồn tại!");
         }
         MaintenanceCard maintenanceCard = maintenanceCardDetail.getMaintenanceCard();
-        if (maintenanceCard.getRepairmanEmail() == null || maintenanceCard.getRepairmanEmail().equals(email)) {
+        if (maintenanceCard.getRepairmanEmail() == null || !maintenanceCard.getRepairmanEmail().equals(email)) {
             throw new NotFoundException("Không tìm thấy chi tiết phiếu");
         }
         byte status = 1;

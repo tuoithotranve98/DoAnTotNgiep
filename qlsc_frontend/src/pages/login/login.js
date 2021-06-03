@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { connect } from "react-redux";
-import { login, checkInfoUser } from "./actions/loginAction";
+import { login, checkInfoUser, logout } from "./actions/loginAction";
 import "./login.scss";
 import logo from "../../images/KIOMO.png";
 import fb from "../../images/facebook-8-1-2020.svg";
@@ -16,6 +16,9 @@ function LoginPage(props) {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
+  useEffect(() => {
+    props.onLogout();
+  }, [])
   const handleSubmit = () => {
     props.onLogin(user).then((res) => {
       if (res) {
@@ -99,6 +102,7 @@ function LoginPage(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   onLogin: (data) => dispatch(login(data)),
+  onLogout: () => dispatch(logout()),
   onCheckInfoUser: (token) => dispatch(checkInfoUser(token)),
 });
 export default connect(null, mapDispatchToProps)(LoginPage);

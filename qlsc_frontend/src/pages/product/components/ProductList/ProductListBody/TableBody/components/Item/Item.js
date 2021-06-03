@@ -69,7 +69,7 @@ function Item(props) {
           {productService.quantity}
         </div>
         <div className="margin-right20 item-list delivery-collation-code">
-          cái
+          {productService.unit}
         </div>
         <div className="margin-right20 item-list order-collations-total-amount">
           {moneyFormat(productService.pricePerUnit)} đ

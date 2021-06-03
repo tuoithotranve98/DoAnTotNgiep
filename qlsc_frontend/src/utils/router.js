@@ -8,13 +8,13 @@ export default {
 };
 
 export const menuLinkCoordinator = [
-  {
-    id: 0,
-    url: '/home',
-    icon: <Icons.Home />,
-    title: 'Tổng quan',
-    submenu: []
-  },
+  // {
+  //   id: 0,
+  //   url: '/home',
+  //   icon: <Icons.Home />,
+  //   title: 'Tổng quan',
+  //   submenu: []
+  // },
   {
     id: 1,
     url: '/maintenance-card',
@@ -51,52 +51,52 @@ export const menuLinkCoordinator = [
       }
     ]
   },
-  {
-    id: 3,
-    url: '/product',
-    icon: <Icons.Product />,
-    title: 'Linh kiện',
-    submenu: [
-      {
-        id: 0,
-        url: '/product/create',
-        title: 'Thêm mới linh kiện'
-      },
-      {
-        id: 1,
-        url: '/products',
-        title: 'Danh sách linh kiện'
-      }
-    ]
-  },
-  {
-    id: 4,
-    url: '/service',
-    icon: <Icons.Service />,
-    title: 'Dịch vụ',
-    submenu: [
-      {
-        id: 0,
-        url: '/service/create',
-        title: 'Thêm mới dịch vụ'
-      },
-      {
-        id: 1,
-        url: '/services',
-        title: 'Danh sách dịch vụ'
-      }
-    ]
-  },
+  // {
+  //   id: 3,
+  //   url: '/product',
+  //   icon: <Icons.Product />,
+  //   title: 'Linh kiện',
+  //   submenu: [
+  //     {
+  //       id: 0,
+  //       url: '/product/create',
+  //       title: 'Thêm mới linh kiện'
+  //     },
+  //     {
+  //       id: 1,
+  //       url: '/products',
+  //       title: 'Danh sách linh kiện'
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: 4,
+  //   url: '/service',
+  //   icon: <Icons.Service />,
+  //   title: 'Dịch vụ',
+  //   submenu: [
+  //     {
+  //       id: 0,
+  //       url: '/service/create',
+  //       title: 'Thêm mới dịch vụ'
+  //     },
+  //     {
+  //       id: 1,
+  //       url: '/services',
+  //       title: 'Danh sách dịch vụ'
+  //     }
+  //   ]
+  // },
 ];
 
 export const menuLinkRepairer = [
-  {
-    id: 0,
-    url: '/home',
-    icon: <Icons.Home />,
-    title: 'Tổng quan',
-    submenu: []
-  },
+  // {
+  //   id: 0,
+  //   url: '/home',
+  //   icon: <Icons.Home />,
+  //   title: 'Tổng quan',
+  //   submenu: []
+  // },
   {
     id: 1,
     url: '/maintenance-card',

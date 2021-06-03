@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
 import pushstate from "utils/pushstate";
+import { moneyFormat } from "../../../../../../../../utils/moneyFormat";
 
 function Item(props) {
   const { checked, productService } = props;
@@ -19,7 +20,7 @@ function Item(props) {
   };
 
   return (
-    <div className="product-item-wrapper">
+    <div className="service-item-wrapper">
       <div className="d-flex product-listing-item" onClick={(e) => onRedirectDetail(e)}>
         <div
           role="presentation"
@@ -54,24 +55,9 @@ function Item(props) {
         <div className="margin-right20 item-list text-ellipsis">
           {productService.name}
         </div>
-        <div
-          className="margin-right20 delivery-collation-location"
-          data-tip
-          data-for={`delivery-collation-location_${productService.id}`}
-        >
-          {productService.type === 1 ? "Linh kiện" : "Dịch vụ"}
-        </div>
-        <div
-          className="margin-right20 item-list"
-          style={{ color: status.color }}
-        >
-          {productService.quantity}
-        </div>
-        <div className="margin-right20 item-list delivery-collation-code">
-          cái
-        </div>
+
         <div className="margin-right20 item-list order-collations-total-amount">
-          {productService.pricePerUnit}đ
+        {moneyFormat(productService.pricePerUnit)} đ
         </div>
       </div>
     </div>

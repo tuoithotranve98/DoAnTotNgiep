@@ -347,19 +347,55 @@ function TopBar(props) {
           <Icons.iconFeedback />
           <span>Góp ý</span>
         </div>
-        {/* <div className="icon-update">
-            <Icons.iconUpdate />
-            <span>Thông báo</span>
-          </div> */}
         <ul className="nav menu-bottom">
           <li className="user">
             <a href="#" data-toggle="dropdown">
               <Icons.iconUpdate />
               <span>Thông báo</span>
+              <div className="noti">
+                <div className="count">3</div>
+              </div>
             </a>
             <div className="dropdown-menu">
               <div className="info d-flex align-items-center">
-                a
+                <div className="content">
+                  <div className="item">
+                    <div className="title text-ellipsis">Thông báo thông báo thông báoaaaaaaaaaaaaaaa dsadasdasdasdasdsadsa</div>
+                    <div className="sub-title text-ellipsis">phiếu đang đang sửa rồi nhé ádsadasdasdsadasdW</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                  <div className="item">
+                    <div className="title">Thông báo thông báo thông báo</div>
+                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  </div>
+                </div>
               </div>
 
             </div>

@@ -2,8 +2,7 @@ import React from "react";
 import * as Icons from "pages/maintenancecard/commons/Icons";
 import "../../styles/header.scss";
 import { connect } from "react-redux";
-import { openModal } from '../../../../../../../../components/modal/modalActions';
-
+import { openModal } from "../../../../../../../../components/modal/modalActions";
 
 function Header(props) {
   const { selectedIds, onOpenModalDelete } = props;
@@ -57,12 +56,16 @@ function Header(props) {
             className="dropdown-menu bulk-dd-menu"
             aria-labelledby="dropdownMenuButton"
           >
-            <a
-              className="dropdown-item"
-              onClick={() => onClickCreateMainCard()}
-            >
-              Xoá
-            </a>
+            {props.user && props.user.role && props.user.role !== 2 ? (
+              <a
+                className="dropdown-item"
+                onClick={() => onClickCreateMainCard()}
+              >
+                Xoá
+              </a>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </React.Fragment>
@@ -110,9 +113,11 @@ function Header(props) {
 const mapStateToProps = (state) => {
   const {
     mainCard: { filterInfo },
+    auth: { user },
   } = state;
   return {
     filterInfo,
+    user,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
