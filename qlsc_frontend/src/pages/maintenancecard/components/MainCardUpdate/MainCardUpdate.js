@@ -112,7 +112,7 @@ function MainCardUpdate(props) {
   }, []);
 
   useEffect(() => {
-    if (mainCard && mainCard.payStatus === 1 
+    if (mainCard && mainCard.payStatus === 1
       && mainCard.workStatus === 2) {
         setFinish(true);
     }
@@ -235,6 +235,26 @@ function MainCardUpdate(props) {
   };
 
   const onUpdateMainCard = () => {
+    if (!mainCard.customer.id) {
+      toastError("Vui lòng nhập thông tin khách hàng!");
+      return;
+    }
+    if (mainCard.maintenanceCardDetails.length > 0) {
+      toastError("Vui lòng nhập thông tin sản phẩm!");
+      return;
+    }
+    if (!mainCard.platesNumber) {
+      toastError("Vui lòng nhập biển số xe!");
+      return;
+    }
+    if (!mainCard.platesNumber) {
+      toastError("Vui lòng nhập biển số xe!");
+      return;
+    }
+    if (!mainCard.repairman.id) {
+      toastError("Vui lòng nhập thông tin nhân viên sửa chữa!");
+      return;
+    }
     if (finish) {
       toastError("Phiếu đã hoàn thành, vui lòng không điều chỉnh!");
       return;

@@ -343,47 +343,156 @@ function TopBar(props) {
               </div>
             </a>
             <div className="dropdown-menu">
-              <div className="info d-flex align-items-center">
+              <div className="info align-items-center">
+                <div className="header">
+                  <div className="title">Thông báo</div>
+                </div>
                 <div className="content">
-                  <div className="item">
-                    <div className="title text-ellipsis">Thông báo thông báo thông báoaaaaaaaaaaaaaaa dsadasdasdasdasdsadsa</div>
-                    <div className="sub-title text-ellipsis">phiếu đang đang sửa rồi nhé ádsadasdasdsadasdW</div>
+                  <div
+                    className="d-flex item"
+                    style={{ background: "rgb(242, 249, 255)" }}
+                  >
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                        Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                        Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div className="d-flex item">
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                      Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div
+                    className="d-flex item"
+                    style={{ background: "rgb(242, 249, 255)" }}
+                  >
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                      Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div className="d-flex item">
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                      Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div
+                    className="d-flex item"
+                    style={{ background: "rgb(242, 249, 255)" }}
+                  >
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                      Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div className="d-flex item">
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                        pThông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div
+                    className="d-flex item"
+                    style={{ background: "rgb(242, 249, 255)" }}
+                  >
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                    Thông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="sub-title">
+                        pThông báo thông báo thông báo thông báo thông báo thông báo thông báo
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div className="d-flex item">
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                    <div className="title">
+                        Thông báo thông báo thông báoaaaaaaaaaaaaaaa
+                        dsadasdasdasdasdsadsa
+                      </div>
+                      <div className="sub-title">
+                        phiếu đang đang sửa rồi nhé ádsadasdasdsadasdW
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
-                  <div className="item">
-                    <div className="title">Thông báo thông báo thông báo</div>
-                    <div className="sub-title">phiếu đang đang sửa rồi nhé</div>
+                  <div
+                    className="d-flex item"
+                    style={{ background: "rgb(242, 249, 255)" }}
+                  >
+                    <div className="icon">
+                      <Icons.IconNews />
+                    </div>
+                    <div className="content-noti">
+                      <div className="title">
+                        Thông báo thông báo thông báoaaaaaaaaaaaaaaa
+                        dsadasdasdasdasdsadsa
+                      </div>
+                      <div className="sub-title">
+                        phiếu đang đang sửa rồi nhé ádsadasdasdsadasdW
+                      </div>
+                      <div className="date">21/03/2021</div>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </li>
         </ul>
