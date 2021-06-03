@@ -18,33 +18,13 @@ const getXCategories = (data, type) => {
         };
       });
     }
-    case 3: {
-      return data.map((item, index) => {
-        return {
-          name: getName(item.variation_name),
-          y: item.cancelled_rate,
-          color: index % 2 ? "#D9D9D9" : "#5CBFD1",
-          id: item.variation_name,
-        };
-      });
-    }
-    case 4: {
-      return data.map((item, index) => {
-        return {
-          name: getName(item.variation_name),
-          y: item.cancelled_quantity,
-          color: index % 2 ? "#D9D9D9" : "#5CBFD1",
-          id: item.variation_name,
-        };
-      });
-    }
     default: {
       return data.map((item, index) => {
         return {
-          name: getName(item.variation_name),
+          name: getName(item.name),
           y: item.revenue,
           color: index % 2 ? "#D9D9D9" : "#5CBFD1",
-          id: item.variation_name,
+          id: item.code,
         };
       });
     }

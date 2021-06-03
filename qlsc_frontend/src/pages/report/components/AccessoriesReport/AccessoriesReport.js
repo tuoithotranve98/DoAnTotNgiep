@@ -32,8 +32,8 @@ function AccessoriesReport(props) {
     <div className="report-content-container">
       <div className="revenue-role-accessories-chart">
         <div className="revenue-main report-border">
-          <div className="report-title">Doanh số của phiếu sửa chữa</div>
-          <ReportProduct/>
+          <div className="report-title">Top { accessories && accessories.length } sản phẩm</div>
+          <ReportProduct data={accessories} />
         </div>
       </div>
       <div className="accessories-report-table">

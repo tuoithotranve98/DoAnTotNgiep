@@ -1,5 +1,5 @@
 import React from "react";
-import ChartRevenueDashboard from "../ReportContent/ReportLeft/ChartRevenueDashboard";
+import ReportProduct from "../Report/Report";
 import { moneyFormat } from "../../../../utils/moneyFormat";
 import "./styles.scss";
 
@@ -18,12 +18,12 @@ function StaffReport(props) {
   };
   return (
     <div className="report-content-container">
-      {/* <div className="revenue-role-accessories-chart">
+      <div className="revenue-role-accessories-chart">
             <div className="revenue-main report-border">
-              <div className="report-title">Doanh số của phiếu sửa chữa</div>
-              <ChartRevenueDashboard revenue={dataMain} isMain />
+              <div className="report-title">Top {dataStaff && dataStaff.length} nhân viên sửa chữa</div>
+              <ReportProduct data={dataStaff} />
             </div>
-          </div> */}
+          </div>
       <div className="accessories-report-table">
         <div className="table-accessories-report">
           <div className="report-table">
