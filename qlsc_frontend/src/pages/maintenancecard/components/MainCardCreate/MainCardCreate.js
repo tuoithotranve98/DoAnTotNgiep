@@ -270,6 +270,7 @@ function MainCardCreate(props) {
       item.quantity = 1;
       item.product = tmp;
       item.status = 0;
+      item.isGuarantee = 1;
       item.price = tmp.pricePerUnit;
       newArr.unshift(item);
     } else {
@@ -289,6 +290,7 @@ function MainCardCreate(props) {
       item.quantity = 1;
       item.product = tmp;
       item.status = 0;
+      item.isGuarantee = 1;
       item.price = tmp.pricePerUnit;
       newArr.unshift(item);
     }

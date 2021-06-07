@@ -96,15 +96,15 @@ export const IconClose = () => {
       <path
         d="M13.9139 1.01379L1.91394 13.0138"
         stroke="#7B7B7B"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
       <path
         d="M1.91394 1.01379L13.9139 13.0138"
         stroke="#7B7B7B"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
     </svg>

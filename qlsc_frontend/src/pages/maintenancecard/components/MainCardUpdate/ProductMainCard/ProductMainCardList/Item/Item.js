@@ -21,8 +21,19 @@ const listStatus = [
     color: "blue",
   },
 ];
+const listGuarantees = [
+  {
+    status: 0,
+    color: "red",
+  },
+  {
+    status: 1,
+    color: "blue",
+  },
+];
 function Item(props) {
   const { product } = props;
+  console.log('check product', product);
   return (
     <div className="d-flex align-items-center delivery-collation-order-row">
       <div className="order text-ellipsis" style={{ color: "#0088FF" }}>
@@ -41,6 +52,25 @@ function Item(props) {
         {moneyFormat(product.price)} đ
       </div>
       <div className="d-flex justify-content-center item-status-main-card">
+        {listGuarantees.map((item, index) => {
+          if (item.status === product.isGuarantee) {
+            return (
+              <div
+                className="text"
+                style={{
+                  color: `${item.color}`,
+                  border: `1px solid ${item.color}`,
+                }}
+                key={index}
+              >
+                {product.product.guarantee}
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+      <div className="d-flex justify-content-center item-status-main-card">
         {listStatus.map((item) => {
           if (item.status === product.status) {
             return (
@@ -50,10 +80,12 @@ function Item(props) {
                 style={{
                   color: `${item.color}`,
                   border: `1px solid ${item.color}`,
-                  cursor: item.status === 2 ? "not-allowed" : ""
+                  cursor: item.status === 2 ? "not-allowed" : "",
                 }}
-                onClick={() => item.status === 2 ? null : 
-                  props.onUpdateStatusMaintenanceCardDetail(product.id)
+                onClick={() =>
+                  item.status === 2
+                    ? null
+                    : props.onUpdateStatusMaintenanceCardDetail(product.id)
                 }
               >
                 {item.name}

@@ -29,6 +29,10 @@ public class MaintenanceCardDetail extends BaseEntity {
     @Column(name = "product_image", length = 255)
     private String productImage;
 
+    // thời gian bảo hành
+    @Column(name = "guarantee")
+    private String productGuarantee;
+
     @Column(name = "product_unit", length = 100)
     private String productUnit;
 

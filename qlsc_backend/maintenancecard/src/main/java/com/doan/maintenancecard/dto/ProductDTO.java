@@ -16,7 +16,7 @@ public class ProductDTO extends BaseDTO {
     private int quantity;
     private String unit;
     private BigDecimal pricePerUnit;
-    private byte isGuarantee;
+    private String guarantee;
     private byte type;
 
 }

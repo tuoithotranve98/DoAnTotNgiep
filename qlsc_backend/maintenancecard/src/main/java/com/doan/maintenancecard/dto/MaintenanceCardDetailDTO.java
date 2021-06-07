@@ -14,4 +14,5 @@ public class MaintenanceCardDetailDTO extends BaseDTO {
     private byte status;
     private BigDecimal price;
     private int quantity;
+    private byte isGuarantee;
 }

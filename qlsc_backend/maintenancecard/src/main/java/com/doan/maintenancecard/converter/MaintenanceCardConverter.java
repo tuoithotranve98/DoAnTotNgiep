@@ -103,9 +103,10 @@ public class MaintenanceCardConverter {
                 maintenanceCardDetail.setProductName(productDTO.getName());
                 maintenanceCardDetail.setProductType(productDTO.getType());
                 maintenanceCardDetail.setProductUnit(productDTO.getUnit());
+                maintenanceCardDetail.setProductGuarantee(productDTO.getGuarantee());
                 maintenanceCardDetail.setQuantity(maintenanceCardDetailDTO.getQuantity());
                 maintenanceCardDetail.setId(maintenanceCardDetailDTO.getId());
-                maintenanceCardDetail.setIsGuarantee(productDTO.getIsGuarantee());
+                maintenanceCardDetail.setIsGuarantee(maintenanceCardDetailDTO.getIsGuarantee());
                 maintenanceCardDetail.setProductPricePerUnit(productDTO.getPricePerUnit());
                 maintenanceCardDetails.add(maintenanceCardDetail);
             });
@@ -131,10 +132,12 @@ public class MaintenanceCardConverter {
                 productDTO.setImage(maintenanceCardDetail.getProductImage());
                 productDTO.setName(maintenanceCardDetail.getProductName());
                 productDTO.setUnit(maintenanceCardDetail.getProductUnit());
+                productDTO.setGuarantee(maintenanceCardDetail.getProductGuarantee());
                 productDTO.setPricePerUnit(maintenanceCardDetail.getProductPricePerUnit());
                 maintenanceCardDetailDTO.setProduct(productDTO);
                 maintenanceCardDetailDTO.setQuantity(maintenanceCardDetail.getQuantity());
                 maintenanceCardDetailDTO.setStatus(maintenanceCardDetail.getStatus());
+                maintenanceCardDetailDTO.setIsGuarantee(maintenanceCardDetail.getIsGuarantee());
                 maintenanceCardDetailDTO.setCreatedDate(maintenanceCardDetail.getCreatedDate());
                 maintenanceCardDetailDTO.setId(maintenanceCardDetail.getId());
                 maintenanceCardDetailDTO.setModifiedDate(maintenanceCardDetail.getModifiedDate());

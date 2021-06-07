@@ -239,7 +239,7 @@ function MainCardUpdate(props) {
       toastError("Vui lòng nhập thông tin khách hàng!");
       return;
     }
-    if (mainCard.maintenanceCardDetails.length > 0) {
+    if (!mainCard.maintenanceCardDetails.length) {
       toastError("Vui lòng nhập thông tin sản phẩm!");
       return;
     }
@@ -287,6 +287,7 @@ function MainCardUpdate(props) {
       item.product = tmp;
       item.status = 0;
       item.price = tmp.pricePerUnit;
+      item.isGuarantee = 1;
       newArr.unshift(item);
     } else {
       newArr.forEach((element) => {
@@ -305,6 +306,7 @@ function MainCardUpdate(props) {
       item.quantity = 1;
       item.product = tmp;
       item.status = 0;
+      item.isGuarantee = 1;
       item.price = tmp.pricePerUnit;
       newArr.unshift(item);
     }
