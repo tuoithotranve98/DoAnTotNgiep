@@ -120,6 +120,10 @@ export const ThankYou = () => {
 export const IconNews = () => {
   return (
     <svg
+      style={{
+        width: 31,
+        height: 31,
+      }}
       width="30"
       height="30"
       viewBox="0 0 30 30"
@@ -155,6 +159,10 @@ export const IconNews = () => {
 export const IconNewsV2 = () => {
   return (
     <svg
+      style={{
+        width: 31,
+        height: 31,
+      }}
       width="35"
       height="35"
       viewBox="0 0 35 35"

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import "../../styles/footer.scss";
 import Pagination from "../Pagination/Pagination";
 
 function Footer(props) {
   const { mainCards, fetchMainCard, isEmpty , fetching} = props;
-  const { currentPage, totalItems, totalPages, mainCardList } = mainCards;
+  const { currentPage, totalItems, totalPages } = mainCards;
   const onChangePage = (id) => {
     fetchMainCard(null, id);
   };

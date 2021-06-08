@@ -40,7 +40,7 @@ const getSeriesName = (type) => {
     case 4:
       return "Số lượng hủy";
     default:
-      return "Giá trị";
+      return "Doanh thu";
   }
 };
 
@@ -94,8 +94,7 @@ function Chart(props) {
     },
 
     tooltip: {
-      // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      // pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b>'
+      //
     },
     series: [
       {

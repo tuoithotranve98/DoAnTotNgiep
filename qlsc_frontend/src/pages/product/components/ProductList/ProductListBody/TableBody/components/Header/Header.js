@@ -89,10 +89,10 @@ function Header(props) {
         <React.Fragment>
           <div className="">&nbsp;&nbsp;</div>
           <div className="margin-right20 header-item order-collations-code">
-            Mã linh kiện
+            Mã
           </div>
           <div className="margin-right20 header-item order-collations-fulfillment">
-            Tên linh kiên
+            Tên
           </div>
           <div className="margin-right20 header-item order-collations-loaction">
             Loại

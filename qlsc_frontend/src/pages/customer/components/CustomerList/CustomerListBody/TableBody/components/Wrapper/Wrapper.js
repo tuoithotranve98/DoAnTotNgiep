@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import List from "../List/List";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "../../styles/wrapper.scss";
-import * as Icons from "pages/customer/commons/Icons";
 import imgNoCustomer from 'images/NoCustomer.png';
 
 function Wrapper(props) {
@@ -51,7 +50,6 @@ function Wrapper(props) {
             Không có khách hàng
           </div>
           <div id="delivery-collations-filter-empty-icon">
-            {/* <Icons.OrderCollationFilterEmpty /> */}
             <img style={{ height: '100%', marginTop: 30}} src={imgNoCustomer} alt=""></img>
           </div>
         </div>

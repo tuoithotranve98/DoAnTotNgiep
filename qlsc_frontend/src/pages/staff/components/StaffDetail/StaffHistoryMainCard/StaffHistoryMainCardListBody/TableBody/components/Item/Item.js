@@ -102,7 +102,7 @@ function Item(props) {
           {(staffHistoryMainCard && staffHistoryMainCard.coordinator && staffHistoryMainCard.coordinator.name) || '---'}
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {staffHistoryMainCard && staffHistoryMainCard.payStatus && listPayment.map((item) => {
+        {staffHistoryMainCard && listPayment.map((item) => {
             if (item.status === staffHistoryMainCard.payStatus) {
               return (
                 <div
@@ -114,13 +114,12 @@ function Item(props) {
                   {item.name}
                 </div>
               );
-            } else {
-              return ''
             }
-          }) || '---'}
+            return null;
+          })}
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {staffHistoryMainCard && staffHistoryMainCard.workStatus && listStatus.map((item) => {
+        {staffHistoryMainCard && listStatus.map((item) => {
             if (item.status === staffHistoryMainCard.workStatus) {
               return (
                 <div
@@ -132,10 +131,9 @@ function Item(props) {
                   {item.name}
                 </div>
               );
-            } else {
-              return ''
             }
-          }) || '---'}
+            return null;
+          })}
         </div>
 
       </div>

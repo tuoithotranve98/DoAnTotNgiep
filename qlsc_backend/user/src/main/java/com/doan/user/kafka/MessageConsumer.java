@@ -73,7 +73,6 @@ public class MessageConsumer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void sendToClient(MessageTmp message) {
@@ -98,17 +97,20 @@ public class MessageConsumer {
         newMessage.setCreatedDate(new Date());
         newMessage.setModifiedDate(new Date());
         messageRepository.save(newMessage);
-
         newMessageTmp.setMaintenanceCard(messageConverter.getMaintenanceCardsModel(maintenanceCard));
-        newMessageTmp.setStatus((byte) 1);
-        newMessageTmp.setUrl("/maintenance-card/detail/" + key);
-        newMessageTmp.setTitle(title);
-        newMessageTmp.setContent(content);
-        newMessageTmp.setUser(user);
-        newMessageTmp.setUnRead((byte) 1);
-        newMessageTmp.setCreatedDate(new Date());
-        newMessageTmp.setModifiedDate(new Date());
+        convertToMessageTmp(newMessage, newMessageTmp);
         return newMessageTmp;
+    }
+
+    private void convertToMessageTmp(Message message, MessageTmp messageTmp) {
+        messageTmp.setStatus(message.getStatus());
+        messageTmp.setUrl(message.getUrl());
+        messageTmp.setTitle(message.getTitle());
+        messageTmp.setContent(message.getContent());
+        messageTmp.setUser(message.getUser());
+        messageTmp.setUnRead(message.getUnRead());
+        messageTmp.setCreatedDate(message.getCreatedDate());
+        messageTmp.setModifiedDate(message.getModifiedDate());
     }
 
 }

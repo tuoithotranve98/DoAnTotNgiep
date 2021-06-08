@@ -160,7 +160,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
     public MaintenanceCardDTO updateMaintenanceCard(MaintenanceCardDTO maintenanceCardDTO, String email, int role) throws NotFoundException, CodeExistedException, NotUpdateException, UnknownException, JsonProcessingException {
 
         // Kiểm tra phiếu xem có còn tồn tại không
-        MaintenanceCard maintenanceCardUpdate = maintenanceCardRepository.getMaintenanceCardByIdAndCoordinatorEmail(maintenanceCardDTO.getId(), email, role);
+        var maintenanceCardUpdate = maintenanceCardRepository.getMaintenanceCardByIdAndCoordinatorEmail(maintenanceCardDTO.getId(), email, role);
         if (maintenanceCardUpdate == null) {
             throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         }
@@ -184,38 +184,38 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         long total = 0L;
         Long[] maintenanceCardDetailId = new Long[10000];
         int dem = 0;
-        for (MaintenanceCardDetail maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
+
+        for (var maintenanceCardDetail : maintenanceCard.getMaintenanceCardDetails()) {
             maintenanceCardDetailId[dem] = maintenanceCardDetail.getId();
             dem++;
             MaintenanceCardDetail mainCardDetailUpdate = null;
             if (maintenanceCardDetail.getId() != null) {
                 mainCardDetailUpdate = maintenanceCardDetailRepository.findById(maintenanceCardDetail.getId()).orElse(null);
             }
-
             maintenanceCardDetail.setModifiedDate(new Date());
             // neu them moi
             if (mainCardDetailUpdate == null) {
                 maintenanceCardDetail.setCreatedDate(new Date());
                 maintenanceCardDetail.setMaintenanceCard(maintenanceCard);
                 //nếu là linh kiện thì bắn kafka để giảm số lượng
-                if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
+                if (maintenanceCardDetail.getProductId() != 0
+                    && maintenanceCardDetail.getProductType() == 1) {
                     ProductModel productModel = new ProductModel();
                     productModel.setAmount(maintenanceCardDetail.getQuantity());
                     productModel.setCode(maintenanceCardDetail.getProductCode());
                     productModel.setStatus(1);
                     CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
                 }
-
                 // tạo lịch sử thay đổi trạng thái
                 if (maintenanceCardDetail.getProductId() != 0) {
-                    MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
-                    maintenanceCardDetailStatusHistory.setCreatedDate(new Date());
-                    maintenanceCardDetailStatusHistory.setModifiedDate(new Date());
-                    maintenanceCardDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
-                    maintenanceCardDetailStatusHistory.setStatus((byte) 0);
-                    List<MaintenanceCardDetailStatusHistory> maintenanceCardDetailStatusHistories = new ArrayList<>();
-                    maintenanceCardDetailStatusHistories.add(maintenanceCardDetailStatusHistory);
-                    maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(maintenanceCardDetailStatusHistories);
+                    var mCDetailStatusHistory = new MaintenanceCardDetailStatusHistory();
+                    mCDetailStatusHistory.setCreatedDate(new Date());
+                    mCDetailStatusHistory.setModifiedDate(new Date());
+                    mCDetailStatusHistory.setMaintenanceCardDetail(maintenanceCardDetail);
+                    mCDetailStatusHistory.setStatus((byte) 0);
+                    List<MaintenanceCardDetailStatusHistory> mCDetailStatusHistories = new ArrayList<>();
+                    mCDetailStatusHistories.add(mCDetailStatusHistory);
+                    maintenanceCardDetail.setMaintenanceCardDetailStatusHistories(mCDetailStatusHistories);
                     total += maintenanceCardDetail.getPrice().longValue() * maintenanceCardDetail.getQuantity();
                     check = false;
                 }
@@ -232,11 +232,9 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                     ProductModel productModel = new ProductModel();
                     productModel.setAmount(maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity());
                     productModel.setCode(maintenanceCardDetail.getProductCode());
-                    if (maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() > 0) {
-                        productModel.setStatus(2);
-                    } else {
-                        productModel.setStatus(1);
-                    }
+                    boolean checkQuantity = maintenanceCardDetail.getQuantity() - mainCardDetailUpdate.getQuantity() > 0;
+                    if (checkQuantity) productModel.setStatus(2);
+                    else productModel.setStatus(1);
                     CompletableFuture.runAsync(() -> sendMessage.sendToProduct(productModel, String.valueOf(maintenanceCardDetail.getProductId())));
                 }
                 if (maintenanceCardDetail.getProductId() != 0) {
@@ -253,6 +251,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             }
         }
         maintenanceCard.setPrice(BigDecimal.valueOf(total));
+
         maintenanceCardUpdate.getMaintenanceCardDetails().forEach(maintenanceCardDetail -> {
             if (!ArrayUtils.contains(maintenanceCardDetailId, maintenanceCardDetail.getId())) {
                 if (maintenanceCardDetail.getIsDelete() == 0
@@ -272,9 +271,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
                         maintenanceCardDetailStatusHistory.setStatus((byte) (-1));
                         maintenanceCardDetail.getMaintenanceCardDetailStatusHistories().add(maintenanceCardDetailStatusHistory);
                     }
-
                     maintenanceCardDetail.setIsDelete((byte) 1);
-
                 }
                 maintenanceCard.getMaintenanceCardDetails().add(maintenanceCardDetail);
             }
@@ -285,24 +282,17 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         } else if (maintenanceCardRepository.checkCode(maintenanceCard.getCode(), maintenanceCard.getId()) > 0) {
             throw new CodeExistedException("Code existed");
         }
-        if (check) {
-            maintenanceCard.setWorkStatus((byte) 2);
-
-        } else {
-            maintenanceCard.setWorkStatus(status);
-        }
-        if (!checkNull) {
-            maintenanceCard.setWorkStatus((byte) 0);
-        }
-        long temp = 0L;
-        for (PaymentHistory paymentHistory : maintenanceCardUpdate.getPaymentHistories()) {
-            temp += paymentHistory.getMoney().longValue();
-        }
-        if (temp < total || !checkNull) {
-            maintenanceCard.setPayStatus((byte) 0);
-        } else {
-            maintenanceCard.setPayStatus((byte) 1);
-        }
+        // set trạng thái làm việc
+        if (check) maintenanceCard.setWorkStatus((byte) 2);
+        else maintenanceCard.setWorkStatus(status);
+        if (!checkNull) maintenanceCard.setWorkStatus((byte) 0);
+        //
+        long temp = maintenanceCardUpdate
+            .getPaymentHistories()
+            .stream().mapToLong(paymentHistory -> paymentHistory.getMoney().longValue()).sum();
+        if (temp < total || !checkNull) maintenanceCard.setPayStatus((byte) 0);
+        else maintenanceCard.setPayStatus((byte) 1);
+        // Set phiếu
         maintenanceCard.setCoordinatorEmail(maintenanceCardUpdate.getCoordinatorEmail());
         maintenanceCard.setCoordinatorId(maintenanceCardUpdate.getCoordinatorId());
         maintenanceCard.setCoordinatorName(maintenanceCardUpdate.getCoordinatorName());
@@ -310,7 +300,6 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         maintenanceCard.setCustomerName(maintenanceCardUpdate.getCustomerName());
         maintenanceCard.setCustomerPhone(maintenanceCardUpdate.getCustomerPhone());
         maintenanceCard.setPaymentHistories(maintenanceCardUpdate.getPaymentHistories());
-        maintenanceCard.setModifiedDate(new Date());
         if (maintenanceCard.getWorkStatus() != 2 || maintenanceCard.getPayStatus() != 1) {
             maintenanceCard.setReturnDate(null);
         } else if (maintenanceCard.getReturnDate() != null) {
@@ -577,11 +566,11 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             if (filterRequest.getFrom() != null) {
                 Date dateFrom = getDateFromTimestamp(filterRequest.getFrom());
                 Date dateTo = getDateFromTimestamp(filterRequest.getTo());
-                return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds,
-                    payStatusIds,dateFrom, dateTo, filterRequest.getTenantId(), filterRequest.getRepairmanId());
-            }else {
-                return maintenanceCardRepository.filterCount(filterRequest.getQuery(), workStatusIds,
-                    payStatusIds,null, null, filterRequest.getTenantId(), filterRequest.getRepairmanId());
+                return maintenanceCardRepository.filterCount(filterRequest.getQuery(), payStatusIds,
+                    workStatusIds, dateFrom, dateTo, filterRequest.getTenantId(), filterRequest.getRepairmanId());
+            } else {
+                return maintenanceCardRepository.filterCount(filterRequest.getQuery(), payStatusIds,
+                    workStatusIds, null, null, filterRequest.getTenantId(), filterRequest.getRepairmanId());
             }
 
         } catch (Exception e) {

@@ -7,8 +7,8 @@ import SelectStaff from "./SelectStaff";
 
 registerLocale("vi", vi);
 function InfoMainCard(props) {
-  const { mainCard , onChangeMainCard, onChangeMainCardReairMan  } = props;
-  const coordinator = mainCard.coordinator || {}
+  const { mainCard, onChangeMainCard, onChangeMainCardReairMan } = props;
+  const coordinator = mainCard.coordinator || {};
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [focusEndDate, setFocusEndDate] = useState(true);
@@ -23,13 +23,11 @@ function InfoMainCard(props) {
   });
 
   const onClickFocusEndDate = () => {
-    // setFocusEndDate(!focusEndDate);
-    // calendar2.current.setOpen(focusEndDate);
+    //
   };
 
   const onClickFocusStartDate = () => {
-    // setFocusStartDate(!focusStartDate);
-    // calendar2.current.setOpen(focusStartDate);
+    //
   };
   return (
     <div className="info-main-card-warpper">
@@ -40,7 +38,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="code"
-          value={mainCard.code || ''}
+          value={mainCard.code || ""}
           onChange={(e) => onChangeMainCard("code", e.target.value)}
           placeholder="Nhập mã phiếu"
         />
@@ -51,14 +49,19 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="platesNumber"
-          value={mainCard.platesNumber || ''}
+          value={mainCard.platesNumber || ""}
           onChange={(e) => onChangeMainCard("platesNumber", e.target.value)}
           placeholder="Nhập biển số xe"
         />
       </div>
       <div className=" field">
         <div className="label">Nhân viên sửa chữa</div>
-          <SelectStaff staff={mainCard.repairman || ''} onSelect={(e) => onChangeMainCardReairMan("repairman", e.target.value)}/>
+        <SelectStaff
+          staff={mainCard.repairman || ""}
+          onSelect={(e) =>
+            onChangeMainCardReairMan("repairman", e.target.value)
+          }
+        />
       </div>
       <div className=" field">
         <div className="label">Màu xe</div>
@@ -66,7 +69,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="color"
-          value={mainCard.color || ''}
+          value={mainCard.color || ""}
           onChange={(e) => onChangeMainCard("color", e.target.value)}
           placeholder="Nhập màu xe"
         />
@@ -77,7 +80,7 @@ function InfoMainCard(props) {
           className="customer-name"
           type="text"
           name="model"
-          value={mainCard.model || ''}
+          value={mainCard.model || ""}
           onChange={(e) => onChangeMainCard("model", e.target.value)}
           placeholder="Nhập loại xe"
         />
@@ -91,7 +94,7 @@ function InfoMainCard(props) {
           name="phone"
           readOnly
           disabled
-          value={coordinator.name || ''}
+          value={coordinator.name || ""}
         />
       </div>
       <div className=" field">
@@ -104,7 +107,7 @@ function InfoMainCard(props) {
             readOnly
             onChange={(e) => onChangeMainCard("returnDate", e)}
             dateFormat="dd/MM/yyyy"
-            placeholderText="Từ ngày"
+            placeholderText="Ngày trả xe thực tế"
             locale="vi"
             ref={calendar1}
           />
@@ -115,24 +118,21 @@ function InfoMainCard(props) {
       </div>
       <div className=" field">
         <div className="label">Ngày dự kiến trả xe</div>
-        <div
-            id="old-order-prepayment-datetime"
-            style={{ marginTop: '10px' }}
-          >
-            <DatePicker
-              closeOnScroll
-              selected={mainCard.expectedReturnDate || new Date()}
-              onChange={(e) => onChangeMainCard("expectedReturnDate", e)}
-              minDate={new Date()}
-              placeholderText="Ngày dự kiến trả xe"
-              dateFormat="dd/MM/yyyy"
-              locale="vi"
-              ref={calendar2}
-            />
-            <span className="icon-calendar" onClick={onClickFocusEndDate}>
-              <Icons.IconCalendar />
-            </span>
-          </div>
+        <div id="old-order-prepayment-datetime" style={{ marginTop: "10px" }}>
+          <DatePicker
+            closeOnScroll
+            selected={mainCard.expectedReturnDate || new Date()}
+            onChange={(e) => onChangeMainCard("expectedReturnDate", e)}
+            minDate={new Date()}
+            placeholderText="Ngày dự kiến trả xe"
+            dateFormat="dd/MM/yyyy"
+            locale="vi"
+            ref={calendar2}
+          />
+          <span className="icon-calendar" onClick={onClickFocusEndDate}>
+            <Icons.IconCalendar />
+          </span>
+        </div>
       </div>
       <div className=" field">
         <div className="label">Ghi chú</div>
@@ -140,7 +140,7 @@ function InfoMainCard(props) {
           name="description"
           placeholder="Ghi chú"
           name="description"
-          value={mainCard.description || ''}
+          value={mainCard.description || ""}
           onChange={(e) => onChangeMainCard("description", e.target.value)}
         />
       </div>

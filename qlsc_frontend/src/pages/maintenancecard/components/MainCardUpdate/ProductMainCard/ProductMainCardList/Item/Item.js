@@ -33,7 +33,6 @@ const listGuarantees = [
 ];
 function Item(props) {
   const { product } = props;
-  console.log('check product', product);
   return (
     <div className="d-flex align-items-center delivery-collation-order-row">
       <div className="order text-ellipsis" style={{ color: "#0088FF" }}>
@@ -46,12 +45,12 @@ function Item(props) {
         {product.product.type === 1 ? "Linh kiện" : "Dịch vụ"}
       </div>
       <div className="d-flex align-items-center  track-code">
-        {product.quantity}
+        {product.quantity} {product && product.product && product.product.type === 1 ? product.product.unit : ''}
       </div>
       <div className="d-flex justify-content-start track-code">
         {moneyFormat(product.price)} đ
       </div>
-      <div className="d-flex justify-content-center item-status-main-card">
+      <div className="d-flex item-status-main-card">
         {listGuarantees.map((item, index) => {
           if (item.status === product.isGuarantee) {
             return (

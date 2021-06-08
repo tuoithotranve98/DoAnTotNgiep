@@ -348,7 +348,9 @@ function TopBar(props) {
 
   const onReadMessage = (message) => {
     history.push(message.url);
-    props.onMarkRead(message.id);
+    if (message.unRead) {
+      props.onMarkRead(message.id);
+    }
   };
 
   const onRemoveMessage = (id, e) => {
@@ -397,7 +399,7 @@ function TopBar(props) {
                       return (
                         <div
                           className="d-flex item"
-                          style={{ background: "rgb(242, 249, 255)" }}
+                          style={message.unRead ? { background: "rgb(242, 249, 255)" } : { background: "rgb(241 241 241)"}}
                           key={message.id}
                         >
                           <div className="icon">

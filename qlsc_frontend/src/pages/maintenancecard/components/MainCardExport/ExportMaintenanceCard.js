@@ -26,9 +26,12 @@ class ExportMaintenanceCard extends React.Component {
   totalMoney() {
     const { mainCard } = this.props;
     let total = 0;
-    if (mainCard.maintenanceCardDetails && mainCard.maintenanceCardDetails.length) {
-      mainCard.maintenanceCardDetails.forEach(item => {
-        total += (item.product.pricePerUnit * item.quantity);
+    if (
+      mainCard.maintenanceCardDetails &&
+      mainCard.maintenanceCardDetails.length
+    ) {
+      mainCard.maintenanceCardDetails.forEach((item) => {
+        total += item.product.pricePerUnit * item.quantity;
       });
     }
     return `${moneyFormat(total)} đ`;
@@ -36,6 +39,122 @@ class ExportMaintenanceCard extends React.Component {
 
   toPadZeroString(n) {
     return n >= 10 ? `${n}` : `0${n}`;
+  }
+
+  renderFinish() {
+    const { mainCard } = this.props;
+    return (
+      <Row style={{ marginTop: 50 }}>
+      <Col span={24}>
+        <h2>Linh kiện - dịch vụ</h2>
+        <table width="100%" border="1">
+          <thead>
+            <tr>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Mã</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Tên</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                Số lượng
+              </td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Giá</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Bảo hành</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                Thành tiền
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {mainCard.maintenanceCardDetails.length &&
+              mainCard.maintenanceCardDetails.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td style={{ textAlign: "center" }}>
+                      {item.product.code.toUpperCase()}
+                    </td>
+                    <td style={{ textAlign: "center" }}>{item.product.name}</td>
+                    <td style={{ textAlign: "center" }}>{item.quantity}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {moneyFormat(item.product.pricePerUnit)} đ
+                    </td>
+                    <td style={{ textAlign: "center" }}>{item.product.guarantee ? item.product.guarantee : '---'}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {moneyFormat(item.price)} đ
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+        <div
+          style={{
+            textAlign: "right",
+            marginTop: 10,
+            fontWeight: 600,
+            fontSize: 20,
+          }}
+        >
+          Tổng tiền : {this.totalMoney()}
+        </div>
+      </Col>
+    </Row>
+    );
+  }
+
+  renderUnFinish() {
+    const { mainCard } = this.props;
+    return (
+      <Row style={{ marginTop: 50 }}>
+      <Col span={24}>
+        <h2>Linh kiện - dịch vụ</h2>
+        <table width="100%" border="1">
+          <thead>
+            <tr>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Mã</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Tên</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                Số lượng
+              </td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Giá</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>Hoàn thành</td>
+              <td style={{ textAlign: "center", fontWeight: "bold" }}>
+                Thành tiền
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {mainCard.maintenanceCardDetails.length &&
+              mainCard.maintenanceCardDetails.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td style={{ textAlign: "center" }}>
+                      {item.product.code.toUpperCase()}
+                    </td>
+                    <td style={{ textAlign: "center" }}>{item.product.name}</td>
+                    <td style={{ textAlign: "center" }}>{item.quantity}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {moneyFormat(item.product.pricePerUnit)} đ
+                    </td>
+                    <td style={{ textAlign: "center" }}>{item.product.type === 1 ? '---' : ''}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {moneyFormat(item.price)} đ
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+        <div
+          style={{
+            textAlign: "right",
+            marginTop: 10,
+            fontWeight: 600,
+            fontSize: 20,
+          }}
+        >
+          Tổng tiền : {this.totalMoney()}
+        </div>
+      </Col>
+    </Row>
+    );
   }
 
   render() {
@@ -52,7 +171,9 @@ class ExportMaintenanceCard extends React.Component {
               <tbody>
                 <tr>
                   <td>Mã phiếu sửa chữa : </td>
-                  <td>{mainCard && mainCard.code && mainCard.code.toUpperCase()}</td>
+                  <td>
+                    {mainCard && mainCard.code && mainCard.code.toUpperCase()}
+                  </td>
                 </tr>
                 <tr>
                   <td>Ngày tạo phiếu : </td>
@@ -106,21 +227,15 @@ class ExportMaintenanceCard extends React.Component {
               <tbody>
                 <tr>
                   <td>Biển số xe : </td>
-                  <td style={{ paddingLeft: 10 }}>
-                    {mainCard.platesNumber}
-                  </td>
+                  <td style={{ paddingLeft: 10 }}>{mainCard.platesNumber}</td>
                 </tr>
                 <tr>
                   <td>Loại xe : </td>
-                  <td style={{ paddingLeft: 10 }}>
-                    {mainCard.model}
-                  </td>
+                  <td style={{ paddingLeft: 10 }}>{mainCard.model}</td>
                 </tr>
                 <tr>
                   <td>Màu xe : </td>
-                  <td style={{ paddingLeft: 10 }}>
-                    {mainCard.color}
-                  </td>
+                  <td style={{ paddingLeft: 10 }}>{mainCard.color}</td>
                 </tr>
               </tbody>
             </table>
@@ -128,57 +243,7 @@ class ExportMaintenanceCard extends React.Component {
         </Row>
         {/* end info customer*/}
         {/* product */}
-        <Row style={{ marginTop: 50 }}>
-          <Col span={24}>
-            <h2>Linh kiện - dịch vụ</h2>
-            <table width="100%" border="1">
-              <thead>
-                <tr>
-                  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Mã
-                  </td>
-                  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Tên
-                  </td>
-                  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Số lượng
-                  </td>
-                  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Giá
-                  </td>
-                  <td style={{ textAlign: "center", fontWeight: "bold" }}>
-                    Thành tiền
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                {mainCard.maintenanceCardDetails.length &&
-                  mainCard.maintenanceCardDetails.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td style={{ textAlign: "center" }}>
-                          {item.product.code.toUpperCase()}
-                        </td>
-                        <td style={{ textAlign: "center" }}>
-                          {item.product.name}
-                        </td>
-                        <td style={{ textAlign: "center" }}>{item.quantity}</td>
-                        <td style={{ textAlign: "center" }}>
-                          {moneyFormat(item.product.pricePerUnit)} đ
-                        </td>
-                        <td style={{ textAlign: "center" }}>
-                          {moneyFormat(item.price)} đ
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-            <div style={{ textAlign: "right", marginTop: 10, fontWeight: 600, fontSize: 20 }}>
-              Tổng tiền :{" "}{this.totalMoney()}
-            </div>
-          </Col>
-        </Row>
+        {this.props.finish ? this.renderFinish() : this.renderUnFinish()}
         {/* end product */}
         {/* info staff */}
         <Row style={{ marginTop: 50 }}>
@@ -189,11 +254,11 @@ class ExportMaintenanceCard extends React.Component {
               <tbody>
                 <tr>
                   <td>Nhân viên sửa chữa :</td>
-                  <td>{' '}{mainCard.repairman.name}</td>
+                  <td> {mainCard.repairman.name}</td>
                 </tr>
                 <tr>
                   <td>Nhân viên điều phối :</td>
-                  <td>{' '}{mainCard.coordinator.name}</td>
+                  <td> {mainCard.coordinator.name}</td>
                 </tr>
               </tbody>
             </table>
@@ -206,7 +271,11 @@ class ExportMaintenanceCard extends React.Component {
             <h2>Ký xác nhận</h2>
           </Col>
           <Col span={12}>
-            <div>Hà Nội, ngày {this.toPadZeroString(date.getDay())}, tháng {this.toPadZeroString(date.getMonth() + 1)}, năm {date.getFullYear()}</div>
+            <div>
+              Hà Nội, ngày {this.toPadZeroString(date.getDay())}, tháng{" "}
+              {this.toPadZeroString(date.getMonth() + 1)}, năm{" "}
+              {date.getFullYear()}
+            </div>
           </Col>
         </Row>
         <Row>

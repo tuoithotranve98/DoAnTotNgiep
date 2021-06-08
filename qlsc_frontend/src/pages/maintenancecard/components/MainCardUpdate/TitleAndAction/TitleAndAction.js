@@ -39,7 +39,7 @@ function TitleAndAction(props) {
               content={() => componentRef.current}
             />
             <div ref={componentRef}>
-              <ExportMaintenanceCard mainCard={mainCard} />
+              <ExportMaintenanceCard mainCard={mainCard} finish={finish} />
             </div>
           </div>
           <div className="header-action" style={finish ? {cursor: 'not-allowed'} : {}}>

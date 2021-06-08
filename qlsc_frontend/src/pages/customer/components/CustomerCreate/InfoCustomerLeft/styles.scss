@@ -1,11 +1,15 @@
-.info-customer-left{
-    .card{
+.info-customer-left {
+    .info-customer-left-01 {
+        height: 235px;
+    }
+    .card {
         padding: 15px;
         background: #ffffff;
         border: 1px solid #d3d3d3;
         box-sizing: border-box;
         border-radius: 4px;
         padding-bottom: 0px;
+
         .title {
             font-size: 16px;
             font-weight: 600;
@@ -16,13 +20,16 @@
             padding-left: 16px;
             padding-bottom: 17px;
         }
+
         .content {
             padding: 1rem;
-            .control-label{
-                
+
+            .control-label {
+
                 margin-bottom: 10px;
             }
-            input{
+
+            input {
                 display: inline-block;
                 // vertical-align: baseline;
                 width: auto;
@@ -41,7 +48,7 @@
                 width: 100%;
                 font-size: 13px;
                 font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
-                Roboto, Helvetica Neue, sans-serif;
+                    Roboto, Helvetica Neue, sans-serif;
                 border-style: inset;
                 border: 1px solid #c4cdd5;
                 border-radius: 3px !important;
@@ -49,7 +56,8 @@
             }
         }
     }
-    .info-customer-left-02{
+
+    .info-customer-left-02 {
         margin-top: 20px;
     }
 }

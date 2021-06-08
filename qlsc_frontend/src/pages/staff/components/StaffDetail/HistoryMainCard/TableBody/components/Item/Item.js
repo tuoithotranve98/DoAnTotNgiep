@@ -1,12 +1,7 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import '../../styles/item.scss';
 import ReactTooltip from 'react-tooltip';
-import { moneyFormat } from 'utils/moneyFormat';
-import * as Icons from 'pages/maintenancecard/commons/Icons';
-
 
 function Item(props) {
   const { checked } = props;
@@ -39,7 +34,6 @@ function Item(props) {
             <a
               data-tip
               data-for={`order_collation_number_id_${1}`}
-            //   href={calcHref(connection.channel_type)}
               target="_blank"
               style={{ textDecoration: 'none' }}
             >

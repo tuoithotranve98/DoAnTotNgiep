@@ -46,12 +46,12 @@ function Item(props) {
         {product.product.type === 1 ? "Linh kiện" : "Dịch vụ"}
       </div>
       <div className="d-flex align-items-center  track-code">
-        {product.quantity}
+        {product.quantity} {product && product.product && product.product.type === 1 ? product.product.unit : ''}
       </div>
       <div className="d-flex justify-content-start track-code">
         {moneyFormat(product.price)} đ
       </div>
-      <div className="d-flex justify-content-center item-status-main-card">
+      <div className="d-flex item-status-main-card">
         {listGuarantees.map((item, index) => {
           if (item.status === product.isGuarantee) {
             return (
@@ -60,6 +60,7 @@ function Item(props) {
                 style={{
                   color: `${item.color}`,
                   border: `1px solid ${item.color}`,
+                  cursor: "not-allowed",
                 }}
                 key={index}
               >

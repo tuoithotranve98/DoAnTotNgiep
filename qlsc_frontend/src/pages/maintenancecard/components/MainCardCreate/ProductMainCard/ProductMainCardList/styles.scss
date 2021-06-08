@@ -13,27 +13,26 @@
     padding: 13px 10px;
 
     .item-list {
-      width: calc((100% - 25px) / 7) !important;
+      width: calc((100% - 30px) / 7) !important;
     }
 
     .order {
-      width: calc((100% - 25px) / 6);
-      min-width: 120px;
+      width: calc((100% - 25px) / 7);
     }
 
     .track-code {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
 
     .tenant {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
 
     
     
 
     .item-service_provider_ship_fee {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
 
       input {
         height: 38px;
@@ -46,11 +45,11 @@
     }
 
     .item-status-main-card {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
 
     .item-service_provider_cod_amount {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
 
       input {
         height: 38px;
@@ -63,11 +62,11 @@
     }
 
     .sapo-record {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
 
     .real-record {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
 
     .remove {
@@ -88,7 +87,6 @@
       height: 5px;
       background: #FFF;
       width: 6px;
-      //border-radius: 5px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -98,47 +96,6 @@
     }
   }
 
-  // .modal-delivery-collation-data{
-  //   .header {
-  //     background: #F0F2F5;
-  //     font-weight: 500;
-  //     margin-top: 10px;
-  //   }
-  //   .delivery-collation-order-row {
-  //     padding: 13px 10px;
-  //     .order {
-  //       width: calc((100% - 25px) / 6);
-  //       min-width: 120px;
-  //     }
-  //     .track-code {
-  //       width: calc((100% - 25px) / 6);
-
-  //     }
-  //     .tenant {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-
-  //     .sapo-revenue {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .real-revenue {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .sapo-record {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .real-record {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .remove {
-  //       width: 25px;
-  //       svg {
-  //         margin-left: 10px;
-  //         cursor: pointer;
-  //       }
-  //     }
-  //   }
-  // }
   .is-empty-order {
     min-height: 245px;
     margin-top: 140px;

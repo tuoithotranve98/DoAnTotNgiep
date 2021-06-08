@@ -1,12 +1,8 @@
 package com.doan.maintenancecard.converter;
 
-import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.dto.PaymentHistoryDTO;
 import com.doan.maintenancecard.dto.PaymentMethodDTO;
-import com.doan.maintenancecard.entity.MaintenanceCard;
 import com.doan.maintenancecard.entity.PaymentHistory;
-import com.doan.maintenancecard.entity.PaymentMethod;
-import com.doan.maintenancecard.repository.PaymentMethodRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router";
 import { withRouter } from "react-router-dom";
 import "../../styles/item.scss";
 import ReactTooltip from "react-tooltip";
@@ -14,12 +14,12 @@ const listStatus = [
   {
     status: 1,
     name: "Đang sửa",
-    color: '#F19403',
+    color: "#F19403",
   },
   {
     status: 2,
     name: "Hoàn thành",
-    color: '#20A917',
+    color: "#20A917",
   },
 ];
 const listPayment = [
@@ -31,7 +31,7 @@ const listPayment = [
   {
     status: 1,
     name: "Đã thanh toán",
-    color: '#20A917',
+    color: "#20A917",
   },
 ];
 function Item(props) {
@@ -46,12 +46,14 @@ function Item(props) {
   const onRedirectDetail = (e) => {
     e.stopPropagation();
     pushstate(history, `/historyMainCard/detail/${historyMainCard.id}`);
-  }
+  };
 
   return (
     <div className="delivery-collations-item-wrapper">
-      <div className="d-flex delivery-collations-listing-item"
-      onClick={(e) => onRedirectDetail(e)}>
+      <div
+        className="d-flex delivery-collations-listing-item"
+        onClick={(e) => onRedirectDetail(e)}
+      >
         <div
           role="presentation"
           className="checkbox header-checkbox"
@@ -67,9 +69,9 @@ function Item(props) {
               data-tip
               data-for={`order_collation_number_id_${1}`}
               target="_blank"
-              style={{ textDecoration: "none", color: '#007bff' }}
+              style={{ textDecoration: "none", color: "#007bff" }}
             >
-              {(historyMainCard && historyMainCard.code.toUpperCase()) || '---'}
+              {(historyMainCard && historyMainCard.code.toUpperCase()) || "---"}
               <ReactTooltip
                 place="top"
                 type="dark"
@@ -77,66 +79,76 @@ function Item(props) {
                 isMultiline
                 id={`order_collation_number_id_${1}`}
               >
-                {(historyMainCard && historyMainCard.code.toUpperCase()) || '---'}
+                {(historyMainCard && historyMainCard.code.toUpperCase()) ||
+                  "---"}
               </ReactTooltip>
             </a>
           </span>
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {(historyMainCard && historyMainCard.platesNumber) || '---'}
+          {(historyMainCard && historyMainCard.platesNumber) || "---"}
         </div>
         <div
           className="margin-right20 delivery-collation-location"
           data-tip
           data-for={`delivery-collation-location_${1}`}
         >
-         {(historyMainCard && historyMainCard.coordinator && historyMainCard.coordinator.name) || '---'}
+          {(historyMainCard &&
+            historyMainCard.coordinator &&
+            historyMainCard.coordinator.name) ||
+            "---"}
         </div>
         <div
           className="margin-right20 delivery-collation-location"
           data-tip
           data-for={`delivery-collation-location_${1}`}
         >
-         {(historyMainCard && historyMainCard.repairman && historyMainCard.repairman.name) || '---'}
+          {(historyMainCard &&
+            historyMainCard.repairman &&
+            historyMainCard.repairman.name) ||
+            "---"}
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {historyMainCard && historyMainCard.payStatus && listPayment.map((item) => {
-            if (item.status === historyMainCard.payStatus) {
-              return (
-                <div
-                  className="text"
-                  style={{
-                    color: `${item.color}`,
-                  }}
-                >
-                  {item.name}
-                </div>
-              );
-            } else {
-              return ''
-            }
-          }) || '---'}
+          {historyMainCard &&
+            listPayment.map((item) => {
+              if (item.status === historyMainCard.payStatus) {
+                return (
+                  <div
+                    className="text"
+                    style={{
+                      color: `${item.color}`,
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                );
+              }
+              return null;
+            })}
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {historyMainCard && historyMainCard.workStatus && listStatus.map((item) => {
-            if (item.status === historyMainCard.workStatus) {
-              return (
-                <div
-                  className="text"
-                  style={{
-                    color: `${item.color}`,
-                  }}
-                >
-                  {item.name}
-                </div>
-              );
-            } else {
-              return ''
-            }
-          }) || '---'}
+          {historyMainCard &&
+            listStatus.map((item) => {
+              if (item.status === historyMainCard.workStatus) {
+                return (
+                  <div
+                    className="text"
+                    style={{
+                      color: `${item.color}`,
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                );
+              }
+              return null;
+            })}
         </div>
         <div className="margin-right20 item-list text-ellipsis">
-        {(historyMainCard && historyMainCard.returnDate && convertSecondToDateV1(historyMainCard.returnDate)) || '---'}
+          {(historyMainCard &&
+            historyMainCard.returnDate &&
+            convertSecondToDateV1(historyMainCard.returnDate)) ||
+            "---"}
         </div>
       </div>
     </div>

@@ -11,11 +11,11 @@ class SelectStaff extends React.Component {
   }
   
   render() {
-    const { staffs, staff } = this.props;
+    const { staffs, staff, finish } = this.props;
     return (
       <Select2
         defaultValue={staff ? staff.id : ""}
-        data={staffs}
+        data={finish ? [staff] : staffs}
         onSelect={this.props.onSelect}
         options={{
           placeholder: "Chọn nhân viên sửa chữa",

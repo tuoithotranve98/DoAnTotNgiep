@@ -5,14 +5,13 @@ import List from "../List/List";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "../../styles/wrapper.scss";
-import * as Icons from "pages/maintenancecard/commons/Icons";
 import { fetchMainCard } from "../../../../../../actions/mainCard";
-import imgNoMainCard from 'images/NoMainCard.png';
+import imgNoMainCard from "images/NoMainCard.png";
 
 function Wrapper(props) {
   const { mainCards, fetchMainCard, filterInfo, isEmpty, fetching } = props;
   const [selectedIds, setSelectedIds] = useState([]);
-  const { mainCardList } = mainCards
+  const { mainCardList } = mainCards;
   const listRef = React.useRef();
 
   useEffect(() => {
@@ -28,7 +27,11 @@ function Wrapper(props) {
   };
 
   const onCheckBoxClick = (id) => {
-    setSelectedIds(selectedIds.includes(id) ? selectedIds.filter(it => it !== id) : selectedIds.concat(id));
+    setSelectedIds(
+      selectedIds.includes(id)
+        ? selectedIds.filter((it) => it !== id)
+        : selectedIds.concat(id)
+    );
   };
 
   const resetSelected = () => {
@@ -49,6 +52,7 @@ function Wrapper(props) {
     );
   };
 
+  console.log('check filterInfo', filterInfo);
   const child = renderCheckInfo();
   if (isEmpty) {
     return (
@@ -57,9 +61,11 @@ function Wrapper(props) {
           <div id="delivery-collations-filter-empty-text">
             Không có phiếu sửa chữa
           </div>
-          <div id="delivery-collations-filter-empty-icon" style={{ height: '100%'}}>
-            {/* <Icons.OrderCollationFilterEmpty /> */}
-            <img style={{ height: '100%'}} src={imgNoMainCard} alt=""></img>
+          <div
+            id="delivery-collations-filter-empty-icon"
+            style={{ height: "100%" }}
+          >
+            <img style={{ height: "100%" }} src={imgNoMainCard} alt=""></img>
           </div>
         </div>
       </div>
@@ -70,10 +76,13 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <Header
           onClick={onClick}
-          checked={selectedIds.length && selectedIds.length === mainCardList.length}
+          checked={
+            selectedIds.length && selectedIds.length === mainCardList.length
+          }
           minus={selectedIds.length && selectedIds.length < mainCardList.length}
           selectedIds={selectedIds}
-          child={child} />
+          child={child}
+        />
         <List
           ref={listRef}
           mainCardList={mainCardList}
@@ -86,6 +95,7 @@ function Wrapper(props) {
           onCheckBoxListClick={onCheckBoxListClick}
         />
         <Footer
+          size={10}
           mainCardList={mainCardList}
           resetSelected={resetSelected}
           isEmpty={isEmpty}
@@ -103,7 +113,13 @@ Wrapper.defaultProps = {
 };
 
 const mapStateToProps = (state) => {
-  const { mainCard : { mainCards , ui: { isEmpty, fetching } , filterInfo } } = state;
+  const {
+    mainCard: {
+      mainCards,
+      ui: { isEmpty, fetching },
+      filterInfo,
+    },
+  } = state;
   return {
     mainCards,
     filterInfo,
@@ -112,6 +128,9 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  fetchMainCard: (filterInfo, page) => dispatch(fetchMainCard(filterInfo, page)),
+  fetchMainCard: (filterInfo, page) =>
+    dispatch(fetchMainCard(filterInfo, page)),
 });
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wrapper));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Wrapper)
+);

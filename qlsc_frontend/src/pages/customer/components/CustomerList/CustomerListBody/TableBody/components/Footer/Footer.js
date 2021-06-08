@@ -1,7 +1,6 @@
 import React from "react";
 import Pagination from "../Pagination/Pagination";
 import { connect } from "react-redux";
-import * as Icons from "../../../../../../commons/Icons";
 import "../../styles/footer.scss";
 
 function Footer(props) {

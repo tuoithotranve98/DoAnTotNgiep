@@ -4,133 +4,113 @@
     font-weight: 500;
     margin-top: 10px;
   }
+
   .delivery-collation-order-row:nth-child(odd) {
     background-color: #f9f9f9;
   }
+
   .delivery-collation-order-row {
     padding: 13px 10px;
+
     .order {
-      width: calc((100% - 25px) / 6);
-      min-width: 120px;
+      width: calc((100% - 25px) / 7);
     }
+
     .track-code {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
+
     .tenant {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
+
     .item-service_provider_ship_fee {
-      width: calc((100% - 25px) / 6);
-      input{
+      width: calc((100% - 25px) / 7);
+
+      input {
         height: 38px;
-        &:focus{
+
+        &:focus {
           outline: none;
           border: 1px solid #0084FF;
         }
       }
     }
+
     .item-status-main-card {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
+
     .item-service_provider_cod_amount {
-      width: calc((100% - 25px) / 6);
-      input{
+      width: calc((100% - 25px) / 7);
+
+      input {
         height: 38px;
-        &:focus{
+
+        &:focus {
           outline: none;
           border: 1px solid #0084FF;
         }
       }
     }
+
     .sapo-record {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
+
     .real-record {
-      width: calc((100% - 25px) / 6);
+      width: calc((100% - 25px) / 7);
     }
+
     .remove {
       width: 25px;
+
       svg {
         margin-left: 10px;
         cursor: pointer;
       }
     }
   }
-  .list-order-selected{
+
+  .list-order-selected {
     max-height: 700px;
     overflow-y: auto;
+
     &::-webkit-scrollbar {
       height: 5px;
       background: #FFF;
       width: 6px;
-      //border-radius: 5px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: #C4C4C4;
       border-radius: 5px;
       width: 2px;
     }
   }
-  // .modal-delivery-collation-data{
-  //   .header {
-  //     background: #F0F2F5;
-  //     font-weight: 500;
-  //     margin-top: 10px;
-  //   }
-  //   .delivery-collation-order-row {
-  //     padding: 13px 10px;
-  //     .order {
-  //       width: calc((100% - 25px) / 6);
-  //       min-width: 120px;
-  //     }
-  //     .track-code {
-  //       width: calc((100% - 25px) / 6);
-        
-  //     }
-  //     .tenant {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-     
-  //     .sapo-revenue {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .real-revenue {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .sapo-record {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .real-record {
-  //       width: calc((100% - 25px) / 6);
-  //     }
-  //     .remove {
-  //       width: 25px;
-  //       svg {
-  //         margin-left: 10px;
-  //         cursor: pointer;
-  //       }
-  //     }
-  //   }
-  // }
-  .is-empty-order{
+
+  .is-empty-order {
     min-height: 245px;
     margin-top: 140px;
     text-align: center;
   }
-  .no-product{
+
+  .no-product {
     width: 90%;
     margin: 0 auto;
     justify-content: space-between;
     margin-top: 40px;
   }
-  .product-info-total{
+
+  .product-info-total {
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 16px;
     z-index: 0px;
   }
-  .item-status-main-card{
-    .text{
+
+  .item-status-main-card {
+    .text {
       padding: 5px 5px 5px 5px;
       cursor: pointer;
       border-radius: 3px;

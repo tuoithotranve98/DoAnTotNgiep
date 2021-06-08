@@ -102,21 +102,27 @@ function MainCardUpdate(props) {
   }, [showContent]);
 
   useEffect(() => {
-    if (id) {
-      getMainCardById(id).then((json) => {
-        setMainCard(json);
-        setMoney(json.price);
-        setCustomer(json.customer);
-      });
-    }
+    if (id) onGetDataFromId(id);
   }, []);
+
+  useEffect(() => {
+    if (id) onGetDataFromId(id);
+  }, [id])
 
   useEffect(() => {
     if (mainCard && mainCard.payStatus === 1
       && mainCard.workStatus === 2) {
         setFinish(true);
     }
-  }, [mainCard])
+  }, [mainCard]);
+
+  const onGetDataFromId = (id) => {
+    getMainCardById(id).then((json) => {
+      setMainCard(json);
+      setMoney(json.price);
+      setCustomer(json.customer);
+    });
+  }
 
   //product
   const onchangeProduct = (type, value) => {
@@ -355,6 +361,7 @@ function MainCardUpdate(props) {
                 onChangeMainCardReairMan(type, value)
               }
               mainCard={mainCard}
+              finish={finish}
             />
             <HistoryAction
               maintenanceCardDetailStatusHistories={

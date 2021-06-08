@@ -154,7 +154,7 @@ function Item(props) {
           })}
         </div>
         <div className="margin-right20 item-list">
-          {convertSecondToDateV1(mainCard.return_date)}
+          {mainCard.return_date ? convertSecondToDateV1(mainCard.return_date) : '---'}
         </div>
         <div className="margin-right20 item-list">
           {moneyFormat(mainCard && mainCard.price) || 0} đ

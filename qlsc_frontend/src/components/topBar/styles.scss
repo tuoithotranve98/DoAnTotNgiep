@@ -107,7 +107,7 @@
         margin: 0;
         left: -300px !important;
         top: 53px !important;
-        height: 393px;
+        height: 380px;
 
 
         .info {
@@ -135,7 +135,6 @@
               background: #FFF;
               width: 7px;
               cursor: pointer;
-              //border-radius: 5px;
             }
 
             &::-webkit-scrollbar-thumb {
@@ -153,16 +152,20 @@
 
               .icon {
                 width: 40px;
-                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 5px;
               }
 
               .content-noti {
                 width: calc((100% - 43px));
                 position: relative;
+                font-size: 14px;
                 .title {
                   font-weight: 500;
                   margin-bottom: 7px;
-                  font-size: 1rem;
+                  font-size: 14px;
                 }
 
                 .remove {

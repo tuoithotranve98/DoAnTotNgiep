@@ -32,7 +32,7 @@ function AccessoriesReport(props) {
     <div className="report-content-container">
       <div className="revenue-role-accessories-chart">
         <div className="revenue-main report-border">
-          <div className="report-title">Top { accessories && accessories.length } sản phẩm</div>
+          <div className="report-title">Top { accessories && accessories.length } linh kiện</div>
           <ReportProduct data={accessories} />
         </div>
       </div>
