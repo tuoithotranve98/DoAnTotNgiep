@@ -110,15 +110,18 @@ function MainCardCreate(props) {
   //customer
   const saveCustomer = () => {
     onSaveCustomer(createCustomer).then((json) => {
-      if (json) {
+      if (json && json.success) {
         setCreateCustomer(initialStateCustomer);
         setCustomer(json.customer);
         onClearWards();
         setShowFilterCustomer(true);
         setShowModalCustomer(false);
         toastSuccess("Thêm khách hàng thành công");
-      } else {
-        toastError("Có lỗi xảy ra khi thêm khách hàng");
+      } else if(json && !json.success) {
+        toastError(json.message);
+        return;
+      } else{
+        toastError("Có lỗi xảy ra khi thêm mới khách hàng")
       }
     });
   };
@@ -152,10 +155,13 @@ function MainCardCreate(props) {
 
   const saveProductService = () => {
     onSaveProductService(createProduct).then((json) => {
-      if (json) {
+      if (json && json.success) {
         addProduct(json.product);
         setShowModalProduct(false);
         toastSuccess("Thêm sản phẩm thành công");
+      } else if(json && !json.success) {
+        toastError(json.message);
+        return;
       } else {
         toastError("Có lỗi xảy ra khi thêm sản phẩm");
       }

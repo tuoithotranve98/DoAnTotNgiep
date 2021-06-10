@@ -38,7 +38,7 @@ function HistoryAction(props) {
             }
 
             return (
-                <Timeline>
+                <Timeline style={{ padding: 0}}>
                 <TimelineItem>
                   <TimelineSeparator>
                     <TimelineDot />
@@ -50,7 +50,7 @@ function HistoryAction(props) {
                               <span style={{ fontWeight: 'bold' }}>{title}</span>
                               <p>{maintenanceCardDetailStatusHistory.name}</p>
                           </div>
-                          <div>
+                          <div style={{ textAlign: 'right', alignItems: 'center'}}>
                               <span style={{ fontWeight: 'bold' }}>{formatDate(maintenanceCardDetailStatusHistory.createdDate)}</span>
                               {/* <p>
                                   {status}
@@ -71,7 +71,7 @@ function HistoryAction(props) {
     <div className="main-card-history-action">
       <div className="card info-customer-right-01">
         <div className="title">Lịch sử thay đổi trạng thái dịch vụ</div>
-        <div className="content">
+        <div className="content" style={{ padding: 0, marginTop: 10 }}>
           {showStatusHistory()}
         </div>
       </div>

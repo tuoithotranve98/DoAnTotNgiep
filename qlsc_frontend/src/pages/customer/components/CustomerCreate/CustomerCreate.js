@@ -56,10 +56,16 @@ function CustomerCreate(props) {
       return;
     }
     onSaveCustomer(customer).then((json) => {
-      if (json ) {
+      if (json && json.success) {
         setCustomer(initialState);
         onClearWards();
+        toastSuccess("Thêm khách hàng thành công");
         pushstate(props.history, "/customers");
+      }else if(json && !json.success) {
+        toastError(json.message);
+        return;
+      } else{
+        toastError("Có lỗi xảy ra khi thêm mới khách hàng")
       }
     });
   };

@@ -62,10 +62,16 @@ function ProductCreate(props) {
       return;
     }
     onSaveProductService(product).then((json) => {
-      if (json ) {
+      if (json && json.success) {
         setProduct(initialState);
         setShowContent(1);
+        toastSuccess("Thêm sản phẩm thành công");
         pushstate(props.history, "/products");
+      }else if(json && !json.success) {
+        toastError(json.message);
+        return;
+      } else {
+        toastError("Có lỗi xảy ra khi thêm sản phẩm");
       }
     });
   };
