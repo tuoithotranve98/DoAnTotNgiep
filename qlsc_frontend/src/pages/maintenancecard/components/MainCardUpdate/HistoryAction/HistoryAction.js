@@ -8,8 +8,17 @@ import TimelineConnector from "@material-ui/lab/TimelineConnector";
 import TimelineContent from "@material-ui/lab/TimelineContent";
 import TimelineDot from "@material-ui/lab/TimelineDot";
 import { formatDate } from "utils/datetimeUtil";
+
+const SERVICE = "Dịch vụ";
 function HistoryAction(props) {
   const { maintenanceCardDetailStatusHistories } = props;
+
+  const renderHeader = (mcDetailStatusHistorie) => {
+    if (!mcDetailStatusHistorie.name.includes(SERVICE)) {
+      return "Thêm mới linh kiện";
+    }
+    return "Thêm mới dịch vụ";
+  }
   const showStatusHistory = () => {
     let result = [];
     if (maintenanceCardDetailStatusHistories !== undefined) {
@@ -22,7 +31,7 @@ function HistoryAction(props) {
           let title = "";
           let color = "";
           if (maintenanceCardDetailStatusHistory.status === 0) {
-            title = "Thêm mới dịch vụ";
+            title = renderHeader(maintenanceCardDetailStatusHistory);
             color = "orange";
           } else if (maintenanceCardDetailStatusHistory.status === 1) {
             title = "Bắt đầu sửa";

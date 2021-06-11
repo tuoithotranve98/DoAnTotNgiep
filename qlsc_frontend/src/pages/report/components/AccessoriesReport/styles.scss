@@ -57,10 +57,15 @@
             .report-table-body {
                 .tbl-item {
 
-
                     >div {
                         border-top: 1px solid #ECECEC;
                         padding: 10px;
+                    }
+
+                    .tbl-col {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
                     }
                 }
             }

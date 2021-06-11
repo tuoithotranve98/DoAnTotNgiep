@@ -1,21 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import List from '../List/List';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import '../../styles/wrapper.scss';
-import * as Icons from 'pages/maintenancecard/commons/Icons';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import List from "../List/List";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import "../../styles/wrapper.scss";
+import * as Icons from "pages/maintenancecard/commons/Icons";
 
 function Wrapper(props) {
   const {
-    selectedIds, selectedMainCardIds, fetching, isEmpty, historyMainCard
+    selectedIds,
+    selectedMainCardIds,
+    fetching,
+    isEmpty,
+    historyMainCard,
   } = props;
   const listRef = React.useRef();
 
   const onCheckBoxClick = (id) => {
     selectedMainCardIds(
-      selectedIds.includes(id) ? selectedIds.filter(it => it !== id) : selectedIds.concat(id)
+      selectedIds.includes(id)
+        ? selectedIds.filter((it) => it !== id)
+        : selectedIds.concat(id)
     );
   };
 
@@ -48,7 +54,7 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <div id="delivery-collations-filter-empty-wrapper">
           <div id="delivery-collations-filter-empty-text">
-              Không có phiếu sửa chữa
+            Chưa có phiếu sửa chữa
           </div>
           <div id="delivery-collations-filter-empty-icon">
             <Icons.OrderCollationFilterEmpty />
@@ -76,17 +82,14 @@ function Wrapper(props) {
           isEmpty={isEmpty}
           fetching={fetching}
         />
-        <Footer
-          resetSelected={resetSelected}
-          isEmpty={isEmpty}
-        />
+        <Footer resetSelected={resetSelected} isEmpty={isEmpty} />
       </div>
     </React.Fragment>
   );
 }
 Wrapper.defaultProps = {
   selectedIds: [],
-  selectedMainCardIds: () => {}
+  selectedMainCardIds: () => {},
 };
 const mapStateToProps = (state) => {
   const { historyMainCard } = state;
@@ -95,8 +98,10 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-    fetchMainCard: (filter, page) => dispatch(fetchMainCard(filter, page)),
+  fetchMainCard: (filter, page) => dispatch(fetchMainCard(filter, page)),
   selectedMainCardIds: (ids) => dispatch(selectedMainCardIds(ids)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Wrapper));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Wrapper)
+);

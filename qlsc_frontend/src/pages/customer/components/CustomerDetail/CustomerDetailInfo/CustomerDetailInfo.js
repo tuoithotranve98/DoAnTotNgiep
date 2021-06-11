@@ -7,6 +7,7 @@ import "./styles.scss";
 import { Dropdown } from "react-bootstrap";
 import pushstate from "../../../../../utils/pushstate";
 import { useHistory, withRouter } from "react-router";
+import { toLocaleDateString } from "../../../../../utils/datetimeUtil";
 function CustomerDetailInfo(props) {
   const { customer, onOpenModalDelete } = props;
   const history = useHistory();
@@ -24,7 +25,7 @@ function CustomerDetailInfo(props) {
   const handleDeleteCustomer = () => {
     onOpenModalDelete("deleteCustomer", { customer });
   }
-  const dateTime = customer && customer.createdDate ? convertSecondToDate(customer.createdDate) : '---';
+  const dateTime = customer && customer.createdDate ? toLocaleDateString(customer.createdDate) : '---';
   return (
     <div className="customer-detail-info">
       <div className="card">
@@ -79,7 +80,7 @@ function CustomerDetailInfo(props) {
             <div className="col-4">
               <div className="d-flex item">
                 <div className="label">Ngày sửa:  &nbsp; </div>
-                <div className="content-value">{(customer && customer.modifiedDate) ? convertSecondToDate(customer.modifiedDate) : '---'}</div>
+                <div className="content-value">{(customer && customer.modifiedDate) ? toLocaleDateString(customer.modifiedDate) : '---'}</div>
               </div>
             </div>
             <div className="col-4">

@@ -33,9 +33,11 @@ const listGuarantees = [
 
 function Item(props) {
   const { product } = props;
-  console.log('check product', product);
   return (
-    <div className="d-flex align-items-center delivery-collation-order-row">
+    <div
+      className="d-flex align-items-center delivery-collation-order-row"
+      key={product.product.code}
+    >
       <div className="order text-ellipsis" style={{ color: "#0088FF" }}>
         {product.product.code || ""}
       </div>
@@ -46,28 +48,35 @@ function Item(props) {
         {product.product.type === 1 ? "Linh kiện" : "Dịch vụ"}
       </div>
       <div className="d-flex align-items-center  track-code">
-        {product.quantity} {product && product.product && product.product.type === 1 ? product.product.unit : ''}
+        {product.quantity}{" "}
+        {product && product.product && product.product.type === 1
+          ? product.product.unit
+          : ""}
       </div>
       <div className="d-flex justify-content-start track-code">
         {moneyFormat(product.price)} đ
       </div>
       <div className="d-flex item-status-main-card">
-        {listGuarantees.map((item, index) => {
+        {listGuarantees.map((item) => {
           if (item.status === product.isGuarantee) {
             return (
               <div
-                className="text"
-                style={{
-                  color: `${item.color}`,
-                  border: `1px solid ${item.color}`,
-                  cursor: "not-allowed",
-                }}
-                key={index}
+                className={`${product.product.guarantee ? "text" : ""}`}
+                style={
+                  product.product.guarantee
+                    ? {
+                        color: `${item.color}`,
+                        border: `1px solid ${item.color}`,
+                        cursor: "not-allowed",
+                      }
+                    : {}
+                }
+                key={product.product.code}
               >
-                {product.product.guarantee}
+                {product.product.guarantee ? product.product.guarantee : "---"}
               </div>
             );
-          } 
+          }
           return null;
         })}
       </div>
@@ -81,14 +90,13 @@ function Item(props) {
                   color: `${item.color}`,
                   border: `1px solid ${item.color}`,
                 }}
-                key={index}
+                key={product.product.code}
               >
                 {item.name}
               </div>
             );
-          } else {
-            return <div></div>;
           }
+          return null;
         })}
       </div>
       <div

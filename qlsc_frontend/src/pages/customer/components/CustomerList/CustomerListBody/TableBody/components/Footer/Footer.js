@@ -19,7 +19,7 @@ function Footer(props) {
 
   const calculateEnd = () => {
     if (totalPages === 1) {
-      return totalItems + 1;
+      return totalItems;
     }
     if (currentPage === 1) {
       return (currentPage * size);

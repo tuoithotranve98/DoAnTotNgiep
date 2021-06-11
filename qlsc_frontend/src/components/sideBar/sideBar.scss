@@ -110,6 +110,9 @@
               margin-right: 15px;
               flex-shrink: 0;
               object-fit: cover;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
   
             .noti {
@@ -194,6 +197,9 @@
                   font-size: 18px;
                   color: #ffff;
                   align-items: center;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
                 }
   
                 .status {

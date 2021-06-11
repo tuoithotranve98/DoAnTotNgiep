@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { login, checkInfoUser, logout } from "./actions/loginAction";
 import "./login.scss";
 import logo from "../../images/KIOMO.png";
-import fb from "../../images/facebook-8-1-2020.svg";
-import google from "../../images/gp-btn.svg";
 import pushstate from "utils/pushstate";
 
 function LoginPage(props) {

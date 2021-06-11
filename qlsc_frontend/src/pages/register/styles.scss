@@ -1,29 +1,36 @@
-.register-wapper{
+.register-wapper {
     position: relative;
     height: 100vh;
+
     .back-login {
-       margin-top: 50px;
-       margin-left: 10%;
-       border: 1px solid #c4cdd5;
-       padding: 8px;
-       border-radius: 20px;
+        margin-top: 50px;
+        margin-left: 10%;
+        border: 1px solid #c4cdd5;
+        padding: 8px;
+        border-radius: 20px;
     }
-    .content-wapper{
+
+    .content-wapper {
         width: 100%;
-        .logo{
+        position: absolute;
+        z-index: 999;
+        .logo {
             width: 100%;
             text-align: center;
             margin-top: 5%;
         }
-        .content{
+
+        .content {
             width: 600px;
             margin: 0 auto;
             margin-top: 30px;
             height: 400px;
-            .control-label{
+
+            .control-label {
                 margin-bottom: 10px;
             }
-            input{
+
+            input {
                 display: inline-block;
                 // vertical-align: baseline;
                 width: auto;
@@ -42,22 +49,25 @@
                 width: 100%;
                 font-size: 13px;
                 font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
-                Roboto, Helvetica Neue, sans-serif;
+                    Roboto, Helvetica Neue, sans-serif;
                 border-style: inset;
                 border: 1px solid #c4cdd5;
                 border-radius: 27px !important;
                 outline-color: #0088ff;
                 margin-bottom: 30px;
-                &:focus-visible{
+
+                &:focus-visible {
                     outline: none;
                 }
             }
-            .btn-btn{
+
+            .btn-btn {
                 width: 100%;
                 align-items: center;
                 justify-content: center;
                 margin-top: 20px;
-                .btn-register{
+
+                .btn-register {
                     width: 200px;
                     height: 50px;
                     cursor: pointer;
@@ -68,16 +78,16 @@
                     text-align: center;
                     align-items: center;
                     border-radius: 27px !important;
-                    .text{
-                        margin-top: 12px;
-                    }
+                    display: flex;
+                    justify-content: center;
                 }
             }
         }
     }
-    .footer{
+
+    .footer {
         width: 100%;
-        position:fixed;
+        position: fixed;
         bottom: 0px;
     }
 }

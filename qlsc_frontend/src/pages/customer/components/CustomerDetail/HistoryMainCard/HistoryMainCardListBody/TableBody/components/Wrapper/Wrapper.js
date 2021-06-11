@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import List from "../List/List";
@@ -8,9 +8,10 @@ import "../../styles/wrapper.scss";
 import * as Icons from "pages/customer/commons/Icons";
 
 function Wrapper(props) {
-  const { historyMainCard, onGetHistoryMainCard, onChangeFilter, filter } = props;
+  const { historyMainCard, onGetHistoryMainCard, onChangeFilter, filter } =
+    props;
   const [selectedIds, setSelectedIds] = useState([]);
-  const { historyMainCards } = historyMainCard
+  const { historyMainCards } = historyMainCard;
   const listRef = React.useRef();
 
   const onClick = () => {
@@ -18,7 +19,11 @@ function Wrapper(props) {
   };
 
   const onCheckBoxClick = (id) => {
-    setSelectedIds(selectedIds.includes(id) ? selectedIds.filter(it => it !== id) : selectedIds.concat(id));
+    setSelectedIds(
+      selectedIds.includes(id)
+        ? selectedIds.filter((it) => it !== id)
+        : selectedIds.concat(id)
+    );
   };
 
   const resetSelected = () => {
@@ -40,8 +45,8 @@ function Wrapper(props) {
   };
 
   const child = renderCheckInfo();
-  const isEmpty = historyMainCard.isEmpty
-  const fetching = historyMainCard.fetching
+  const isEmpty = historyMainCard.isEmpty;
+  const fetching = historyMainCard.fetching;
   if (isEmpty) {
     return (
       <div className="delivery-collations-list-wrapper">
@@ -61,9 +66,14 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <Header
           onClick={onClick}
-          checked={selectedIds.length && selectedIds.length === historyMainCards.length}
-          minus={selectedIds.length && selectedIds.length < historyMainCards.length}
-          child={child} />
+          checked={
+            selectedIds.length && selectedIds.length === historyMainCards.length
+          }
+          minus={
+            selectedIds.length && selectedIds.length < historyMainCards.length
+          }
+          child={child}
+        />
         <List
           ref={listRef}
           historyMainCard={historyMainCard}

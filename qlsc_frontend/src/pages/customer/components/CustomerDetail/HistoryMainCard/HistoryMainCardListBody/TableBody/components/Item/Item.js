@@ -45,7 +45,7 @@ function Item(props) {
 
   const onRedirectDetail = (e) => {
     e.stopPropagation();
-    pushstate(history, `/historyMainCard/detail/${historyMainCard.id}`);
+    pushstate(history, `/maintenance-card/detail/${historyMainCard.id}`);
   };
 
   return (

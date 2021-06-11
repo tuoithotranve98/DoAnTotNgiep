@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.scss";
 import * as Icons from "./Icons";
-import { API_USER_AUTH, API_USER } from "constants/api";
+import { API_USER } from "constants/api";
 import callApi from "utils/callApi";
 import history from '../../utils/history';
 

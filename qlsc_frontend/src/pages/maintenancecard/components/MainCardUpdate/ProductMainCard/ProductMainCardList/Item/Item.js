@@ -45,7 +45,10 @@ function Item(props) {
         {product.product.type === 1 ? "Linh kiện" : "Dịch vụ"}
       </div>
       <div className="d-flex align-items-center  track-code">
-        {product.quantity} {product && product.product && product.product.type === 1 ? product.product.unit : ''}
+        {product.quantity}{" "}
+        {product && product.product && product.product.type === 1
+          ? product.product.unit
+          : ""}
       </div>
       <div className="d-flex justify-content-start track-code">
         {moneyFormat(product.price)} đ
@@ -55,14 +58,19 @@ function Item(props) {
           if (item.status === product.isGuarantee) {
             return (
               <div
-                className="text"
-                style={{
-                  color: `${item.color}`,
-                  border: `1px solid ${item.color}`,
-                }}
+                className={`${product.product.guarantee ? "text" : ""}`}
+                style={
+                  product.product.guarantee
+                    ? {
+                        color: `${item.color}`,
+                        border: `1px solid ${item.color}`,
+                        cursor: "not-allowed",
+                      }
+                    : {}
+                }
                 key={index}
               >
-                {product.product.guarantee}
+                {product.product.guarantee ? product.product.guarantee : "---"}
               </div>
             );
           }

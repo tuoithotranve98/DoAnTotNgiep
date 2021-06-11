@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
             }
         } while (getMaxCode == null);
         codeNumber = Long.parseLong(getMaxCode) + 1;
-        newCodeString = "ND00" + codeNumber;
+        newCodeString = "NV00" + codeNumber;
         return newCodeString;
 
     }

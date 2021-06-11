@@ -5,7 +5,6 @@ import List from "../List/List";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "../../styles/wrapper.scss";
-import * as Icons from "pages/product/commons/Icons";
 import imgNoCustomer from 'images/NoProduct.png';
 
 function Wrapper(props) {
@@ -54,9 +53,8 @@ function Wrapper(props) {
     return (
       <div className="product-list-wrapper">
         <div id="product-filter-empty-wrapper" style={{ alignItems: 'center'}}>
-          <div id="product-filter-empty-text">Không có linh kiện</div>
+          <div id="product-filter-empty-text">Chưa có linh kiện</div>
           <div id="product-filter-empty-icon">
-            {/* <Icons.OrderCollationFilterEmpty /> */}
             <img style={{ height: '100%', marginTop: 30}} src={imgNoCustomer} alt=""></img>
           </div>
         </div>

@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "update Users set Users.status = 0 where Users.id =:UserId", nativeQuery = true)
     Integer updateStatusUser(@Param("UserId") Long UserId);
 
-    @Query(value = "SELECT CONVERT(SUBSTRING(code, 4), UNSIGNED INTEGER ) AS newcode FROM users WHERE code LIKE '%ND%' ORDER BY newcode DESC LIMIT 1 offset :index", nativeQuery = true)
+    @Query(value = "SELECT CONVERT(SUBSTRING(code, 4), UNSIGNED INTEGER ) AS newcode FROM users WHERE code LIKE '%NV%' ORDER BY newcode DESC LIMIT 1 offset :index", nativeQuery = true)
     String getMaxCodeUser(@Param("index") int index);
 
     @Query(value = "select u from User u where u.email =:username and u.password =:password")

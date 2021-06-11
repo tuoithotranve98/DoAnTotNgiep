@@ -47,7 +47,7 @@ function Wrapper(props) {
       <div className="delivery-collations-list-wrapper">
         <div id="delivery-collations-filter-empty-wrapper" style={{ alignItems: 'center'}}>
           <div id="delivery-collations-filter-empty-text">
-            Không có khách hàng
+            Chưa có khách hàng
           </div>
           <div id="delivery-collations-filter-empty-icon">
             <img style={{ height: '100%', marginTop: 30}} src={imgNoCustomer} alt=""></img>

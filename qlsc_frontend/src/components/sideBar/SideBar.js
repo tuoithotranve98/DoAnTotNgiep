@@ -40,7 +40,7 @@ function SideBar(props) {
     }, 50);
   };
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
     onLogout();
     pushstate(props.history, "/login");
   };
