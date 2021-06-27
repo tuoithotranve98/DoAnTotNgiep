@@ -198,6 +198,22 @@ export const saveMainCard =
       });
   };
 
+  export const updateStatusMCDetails = (id) => (dispatch) => {
+    const endpoint = `${API_MAINTENANCECARD}/maintenanceCards/work_status/${id}`;
+    return dispatch(
+      fetch(endpoint, {
+        method: "PUT",
+      })
+    )
+      .then((json) => {
+        return json;
+      })
+      .catch((e) => {
+        console.error(e);
+        return e;
+      });
+  };
+
 export const getMainCard = (customer) => ({
   type: actionTypes.RECEIVE_MAIN_CARD,
   customer,
@@ -247,5 +263,5 @@ export const clearValid = () => ({
 
 export const addMainCardSocket = (item) => ({
   type: actionTypes.ADD_MAIN_CARD_SOCKET,
-  item
+  item,
 });

@@ -51,7 +51,6 @@ function App(props) {
   }
 
   const onMessageReceived = (msg) => {
-    console.log("arr", msg);
     onNotificationMaintenanceCard(msg, user);
     props.addMainCardSocket(msg.maintenanceCard)
   }

@@ -123,22 +123,19 @@ public class MaintenanceCardController {
     }
 
     // Cập nhật trạng thái phiếu
-    // Nhiều phiếu
+    // Một phiếu
     // Kiem tra quyen : NV sua chua
-    @PutMapping(path = "maintenanceCards/workStatus", consumes = MediaType.ALL_VALUE)
-    public ResponseEntity<List<MaintenanceCardDTO>> updateMultiAllWorkStatusMaintenanceCard(@RequestBody Long[] ids) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        List<String> roles = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        List<MaintenanceCardDTO> maintenanceCardDTOs = new ArrayList<>();
-        for (Long id : ids) {
-            MaintenanceCardDTO maintenanceCardDTO = maintenanceCardService.updateAllStatusMaintenanceCard(id, authentication.getName(), Integer.parseInt(roles.get(0).split("_")[1]));
-            maintenanceCardDTOs.add(maintenanceCardDTO);
-        }
-        return new ResponseEntity<>(maintenanceCardDTOs, HttpStatus.OK);
+    @PutMapping("maintenanceCards/work_status/{id}")
+    public ResponseEntity<MaintenanceCardDTO> updateMultiAllWorkStatusMaintenanceCard(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MaintenanceCardDTO maintenanceCardDTO = maintenanceCardService.updateAllStatusMaintenanceCard(id, authentication.getName(),
+            Integer.parseInt(authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()).get(0).split("_")[1]));
+        return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
-    
+
     // Cập nhật trạng thái của chi tiết phiếu
     // Cập nhật tinh hình làm việc
     // Một chi tiết phiếu

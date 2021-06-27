@@ -1,38 +1,65 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import * as Icons from "pages/maintenancecard/commons/Icons";
 import ExportMaintenanceCard from "../../MainCardExport/ExportMaintenanceCard";
 import ReactToPrint from "react-to-print";
+import ReactTooltip from "react-tooltip";
 import "./styles.scss";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import pushstate from "../../../../../utils/pushstate";
 
 function TitleAndAction(props) {
-    const { onUpdateMainCard, id, mainCard, finish } = props;
-    const componentRef = useRef();
-    const history = useHistory();
-    const onClick = () => {
-      pushstate(history, `/maintenance-cards`);
-    };
-    return (
-      <React.Fragment>
+  const {
+    onUpdateMainCard,
+    id,
+    mainCard,
+    finish,
+    user,
+    updateStatusMCDetails,
+  } = props;
+  const componentRef = useRef();
+  const history = useHistory();
+  const onClick = () => {
+    pushstate(history, `/maintenance-cards`);
+  };
+  return (
+    <React.Fragment>
       <div className="go-back" onClick={onClick}>
         <Icons.arrowLeft />
         <div style={{ marginTop: 4 }}>
-          <span>
-            Danh sách&nbsp;
-          </span>
-          <span>
-            phiếu
-          </span>
+          <span>Danh sách&nbsp;</span>
+          <span>phiếu</span>
         </div>
       </div>
 
       <div className="main-card-create-tilte-action">
         <div className="d-flex list-header">
-          <div className="header-title">
-            <div style={{ fontSize: '22px' }}>Cập nhật phiếu sửa chữa</div>
+          <div className={`header-title ${user.role === 2 ? "fix" : ""}`}>
+            <div style={{ fontSize: "22px" }}>Cập nhật phiếu sửa chữa</div>
           </div>
+          {user && user.role === 2 ? (
+            <div
+              className="quick-update"
+              data-tip
+              data-for={`note-quick-update`}
+            >
+              <div
+                className="update-status"
+                onClick={() => updateStatusMCDetails()}
+              >
+                Cập nhật nhanh
+                <ReactTooltip
+                  place="top"
+                  type="dark"
+                  effect="solid"
+                  isMultiline
+                  id={`note-quick-update`}
+                >
+                  Cập nhật tất cả trạng thái dịch vụ linh kiện thành hoàn thành
+                </ReactTooltip>
+              </div>
+            </div>
+          ) : null}
           <div className="print">
             <ReactToPrint
               trigger={() => <a href="#">In phiếu</a>}
@@ -42,11 +69,20 @@ function TitleAndAction(props) {
               <ExportMaintenanceCard mainCard={mainCard} finish={finish} />
             </div>
           </div>
-          <div className="header-action" style={finish ? {cursor: 'not-allowed'} : {}}>
+          <div
+            className="header-action"
+            style={
+              finish
+                ? { cursor: "not-allowed" }
+                : user.role === 2
+                ? { opacity: 0.8, cursor: "not-allowed" }
+                : {}
+            }
+          >
             <button
               className="d-flex align-items-center justify-content-between btn btn-create"
               type="button"
-              style={finish ? {cursor: 'not-allowed'} : {}}
+              style={finish || user.role === 2 ? { cursor: "not-allowed" } : {}}
               onClick={() => onUpdateMainCard(id, mainCard)}
             >
               <span
@@ -73,8 +109,8 @@ function TitleAndAction(props) {
           </div>
         </div>
       </div>
-      </React.Fragment>
-    );
+    </React.Fragment>
+  );
 }
 TitleAndAction.defaultProps = {};
 

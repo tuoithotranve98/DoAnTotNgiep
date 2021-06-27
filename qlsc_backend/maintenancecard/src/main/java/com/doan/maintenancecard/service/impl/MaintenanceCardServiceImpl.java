@@ -344,13 +344,13 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         if (maintenanceCard == null) {
             throw new NotFoundException(NOT_FOUND_MAINTENANCE_CARD);
         }
-
         if (maintenanceCard.getRepairmanId() != 0) {
             byte workStatus = 2;
             maintenanceCard.setWorkStatus(workStatus);
             // Set lại các chi tiết phiếu thành hoàn thành
             maintenanceCard.getMaintenanceCardDetails().forEach(maintenanceCardDetail -> {
-                if (maintenanceCardDetail.getProductType() == 2) {
+                if (maintenanceCardDetail.getProductType() == 2
+                || maintenanceCardDetail.getProductType() == 1) {
                     byte dis = 1;
                     for (byte i = (byte) (maintenanceCardDetail.getStatus() + dis); i <= 2; i++) {
                         MaintenanceCardDetailStatusHistory maintenanceCardDetailStatusHistory = new MaintenanceCardDetailStatusHistory();

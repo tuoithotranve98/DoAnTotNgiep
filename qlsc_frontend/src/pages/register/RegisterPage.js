@@ -50,7 +50,6 @@ function RegisterPage() {
     const url = API_USER + "/tenant";
     callApi(url, options)
       .then((res) => {
-        console.log("res", res);
         if (res?.data?.success) {
           toastSuccess("Đăng ký cửa hàng thành công");
           pushstate(history, '/login')
@@ -63,7 +62,6 @@ function RegisterPage() {
         return err;
       });
   };
-  console.log("messageError", messageError);
   return (
     <div className="register-wapper">
       <div className="go-back back-login">

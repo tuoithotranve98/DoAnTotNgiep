@@ -52,7 +52,6 @@ function Wrapper(props) {
     );
   };
 
-  console.log('check filterInfo', filterInfo);
   const child = renderCheckInfo();
   if (isEmpty) {
     return (

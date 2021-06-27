@@ -19,6 +19,7 @@ function InfoMainCard(props) {
   const onClickFocusStartDate = () => {
     //
   };
+  
   return (
     <div className="info-main-card-warpper">
       <div className="title">Thông tin phiếu sửa chữa</div>

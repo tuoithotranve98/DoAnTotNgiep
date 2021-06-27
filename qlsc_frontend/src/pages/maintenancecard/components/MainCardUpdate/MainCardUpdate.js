@@ -16,6 +16,7 @@ import {
   saveMainCard,
   updateMainCard,
   updateStatusMaintenanceCardDetail,
+  updateStatusMCDetails,
 } from "../../actions/mainCard";
 import { useHistory, useParams, withRouter } from "react-router-dom";
 import PaymentMethod from "./PaymentMethod/PaymentMethod";
@@ -76,6 +77,7 @@ function MainCardUpdate(props) {
     getMainCardById,
     updateStatusMaintenanceCardDetail,
     mainCardPaymentHistory,
+    onUpdateStatusMCDetails,
   } = props;
   const [customer, setCustomer] = useState({});
   const [payment, setPayment] = useState(payments[1]);
@@ -196,6 +198,10 @@ function MainCardUpdate(props) {
     return total;
   };
   const onChangeMainCard = (type, value) => {
+    if (user.role === 2) {
+      toastError("Bạn không có quyền thực hiện thao tác này");
+      return;
+    }
     if (finish) {
       toastError("Phiếu đã hoàn thành, vui lòng không điều chỉnh!");
       return;
@@ -239,6 +245,10 @@ function MainCardUpdate(props) {
   };
 
   const onUpdateMainCard = () => {
+    if (user.role === 2) {
+      toastError("Bạn không có quyền thực hiện thao tác này");
+      return;
+    }
     if (!mainCard.customer.id) {
       toastError("Vui lòng nhập thông tin khách hàng!");
       return;
@@ -270,18 +280,26 @@ function MainCardUpdate(props) {
       if (json) {
         toastSuccess("Cập nhật sửa chữa thành công");
       } else {
-        toastError("Có lỗi xảy ra khi thêm phiếu sửa chữa ");
+        toastError("Có lỗi xảy ra khi cập nhật phiếu sửa chữa ");
       }
     });
   };
   //end mainCard
   const removeProduct = (id) => {
+    if (user.role === 2) {
+      toastError("Bạn không có quyền thực hiện thao tác này");
+      return;
+    }
     const newArr = mainCard.maintenanceCardDetails.filter(
       (item) => item.product.id !== id
     );
     setMainCard({ ...mainCard, maintenanceCardDetails: newArr });
   };
   const addProduct = (tmp) => {
+    if (user.role === 2) {
+      toastError("Bạn không có quyền thực hiện thao tác này");
+      return;
+    }
     const newArr = [...mainCard.maintenanceCardDetails];
     let check = false;
     const item = {};
@@ -316,6 +334,26 @@ function MainCardUpdate(props) {
     }
     setMainCard({ ...mainCard, maintenanceCardDetails: newArr });
   };
+
+  const updateStatusMCDetails = () => {
+    if (!mainCard.id) {
+      return;
+    }
+    onUpdateStatusMCDetails(id).then(json => {
+      if (!json) {
+        toastError("Có lỗi xảy ra khi cập nhật trạng thái");
+        return;
+      }
+      setMainCard({
+        ...mainCard,
+        maintenanceCardDetails: json.maintenanceCardDetails,
+        maintenanceCardDetailStatusHistories:
+          json.maintenanceCardDetailStatusHistories,
+        workStatus: json.workStatus,
+      });
+      toastSuccess("Cập nhật trạng thái thành công");
+    });
+  }
   return (
     <div className="main-card-update-warpper">
       <TitleAndAction
@@ -324,6 +362,8 @@ function MainCardUpdate(props) {
         id={id}
         mainCard={mainCard}
         finish={finish}
+        user={user}
+        updateStatusMCDetails={updateStatusMCDetails}
       />
       <div className="contatiner">
         <div className="d-flex content-main-card-update">
@@ -355,6 +395,7 @@ function MainCardUpdate(props) {
           </div>
           <div className="content-right">
             <InfoMainCard
+              user={user}
               onChangeMainCard={(type, value) => onChangeMainCard(type, value)}
               onChangeMainCardReairMan={(type, value) =>
                 onChangeMainCardReairMan(type, value)
@@ -419,6 +460,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateStatusMaintenanceCardDetail: (id) =>
     dispatch(updateStatusMaintenanceCardDetail(id)),
   mainCardPaymentHistory: (data) => dispatch(mainCardPaymentHistory(data)),
+  onUpdateStatusMCDetails: (id) => dispatch(updateStatusMCDetails(id)),
 });
 
 export default withRouter(
