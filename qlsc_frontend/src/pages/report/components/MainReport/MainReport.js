@@ -42,7 +42,7 @@ function MainReport(props) {
     <div className="report-content-container">
       <div className="revenue-role-main-chart">
         <div className="revenue-main report-border">
-          <div className="report-title">Doanh số của phiếu sửa chữa</div>
+          <div className="report-title">Doanh thu phiếu sửa chữa</div>
           <ChartRevenueDashboard revenue={dataMain} isMain />
         </div>
       </div>

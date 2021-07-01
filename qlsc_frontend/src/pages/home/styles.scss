@@ -175,6 +175,8 @@
                             font-size: 15px;
                             font-weight: 500;
                             margin-bottom: 10px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
 
                         .sub-title {
@@ -235,6 +237,10 @@
                                 font-size: 15px;
                                 font-weight: 500;
                                 margin-bottom: 15px;
+                                width: 165px;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
                             }
 
                             .total {

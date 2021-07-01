@@ -103,7 +103,7 @@ const convertUnixToDate = (unix) => {
 function Home(props) {
   const { onGetDataForReport, user } = props;
   const [data, setData] = useState();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const history = useHistory();
   useEffect(() => {
     const s = convertUnixToDate(moment().subtract(6, "days").unix());
@@ -111,9 +111,9 @@ function Home(props) {
     onGetDataByFilter(s, e);
   }, []);
 
-  // useEffect(() => {
-  //   if (data) setShow(true);
-  // }, [data])
+  useEffect(() => {
+    if (data) setShow(true);
+  }, [data])
 
   const onGetDataByFilter = (from, to) => {
     onGetDataForReport(from, to).then((json) => {
@@ -144,6 +144,7 @@ function Home(props) {
     return businessToday.totalMaintenanceCardSuccess || 0;
   };
 
+  if (!data) return <Guard />
   return (
     <React.Fragment>
       <div className="home-container">
@@ -274,7 +275,7 @@ function Home(props) {
                                   <Icons.Star />
                                   <Icons.Star />
                                 </div>
-                              ) : index === 2 ? (
+                              ) : index === 1 ? (
                                 <div className="d-flex star">
                                   <Icons.Star />
                                   <Icons.Star />

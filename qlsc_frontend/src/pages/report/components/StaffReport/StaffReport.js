@@ -20,7 +20,7 @@ function StaffReport(props) {
     <div className="report-content-container">
       <div className="revenue-role-accessories-chart">
             <div className="revenue-main report-border">
-              <div className="report-title">Top {dataStaff && dataStaff.length} nhân viên sửa chữa</div>
+              <div className="report-title">Nhân viên sửa chữa</div>
               <ReportProduct data={dataStaff} />
             </div>
           </div>

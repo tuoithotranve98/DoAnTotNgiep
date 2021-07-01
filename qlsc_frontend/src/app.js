@@ -38,7 +38,6 @@ function App(props) {
       props.onGetMessages();
       props.onGetCity();
       props.getStaffsByRepairman();
-
     }
     if (token && window.location.pathname === "/login") history.push("/maintenance-cards");
     if (token && window.location.pathname) {

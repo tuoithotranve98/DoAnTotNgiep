@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import ChartRevenueDashboard from "./ChartRevenueDashboard";
 import "./styles.scss";
 
 function ReportLeft(props) {
-  const { data, fetching } = props;
+  const { data } = props;
   const [dataState, setDataState] = useState();
 
   useEffect(() => {
@@ -13,7 +12,6 @@ function ReportLeft(props) {
     }
   }, [data]);
 
-  const isLoading = false;
   return (
     <div className="report-revenue-component report-border ">
       <div className="report-title">Doanh thu cửa hàng</div>
@@ -24,4 +22,4 @@ function ReportLeft(props) {
   );
 }
 
-export default React.memo(ReportLeft);
+export default ReportLeft;

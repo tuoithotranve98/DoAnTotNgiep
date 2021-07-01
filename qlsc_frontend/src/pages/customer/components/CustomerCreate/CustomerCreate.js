@@ -3,13 +3,12 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import InfoCustomerLeft from "./InfoCustomerLeft/InfoCustomerLeft";
 import InfoCustomerRight from "./InfoCustomerRight/InfoCustomerRight";
-import InfoCustomerFooter from "./InfoCustomerFooter/InfoCustomerFooter";
 import { saveCustomer, getCustomerById } from "../../actions/customerAction";
 import { receiveWard } from "../../actions/locationActions";
 import pushstate from "utils/pushstate";
 import "./styles.scss";
 import TitleAndAction from "./TitleAndAction/TitleAndAction";
-import { toastError } from "../../../../utils/toast";
+import { toastError, toastSuccess } from "../../../../utils/toast";
 
 const initialState = {
   name: null,
@@ -61,11 +60,11 @@ function CustomerCreate(props) {
         onClearWards();
         toastSuccess("Thêm khách hàng thành công");
         pushstate(props.history, "/customers");
-      }else if(json && !json.success) {
+      } else if (json && !json.success) {
         toastError(json.message);
         return;
-      } else{
-        toastError("Có lỗi xảy ra khi thêm mới khách hàng")
+      } else {
+        toastError("Có lỗi xảy ra khi thêm mới khách hàng");
       }
     });
   };
@@ -81,7 +80,7 @@ function CustomerCreate(props) {
 
   return (
     <div className="customer-screen-wrapper-create">
-      <TitleAndAction saveCustomer={saveCustomer} cancel={cancel}/>
+      <TitleAndAction saveCustomer={saveCustomer} cancel={cancel} />
       <div className="row">
         <div className="col-md-8">
           <InfoCustomerLeft

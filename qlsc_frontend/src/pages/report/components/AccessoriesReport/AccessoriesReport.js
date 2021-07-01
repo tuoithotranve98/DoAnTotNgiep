@@ -34,7 +34,7 @@ function AccessoriesReport(props) {
       <div className="revenue-role-accessories-chart">
         <div className="revenue-main report-border">
           <div className="report-title">
-            Top {accessories && accessories.length} linh kiện
+            Linh kiện
           </div>
           <ReportProduct data={accessories} />
         </div>

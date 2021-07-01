@@ -202,7 +202,7 @@ function InfoStaffRight(props) {
                         key={role.id}
                         className="dropdown-item"
                         onClick={() => handleClickRole(role)}
-                        style={active ? { background: "#0084ff" } : {}}
+                        style={active ? { background: "#0084ff",  color: "#fff" } : {}}
                       >
                         {role.name}
                       </div>

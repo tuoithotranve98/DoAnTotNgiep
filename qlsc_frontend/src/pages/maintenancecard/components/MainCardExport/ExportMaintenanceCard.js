@@ -133,7 +133,7 @@ class ExportMaintenanceCard extends React.Component {
                     <td style={{ textAlign: "center" }}>
                       {moneyFormat(item.product.pricePerUnit)} đ
                     </td>
-                    <td style={{ textAlign: "center" }}>{item.product.type === 1 ? '---' : ''}</td>
+                    <td style={{ textAlign: "center" }}>{item.product.type ? '---' : ''}</td>
                     <td style={{ textAlign: "center" }}>
                       {moneyFormat(item.price)} đ
                     </td>
@@ -271,7 +271,7 @@ class ExportMaintenanceCard extends React.Component {
             <h2>Ký xác nhận</h2>
           </Col>
           <Col span={12}>
-            <div>
+            <div style={{ fontSize: 16 }}>
               Hà Nội, ngày {this.toPadZeroString(date.getDay())}, tháng{" "}
               {this.toPadZeroString(date.getMonth() + 1)}, năm{" "}
               {date.getFullYear()}

@@ -29,6 +29,14 @@ function ReportMain(props) {
   const [time, setTime] = useState({});
 
   useEffect(() => {
+    if (time.from && time.to) {
+      onGetMainReportByFilter(time.from, time.to);
+      onGetAccessoriesReportByFilter(time.from, time.to);
+      onGetStaffReportByFilter(time.from, time.to);
+    }
+  }, []);
+
+  useEffect(() => {
     if (time.from && time.to && tab === 1) {
       onGetDataByFilter(time.from, time.to);
     } else if (time.from && time.to && tab === 2) {
@@ -75,13 +83,19 @@ function ReportMain(props) {
   return (
     <div className="report-main-container">
       <TabReport tab={tab} onChangeTab={onChangeTab} />
-      <Filter onChangeTime={onChangeTime} tab={tab} />
+      <Filter
+        onChangeTime={onChangeTime}
+        tab={tab}
+        dataMain={dataMain}
+        dataStaff={dataStaff}
+        accessories={accessories}
+      />
       {tab === 1 ? <ReportContent data={data} /> : null}
       {tab === 2 ? <MainReport dataMain={dataMain} isMain /> : null}
       {tab === 3 ? (
         <AccessoriesReport accessories={accessories} isAccessories />
       ) : null}
-      {tab === 4 ? (<StaffReport dataStaff={dataStaff} />) : null}
+      {tab === 4 ? <StaffReport dataStaff={dataStaff} /> : null}
     </div>
   );
 }

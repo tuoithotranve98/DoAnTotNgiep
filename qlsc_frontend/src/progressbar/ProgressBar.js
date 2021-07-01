@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.scss";
 import { connect } from "react-redux";
 import { closeProgressBar } from "../actions/notificationAction";
 
 function ProgressBar(props) {
   const { notifications, onCloseProgressBar } = props;
+  const [load] = useState(false);
   const handleCloseModal = () => {
     onCloseProgressBar();
   };
-  return null;
-  // if (!notifications.length) return null;
+  if (!load) return null;
+  if (!notifications.length) return null;
   return (
     <div id="wrapper-progress-bar">
       <div className="progressbar_updating">

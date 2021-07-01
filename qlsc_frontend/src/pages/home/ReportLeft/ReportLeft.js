@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import ChartRevenueDashboard from "./ChartRevenueDashboard";
 import "./styles.scss";
-const data2 = [
+const dataFake = [
   {
     date_text: "07/05",
     month_text: "05/2021",
@@ -61,16 +60,14 @@ const data2 = [
   },
 ];
 function ReportLeft(props) {
-  const { data, fetching } = props;
-  const [dataState, setDataState] = useState(data2);
+  const { data } = props;
+  const [dataState, setDataState] = useState(dataFake);
 
   useEffect(() => {
     if (data && data.totalMonies) {
       setDataState(data.totalMonies);
     }
   }, [data]);
-
-  const isLoading = false;
 
   return (
     <div className="report-revenue-component report-border ">
@@ -82,4 +79,4 @@ function ReportLeft(props) {
   );
 }
 
-export default React.memo(ReportLeft);
+export default ReportLeft;

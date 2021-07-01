@@ -1,8 +1,6 @@
-/* eslint-disable react/display-name */
 import React from 'react'
 import './Guard.scss'
 
-// eslint-disable-next-line react/prop-types
 export default ({ backgroundColor }) => (
   <div
     className="content"
