@@ -109,12 +109,12 @@ function MainCardCreate(props) {
 
   //customer
   const saveCustomer = () => {
-    if(!createCustomer.name){
-      toastError("Vui nhập tên khách hàng")
+    if (!createCustomer.name) {
+      toastError("Vui nhập tên khách hàng");
       return;
     }
-    if(!createCustomer.name){
-      toastError("Vui nhập số điện thoại")
+    if (!createCustomer.name) {
+      toastError("Vui nhập số điện thoại");
       return;
     }
     onSaveCustomer(createCustomer).then((json) => {
@@ -125,11 +125,12 @@ function MainCardCreate(props) {
         setShowFilterCustomer(true);
         setShowModalCustomer(false);
         toastSuccess("Thêm khách hàng thành công");
-      } else if(json && !json.success) {
+        onCustomerIsValid(true);
+      } else if (json && !json.success) {
         toastError(json.message);
         return;
-      } else{
-        toastError("Có lỗi xảy ra khi thêm mới khách hàng")
+      } else {
+        toastError("Có lỗi xảy ra khi thêm mới khách hàng");
       }
     });
   };
@@ -167,7 +168,7 @@ function MainCardCreate(props) {
         addProduct(json.product);
         setShowModalProduct(false);
         toastSuccess("Thêm sản phẩm thành công");
-      } else if(json && !json.success) {
+      } else if (json && !json.success) {
         toastError(json.message);
         return;
       } else {

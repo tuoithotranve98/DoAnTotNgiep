@@ -92,26 +92,26 @@ function Search(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute product-list-search-wrapper">
-        {
-         props.user && props.user.role === 3 ? (
-            <div
-          onMouseDown={(e) => {
-            e.persist();
-            e.stopPropagation();
-            props.setShowModalProduct(true);
-          }}
-          className="d-flex align-items-center head"
-          style={{ borderBottom: "1px solid #e3e3e3", cursor: "pointer" }}
-        >
-          <div className="content-info-image">
-            <Icons.IconServiceIsEmpty />
+        {/* {props.user && props.user.role === 3 ? (
+          <div
+            onMouseDown={(e) => {
+              e.persist();
+              e.stopPropagation();
+              props.setShowModalProduct(true);
+            }}
+            className="d-flex align-items-center head"
+            style={{ borderBottom: "1px solid #e3e3e3", cursor: "pointer" }}
+          >
+            <div className="content-info-image">
+              <Icons.IconServiceIsEmpty />
+            </div>
+            <div className="content-info" style={{ marginLeft: 10 }}>
+              Thêm mới dịch vụ - linh kiện
+            </div>
           </div>
-          <div className="content-info" style={{ marginLeft: 10 }}>
-            Thêm mới dịch vụ - linh kiện
-          </div>
-        </div>
-          ) : ''
-        }
+        ) : (
+          ""
+        )} */}
         <div
           className="list-item-search"
           onScroll={(e) => {
@@ -151,7 +151,8 @@ function Search(props) {
 
 const mapStateToProps = (state) => {
   const {
-    mainCard: { validate }, auth: { user }
+    mainCard: { validate },
+    auth: { user },
   } = state;
   return {
     validate,

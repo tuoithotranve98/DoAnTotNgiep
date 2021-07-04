@@ -95,22 +95,24 @@ function Search(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute product-list-search-wrapper">
-        <div
-          onMouseDown={(e)=>{
-            e.persist();
-            e.stopPropagation();
-            props.setShowModalProduct(true)
-          }}
-          className="d-flex align-items-center head"
-          style={{ borderBottom: "1px solid #e3e3e3", cursor: 'pointer' }}
-        >
-          <div className="content-info-image">
-            <Icons.IconCustomerIsEmpty />
-          </div>
-          <div className="content-info" style={{ marginLeft: 10 }}>
+        {/* {user.role === 3 && (
+          <div
+            onMouseDown={(e) => {
+              e.persist();
+              e.stopPropagation();
+              props.setShowModalProduct(true);
+            }}
+            className="d-flex align-items-center head"
+            style={{ borderBottom: "1px solid #e3e3e3", cursor: "pointer" }}
+          >
+            <div className="content-info-image">
+              <Icons.IconCustomerIsEmpty />
+            </div>
+            <div className="content-info" style={{ marginLeft: 10 }}>
               Thêm mới dịch vụ - linh kiện
+            </div>
           </div>
-        </div>
+        )} */}
         <div
           className="list-item-search"
           onScroll={(e) => {
@@ -148,7 +150,7 @@ function Search(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   getFilterProducts: (search, page) =>
     dispatch(getFilterProductService(search, page)),
 });

@@ -6,7 +6,7 @@ import Accessories from "./Accessories/Accessories";
 import Service from "./Service/Service";
 import { upLoadImage, saveProductService } from "../../actions/ProductAction";
 import pushstate from "utils/pushstate";
-import { toastError } from "../../../../utils/toast";
+import { toastError, toastSuccess } from "../../../../utils/toast";
 
 const initialState = {
   name: null,

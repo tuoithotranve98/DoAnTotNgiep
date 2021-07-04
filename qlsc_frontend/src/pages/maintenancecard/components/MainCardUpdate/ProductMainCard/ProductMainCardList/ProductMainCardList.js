@@ -7,10 +7,10 @@ import Search from "./Search/Search";
 import * as Icons from 'pages/maintenancecard/commons/Icons'
 
 function ProductMainCardList(props) {
-  const { maintenanceCardDetails, finish } = props;
+  const { maintenanceCardDetails, finish, user } = props;
   return (
     <div className="main-card-product-order-list-wrapper">
-      <Search finish={finish} addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
+      <Search user={user} finish={finish} addProduct={(a) => props.addProduct(a)} setShowModalProduct={(a)=>props.setShowModalProduct(a)}/>
       <Header />
       {maintenanceCardDetails.length > 0 ? (
         <React.Fragment>

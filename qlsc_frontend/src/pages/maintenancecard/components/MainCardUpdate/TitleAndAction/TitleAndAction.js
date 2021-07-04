@@ -16,6 +16,7 @@ function TitleAndAction(props) {
     finish,
     user,
     updateStatusMCDetails,
+    success,
   } = props;
   const componentRef = useRef();
   const history = useHistory();
@@ -42,10 +43,11 @@ function TitleAndAction(props) {
               className="quick-update"
               data-tip
               data-for={`note-quick-update`}
+              style={success ? { cursor: "not-allowed", opacity: 0.5 } : {}}
             >
               <div
                 className="update-status"
-                onClick={() => updateStatusMCDetails()}
+                onClick={() => !success && updateStatusMCDetails()}
               >
                 Cập nhật nhanh
                 <ReactTooltip

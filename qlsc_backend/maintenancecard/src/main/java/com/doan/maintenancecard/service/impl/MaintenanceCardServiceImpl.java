@@ -368,6 +368,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             MaintenanceCard newMaintenanceCard = maintenanceCardRepository.save(maintenanceCard);
             if (newMaintenanceCard.getWorkStatus() == 2 && newMaintenanceCard.getPayStatus() == 0) {
                 CompletableFuture.runAsync(() -> sendToClient.sendNotificationToClient(newMaintenanceCard, 2, email));
+                sendMessage.sendToUser(String.valueOf(maintenanceCard.getRepairmanId()), "-1");
             } else {
                 CompletableFuture.runAsync(() -> sendToClient.sendNotificationToClient(newMaintenanceCard, 3, email));
             }

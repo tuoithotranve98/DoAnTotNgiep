@@ -21,11 +21,11 @@ function CustomerModal(props) {
     setCreateCustomer,
     initialStateCustomer,
   } = props;
-  const [zoom, setZoom] = useState(false);
+  const [zoom, setZoom] = useState(true);
   const handleClose = () => {
     setCreateCustomer(initialStateCustomer);
     setShowModalCustomer(false);
-    setZoom(false);
+    setZoom(true);
   };
   const onChangeSelectDistrict = (id) => {
     if (id) {
@@ -49,7 +49,7 @@ function CustomerModal(props) {
   };
   const onConfirm = () => {
     saveCustomer();
-    setZoom(false);
+    setZoom(true);
   };
   return (
     <Modal
@@ -107,7 +107,7 @@ function CustomerModal(props) {
 
             <div className="row">
               <div className="col-md-6">
-                <div className="field form-group">
+                {/* <div className="field form-group">
                   <label className="control-label">Mã khách hàng</label>
                   <div className="controls">
                     <input
@@ -120,6 +120,20 @@ function CustomerModal(props) {
                       placeholder="Nhập tên khách hàng"
                     />
                   </div>
+                </div> */}
+                <label className="control-label">Địa chỉ</label>
+                <div className="controls">
+                  <input
+                    className="input"
+                    data-tip=""
+                    data-for="_extends_popup_error"
+                    name="address"
+                    value={customer.address || ""}
+                    onChange={(e) =>
+                      onChangeCustomer("address", e.target.value)
+                    }
+                    placeholder="Nhập địa chỉ"
+                  />
                 </div>
               </div>
               <div className="col-md-6">
@@ -141,13 +155,14 @@ function CustomerModal(props) {
                 </div>
               </div>
             </div>
-
-            <div className="action">
-              <div className="title" onClick={() => setZoom(!zoom)}>{zoom ? "- Thu gọn" : "- Mở rộng"}</div>
-            </div>
+            {/* <div className="action">
+              <div className="title" onClick={() => setZoom(!zoom)}>
+                {zoom ? "- Thu gọn" : "- Mở rộng"}
+              </div>
+            </div> */}
             {zoom ? (
               <React.Fragment>
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-md-12">
                     <div className="field form-group">
                       <label className="control-label">Địa chỉ</label>
@@ -166,7 +181,7 @@ function CustomerModal(props) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="row">
                   <div className="col-md-6">
                     <div className="field form-group">

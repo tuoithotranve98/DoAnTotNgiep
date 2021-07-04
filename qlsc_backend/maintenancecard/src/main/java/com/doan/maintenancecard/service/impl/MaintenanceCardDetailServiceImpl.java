@@ -29,14 +29,14 @@ public class MaintenanceCardDetailServiceImpl implements MaintenanceCardDetailSe
     private final SendToClient sendToClient;
 
     @Override
-    public MaintenanceCardDTO updateStatusMaintenanceCardDetail(Long id, String email) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
+    public MaintenanceCardDTO updateStatusMaintenanceCardDetail(Long id, String email, int role) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
         // kiểm tra chi tiết phiếu có tồn tại hay không
         MaintenanceCardDetail maintenanceCardDetail = maintenanceCardDetailRepository.findById(id).orElse(null);
         if (maintenanceCardDetail == null) {
             throw new NotFoundException("Phiếu không tồn tại!");
         }
         MaintenanceCard maintenanceCard = maintenanceCardDetail.getMaintenanceCard();
-        if (maintenanceCard.getRepairmanEmail() == null || !maintenanceCard.getRepairmanEmail().equals(email)) {
+        if (maintenanceCard.getRepairmanEmail() == null || role == 1) {
             return new MaintenanceCardDTO("Tài khoản không có quyền thay đổi trạng thái!");
         }
         byte status = 1;

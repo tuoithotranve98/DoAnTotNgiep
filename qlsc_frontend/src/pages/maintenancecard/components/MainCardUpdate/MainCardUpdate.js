@@ -89,6 +89,7 @@ function MainCardUpdate(props) {
   const [showContent, setShowContent] = useState(1);
   const [money, setMoney] = useState(0);
   const [finish, setFinish] = useState(false);
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -106,6 +107,15 @@ function MainCardUpdate(props) {
   useEffect(() => {
     if (mainCard && mainCard.payStatus === 1 && mainCard.workStatus === 2) {
       setFinish(true);
+    }
+    if (mainCard && mainCard.maintenanceCardDetails) {
+      let isSuccess = true;
+      mainCard.maintenanceCardDetails.forEach(item => {
+        if (item.status !== 2) {
+          isSuccess = false;
+        }
+      });
+      setSuccess(isSuccess);
     }
   }, [mainCard]);
 
@@ -344,6 +354,7 @@ function MainCardUpdate(props) {
         toastError("Có lỗi xảy ra khi cập nhật trạng thái");
         return;
       }
+      setSuccess(true);
       setMainCard({
         ...mainCard,
         maintenanceCardDetails: json.maintenanceCardDetails,
@@ -364,6 +375,7 @@ function MainCardUpdate(props) {
         finish={finish}
         user={user}
         updateStatusMCDetails={updateStatusMCDetails}
+        success={success}
       />
       <div className="contatiner">
         <div className="d-flex content-main-card-update">
@@ -375,6 +387,7 @@ function MainCardUpdate(props) {
               customer={customer}
             />
             <ProductMainCard
+              user={user}
               addProduct={addProduct}
               maintenanceCardDetails={mainCard.maintenanceCardDetails}
               removeProduct={(a) => removeProduct(a)}

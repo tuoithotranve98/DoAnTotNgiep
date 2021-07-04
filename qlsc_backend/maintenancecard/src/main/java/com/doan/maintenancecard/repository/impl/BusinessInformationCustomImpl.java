@@ -117,7 +117,7 @@ public class BusinessInformationCustomImpl implements BusinessInformationCustom 
             "sum(m.price) as money, " +
             "count(m.repairman_id) as total " +
             "FROM maintenance_cards as m  \n" +
-            "where m.repairman_id != 0\n " +
+            "where m.repairman_id != 0 and m.work_status = 2 and m.pay_status = 1 \n " +
             "and m.created_date BETWEEN Date(:from) AND Date(:to) and tenant_id = :tenantId\n" +
             "group by m.repairman_id \n" +
             "order by total desc limit 5; ";

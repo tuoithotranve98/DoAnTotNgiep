@@ -50,7 +50,7 @@ public class CustomerController {
     public CustomerRes updateCustomer(
             @RequestBody CustomerDTO customerDTO,
             @PathVariable("idCustomer") Long idCustomer) {
-        return customerService.updateCustomer(customerDTO, idCustomer);
+          return customerService.updateCustomer(customerDTO, idCustomer);
     }
 
     @DeleteMapping("customers/{idCustomer}")

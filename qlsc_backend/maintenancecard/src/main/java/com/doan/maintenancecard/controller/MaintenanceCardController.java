@@ -20,7 +20,6 @@ import javax.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,7 +27,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -144,7 +142,10 @@ public class MaintenanceCardController {
     public ResponseEntity<MaintenanceCardDTO> updateStatusMaintenanceCardDetail(@PathVariable Long id) throws NotFoundException, NotFoundRepairmanException, JsonProcessingException {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
-        MaintenanceCardDTO maintenanceCardDTO = maintenanceCardDetailService.updateStatusMaintenanceCardDetail(id, authentication.getName());
+        List<String> roles = authentication.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        int role = Integer.parseInt(roles.get(0).split(SPACE)[1]);
+        MaintenanceCardDTO maintenanceCardDTO = maintenanceCardDetailService.updateStatusMaintenanceCardDetail(id, authentication.getName(), role);
         return new ResponseEntity<>(maintenanceCardDTO, HttpStatus.OK);
     }
 
@@ -178,16 +179,20 @@ public class MaintenanceCardController {
     public ResponseEntity<MaintenanceCardsResponse> getMaintenanceCards(@Valid MaintenanceCardsFilterRequest filterRequest) {
         String tenantId = appAuthHelper.httpCredential().getTenantId();
         String userId = appAuthHelper.httpCredential().getUserId();
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        List<String> roles = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        int role = Integer.parseInt(roles.get(0).split(SPACE)[1]);
+        int role = getRole();
         if (role == 2 ) {
             filterRequest.setRepairmanId(Long.parseLong(userId));
         } else filterRequest.setRepairmanId(0L);
         MaintenanceCardsResponse maintenanceCardsResponse = maintenanceCardService.getMaintenanceCard(filterRequest, tenantId);
         return ResponseEntity.ok(maintenanceCardsResponse);
+    }
+
+    private int getRole() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        List<String> roles = authentication.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        return Integer.parseInt(roles.get(0).split(SPACE)[1]);
     }
 
 }

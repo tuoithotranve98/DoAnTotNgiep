@@ -35,12 +35,13 @@ function InfoMainCard(props) {
       <div className=" field">
         <div className="label">Mã phiếu</div>
         <input
-          className="customer-name"
+          readOnly
+          className="customer-name code"
           type="text"
           name="code"
           value={mainCard.code || ""}
-          onChange={(e) => onChangeMainCard("code", e.target.value)}
-          placeholder="Nhập mã phiếu"
+          //onChange={(e) => onChangeMainCard("code", e.target.value)}
+          placeholder="Mã phiếu sửa chữa"
         />
       </div>
       <div className=" field">

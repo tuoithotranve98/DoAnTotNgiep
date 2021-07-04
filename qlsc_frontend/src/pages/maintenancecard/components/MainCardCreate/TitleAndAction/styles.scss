@@ -38,6 +38,10 @@
       border-radius: 4px;
       margin-right: 10px;
       cursor: pointer;
+      background: white;
+      &:hover {
+        background: rgb(214, 212, 212);
+      }
   }
   
 }
