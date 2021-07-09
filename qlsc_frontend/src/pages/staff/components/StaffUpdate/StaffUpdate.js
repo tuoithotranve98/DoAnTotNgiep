@@ -27,7 +27,7 @@ function StaffUpdate(props) {
   const { id } = useParams();
   const [isChange, setIsChange] = useState(false);
   const [staff, setStaff] = useState(initialState);
-  const [isValidate, setIsValidate] = useState(true);
+  const [isValidate, setIsValidate] = useState(false);
   const [actionSave, setActionSave] = useState(false);
 
   useEffect(() => {

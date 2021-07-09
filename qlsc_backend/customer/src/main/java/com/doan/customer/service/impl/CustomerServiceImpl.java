@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerDTO.setCode(code);
         }
         if (StringUtils.isNotEmpty(customerDTO.getPhone())
-                && (customerDTO.getPhone().length() > 10 || customerDTO.getPhone().length() < 8)) {
+                && (customerDTO.getPhone().length() != 10)) {
             return new CustomerRes(Boolean.FALSE, "Định dạng số điện thoại không hợp lệ", cus);
         }
         if (StringUtils.isNotEmpty(customerDTO.getCode())) {

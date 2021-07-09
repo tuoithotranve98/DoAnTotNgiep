@@ -27,6 +27,17 @@ export default (state = initState, action) => {
         ...state,
         staff: action.staff,
       }
+    case "UPDATE_TOTAL_MAINTENANCE_CARD":
+      let updateStaff = state.staffByRepairMan.find(staff => staff.id === action.id);
+      updateStaff.text = `${updateStaff.name} - ${updateStaff.totalMaintenanceCard + 1}`;
+      updateStaff.totalMaintenanceCard += 1;
+      let newStaffs = state.staffByRepairMan.filter(staff => staff.id !== action.id);
+      newStaffs.push(updateStaff);
+      console.log('check id', newStaffs);
+      return {
+        ...state,
+        staffByRepairMan: newStaffs,
+      }
     case actionTypes.STAFF_BY_REPAIRMAN:
       return {
         ...state,

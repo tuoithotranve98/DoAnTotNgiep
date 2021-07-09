@@ -40,6 +40,12 @@ function Guarantee(props) {
           type,
       }
   }
+
+
+  const isGuarantee = maintenanceCardDetails.find((item => item.product.type === 1));
+  if (!isGuarantee) {
+    return null;
+  }
   return (
     <div className="main-card-guarantee">
       <div className="title">Thời gian bảo hành</div>

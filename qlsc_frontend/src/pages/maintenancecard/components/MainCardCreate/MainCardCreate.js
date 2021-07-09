@@ -11,6 +11,7 @@ import { saveCustomer } from "../../../customer/actions/customerAction";
 import { receiveWard } from "../../../customer/actions/locationActions";
 import ProductModal from "./Modal/ProductModal/ProductModal";
 import { saveProductService } from "../../../product/actions/ProductAction";
+import { updateTotalMainCardForStaff } from "../../actions/mainCard";
 import {
   maintenanceCardIsValid,
   clearValid,
@@ -129,6 +130,8 @@ function MainCardCreate(props) {
       } else if (json && !json.success) {
         toastError(json.message);
         return;
+      } else if (json && json.message.includes("Định dạng số điện thoại không hợp lệ")) {
+        toastError("Định dạng số điện thoại không hợp lệ");
       } else {
         toastError("Có lỗi xảy ra khi thêm mới khách hàng");
       }
@@ -260,6 +263,7 @@ function MainCardCreate(props) {
 
     saveMainCard(mainCard).then((json) => {
       if (json) {
+        props.updateTotalMainCardForStaff(json.repairman && json.repairman.id);
         onClearValid();
         pushstate(history, `/maintenance-card/detail/${json.id}`);
         toastSuccess("Thêm phiếu sửa chữa thành công");
@@ -312,6 +316,21 @@ function MainCardCreate(props) {
     onServiceIsValid(true);
     setMainCard({ ...mainCard, maintenanceCardDetails: newArr });
   };
+
+  const removeCustomer = () => {
+    setShowFilterCustomer(false);
+    setCustomer({});
+    setVehicles([]);
+    setMainCard(() => {
+      return {
+        ...mainCard,
+        color: null,
+        model: null,
+        platesNumber: null,
+      };
+    });
+  }
+
   return (
     <div className="main-card-create-warpper">
       <TitleAndAction saveMaintenanceCard={saveMaintenanceCard} />
@@ -321,6 +340,7 @@ function MainCardCreate(props) {
             <InfoCustomer
               showFilterCustomer={showFilterCustomer}
               setShowFilterCustomer={setShowFilterCustomer}
+              removeCustomer={removeCustomer}
               setCustomer={(a) => onSetCustomerState(a)}
               customer={customer}
               setShowModalCustomer={setShowModalCustomer}
@@ -392,6 +412,7 @@ const mapDispatchToProps = (dispatch) => ({
   onCustomerIsValid: (status) => dispatch(customerIsValid(status)),
   onServiceIsValid: (status) => dispatch(serviceIsValid(status)),
   onGetVehiclesByCustomerId: (id) => dispatch(getVehiclesByCustomerId(id)),
+  updateTotalMainCardForStaff: (id) => dispatch(updateTotalMainCardForStaff(id)),
 });
 
 export default React.memo(

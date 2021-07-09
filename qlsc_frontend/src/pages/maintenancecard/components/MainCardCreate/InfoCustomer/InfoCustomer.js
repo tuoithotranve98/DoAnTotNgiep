@@ -21,7 +21,7 @@ function InfoCustomer(props) {
               {customer.phone}
             </div>
           </div>
-          <div className="remove" onClick={() => setShowFilterCustomer(false)}>
+          <div className="remove" onClick={() => props.removeCustomer()}>
             <svg
               width="12"
               height="12"

@@ -362,13 +362,13 @@ function TopBar(props) {
     <div className="d-flex top-bar-market-place">
       <div className="top-bar-text">{getTopBarText()}</div>
       <div className="d-flex top-bar-action">
-        <div
+        {/* <div
           className="icon-feed-back"
           onClick={() => props.changeShowFeedBack(true)}
         >
           <Icons.iconFeedback />
           <span>Góp ý</span>
-        </div>
+        </div> */}
         <ul className="nav menu-bottom">
           <li className="user">
             <a href="#" data-toggle="dropdown">

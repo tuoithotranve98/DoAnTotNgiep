@@ -23,7 +23,7 @@ public class Customer extends BaseEntity {
     private String name;
 
     @Column(name = "phone",nullable = false)
-    @CustomerPhone
+//    @CustomerPhone
     private String phone;
 
     @Column(length = 11, unique = true, nullable = false)

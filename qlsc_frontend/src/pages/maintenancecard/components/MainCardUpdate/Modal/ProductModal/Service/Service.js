@@ -56,6 +56,7 @@ function Service(props) {
                       data-tip=""
                       data-for="_extends_popup_error"
                       name="code"
+                      readOnly
                       value={product.code || ""}
                       onChange={(e) => onchangeValue("code", e.target.value)}
                       placeholder="Nhập mã dịch vụ"

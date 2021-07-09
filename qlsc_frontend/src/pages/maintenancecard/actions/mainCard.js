@@ -265,3 +265,8 @@ export const addMainCardSocket = (item) => ({
   type: actionTypes.ADD_MAIN_CARD_SOCKET,
   item,
 });
+
+export const updateTotalMainCardForStaff = (id) => ({
+  type: "UPDATE_TOTAL_MAINTENANCE_CARD",
+  id,
+});

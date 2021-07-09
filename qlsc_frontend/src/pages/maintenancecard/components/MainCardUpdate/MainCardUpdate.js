@@ -97,6 +97,7 @@ function MainCardUpdate(props) {
   }, [showContent]);
 
   useEffect(() => {
+    console.log('check.........');
     if (id) onGetDataFromId(id);
   }, []);
 
@@ -288,6 +289,8 @@ function MainCardUpdate(props) {
       addMaintenanceCardDetailStatusHistories(mainCard.maintenanceCardDetails);
     props.updateMainCard(id, mainCard).then((json) => {
       if (json) {
+        console.log('check json', json);
+        setMainCard(json);
         toastSuccess("Cập nhật sửa chữa thành công");
       } else {
         toastError("Có lỗi xảy ra khi cập nhật phiếu sửa chữa ");

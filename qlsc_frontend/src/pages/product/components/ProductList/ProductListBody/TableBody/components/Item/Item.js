@@ -55,8 +55,21 @@ function Item(props) {
             </a>
           </span>
         </div>
-        <div className="margin-right20 item-list text-ellipsis">
+        <div
+          className="margin-right20 item-list text-ellipsis"
+          data-tip
+          data-for={`order_collation_number_id_${productService.name}`}
+        >
           {productService.name}
+          <ReactTooltip
+            place="top"
+            type="dark"
+            effect="solid"
+            isMultiline
+            id={`order_collation_number_id_${productService.name}`}
+          >
+            {productService.name}
+          </ReactTooltip>
         </div>
         <div
           className="margin-right20 delivery-collation-location"
@@ -75,7 +88,7 @@ function Item(props) {
           {productService.unit}
         </div>
         <div className="margin-right20 item-list delivery-collation-code">
-          {productService.guarantee || '---'}
+          {productService.guarantee || "---"}
         </div>
         <div className="margin-right20 item-list order-collations-total-amount">
           {moneyFormat(productService.pricePerUnit)} đ

@@ -121,9 +121,10 @@ function InfoCustomerLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="code"
+                    readOnly
                     value={customer.code || ""}
                     onChange={(e) => onChangeCustomer("code", e.target.value)}
-                    placeholder="Nhập mã khách hàng"
+                    placeholder="Mã khách hàng"
                   />
                 </div>
               </div>

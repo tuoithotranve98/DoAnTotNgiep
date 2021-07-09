@@ -5,7 +5,6 @@ import com.doan.maintenancecard.dto.MaintenanceCardDTO;
 import com.doan.maintenancecard.entity.MaintenanceCard;
 import com.doan.maintenancecard.entity.MaintenanceCardDetail;
 import com.doan.maintenancecard.entity.MaintenanceCardDetailStatusHistory;
-import com.doan.maintenancecard.entity.PaymentHistory;
 import com.doan.maintenancecard.exception.CodeExistedException;
 import com.doan.maintenancecard.exception.commonException.NotFoundException;
 import com.doan.maintenancecard.exception.commonException.UnknownException;
@@ -28,7 +27,6 @@ import com.doan.maintenancecard.service.MaintenanceCardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -177,7 +175,7 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
         if (maintenanceCard.getMaintenanceCardDetails().isEmpty()) {
             checkNull = false;
         }
-
+        maintenanceCard.setTenantId(maintenanceCardUpdate.getTenantId());
         //set lại thời gian
         maintenanceCard.setCreatedDate(maintenanceCardUpdate.getCreatedDate());
         maintenanceCard.setModifiedDate(new Date());
@@ -251,11 +249,10 @@ public class MaintenanceCardServiceImpl implements MaintenanceCardService {
             }
         }
         maintenanceCard.setPrice(BigDecimal.valueOf(total));
-
         maintenanceCardUpdate.getMaintenanceCardDetails().forEach(maintenanceCardDetail -> {
             if (!ArrayUtils.contains(maintenanceCardDetailId, maintenanceCardDetail.getId())) {
                 if (maintenanceCardDetail.getIsDelete() == 0
-                && maintenanceCardDetail.getStatus() != 0) {
+                && maintenanceCardDetail.getStatus() == 0) {
                     if (maintenanceCardDetail.getProductId() != 0 && maintenanceCardDetail.getProductType() == 1) {
                         ProductModel productModel = new ProductModel();
                         productModel.setAmount(-maintenanceCardDetail.getQuantity());

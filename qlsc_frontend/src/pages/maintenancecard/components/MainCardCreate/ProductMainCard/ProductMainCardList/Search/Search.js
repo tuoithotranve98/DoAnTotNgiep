@@ -28,7 +28,7 @@ function Search(props) {
 
   const debounceScroll = debounce((e) => {
     onScroll(e, false);
-  }, 500);
+  }, 300);
 
   const onSearch = (value) => {
     setFetching(true);
@@ -63,10 +63,10 @@ function Search(props) {
     props.getFilterProducts(search, option).then((json) => {
       setFetching(false);
       if (json && json.productServices) {
-        const { productServices, currentPage, totalItems, totalPages } = json;
+        const { productServices, currentPage, totalItems, totalPage } = json;
         const temp = {};
         temp.page = currentPage;
-        temp.total = totalPages;
+        temp.total = totalPage;
         const newOrder = productServices;
         setMetaData(temp);
         if (reset) {
@@ -80,8 +80,7 @@ function Search(props) {
 
   const onScroll = (e) => {
     if (
-      e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight <=
-      500
+      e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight <= 300
     ) {
       if (metaData.page < metaData.total) {
         getListProductAction(search, false, metaData.page + 1);
@@ -92,26 +91,6 @@ function Search(props) {
   const renderSearch = () => {
     return (
       <div className="position-absolute product-list-search-wrapper">
-        {/* {props.user && props.user.role === 3 ? (
-          <div
-            onMouseDown={(e) => {
-              e.persist();
-              e.stopPropagation();
-              props.setShowModalProduct(true);
-            }}
-            className="d-flex align-items-center head"
-            style={{ borderBottom: "1px solid #e3e3e3", cursor: "pointer" }}
-          >
-            <div className="content-info-image">
-              <Icons.IconServiceIsEmpty />
-            </div>
-            <div className="content-info" style={{ marginLeft: 10 }}>
-              Thêm mới dịch vụ - linh kiện
-            </div>
-          </div>
-        ) : (
-          ""
-        )} */}
         <div
           className="list-item-search"
           onScroll={(e) => {

@@ -89,9 +89,10 @@ function InfoStaffLeft(props) {
                     data-tip=""
                     data-for="_extends_popup_error"
                     name="code"
+                    readOnly
                     value={staff.code || ""}
                     onChange={(e) => onChangeStaff("code", e.target.value)}
-                    placeholder="Nhập mã nhân viên"
+                    placeholder="Mã nhân viên"
                   />
                 </div>
               </div>

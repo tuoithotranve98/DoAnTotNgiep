@@ -28,9 +28,8 @@ function DeleteModal(props) {
           if (json) {
             onGetMaintenanceCard();
             onCloseModalDelete();
-            
           } else {
-            toastError("Có lỗi xảy ra");
+            toastError("Không thể xóa phiếu ở trạng thái hoàn thành");
           }
         }
       );
